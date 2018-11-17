@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <Button
+        android:id="@+id/SignUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageView2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="118dp"
+        android:gravity="center"
+        android:hint="sign_up"
+        android:text="No account? Sign up" />
+
+    <Button
+        android:id="@+id/LoginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="166dp"
+        android:layout_marginBottom="213dp"
+        android:gravity="center"
+        android:text="Log in" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="165dp"
+        android:layout_height="131dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="127dp"
+        android:layout_marginTop="120dp"
+        android:gravity="center"
+        app:srcCompat="@drawable/logo_image" />
+
+    <EditText
+        android:id="@+id/Username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="110dp"
+        android:layout_marginBottom="335dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="username"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="338dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="password"
+        android:inputType="textPassword" />
+
+</RelativeLayout>

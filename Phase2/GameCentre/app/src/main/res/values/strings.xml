@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">SlidingTiles</string>
+    <string name="board_background" />
+    <string name="textview" />
+    <string name="a_decorative_bar" />
+    <string name="returns_to_main_menu" />
+    <string name="main_menu" />
+
+
+    <string name="game_setup" />
+    <string name="choose_the_size_of_the_board" />
+    <string name="choose_the_maximum_number_of_moves_you_can_undo" />
+    <string name="play" />
+    <string name="back"><![CDATA[<- Back]]></string>
+    <string name="girl_with_a_pearl_earing_image">girl with a pearl earing image</string>
+    <string name="choose_a_background_image">Choose A Background Image</string>
+    <string name="le_reve_image">le reve image</string>
+    <string name="mona_lisa_string_choose_a_background_image">mona lisa @string/choose_a_background_image</string>
+    <string name="stitch_image">stitch image</string>
+
+    <string-array name="board_array">
+        <item>3 x 3 Board</item>
+        <item>4 x 4 Board</item>
+        <item>5 x 5 Board</item>
+    </string-array>
+
+    <string-array name="undo_array">
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+    </string-array>
+</resources>
