@@ -25,7 +25,11 @@ public class BoardAndTileTest {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum + 1, tileNum));
+            if (tileNum == numTiles - 1) {
+                tiles.add(new Tile(tileNum, tileNum));
+            } else {
+                tiles.add(new Tile(tileNum));
+            }
         }
 
         return tiles;
@@ -35,6 +39,7 @@ public class BoardAndTileTest {
      * Make a solved Board.
      */
     private void setUpCorrect() {
+        Board.setDimensions(4);
         List<Tile> tiles = makeTiles();
         Board board = new Board(tiles);
         boardManager = new BoardManager(board);
@@ -91,7 +96,7 @@ public class BoardAndTileTest {
     public void testIsValidTap() {
         setUpCorrect();
         assertEquals(true, boardManager.isValidTap(11));
-        assertEquals(true, boardManager.isValidTap(15));
+        assertEquals(true, boardManager.isValidTap(14));
         assertEquals(false, boardManager.isValidTap(10));
     }
 }
