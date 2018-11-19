@@ -104,10 +104,7 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
     private void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
         tmp.putExtra("size", size);
-        System.out.println("size of board is " + size);
-        System.out.println("size of the board after calling makeBoard(): " + new BoardManager(makeBoard()).getBoard().NUM_COLS);
         boardManager = new BoardManager(makeBoard());
-        System.out.println("get the boardmaranger's set num of columns: " + boardManager.getBoard().NUM_COLS);
         GameLauncher.getCurrentUser().setRecentManagerOfBoard(BoardManager.GAME_NAME, boardManager);
         saveToFile(LoginActivity.SAVE_FILENAME);
         startActivity(tmp);
