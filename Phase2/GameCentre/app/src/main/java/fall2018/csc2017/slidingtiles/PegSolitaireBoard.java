@@ -53,7 +53,8 @@ public class PegSolitaireBoard extends Observable implements Serializable {
      */
     private void setUpSquareBoard() {
         this.tiles[2][3].setId(1);
-        // else id of 2, everything should have a default id of 2 and be assigned a pic??
+        // else id of 2, everything should have a default id of 2 and be assigned a pic
+        // in the boardmanager class??
     }
 
     /**
