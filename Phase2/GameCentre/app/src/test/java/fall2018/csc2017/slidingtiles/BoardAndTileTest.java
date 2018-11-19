@@ -42,6 +42,7 @@ public class BoardAndTileTest {
         Board.setDimensions(4);
         List<Tile> tiles = makeTiles();
         Board board = new Board(tiles);
+        Board.setDimensions(4);
         boardManager = new BoardManager(board);
     }
 

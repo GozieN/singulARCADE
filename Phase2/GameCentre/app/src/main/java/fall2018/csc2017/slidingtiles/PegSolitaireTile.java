@@ -74,6 +74,7 @@ public class PegSolitaireTile implements Comparable<PegSolitaireTile>, Serializa
 
     public void setId(int i) {
         this.id = i;
+        setBackground(i);
     }
 
     public void setBackground(int i) {

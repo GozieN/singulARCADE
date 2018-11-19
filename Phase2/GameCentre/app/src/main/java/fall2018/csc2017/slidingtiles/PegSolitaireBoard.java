@@ -1,5 +1,6 @@
 package fall2018.csc2017.slidingtiles;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -13,36 +14,25 @@ public class PegSolitaireBoard extends Observable implements Serializable {
     /**
      * The number of rows.
      */
-    static int NUM_ROWS = 6;
+    static int NUM_ROWS;
 
     /**
      * The number of rows.
      */
-    static int NUM_COLS = 6;
+    static int NUM_COLS;
 
     /**
      * The tiles on Peg Solitaire's board in row-major order.
      */
     private PegSolitaireTile[][] tiles = new PegSolitaireTile[NUM_ROWS][NUM_COLS];
 
-    PegSolitaireBoard() {
-        if (numPieces() == 36) {
-            setUpSquareBoard();
-        } else if (numPieces() == 49) {
-            setUpCrossBoard();
-        } else if (numPieces() == 81) {
-            setUpDiamondBoard();
-        }
-    }
-
     /**
      * A new Peg Solitaire board in row-major order.
      */
-    PegSolitaireBoard(List<PegSolitaireTile> tiles) {
-        Iterator<PegSolitaireTile> iter = tiles.iterator();
+    PegSolitaireBoard() {
         for (int row = 0; row != PegSolitaireBoard.NUM_ROWS; row++) {
             for (int col = 0; col != PegSolitaireBoard.NUM_COLS; col++) {
-                this.tiles[row][col] = iter.next();
+                this.tiles[row][col] = new PegSolitaireTile(2);
             }
         }
                 if (numPieces() == 36) {
@@ -63,8 +53,7 @@ public class PegSolitaireBoard extends Observable implements Serializable {
      */
     private void setUpSquareBoard() {
         this.tiles[2][3].setId(1);
-        // else id of 2, everything should have a default id of 2 and be assigned a pic
-        // in the boardmanager class??
+
     }
 
     /**
@@ -77,8 +66,6 @@ public class PegSolitaireBoard extends Observable implements Serializable {
                     this.tiles[row][col].setId(0);
                 } else if (row == 3 && col == 3) {
                     this.tiles[row][col].setId(1);
-                } else {
-                    this.tiles[row][col].setId(2);
                 }
             }
         }
@@ -107,22 +94,10 @@ public class PegSolitaireBoard extends Observable implements Serializable {
        for (int k = 0; k != tileRow.length; k++) {
            if (k < i && k > j) {
                this.tiles[row][k].setId(0);
-           }
-           if (row == 4 && k == 4) {
+           } else if (row == 4 && k == 4) {
                this.tiles[4][4].setId(1);
            }
        }
-    }
-
-    /**
-     * Returns the PegTile at (row, col) on PegSolitaireBoard
-     *
-     * @param row the x position of the pegtile on PegSolitaireBoard
-     * @param col the y position of the pegtile on PegSolitaireBoard
-     * @return the PegTile at position x = row, y = col
-     */
-    PegSolitaireTile getPegTile(int row, int col) {
-        return tiles[row][col];
     }
 
     int numPieces() {
@@ -145,31 +120,38 @@ public class PegSolitaireBoard extends Observable implements Serializable {
      * @param col the tile column
      * @return the tile at (row, col)
      */
-    PegSolitaireTile getTile(int row, int col) {
+    PegSolitaireTile getPegTile(int row, int col) {
         return tiles[row][col];
     }
 
     /**
      * Make a move on the Peg Solitaire board, i.e. jump over a piece
      *
-     * @param row1 the row of the peg being moved
-     * @param col1 the column of the peg being moved
-     * @param row2 the row of the empty space the peg is moving into
-     * @param col2 the column of the empty space the peg is moving into
+     * @param row1 the first tile row
+     * @param col1 the first tile col
+     * @param row2 the second tile row
+     * @param col2 the second tile col
      */
     List moveGamepiece(int row1, int col1, int row2, int col2) {
-        return null;
-        // not done
-    }
+        PegSolitaireTile temporaryTile = this.getPegTile(row1, col1);
+        tiles[row1][col1] = tiles[row2][col2];
+        tiles[row2][col2] = temporaryTile;
 
-    /**
-     * Highlights the tile at row, col to denote it as an available move to the user
-     *
-     * @param row
-     * @param col
-     */
-    void highlightTile(int row, int col) {
+        if (row2 - row1 == 2) {
+            tiles[row1 + 1][col1].setId(1);
+        } else if (row1 - row2 == 2) {
+            tiles[row2 + 1][col1].setId(1);
+        } else if (col2 - col1 == 2) {
+            tiles[row1][col1 + 1].setId(1);
+        } else if (col1 - col2 == 2) {
+            tiles[row1][col2 + 1].setId(1);
+        }
 
+        // store new tile as well?
+        update();
+        return Arrays.asList(row1, col1, row2, col2);
+
+        // row1, col1 refers to the "full" tile, row2, col2 refers to the "empty" tile
     }
 
     void update() {
@@ -178,6 +160,7 @@ public class PegSolitaireBoard extends Observable implements Serializable {
     }
 
 }
+
 
 
 
