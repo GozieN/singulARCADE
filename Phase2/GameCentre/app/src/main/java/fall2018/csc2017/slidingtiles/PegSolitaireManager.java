@@ -56,22 +56,30 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
      */
     public boolean isOver() {
         boolean solved = true;
-        return false;
+        for (int x = 0; x < PegSolitaireBoard.NUM_ROWS; x++) {
+            for (int y = 0; y < PegSolitaireBoard.NUM_COLS; y++) {
+                if (pegBoard.getPegTile(x, y).getId() != 0) {
+                    int position = x * PegSolitaireBoard.NUM_ROWS;
+                    if (!listOfValidMoves(position).isEmpty()) {
+                        solved = false;
+                    }
+                }
+            }
+        }
+        return solved;
     }
 
     /**
      * Modify the game state with the move chosen.
      */
     public void touchMove(int position) {
-        int row = position / PegSolitaireBoard.NUM_ROWS;
-        int col = position % PegSolitaireBoard.NUM_COLS;
         if (isValidTap(position)) {
-            for (int i = -1; i < 2; i ++) {
-                for (int j = -1; j < 2; j++) {
 
-                }
-            }
         }
+    }
+
+    public void touchSecondMove(int position) {
+        move =
     }
 
     /**
