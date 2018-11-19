@@ -1,5 +1,8 @@
 package fall2018.csc2017.slidingtiles;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Observable;
 import java.io.Serializable;
 
@@ -18,61 +21,88 @@ public class PegSolitaireBoard extends Observable implements Serializable {
     static int NUM_COLS;
 
     /**
-     * The tiles on Reversi's board in row-major order.
+     * The tiles on Peg Solitaire's board in row-major order.
      */
-    private Integer[][] board = new Integer[NUM_ROWS][NUM_COLS];
+    private PegSolitaireTile[][] tiles = new PegSolitaireTile[NUM_ROWS][NUM_COLS];
 
     /**
-     * A new Reversi board in row-major order.
+     * A new Peg Solitaire board in row-major order.
      */
-    PegSolitaireBoard() {
+    PegSolitaireBoard(List<PegSolitaireTile> tiles) {
+        Iterator<PegSolitaireTile> iter = tiles.iterator();
         for (int row = 0; row != PegSolitaireBoard.NUM_ROWS; row++) {
             for (int col = 0; col != PegSolitaireBoard.NUM_COLS; col++) {
+                this.tiles[row][col] = iter.next();
+            }
+        }
                 if (numPieces() == 36) {
-                    setUpSquareBoard(row, col);
+                    setUpSquareBoard();
                 } else if (numPieces() == 49) {
-                    setUpCrossBoard(row, col);
-                } else if (numPieces() == 64) {
-                    setUpDiamondBoard(row, col);
+                    setUpCrossBoard();
+                } else if (numPieces() == 81) {
+                    setUpDiamondBoard();
+                }
+    }
+
+    PegSolitaireBoard(PegSolitaireTile[][] tiles) {
+        this.tiles = tiles;
+    }
+
+    /**
+     *
+     */
+    private void setUpSquareBoard() {
+        this.tiles[2][3].setId(1);
+        // else id of 2, everything should have a default id of 2 and be assigned a pic??
+    }
+
+    /**
+     *
+     */
+    private void setUpCrossBoard() {
+        for (int row = 0; row != this.tiles.length; row++) {
+            for (int col = 0; col != this.tiles[0].length; col++) {
+                if ((col < 2 || col > 4) & (row < 2 || row > 4)) {
+                    this.tiles[row][col].setId(0);
+                } else if (row == 3 && col == 3) {
+                    this.tiles[row][col].setId(1);
+                } else {
+                    this.tiles[row][col].setId(2);
                 }
             }
         }
     }
 
-    void PegSolitaireBoard(Integer[][] tiles) {
-        board = tiles;
-    }
-
     /**
      *
      */
-    void setUpSquareBoard(int row, int col) {
+    private void setUpDiamondBoard() {
+        int i = 4;
+        int j = 4;
 
+        for (int row = 0; row != this.tiles.length; row++) {
+            fillUpDiamondRow(row, i, j, tiles[row]);
+            if (row < 4) {
+                i--;
+                j++;
+            } else {
+                i++;
+                j--;
+            }
+        }
     }
 
-    /**
-     *
-     */
-    void setUpCrossBoard(int row, int col) {
-
+    private void fillUpDiamondRow(int row, int i, int j, PegSolitaireTile[] tileRow) {
+       for (int k = 0; k != tileRow.length; k++) {
+           if (k < i && k > j) {
+               this.tiles[row][k].setId(0);
+           }
+           if (row == 4 && k == 4) {
+               this.tiles[4][4].setId(1);
+           }
+       }
     }
 
-    /**
-     *
-     */
-    void setUpDiamondBoard(int row, int col) {
-
-    }
-
-
-    /**
-     * Precondition: len(tiles) == NUM_ROWS * NUM_COLS
-     *
-     * @param board the board for Reversi
-     */
-    PegSolitaireBoard(Integer[][] board) {
-        this.board = board;
-    }
 
     int numPieces() {
         return NUM_ROWS*NUM_COLS;
@@ -88,15 +118,33 @@ public class PegSolitaireBoard extends Observable implements Serializable {
     }
 
     /**
-     * Make a move on the Peg Solitaire board, i.e. jump over a piece
+     * Return the tile at (row, col)
      *
-     * @param row the first tile row
-     * @param col the first tile col
+     * @param row the tile row
+     * @param col the tile column
+     * @return the tile at (row, col)
      */
-    void moveGamepiece(int row, int col) {
-
+    PegSolitaireTile getTile(int row, int col) {
+        return tiles[row][col];
     }
 
+    /**
+     * Make a move on the Peg Solitaire board, i.e. jump over a piece
+     *
+     * @param row1 the first tile row
+     * @param col1 the first tile col
+     * @param row2 the second tile row
+     * @param col2 the second tile col
+     */
+    List moveGamepiece(int row1, int col1, int row2, int col2) {
+        PegSolitaireTile temporaryTile = this.getTile(row1, col1);
+        tiles[row1][col1] = tiles[row2][col2];
+        tiles[row2][col2] = temporaryTile;
+        update();
+        return Arrays.asList(row1, col1, row2, col2);
+
+        // not done
+    }
 
     void update() {
         setChanged();
