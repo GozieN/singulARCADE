@@ -87,6 +87,8 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         NUM_ROWS = dimensions;
     }
 
+    static int getDimensions() {return NUM_COLS;}
+
 
     /**
      * Swap the tiles at (row1, col1) and (row2, col2)
@@ -108,6 +110,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         setChanged();
         notifyObservers();
     }
+
 
 
     @Override
