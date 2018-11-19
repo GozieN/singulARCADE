@@ -1,5 +1,6 @@
 package fall2018.csc2017.slidingtiles;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -28,11 +29,10 @@ public class PegSolitaireBoard extends Observable implements Serializable {
     /**
      * A new Peg Solitaire board in row-major order.
      */
-    PegSolitaireBoard(List<PegSolitaireTile> tiles) {
-        Iterator<PegSolitaireTile> iter = tiles.iterator();
+    PegSolitaireBoard() {
         for (int row = 0; row != PegSolitaireBoard.NUM_ROWS; row++) {
             for (int col = 0; col != PegSolitaireBoard.NUM_COLS; col++) {
-                this.tiles[row][col] = iter.next();
+                this.tiles[row][col] = new PegSolitaireTile(2);
             }
         }
                 if (numPieces() == 36) {
@@ -52,15 +52,8 @@ public class PegSolitaireBoard extends Observable implements Serializable {
      *
      */
     private void setUpSquareBoard() {
-        for (int row = 0; row != this.tiles.length; row++) {
-            for (int col = 0; col != this.tiles[0].length; col++) {
-                if (row == 2 && col == 3) {
-                    this.tiles[row][col].setId(1);
-                } else {
-                    this.tiles[row][col].setId(2);
-                }
-            }
-        }
+        this.tiles[2][3].setId(1);
+
     }
 
     /**
@@ -73,8 +66,6 @@ public class PegSolitaireBoard extends Observable implements Serializable {
                     this.tiles[row][col].setId(0);
                 } else if (row == 3 && col == 3) {
                     this.tiles[row][col].setId(1);
-                } else {
-                    this.tiles[row][col].setId(2);
                 }
             }
         }
@@ -105,8 +96,6 @@ public class PegSolitaireBoard extends Observable implements Serializable {
                this.tiles[row][k].setId(0);
            } else if (row == 4 && k == 4) {
                this.tiles[4][4].setId(1);
-           } else {
-               this.tiles[row][k].setId(2);
            }
        }
     }
