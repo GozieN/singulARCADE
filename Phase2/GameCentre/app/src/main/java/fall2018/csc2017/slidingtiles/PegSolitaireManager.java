@@ -70,12 +70,29 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
     }
 
     /**
-     * Modify the game state with the move chosen.
+     *
+     * @param position position of the peg being moved
      */
-    public void touchMove(int position) {
-        if (isValidTap(position)) {
-
+    public void firstMove(int position) {
+        List validMoves = listOfValidMoves(position);
+        for (List<Integer> move : listOfValidMoves(position)) {
+            pegBoard.highlightTile(move.get(0), move.get(1));
         }
+
+    }
+
+    /**
+     * Modify the game state with the move chosen.
+     * @param position1 the position of the moving peg
+     * @param position2 the position the peg is moving into, should be empty
+     */
+    public void touchMove(int position1, int position2) {
+        int row1 = position1 / PegSolitaireBoard.NUM_ROWS;
+        int col1 = position1 % PegSolitaireBoard.NUM_COLS;
+        int row2 = position2 / PegSolitaireBoard.NUM_ROWS;
+        int col2 = position2 % PegSolitaireBoard.NUM_COLS;
+
+        pegBoard.moveGamepiece(row1, col1, row2, col2);
     }
 
     /**
@@ -87,10 +104,10 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
     }
 
 
-    private List listOfValidMoves(int position) {
+    private List<List<Integer>> listOfValidMoves(int position) {
         int row = position / PegSolitaireBoard.NUM_ROWS;
         int col = position % PegSolitaireBoard.NUM_COLS;
-        List<List> validMoves = new ArrayList<>();
+        List<List<Integer>> validMoves = new ArrayList<>();
 
         //Is there are valid jump?
         PegSolitaireTile twoAbove = pegBoard.getPegTile(row, col + 2);
