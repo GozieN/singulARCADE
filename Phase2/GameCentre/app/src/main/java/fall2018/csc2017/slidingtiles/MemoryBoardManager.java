@@ -45,17 +45,13 @@ import java.util.Stack;
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(tileNum, tileNum));
-            } else {
-                tiles.add(new Tile(tileNum));
+            tiles.add(new Tile(tileNum));
             }
-        }
-
         Collections.shuffle(tiles);
         this.board = new Board(tiles);
         gameScoreBoard = new ScoreBoard();
     }
+
     /**
      * Return whether the all of the images have been flipped over and therefore matched.
      *
@@ -68,12 +64,11 @@ import java.util.Stack;
         Iterator<Tile> boardIterator = board.iterator();
         while (boardIterator.hasNext()) {
             Tile currentTile = boardIterator.next();
-            if (currentTile.getID() != 0) {
+            if (currentTile.getId() != 0) {
                 solved = false;
                 return solved;
             }
         }
-
         return solved;
     }
 
@@ -86,11 +81,12 @@ import java.util.Stack;
     public boolean isValidTap(int position) {
         Iterator<Tile> boardIterator = board.iterator();
         int place = 0;
+        Tile currentTile = null;
         while (place != position && boardIterator.hasNext()){
-            Tile currentTile = boardIterator.next();
+            currentTile = boardIterator.next();
             place += 1;
         }
-        return currentTile.getId() != (0);
+        return currentTile.getId() != 0;
     }
 
     /**
@@ -99,20 +95,23 @@ import java.util.Stack;
      * @param position1, position2 the positions of the tiles
      */
     public void touchMove(int position1, int position2) {
-        Tile firstTouch = new Tile(position1, Tile.getBackground());
-        Tile secondTouch = new Tile(position2, Tile.getBackground());
+        Tile firstTouch = new Tile(position1);
+        Tile secondTouch = new Tile(position2);
         int blankId = board.numTiles();
 
         if (firstTouch.getId()%2 == 0){
-            if (firstTouch.getId == secondTouch.getId() - 1){
-                firstTouch.ID, secondTouch.Id = 0, 0;
+            if (firstTouch.getId() == secondTouch.getId() - 1){
+                firstTouch.setId(0);
+                secondTouch.setId(0);
                 }
-        else if (firstTouch.getID()%2 != 0){
-            if (firstTouch.getID == secondTouch.getId() + 1);{
-            firstTouch.Id, secondTouch.Id = 0, 0;
+        else if (firstTouch.getId()%2 != 0){
+            if (firstTouch.getId() == secondTouch.getId() + 1){
+            firstTouch.setId(0);
+            secondTouch.setId(0);
                 }}
         else {
-             firstTouch.Id, secondTouch.Id = blankId, blankId;
+                firstTouch.setId(blankId);
+                secondTouch.setId(blankId);
             }}
     }
     /**
