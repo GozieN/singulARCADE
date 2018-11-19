@@ -131,7 +131,7 @@ public class PegSolitaireBoard extends Observable implements Serializable {
      * @param col the tile column
      * @return the tile at (row, col)
      */
-    PegSolitaireTile getTile(int row, int col) {
+    PegSolitaireTile getPegTile(int row, int col) {
         return tiles[row][col];
     }
 
@@ -144,7 +144,7 @@ public class PegSolitaireBoard extends Observable implements Serializable {
      * @param col2 the second tile col
      */
     List moveGamepiece(int row1, int col1, int row2, int col2) {
-        PegSolitaireTile temporaryTile = this.getTile(row1, col1);
+        PegSolitaireTile temporaryTile = this.getPegTile(row1, col1);
         tiles[row1][col1] = tiles[row2][col2];
         tiles[row2][col2] = temporaryTile;
 
