@@ -16,7 +16,7 @@ class MovementController {
 
     }
 
-    void processTapMovement(Context context, int position, boolean display) {
+    void processTapMovement(Context context, int position) {
         if (boardManager.isValidTap(position)) {
             boardManager.touchMove(position);
             if (boardManager.isOver()) {

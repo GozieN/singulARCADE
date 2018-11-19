@@ -78,10 +78,6 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
         }
     }
 
-    public void touchSecondMove(int position) {
-        move =
-    }
-
     /**
      * Return true if the certain move chosen is possible to complete.
      * @return true iff the certain move chosen is possible to complete
