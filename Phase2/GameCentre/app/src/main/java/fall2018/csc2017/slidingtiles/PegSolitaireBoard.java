@@ -152,17 +152,12 @@ public class PegSolitaireBoard extends Observable implements Serializable {
     /**
      * Make a move on the Peg Solitaire board, i.e. jump over a piece
      *
-     * @param row1 the first tile row
-     * @param col1 the first tile col
-     * @param row2 the second tile row
-     * @param col2 the second tile col
+     * @param row1 the row of the peg being moved
+     * @param col1 the column of the peg being moved
+     * @param row2 the row of the empty space the peg is moving into
+     * @param col2 the column of the empty space the peg is moving into
      */
     List moveGamepiece(int row1, int col1, int row2, int col2) {
-        PegSolitaireTile temporaryTile = this.getTile(row1, col1);
-        tiles[row1][col1] = tiles[row2][col2];
-        tiles[row2][col2] = temporaryTile;
-        update();
-        return Arrays.asList(row1, col1, row2, col2);
 
         // not done
     }
