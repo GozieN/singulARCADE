@@ -52,9 +52,15 @@ public class PegSolitaireBoard extends Observable implements Serializable {
      *
      */
     private void setUpSquareBoard() {
-        this.tiles[2][3].setId(1);
-        // else id of 2, everything should have a default id of 2 and be assigned a pic
-        // in the boardmanager class??
+        for (int row = 0; row != this.tiles.length; row++) {
+            for (int col = 0; col != this.tiles[0].length; col++) {
+                if (row == 2 && col == 3) {
+                    this.tiles[row][col].setId(1);
+                } else {
+                    this.tiles[row][col].setId(2);
+                }
+            }
+        }
     }
 
     /**
@@ -97,13 +103,13 @@ public class PegSolitaireBoard extends Observable implements Serializable {
        for (int k = 0; k != tileRow.length; k++) {
            if (k < i && k > j) {
                this.tiles[row][k].setId(0);
-           }
-           if (row == 4 && k == 4) {
+           } else if (row == 4 && k == 4) {
                this.tiles[4][4].setId(1);
+           } else {
+               this.tiles[row][k].setId(2);
            }
        }
     }
-
 
     int numPieces() {
         return NUM_ROWS*NUM_COLS;
@@ -141,10 +147,22 @@ public class PegSolitaireBoard extends Observable implements Serializable {
         PegSolitaireTile temporaryTile = this.getTile(row1, col1);
         tiles[row1][col1] = tiles[row2][col2];
         tiles[row2][col2] = temporaryTile;
+
+        if (row2 - row1 == 2) {
+            tiles[row1 + 1][col1].setId(1);
+        } else if (row1 - row2 == 2) {
+            tiles[row2 + 1][col1].setId(1);
+        } else if (col2 - col1 == 2) {
+            tiles[row1][col1 + 1].setId(1);
+        } else if (col1 - col2 == 2) {
+            tiles[row1][col2 + 1].setId(1);
+        }
+
+        // store new tile as well?
         update();
         return Arrays.asList(row1, col1, row2, col2);
 
-        // not done
+        // row1, col1 refers to the "full" tile, row2, col2 refers to the "empty" tile
     }
 
     void update() {
@@ -153,6 +171,7 @@ public class PegSolitaireBoard extends Observable implements Serializable {
     }
 
 }
+
 
 
 
