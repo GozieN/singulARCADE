@@ -60,7 +60,7 @@ import java.util.Stack;
      * Return whether the all of the images have been flipped over and therefore matched.
      *
      * @return whether the entire board has been flipped
-     * if wanna check IDs - need iterator, otherwize, each time one is matched check the value
+     * if wanna check IDs - need iterator, otherwise, each time one is matched check the value
      * of a variable
      */
     public boolean isOver() {
@@ -68,8 +68,9 @@ import java.util.Stack;
         Iterator<Tile> boardIterator = board.iterator();
         while (boardIterator.hasNext()) {
             Tile currentTile = boardIterator.next();
-            if (currentTile.getID != 00) {
+            if (currentTile.getID() != 0) {
                 solved = false;
+                return solved;
             }
         }
 
@@ -83,7 +84,13 @@ import java.util.Stack;
      * @return whether the tile at position is greyed out.
      */
     public boolean isValidTap(int position) {
-        return move.getID() != (00);
+        Iterator<Tile> boardIterator = board.iterator();
+        int place = 0;
+        while (place != position && boardIterator.hasNext()){
+            Tile currentTile = boardIterator.next();
+            place += 1;
+        }
+        return currentTile.getId() != (0);
     }
 
     /**
@@ -92,20 +99,20 @@ import java.util.Stack;
      * @param position1, position2 the positions of the tiles
      */
     public void touchMove(int position1, int position2) {
-        int Tile firstTouch = BoardIterator[position1] ;
-        int Tile secondTouch = BoardIterator[position2];
+        Tile firstTouch = new Tile(position1, Tile.getBackground());
+        Tile secondTouch = new Tile(position2, Tile.getBackground());
         int blankId = board.numTiles();
 
-        if (firstTouch.getID()%2 == 0){
-                if (firstTouch.getID == secondTouch.getID() - 1){
-                firstTouch.ID, secondTouch.ID = 00, 00;
+        if (firstTouch.getId()%2 == 0){
+            if (firstTouch.getId == secondTouch.getId() - 1){
+                firstTouch.ID, secondTouch.Id = 0, 0;
                 }
         else if (firstTouch.getID()%2 != 0){
-            if (firstTouch.getID == secondTouch.getID() + 1);{
-            firstTouch.ID, secondTouch.ID = 00, 00;
+            if (firstTouch.getID == secondTouch.getId() + 1);{
+            firstTouch.Id, secondTouch.Id = 0, 0;
                 }}
         else {
-
+             firstTouch.Id, secondTouch.Id = blankId, blankId;
             }}
     }
     /**
@@ -113,17 +120,17 @@ import java.util.Stack;
      * @return the score of the current game
      */
     public int getScore() {
-        Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates("Sliding Tiles");
+        Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates("Memory Puzzle");
         double tempScore = Math.pow((stackOfMoves.size() + 2*GameActivity.numberOfUndos), -1);
-        //if 3, multiply by 10000
-        if (Board.NUM_ROWS == 3) {
+        //if 4, multiply by 10000
+        if (Board.NUM_ROWS == 4) {
             return (int) Math.round(tempScore * 10000);
         }
-        //if 4, multiply by 20000
-        else if (Board.NUM_ROWS == 4) {
+        //if 5, multiply by 20000
+        else if (Board.NUM_ROWS == 5) {
             return (int) Math.round(tempScore * 20000);
         }
-        //if 5, multiply by 30000
+        //if 6, multiply by 30000
         else {
             return (int) Math.round(tempScore * 30000);
         }
