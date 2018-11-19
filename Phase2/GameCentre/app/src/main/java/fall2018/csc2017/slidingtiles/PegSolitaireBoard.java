@@ -158,8 +158,18 @@ public class PegSolitaireBoard extends Observable implements Serializable {
      * @param col2 the column of the empty space the peg is moving into
      */
     List moveGamepiece(int row1, int col1, int row2, int col2) {
-
+        return null;
         // not done
+    }
+
+    /**
+     * Highlights the tile at row, col to denote it as an available move to the user
+     *
+     * @param row
+     * @param col
+     */
+    void highlightTile(int row, int col) {
+
     }
 
     void update() {
