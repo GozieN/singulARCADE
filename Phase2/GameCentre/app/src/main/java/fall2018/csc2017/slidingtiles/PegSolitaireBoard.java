@@ -13,17 +13,27 @@ public class PegSolitaireBoard extends Observable implements Serializable {
     /**
      * The number of rows.
      */
-    static int NUM_ROWS;
+    static int NUM_ROWS = 6;
 
     /**
      * The number of rows.
      */
-    static int NUM_COLS;
+    static int NUM_COLS = 6;
 
     /**
      * The tiles on Peg Solitaire's board in row-major order.
      */
     private PegSolitaireTile[][] tiles = new PegSolitaireTile[NUM_ROWS][NUM_COLS];
+
+    PegSolitaireBoard() {
+        if (numPieces() == 36) {
+            setUpSquareBoard();
+        } else if (numPieces() == 49) {
+            setUpCrossBoard();
+        } else if (numPieces() == 81) {
+            setUpDiamondBoard();
+        }
+    }
 
     /**
      * A new Peg Solitaire board in row-major order.
@@ -104,6 +114,16 @@ public class PegSolitaireBoard extends Observable implements Serializable {
        }
     }
 
+    /**
+     * Returns the PegTile at (row, col) on PegSolitaireBoard
+     *
+     * @param row the x position of the pegtile on PegSolitaireBoard
+     * @param col the y position of the pegtile on PegSolitaireBoard
+     * @return the PegTile at position x = row, y = col
+     */
+    PegSolitaireTile getPegTile(int row, int col) {
+        return tiles[row][col];
+    }
 
     int numPieces() {
         return NUM_ROWS*NUM_COLS;
