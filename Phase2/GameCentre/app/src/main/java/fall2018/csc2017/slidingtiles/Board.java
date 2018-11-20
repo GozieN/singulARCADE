@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.ArrayList;
 
 /**
  * The sliding tiles board.
@@ -118,6 +119,19 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
                 "tiles=" + Arrays.toString(tiles) +
                 '}';
     }
+//      Trying to figure out how to only make solvable boards
+//
+//    public void checkSolvable(List<Tile> tiles) {
+//        Iterator<Tile> iter = tiles.iterator();
+//        ArrayList arrayList = new ArrayList<>();
+//
+//        for (int row = 0; row != Board.NUM_ROWS; row++) {
+//            for (int col = 0; col != Board.NUM_COLS; col++) {
+//                arrayList.add()
+//                this.tiles[row][col] = iter.next();
+//            }
+//        }
+//    }
 
 
     /** Return a new Iterator over the Tiles in the Board.

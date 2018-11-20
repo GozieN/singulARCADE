@@ -117,7 +117,6 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
     private Board makeBoard () {
         Board board;
 
-        //int size = getIntent().getIntExtra("size", 4);
         Board.setDimensions(size);
 
         List<Tile> tiles = new ArrayList<>();
@@ -153,7 +152,6 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
                 userManager = (UserManager) arrayList.get(0);
                 scoreBoard = (ScoreBoard) arrayList.get(1);
                 boardManager = (BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME);
-//                userManager = (UserManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {

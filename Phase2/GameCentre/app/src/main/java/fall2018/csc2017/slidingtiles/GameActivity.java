@@ -101,30 +101,30 @@ public class GameActivity extends AppCompatActivity implements Observer {
                 });
     }
 
-    /**
-     * Return a Board.
-     * @return a Board
-     */
-    private Board makeBoard () {
-        Board board;
-
-        int size = getIntent().getIntExtra("size", 4);
-        Board.setDimensions(size);
-
-        List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(tileNum, tileNum));
-            } else {
-                tiles.add(new Tile(tileNum));
-            }
-        }
-
-        Collections.shuffle(tiles);
-        board = new Board(tiles);
-        return board;
-    }
+//    /**
+//     * Return a Board.
+//     * @return a Board
+//     */
+//    private Board makeBoard () {
+//        Board board;
+//
+//        int size = getIntent().getIntExtra("size", 4);
+//        Board.setDimensions(size);
+//
+//        List<Tile> tiles = new ArrayList<>();
+//        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+//        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
+//            if (tileNum == numTiles - 1) {
+//                tiles.add(new Tile(tileNum, tileNum));
+//            } else {
+//                tiles.add(new Tile(tileNum));
+//            }
+//        }
+//
+//        Collections.shuffle(tiles);
+//        board = new Board(tiles);
+//        return board;
+//    }
 
     /**
      * Create the buttons for displaying the tiles.
