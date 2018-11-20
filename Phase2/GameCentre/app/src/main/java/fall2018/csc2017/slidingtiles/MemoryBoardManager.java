@@ -95,8 +95,8 @@ import java.util.Stack;
      * @param position1, position2 the positions of the tiles
      */
     public void touchMove(int position1, int position2) {
-        Tile firstTouch = new Tile(position1);
-        Tile secondTouch = new Tile(position2);
+        MemoryPuzzleTile firstTouch = new MemoryPuzzleTile(position1);
+        MemoryPuzzleTile secondTouch = new MemoryPuzzleTile(position2);
         int blankId = board.numTiles();
 
         if (firstTouch.getId()%2 == 0){
