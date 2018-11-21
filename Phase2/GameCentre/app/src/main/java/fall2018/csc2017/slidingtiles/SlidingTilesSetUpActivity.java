@@ -105,6 +105,9 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
         Intent tmp = new Intent(this, GameActivity.class);
         tmp.putExtra("size", size);
         boardManager = new BoardManager(makeBoard());
+        while (! isSolvable(boardManager)) {
+            boardManager = new BoardManager(makeBoard());
+        }
         GameLauncher.getCurrentUser().setRecentManagerOfBoard(BoardManager.GAME_NAME, boardManager);
         saveToFile(LoginActivity.SAVE_FILENAME);
         startActivity(tmp);
@@ -128,10 +131,39 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
                 tiles.add(new Tile(tileNum));
             }
         }
-
         Collections.shuffle(tiles);
         board = new Board(tiles);
         return board;
+    }
+
+    /**
+     *
+     * @param boardManager the boardManager that is being used in the game about to be played.
+     * @return true iff the sliding tiles game will be solvable.
+     */
+    private boolean isSolvable(BoardManager boardManager) {
+        ArrayList tileOrder = boardManager.getTilesInArrayList();
+        int blankId = boardManager.positionBlankTile();
+        //check the amount of inversions
+        int inversions = 0;
+        for (int i=0; i<tileOrder.size(); i++) {
+            for (int j=i + 1; j<tileOrder.size(); j++) {
+                if ((int) tileOrder.get(j) > (int) tileOrder.get(i)) {
+                    inversions++;
+                }
+            }
+        }
+        //if it's odd size and has an even number of inversions, the board is solvable-> return true
+        if (size%2 != 0) {
+            if (inversions%2 == 0){
+                return true;
+            }
+            return false;
+        }
+        //otherwise it is even size and the rows the blank tile is on is odd, then the board is solvable
+        if (blankId % 2 == 0 && inversions % 2 == 0) {return true;}
+        if (blankId % 2 != 0 && inversions %2 != 0) {return true;}
+        return false;
     }
 
     /**
