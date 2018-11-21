@@ -133,7 +133,6 @@ public class LoginActivity extends AppCompatActivity {
                 ArrayList arrayList = (ArrayList) input.readObject();
                 userManager = (UserManager) arrayList.get(0);
                 scoreBoard = (ScoreBoard) arrayList.get(1);
-//                userManager = (UserManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {

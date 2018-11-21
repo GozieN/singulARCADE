@@ -142,17 +142,23 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
      * @return true iff the sliding tiles game will be solvable.
      */
     private boolean isSolvable(BoardManager boardManager) {
+        //adapted from https://puzzling.stackexchange.com/questions/25563/do-i-have-an-unsolvable-15-puzzle
         ArrayList tileOrder = boardManager.getTilesInArrayList();
         int blankId = boardManager.positionBlankTile();
         //check the amount of inversions
+        //adapted from https://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable
         int inversions = 0;
         for (int i=0; i<tileOrder.size(); i++) {
             for (int j=i + 1; j<tileOrder.size(); j++) {
-                if ((int) tileOrder.get(j) > (int) tileOrder.get(i)) {
+                if ((int) tileOrder.get(j) < (int) tileOrder.get(i)) {
+                    System.out.println("printing i: " + tileOrder.get(i));
+                    System.out.println("printing j: " + tileOrder.get(j));
                     inversions++;
+                    System.out.println("number of inversions: " + inversions);
                 }
             }
         }
+        System.out.println("the number of inversions is : " + inversions);
         //if it's odd size and has an even number of inversions, the board is solvable-> return true
         if (size%2 != 0) {
             if (inversions%2 == 0){

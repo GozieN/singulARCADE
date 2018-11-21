@@ -18,7 +18,7 @@ class BoardManager implements Serializable, Game {
      final static String GAME_NAME = "Sliding Tiles";
      private Board board;
 
-     ScoreBoard gameScoreBoard;
+     static ScoreBoard gameScoreBoard;
     /**
      * Manage a board that has been pre-populated.
      *
@@ -71,6 +71,7 @@ class BoardManager implements Serializable, Game {
         ArrayList arrayList = new ArrayList();
         while (boardIterator.hasNext()) {
             Tile currentTile = boardIterator.next();
+            if (currentTile.getId() != board.numTiles() )
             arrayList.add(currentTile.getId());
         }
         return arrayList;

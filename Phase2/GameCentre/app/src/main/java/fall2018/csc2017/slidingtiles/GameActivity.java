@@ -67,11 +67,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        loadFromFile(StartingActivity.TEMP_SAVE_FILENAME); //loaduser
         loadFromFile(LoginActivity.SAVE_FILENAME);
-
-//        BoardManager bManager = new BoardManager(makeBoard());
-//        boardManager = bManager;
 
         createTileButtons(this);
         setContentView(R.layout.activity_main);
@@ -101,30 +97,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
                 });
     }
 
-//    /**
-//     * Return a Board.
-//     * @return a Board
-//     */
-//    private Board makeBoard () {
-//        Board board;
-//
-//        int size = getIntent().getIntExtra("size", 4);
-//        Board.setDimensions(size);
-//
-//        List<Tile> tiles = new ArrayList<>();
-//        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
-//        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-//            if (tileNum == numTiles - 1) {
-//                tiles.add(new Tile(tileNum, tileNum));
-//            } else {
-//                tiles.add(new Tile(tileNum));
-//            }
-//        }
-//
-//        Collections.shuffle(tiles);
-//        board = new Board(tiles);
-//        return board;
-//    }
 
     /**
      * Create the buttons for displaying the tiles.
@@ -254,6 +226,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
         Integer score = boardManager.getScore();
         boardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(BoardManager.GAME_NAME, score);
+        //TODO: here maybe save the new stuff?? aka make sure updated score of user is put in and update on overall scoreboard for game
+        saveToFile(LoginActivity.SAVE_FILENAME); //this will save the user w the new score... but need to fix it for other scoreboards
     }
 
     /**
