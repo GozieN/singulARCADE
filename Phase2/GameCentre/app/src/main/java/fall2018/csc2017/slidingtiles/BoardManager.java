@@ -18,7 +18,7 @@ class BoardManager implements Serializable, Game {
      final static String GAME_NAME = "Sliding Tiles";
      private Board board;
 
-     ScoreBoard gameScoreBoard;
+     static ScoreBoard gameScoreBoard = new ScoreBoard();
     /**
      * Manage a board that has been pre-populated.
      *
@@ -26,13 +26,12 @@ class BoardManager implements Serializable, Game {
      */
     BoardManager(Board board) {
         this.board = board;
-        gameScoreBoard = new ScoreBoard();
     }
 
     /**
      * Return the current board.
      */
-    Board getBoard() {
+    public Board getBoard() {
         return board;
     }
     /**
@@ -58,7 +57,6 @@ class BoardManager implements Serializable, Game {
 
         Collections.shuffle(tiles);
         this.board = new Board(tiles);
-        gameScoreBoard = new ScoreBoard();
     }
     /**
      * Return whether the tiles are in row-major order.
