@@ -11,10 +11,10 @@ public interface Game {
      */
       boolean isOver();
 
-    /**
-     * Modify the game state with the move chosen.
-     */
-      void touchMove(int position);
+//    /**
+//     * Modify the game state with the move chosen.
+//     */
+//      void touchMove(int position);
 
     /**
      * Return true if the certain move chosen is possible to complete.

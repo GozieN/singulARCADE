@@ -23,16 +23,17 @@ import java.util.Observer;
 import java.util.Stack;
 
 /**
- * The game activity.
+ * The memory game activity.
  */
-public class GameActivity extends AppCompatActivity implements Observer {
-
+public class MemoryGameActivity extends AppCompatActivity implements Observer {
     /**
      * The board manager.
      */
     private BoardManager boardManager;
 
     private UserManager userManager;
+
+    private ScoreBoard scoreBoard;
 
     /**
      * The buttons to display.
@@ -43,10 +44,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
 
-    /**
-     * The number of times a user has clicked the undo button.
-     */
-    static int numberOfUndos = 0;
 
     /**
      * Set up the background image for each button based on the master list
@@ -65,22 +62,18 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        loadFromFile(StartingActivity.TEMP_SAVE_FILENAME); //loaduser
         loadFromFile(LoginActivity.SAVE_FILENAME);
 
+//        BoardManager bManager = new BoardManager(makeBoard());
+//        boardManager = bManager;
+
         createTileButtons(this);
-        setContentView(R.layout.activity_main);
-        addUndoButtonListener();
+        setContentView(R.layout.activity_memory_game);
         addSaveButtonListener();
 
         // Add View to activity
-        if (boardManager instanceof BoardManager) {
-            gridView = findViewById(R.id.grid);
-            //BoardManager boardManager = (BoardManager) boardManager;
-        }
-//        if (boardManager instanceof PegSolitaireManager) {
-//            //PegSolitaireManager boardManager = (PegSolitaireManager) boardManager;
-//            gridView = findViewById(R.id.squareGrid);
-//        }
+        gridView = findViewById(R.id.grid);
         gridView.setNumColumns(Board.NUM_COLS);
         gridView.setBoardManager(boardManager);
         boardManager.getBoard().addObserver(this);
@@ -102,6 +95,30 @@ public class GameActivity extends AppCompatActivity implements Observer {
                 });
     }
 
+    /**
+     * Return a Board.
+     * @return a Board
+     */
+    private Board makeBoard () {
+        Board board;
+
+        int size = getIntent().getIntExtra("size", 4);
+        Board.setDimensions(size);
+
+        List<Tile> tiles = new ArrayList<>();
+        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
+            if (tileNum == numTiles - 1) {
+                tiles.add(new Tile(tileNum, tileNum));
+            } else {
+                tiles.add(new Tile(tileNum));
+            }
+        }
+
+        Collections.shuffle(tiles);
+        board = new Board(tiles);
+        return board;
+    }
 
     /**
      * Create the buttons for displaying the tiles.
@@ -161,7 +178,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 ArrayList arrayList = (ArrayList) input.readObject();
                 userManager = (UserManager) arrayList.get(0);
-                BoardManager.gameScoreBoard = (ScoreBoard) arrayList.get(1);
+                scoreBoard = (ScoreBoard) arrayList.get(1);
                 boardManager = (BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME);
 //                userManager = (UserManager) input.readObject();
                 inputStream.close();
@@ -184,7 +201,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
         ArrayList arrayList= new ArrayList();
         arrayList.add(userManager);
-        arrayList.add(BoardManager.gameScoreBoard);
+        arrayList.add(scoreBoard);
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
@@ -195,56 +212,16 @@ public class GameActivity extends AppCompatActivity implements Observer {
         }
     }
 
-    /**
-     * Activate the undo button.
-     */
-    private void addUndoButtonListener() {
-        Button undoButton = findViewById(R.id.UndoButton);
-        undoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (numberOfUndos < SlidingTilesSetUpActivity.undoLimit) {
-                    Stack totalStates = GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME);
-                    if(totalStates.size() != 0) {
-                        List state = GameLauncher.getCurrentUser().getState(BoardManager.GAME_NAME);
-                        int row1 = (Integer) state.get(2);
-                        int col1 = (Integer) state.get(3);
-                        int row2 = (Integer) state.get(0);
-                        int col2 = (Integer) state.get(1);
-                        boardManager.getBoard().swapTiles(row1, col1, row2, col2);
-                        numberOfUndos++;
-                    } else {
-                        makeToastNoUndoText();
-                    }
-
-                } else {
-                    makeToastUndoLimitText();
-                }
-            }
-        });
-    }
 
     /**
      * At the end of the game, do these actions: get the score, and send score to game score board and user score board.
      */
     private void endOfGame() {
         Integer score = boardManager.getScore();
-        BoardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
+        boardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(BoardManager.GAME_NAME, score);
-        //TODO: here maybe save the new stuff?? aka make sure updated score of user is put in and update on overall scoreboard for game
-        saveToFile(LoginActivity.SAVE_FILENAME); //this will save the user w the new score... but need to fix it for other scoreboards
     }
 
-    /**
-     * Motify user when undo limit is reached.
-     */
-    private void makeToastUndoLimitText() {
-        Toast.makeText(this, "Undo Limit Reached", Toast.LENGTH_SHORT).show();
-    }
-
-    private void makeToastNoUndoText() {
-        Toast.makeText(this, "Undo Not Possible", Toast.LENGTH_SHORT).show();
-    }
     /**
      * Activate the save button.
      */
@@ -266,7 +243,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     private void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
-        tmp.putExtra("scores", BoardManager.gameScoreBoard.toString());
+        tmp.putExtra("scores", boardManager.gameScoreBoard.toString());
         startActivity(tmp);
     }
 
