@@ -28,6 +28,12 @@ public class ScoreBoard implements Serializable {
     final static private int TOP_NUM_SCORES = 10;
 
     /**
+     * Return the hashmap containing the specified scores
+     * @return the hashmap holding the specified scores
+     */
+    HashMap<String, Integer> getTopScores() {return topScores;}
+
+    /**
      *
      * @param subject: String of userid who achieved score
      * @param score: Integer score that user achieved playing game
@@ -48,7 +54,7 @@ public class ScoreBoard implements Serializable {
      * @param subject: String of userid who achieved score
      * @param score: Integer score that user achieved playing game
      */
-    private void replaceScore(String subject, Integer score) {
+     void replaceScore(String subject, Integer score) {
         if (topScores.size() < TOP_NUM_SCORES) { //IF SCOREBOARD NOT FULL, ADD SCORE
             topScores.put(subject, score);
         } else {
@@ -65,7 +71,7 @@ public class ScoreBoard implements Serializable {
     /**
      * Removes the smallest entry in hashmap topScores when a higher one enters the ScoreBoard
      */
-    private void removeSmallestScore() {
+     void removeSmallestScore() {
         int length = 0;
         for (Entry<String, Integer> item : sortValueSet()) {
             length += 1;
@@ -83,7 +89,7 @@ public class ScoreBoard implements Serializable {
      * Adapted from: http://www.java67.com/2015/01/how-to-sort-hashmap-in-java-based-on.html
      *
      */
-    private Set<Entry<String, Integer>> sortValueSet() {
+     Set<Entry<String, Integer>> sortValueSet() {
         //Get a Set of Map Entries from topScores HashMap and put them into a List
         Set<Entry<String, Integer>> setOfScores = topScores.entrySet();
         List<Entry<String, Integer>> scores = new ArrayList<>(setOfScores);
