@@ -24,7 +24,10 @@ public class StartingActivity extends AppCompatActivity {
      * The board manager.
      */
     private BoardManager boardManager;
-    private ScoreBoard scoreBoard;
+
+    /**
+     * The user manager.
+     */
     private UserManager userManager;
 
     @Override
@@ -90,7 +93,7 @@ public class StartingActivity extends AppCompatActivity {
     private void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
         loadFromFile(LoginActivity.SAVE_FILENAME);
-        if (boardManager.getBoard().getDimensions() == 0) {
+        if (GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size() == 0) {
             makeToastNoGameToLoadText();
         }
         else {startActivity(tmp);}
@@ -118,9 +121,7 @@ public class StartingActivity extends AppCompatActivity {
             }
             else {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                ArrayList arrayList = (ArrayList) input.readObject();
-                userManager = (UserManager) arrayList.get(0);
-                scoreBoard = (ScoreBoard) arrayList.get(1);
+                userManager = (UserManager) input.readObject();
                 boardManager = (BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME);
                 inputStream.close();
             }
@@ -139,14 +140,10 @@ public class StartingActivity extends AppCompatActivity {
      * @param fileName the name of the file
      */
     public void saveToFile(String fileName) {
-
-        ArrayList arrayList= new ArrayList();
-        arrayList.add(userManager);
-        arrayList.add(scoreBoard);
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(arrayList);
+            outputStream.writeObject(userManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
