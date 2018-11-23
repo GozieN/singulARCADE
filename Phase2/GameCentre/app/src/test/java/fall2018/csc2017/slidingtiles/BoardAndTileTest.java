@@ -2,6 +2,7 @@ package fall2018.csc2017.slidingtiles;
 
 import org.junit.Test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class BoardAndTileTest {
      * Test whether swapping two tiles makes a solved board unsolved.
      */
     @Test
-    public void testIsSolved() {
+    public void testIsOver() {
         setUpCorrect();
         assertEquals(true, boardManager.isOver());
         swapFirstTwoTiles();
@@ -100,5 +101,103 @@ public class BoardAndTileTest {
         assertEquals(true, boardManager.isValidTap(14));
         assertEquals(false, boardManager.isValidTap(10));
     }
+
+    /**
+     * Test whether a board is being set and returned properly (getter and setter of board works).
+     */
+    @Test
+    public void testGetAndSetBoard() {
+        setUpCorrect();
+        Board.setDimensions(3);
+        List<Tile> tiles = makeTiles();
+        Board board = new Board(tiles);
+        Board.setDimensions(3);
+        boardManager.setBoard(board);
+        assertEquals(board, boardManager.getBoard());
+    }
+
+    /**
+     * Test whether getTilesInArrayList works.
+     */
+    @Test
+    public void testGetTilesInArrayList() {
+        setUpCorrect();
+        ArrayList<Object> arrayList = new ArrayList();
+        for (int i = 1; i < 16; i++) { arrayList.add(i);}
+        ArrayList<Object> comparableArrayList = boardManager.getTilesInArrayList();
+        assertEquals(arrayList.size(), comparableArrayList.size());
+        for (int i = 0; i < arrayList.size(); i++) {
+            assertEquals(arrayList.get(i), comparableArrayList.get(i));
+        }
+    }
+
+    /**
+     * Test whether positionOfBlankTile works
+     */
+    @Test
+    public void testPositionOfBlankTile() {
+        setUpCorrect();
+        //if the blank tile is the very last tile
+        assertEquals(4, boardManager.positionBlankTile());
+        //if the blank tile is anywhere else but the last tile- this case, is the row above
+        boardManager.getBoard().swapTiles(3,3, 2,3);
+        assertEquals(3, boardManager.positionBlankTile());
+    }
+
+    @Test
+    public void testTouchMove() {
+        setUpCorrect();
+        User user = new User("Dianna", "Dianna");
+        GameLauncher.setCurrentUser(user);
+        GameLauncher.getCurrentUser().setRecentManagerOfBoard(BoardManager.GAME_NAME, boardManager);
+        System.out.println(GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME) == boardManager);
+
+
+        //nothing should be switched at this point bc the position is too far away
+        ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).touchMove(1);
+        assertEquals(0, GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size());
+
+        //switch with the tile above
+        ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).touchMove(11);
+        assertEquals(1, GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size());
+
+        //switch with the tile below
+        ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).touchMove(15);
+        assertEquals(2, GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size());
+
+        //switch with the tile to the left
+        ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).touchMove(14);
+        assertEquals(3, GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size());
+
+        //switch with the tile to the right
+        ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).touchMove(15);
+        assertEquals(4, GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size());
+
+    }
+
+    @Test
+    public void testGetScore() {
+        setUpCorrect();
+        User user = new User("Dianna", "Dianna");
+        GameLauncher.setCurrentUser(user);
+        BoardManager boardManager = (BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME);
+
+        //When no moves have been completed
+        assertEquals(-1, boardManager.getScore());
+
+        //When you have completed some moves
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(1);
+        arrayList.add(1);
+        arrayList.add(2);
+        arrayList.add(3);
+        user.pushGameStates(BoardManager.GAME_NAME, arrayList);
+        user.pushGameStates(BoardManager.GAME_NAME, arrayList);
+        user.pushGameStates(BoardManager.GAME_NAME, arrayList);
+        assertEquals(6667, boardManager.getScore());
+
+
+    }
+
 }
 
