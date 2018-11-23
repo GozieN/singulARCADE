@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class BoardTest {
 
-    /** The board manager for testing. */
+    /** The board for testing. */
     Board board;
 
     /**
