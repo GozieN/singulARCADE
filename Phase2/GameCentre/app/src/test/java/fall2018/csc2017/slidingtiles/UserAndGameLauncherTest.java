@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  */
 
 
-public class UserTest {
+public class UserAndGameLauncherTest {
     /** The user for testing. */
     User user;
 
@@ -130,6 +130,17 @@ public class UserTest {
         //board is now being set to 3x3
         newBoardManager.getBoard().setDimensions(3);
         assertEquals(3, ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).getBoard().getDimensions());
+    }
+
+    /**
+     * Test getCurrentUser and setCurrentUser.
+     */
+    @Test
+    public void testSetAndGetCurrentUser() {
+        setUpCorrect();
+        User newUser = new User("Test2", "TestingPassword");
+        GameLauncher.setCurrentUser(newUser);
+        assertEquals(newUser, GameLauncher.getCurrentUser());
     }
 
 }
