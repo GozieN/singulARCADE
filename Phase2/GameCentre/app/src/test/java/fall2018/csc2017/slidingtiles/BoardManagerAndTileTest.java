@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  * Unit tests for the BoardManager class.
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class BoardAndTileTest {
+public class BoardManagerAndTileTest {
 
     /** The board manager for testing. */
     BoardManager boardManager;
