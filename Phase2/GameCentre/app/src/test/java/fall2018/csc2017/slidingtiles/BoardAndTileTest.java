@@ -2,7 +2,6 @@ package fall2018.csc2017.slidingtiles;
 
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import static org.junit.Assert.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
- *
+ * Unit tests for the BoardManager class.
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class BoardAndTileTest {
@@ -43,7 +42,6 @@ public class BoardAndTileTest {
         Board.setDimensions(4);
         List<Tile> tiles = makeTiles();
         Board board = new Board(tiles);
-        Board.setDimensions(4);
         boardManager = new BoardManager(board);
     }
 
@@ -144,13 +142,15 @@ public class BoardAndTileTest {
         assertEquals(3, boardManager.positionBlankTile());
     }
 
+    /**
+     * Test whether touchMove works
+     */
     @Test
     public void testTouchMove() {
         setUpCorrect();
         User user = new User("Dianna", "Dianna");
         GameLauncher.setCurrentUser(user);
         GameLauncher.getCurrentUser().setRecentManagerOfBoard(BoardManager.GAME_NAME, boardManager);
-        System.out.println(GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME) == boardManager);
 
 
         //nothing should be switched at this point bc the position is too far away
@@ -175,6 +175,9 @@ public class BoardAndTileTest {
 
     }
 
+    /**
+     * Test whether getScore works
+     */
     @Test
     public void testGetScore() {
         setUpCorrect();
