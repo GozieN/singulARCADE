@@ -2,9 +2,6 @@ package fall2018.csc2017.slidingtiles;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 /**
@@ -16,24 +13,6 @@ import static org.junit.Assert.*;
 public class UserManagerTest {
     /** The user manager for testing. */
     UserManager userManager;
-
-    /**
-     * Make a set of tiles that are in order.
-     * @return a set of tiles that are in order
-     */
-    private List<Tile> makeTiles() {
-        List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(tileNum, tileNum));
-            } else {
-                tiles.add(new Tile(tileNum));
-            }
-        }
-
-        return tiles;
-    }
 
     /**
      * Make a userManager
