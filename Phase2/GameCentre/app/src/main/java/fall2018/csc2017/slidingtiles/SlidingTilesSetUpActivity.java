@@ -151,14 +151,10 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
         for (int i=0; i<tileOrder.size(); i++) {
             for (int j=i + 1; j<tileOrder.size(); j++) {
                 if ((int) tileOrder.get(j) < (int) tileOrder.get(i)) {
-                    System.out.println("printing i: " + tileOrder.get(i));
-                    System.out.println("printing j: " + tileOrder.get(j));
                     inversions++;
-                    System.out.println("number of inversions: " + inversions);
                 }
             }
         }
-        System.out.println("the number of inversions is : " + inversions);
         //if it's odd size and has an even number of inversions, the board is solvable-> return true
         if (size%2 != 0) {
             if (inversions%2 == 0){
