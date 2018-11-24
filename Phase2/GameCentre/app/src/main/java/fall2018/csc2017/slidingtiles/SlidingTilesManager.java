@@ -10,7 +10,7 @@ import java.util.Stack;
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-class BoardManager implements Serializable, Game {
+class SlidingTilesManager implements Serializable, Game {
 
     /**
      * The board being managed.
@@ -24,7 +24,7 @@ class BoardManager implements Serializable, Game {
      *
      * @param board the board
      */
-    BoardManager(Board board) {
+    SlidingTilesManager(Board board) {
         this.board = board;
     }
 
@@ -44,7 +44,7 @@ class BoardManager implements Serializable, Game {
     /**
      * Manage a new shuffled board.
      */
-    BoardManager() {
+    SlidingTilesManager() {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
@@ -56,7 +56,7 @@ class BoardManager implements Serializable, Game {
         }
 
         Collections.shuffle(tiles);
-        this.board = new Board(tiles);
+        this.board = new SlidingTilesBoard(tiles);
     }
 
 
@@ -175,7 +175,7 @@ class BoardManager implements Serializable, Game {
      */
     public int getScore() {
         Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates("Sliding Tiles");
-        double tempScore = Math.pow((stackOfMoves.size() + 2*GameActivity.numberOfUndos), -1);
+        double tempScore = Math.pow((stackOfMoves.size() + 2*PlaySlidingTilesActivity.numberOfUndos), -1);
         //if 3, multiply by 10000
         if (Board.NUM_ROWS == 3) {
             return (int) Math.round(tempScore * 10000);

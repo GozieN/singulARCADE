@@ -49,7 +49,7 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
 
     private UserManager userManager;
     private ScoreBoard scoreBoard;
-    private BoardManager boardManager;
+    private SlidingTilesManager slidingTilesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
         spinnerBoardSize = findViewById(R.id.ChooseBoardSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapterBoardSize = ArrayAdapter.createFromResource(this,
-                R.array.board_array, android.R.layout.simple_spinner_item);
+                R.array.slidingTilesboard_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
@@ -102,13 +102,13 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
      * Switch to game screen.
      */
     private void switchToGame() {
-        Intent tmp = new Intent(this, GameActivity.class);
+        Intent tmp = new Intent(this, PlaySlidingTilesActivity.class);
         tmp.putExtra("size", size);
-        boardManager = new BoardManager(makeBoard());
-        while (! isSolvable(boardManager)) {
-            boardManager = new BoardManager(makeBoard());
+        slidingTilesManager = new SlidingTilesManager(makeBoard());
+        while (! isSolvable(slidingTilesManager)) {
+            slidingTilesManager = new SlidingTilesManager(makeBoard());
         }
-        GameLauncher.getCurrentUser().setRecentManagerOfBoard(BoardManager.GAME_NAME, boardManager);
+        GameLauncher.getCurrentUser().setRecentManagerOfBoard(SlidingTilesManager.GAME_NAME, slidingTilesManager);
         saveToFile(LoginActivity.SAVE_FILENAME);
         startActivity(tmp);
     }
@@ -117,13 +117,13 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
      * Return a Board.
      * @return a Board
      */
-    private Board makeBoard () {
-        Board board;
+    private SlidingTilesBoard makeBoard () {
+        SlidingTilesBoard board;
 
-        Board.setDimensions(size);
+        SlidingTilesBoard.setDimensions(size);
 
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
                 tiles.add(new Tile(tileNum, tileNum));
@@ -132,19 +132,19 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
             }
         }
         Collections.shuffle(tiles);
-        board = new Board(tiles);
+        board = new SlidingTilesBoard(tiles);
         return board;
     }
 
     /**
      *
-     * @param boardManager the boardManager that is being used in the game about to be played.
+     * @param slidingTilesManager the slidingTilesManager that is being used in the game about to be played.
      * @return true iff the sliding tiles game will be solvable.
      */
-    private boolean isSolvable(BoardManager boardManager) {
+    private boolean isSolvable(SlidingTilesManager slidingTilesManager) {
         //adapted from https://puzzling.stackexchange.com/questions/25563/do-i-have-an-unsolvable-15-puzzle
-        ArrayList tileOrder = boardManager.getTilesInArrayList();
-        int blankId = boardManager.positionBlankTile();
+        ArrayList tileOrder = slidingTilesManager.getTilesInArrayList();
+        int blankId = slidingTilesManager.positionBlankTile();
         //check the amount of inversions
         //adapted from https://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable
         int inversions = 0;
@@ -185,7 +185,7 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
                 ArrayList arrayList = (ArrayList) input.readObject();
                 userManager = (UserManager) arrayList.get(0);
                 scoreBoard = (ScoreBoard) arrayList.get(1);
-                boardManager = (BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME);
+                slidingTilesManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
