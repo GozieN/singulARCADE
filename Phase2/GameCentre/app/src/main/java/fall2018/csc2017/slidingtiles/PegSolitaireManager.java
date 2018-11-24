@@ -22,7 +22,7 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
      */
     PegSolitaireManager() {
         List<PegSolitaireTile> tiles = new ArrayList<>();
-        final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
+        final int numTiles = PegSolitaireBoard.NUM_ROWS * PegSolitaireBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new PegSolitaireTile(2));
         }

@@ -59,10 +59,10 @@ public class PegSolitaireTile implements Comparable<PegSolitaireTile>, Serializa
         if (highlight) {
             switch (i) {
                 case 1:
-                    background = R.drawable.tile_highlight;
+                    background = R.drawable.tile_emptyhighlight;
                     break;
                 case 2:
-                    background = R.drawable.tile_emptyhighlight;
+                    background = R.drawable.tile_highlight;
                     break;
             }
         } else {
