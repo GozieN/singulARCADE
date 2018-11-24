@@ -90,4 +90,19 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="17dp"
         android:text="Google Play Store" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="593dp"
+        android:layout_marginEnd="288dp"
+        android:layout_marginBottom="18dp"
+        android:text="Sign Out" />
+
 </RelativeLayout>

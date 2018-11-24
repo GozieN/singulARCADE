@@ -88,7 +88,7 @@ public class StartingActivity extends AppCompatActivity {
     private void switchToGame() {
         Intent tmp = new Intent(this, PlaySlidingTilesActivity.class);
         loadFromFile(LoginActivity.SAVE_FILENAME);
-        if (GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size() == 0) {
+        if (GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).isEmpty()) {
             makeToastNoGameToLoadText();
         }
         else {startActivity(tmp);}
