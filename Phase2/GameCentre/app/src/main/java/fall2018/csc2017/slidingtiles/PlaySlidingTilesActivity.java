@@ -16,7 +16,6 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -30,7 +29,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     /**
      * The board manager.
      */
-    private BoardManager boardManager;
+    private SlidingTilesManager slidingTilesManager;
 
     private UserManager userManager;
 
@@ -56,7 +55,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     public void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-        if (boardManager.isOver()) {
+        if (slidingTilesManager.isOver()) {
             endOfGame();
             switchToScoreBoard();
         }
@@ -73,17 +72,17 @@ public class GameActivity extends AppCompatActivity implements Observer {
         addSaveButtonListener();
 
         // Add View to activity
-        if (boardManager instanceof BoardManager) {
+        if (slidingTilesManager instanceof SlidingTilesManager) {
             gridView = findViewById(R.id.grid);
-            //BoardManager boardManager = (BoardManager) boardManager;
+            //SlidingTilesManager slidingTilesManager = (SlidingTilesManager) slidingTilesManager;
         }
-//        if (boardManager instanceof PegSolitaireManager) {
-//            //PegSolitaireManager boardManager = (PegSolitaireManager) boardManager;
+//        if (slidingTilesManager instanceof PegSolitaireManager) {
+//            //PegSolitaireManager slidingTilesManager = (PegSolitaireManager) slidingTilesManager;
 //            gridView = findViewById(R.id.squareGrid);
 //        }
         gridView.setNumColumns(Board.NUM_COLS);
-        gridView.setBoardManager(boardManager);
-        boardManager.getBoard().addObserver(this);
+        gridView.setSlidingTilesManager(slidingTilesManager);
+        slidingTilesManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -109,7 +108,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        Board board = boardManager.getBoard();
+        Board board = slidingTilesManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != Board.NUM_ROWS; row++) {
             for (int col = 0; col != Board.NUM_COLS; col++) {
@@ -124,7 +123,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = boardManager.getBoard();
+        Board board = slidingTilesManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / Board.NUM_ROWS;
@@ -161,8 +160,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 ArrayList arrayList = (ArrayList) input.readObject();
                 userManager = (UserManager) arrayList.get(0);
-                BoardManager.gameScoreBoard = (ScoreBoard) arrayList.get(1);
-                boardManager = (BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME);
+                SlidingTilesManager.gameScoreBoard = (ScoreBoard) arrayList.get(1);
+                slidingTilesManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
 //                userManager = (UserManager) input.readObject();
                 inputStream.close();
             }
@@ -184,7 +183,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
         ArrayList arrayList= new ArrayList();
         arrayList.add(userManager);
-        arrayList.add(BoardManager.gameScoreBoard);
+        arrayList.add(SlidingTilesManager.gameScoreBoard);
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
@@ -204,14 +203,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
             @Override
             public void onClick(View v) {
                 if (numberOfUndos < SlidingTilesSetUpActivity.undoLimit) {
-                    Stack totalStates = GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME);
+                    Stack totalStates = GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME);
                     if(totalStates.size() != 0) {
-                        List state = GameLauncher.getCurrentUser().getState(BoardManager.GAME_NAME);
+                        List state = GameLauncher.getCurrentUser().getState(SlidingTilesManager.GAME_NAME);
                         int row1 = (Integer) state.get(2);
                         int col1 = (Integer) state.get(3);
                         int row2 = (Integer) state.get(0);
                         int col2 = (Integer) state.get(1);
-                        boardManager.getBoard().swapTiles(row1, col1, row2, col2);
+                        slidingTilesManager.getBoard().swapTiles(row1, col1, row2, col2);
                         numberOfUndos++;
                     } else {
                         makeToastNoUndoText();
@@ -228,9 +227,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * At the end of the game, do these actions: get the score, and send score to game score board and user score board.
      */
     private void endOfGame() {
-        Integer score = boardManager.getScore();
-        BoardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
-        GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(BoardManager.GAME_NAME, score);
+        Integer score = slidingTilesManager.getScore();
+        SlidingTilesManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
+        GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, score);
         //TODO: here maybe save the new stuff?? aka make sure updated score of user is put in and update on overall scoreboard for game
         saveToFile(LoginActivity.SAVE_FILENAME); //this will save the user w the new score... but need to fix it for other scoreboards
     }
@@ -266,7 +265,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     private void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
-        tmp.putExtra("scores", BoardManager.gameScoreBoard.toString());
+        tmp.putExtra("scores", SlidingTilesManager.gameScoreBoard.toString());
         startActivity(tmp);
     }
 

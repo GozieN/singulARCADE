@@ -18,10 +18,16 @@
     <string name="mona_lisa_string_choose_a_background_image">mona lisa @string/choose_a_background_image</string>
     <string name="stitch_image">stitch image</string>
 
-    <string-array name="board_array">
+    <string-array name="slidingTilesboard_array">
         <item>3 x 3 Board</item>
         <item>4 x 4 Board</item>
         <item>5 x 5 Board</item>
+    </string-array>
+
+    <string-array name="pegSolitaireBoard_array">
+        <item>Square</item>
+        <item>Cross</item>
+        <item>Diamond</item>
     </string-array>
 
     <string-array name="undo_array">

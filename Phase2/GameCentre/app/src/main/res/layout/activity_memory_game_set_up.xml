@@ -36,7 +36,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="2dp"
         android:layout_marginTop="234dp"
-        android:text="Choose the size of the board."
+        android:text="Choose the size of the slidingTilesBoard."
         android:textSize="18sp" />
 
     <Button

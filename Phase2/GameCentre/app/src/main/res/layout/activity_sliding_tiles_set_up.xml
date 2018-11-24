@@ -17,13 +17,14 @@
 
     <TextView
         android:id="@+id/SetupText"
-        android:layout_width="211dp"
-        android:layout_height="52dp"
+        android:layout_width="220dp"
+        android:layout_height="92dp"
         android:layout_alignStart="@+id/ChooseUndoSpinner"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="60dp"
-        android:text="Game Setup"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="61dp"
+        android:gravity="center"
+        android:text="Peg Solitaire Game Setup"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -36,7 +37,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="1dp"
         android:layout_marginTop="173dp"
-        android:text="Choose the size of the board."
+        android:text="Choose the shape of the slidingTilesBoard."
         android:textSize="18sp" />
 
     <TextView
