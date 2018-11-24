@@ -154,6 +154,16 @@ public class PegSolitaireBoard extends Observable implements Serializable {
         // row1, col1 refers to the "full" tile, row2, col2 refers to the "empty" tile
     }
 
+    /**
+     * Highlights the tile at row, col to denote it as an available move to the user
+     *
+     * @param row
+     * @param col
+     */
+    void highlightTile(int row, int col) {
+
+    }
+
     void update() {
         setChanged();
         notifyObservers();

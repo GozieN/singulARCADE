@@ -18,7 +18,7 @@ class BoardManager implements Serializable, Game {
      final static String GAME_NAME = "Sliding Tiles";
      private Board board;
 
-     ScoreBoard gameScoreBoard;
+     static ScoreBoard gameScoreBoard = new ScoreBoard();
     /**
      * Manage a board that has been pre-populated.
      *
@@ -26,13 +26,12 @@ class BoardManager implements Serializable, Game {
      */
     BoardManager(Board board) {
         this.board = board;
-        gameScoreBoard = new ScoreBoard();
     }
 
     /**
      * Return the current board.
      */
-    Board getBoard() {
+    public Board getBoard() {
         return board;
     }
     /**
@@ -58,8 +57,24 @@ class BoardManager implements Serializable, Game {
 
         Collections.shuffle(tiles);
         this.board = new Board(tiles);
-        gameScoreBoard = new ScoreBoard();
     }
+
+
+    /**
+     * Return the tiles of the current board.
+     * @return the tiles of the current board.
+     */
+    ArrayList<Object> getTilesInArrayList() {
+        Iterator<Tile> boardIterator = board.iterator();
+        ArrayList arrayList = new ArrayList();
+        while (boardIterator.hasNext()) {
+            Tile currentTile = boardIterator.next();
+            if (currentTile.getId() != board.numTiles() )
+            arrayList.add(currentTile.getId());
+        }
+        return arrayList;
+    }
+
     /**
      * Return whether the tiles are in row-major order.
      *
@@ -79,6 +94,26 @@ class BoardManager implements Serializable, Game {
 
         return solved;
     }
+
+    /**
+     * Return the row of the board that the blank tile is currently in.
+     * @return the row of the board that the blank tile is currently in.
+     */
+    public int positionBlankTile() {
+        int blankId = board.numTiles();
+        Iterator<Tile> boardIterator = board.iterator();
+        int i = 0;
+        while (boardIterator.hasNext()) {
+            Tile currentTile = boardIterator.next();
+            if (currentTile.getId() == blankId) {
+                int returning = i/Board.NUM_COLS + 1;
+                return returning;
+            }
+            i++;
+        }
+        return Board.NUM_COLS;
+    }
+
 
     /**
      * Return whether any of the four surrounding tiles is the blank tile.

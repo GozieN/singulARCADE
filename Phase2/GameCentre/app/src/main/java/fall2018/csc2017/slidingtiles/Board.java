@@ -56,6 +56,11 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         this.tiles = tiles;
     }
 
+    /**
+     * Return all the tiles for the board
+     * @return all the tiles for the board
+     */
+    Tile[][] getTiles() {return tiles;}
 
 
     /**
@@ -110,6 +115,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         setChanged();
         notifyObservers();
     }
+
 
 
     @Override
