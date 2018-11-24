@@ -43,6 +43,16 @@ public class GameCentreActivity extends AppCompatActivity {
                 startActivity(startIntent);
             }
         });
+
+        //Activate Memory puzzle Button.
+        Button Memorypuzzle = findViewById(R.id.Memorypuzzle);
+        Memorypuzzle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startIntent = new Intent(getApplicationContext(), MemoryGameSetUpActivity.class);
+                startActivity(startIntent);
+            }
+        });
     }
 
 

@@ -34,8 +34,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     private UserManager userManager;
 
-    private ScoreBoard scoreBoard;
-
     /**
      * The buttons to display.
      */
@@ -67,11 +65,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        loadFromFile(StartingActivity.TEMP_SAVE_FILENAME); //loaduser
         loadFromFile(LoginActivity.SAVE_FILENAME);
-
-//        BoardManager bManager = new BoardManager(makeBoard());
-//        boardManager = bManager;
 
         createTileButtons(this);
         setContentView(R.layout.activity_main);
@@ -79,7 +73,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
         addSaveButtonListener();
 
         // Add View to activity
-        gridView = findViewById(R.id.grid);
+        if (boardManager instanceof BoardManager) {
+            gridView = findViewById(R.id.grid);
+            //BoardManager boardManager = (BoardManager) boardManager;
+        }
+//        if (boardManager instanceof PegSolitaireManager) {
+//            //PegSolitaireManager boardManager = (PegSolitaireManager) boardManager;
+//            gridView = findViewById(R.id.squareGrid);
+//        }
         gridView.setNumColumns(Board.NUM_COLS);
         gridView.setBoardManager(boardManager);
         boardManager.getBoard().addObserver(this);
@@ -101,30 +102,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
                 });
     }
 
-//    /**
-//     * Return a Board.
-//     * @return a Board
-//     */
-//    private Board makeBoard () {
-//        Board board;
-//
-//        int size = getIntent().getIntExtra("size", 4);
-//        Board.setDimensions(size);
-//
-//        List<Tile> tiles = new ArrayList<>();
-//        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
-//        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-//            if (tileNum == numTiles - 1) {
-//                tiles.add(new Tile(tileNum, tileNum));
-//            } else {
-//                tiles.add(new Tile(tileNum));
-//            }
-//        }
-//
-//        Collections.shuffle(tiles);
-//        board = new Board(tiles);
-//        return board;
-//    }
 
     /**
      * Create the buttons for displaying the tiles.
@@ -184,7 +161,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 ArrayList arrayList = (ArrayList) input.readObject();
                 userManager = (UserManager) arrayList.get(0);
-                scoreBoard = (ScoreBoard) arrayList.get(1);
+                BoardManager.gameScoreBoard = (ScoreBoard) arrayList.get(1);
                 boardManager = (BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME);
 //                userManager = (UserManager) input.readObject();
                 inputStream.close();
@@ -207,7 +184,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
         ArrayList arrayList= new ArrayList();
         arrayList.add(userManager);
-        arrayList.add(scoreBoard);
+        arrayList.add(BoardManager.gameScoreBoard);
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
@@ -252,8 +229,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     private void endOfGame() {
         Integer score = boardManager.getScore();
-        boardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
+        BoardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(BoardManager.GAME_NAME, score);
+        //TODO: here maybe save the new stuff?? aka make sure updated score of user is put in and update on overall scoreboard for game
+        saveToFile(LoginActivity.SAVE_FILENAME); //this will save the user w the new score... but need to fix it for other scoreboards
     }
 
     /**
@@ -287,7 +266,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     private void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
-        tmp.putExtra("scores", boardManager.gameScoreBoard.toString());
+        tmp.putExtra("scores", BoardManager.gameScoreBoard.toString());
         startActivity(tmp);
     }
 
