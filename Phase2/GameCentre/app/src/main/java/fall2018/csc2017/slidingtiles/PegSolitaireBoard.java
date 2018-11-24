@@ -29,23 +29,21 @@ public class PegSolitaireBoard extends Observable implements Serializable {
     /**
      * A new Peg Solitaire board in row-major order.
      */
-    PegSolitaireBoard() {
-        for (int row = 0; row != PegSolitaireBoard.NUM_ROWS; row++) {
-            for (int col = 0; col != PegSolitaireBoard.NUM_COLS; col++) {
-                this.tiles[row][col] = new PegSolitaireTile(2);
+    PegSolitaireBoard(List<PegSolitaireTile> tiles) {
+        Iterator<PegSolitaireTile> iter = tiles.iterator();
+
+        for (int row = 0; row != SlidingTilesBoard.NUM_ROWS; row++) {
+            for (int col = 0; col != SlidingTilesBoard.NUM_COLS; col++) {
+                this.tiles[row][col] = iter.next();
             }
         }
-                if (numPieces() == 36) {
-                    setUpSquareBoard();
-                } else if (numPieces() == 49) {
-                    setUpCrossBoard();
-                } else if (numPieces() == 81) {
-                    setUpDiamondBoard();
-                }
-    }
-
-    PegSolitaireBoard(PegSolitaireTile[][] tiles) {
-        this.tiles = tiles;
+        if (numPieces() == 36) {
+            setUpSquareBoard();
+        } else if (numPieces() == 49) {
+            setUpCrossBoard();
+        } else if (numPieces() == 81) {
+            setUpDiamondBoard();
+        }
     }
 
     /**
@@ -91,13 +89,13 @@ public class PegSolitaireBoard extends Observable implements Serializable {
     }
 
     private void fillUpDiamondRow(int row, int i, int j, PegSolitaireTile[] tileRow) {
-       for (int k = 0; k != tileRow.length; k++) {
-           if (k < i && k > j) {
-               this.tiles[row][k].setId(0, false);
-           } else if (row == 4 && k == 4) {
-               this.tiles[4][4].setId(1, false);
-           }
-       }
+        for (int k = 0; k != tileRow.length; k++) {
+            if (k < i || k > j) {
+                this.tiles[row][k].setId(0, false);
+            } else if (row == 4 && k == 4) {
+                this.tiles[4][4].setId(1, false);
+            }
+        }
     }
 
     int numPieces() {
@@ -111,6 +109,14 @@ public class PegSolitaireBoard extends Observable implements Serializable {
     static void setDimensions(int dimensions) {
         NUM_COLS = dimensions;
         NUM_ROWS = dimensions;
+    }
+
+    /** Returns the number of columns multiplied by the number of rows.
+     *
+     * @return the dimensions of the board.
+     */
+    public int getDimensions() {
+        return NUM_COLS*NUM_ROWS;
     }
 
     /**
@@ -161,7 +167,8 @@ public class PegSolitaireBoard extends Observable implements Serializable {
      * @param col
      */
     void highlightTile(int row, int col) {
-
+        PegSolitaireTile tile = getPegTile(row, col);
+        tile.setBackground(tile.getId(), true);
     }
 
     void update() {
@@ -170,7 +177,3 @@ public class PegSolitaireBoard extends Observable implements Serializable {
     }
 
 }
-
-
-
-

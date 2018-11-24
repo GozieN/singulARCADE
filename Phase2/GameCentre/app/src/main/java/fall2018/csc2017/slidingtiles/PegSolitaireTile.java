@@ -16,7 +16,7 @@ public class PegSolitaireTile implements Comparable<PegSolitaireTile>, Serializa
     /**
      * The unique id.
      */
-    private int id;
+    int id;
 
     /**
      * Return the background id.
@@ -37,35 +37,13 @@ public class PegSolitaireTile implements Comparable<PegSolitaireTile>, Serializa
     }
 
     /**
-     * A PegSolitaireTile with id and background. The background may not have a corresponding image.
-     *
-     * @param id         the id
-     * @param background the background
-     */
-    PegSolitaireTile(int id, int background) {
-        this.id = id;
-        this.background = background;
-    }
-
-    /**
      * A PegSolitaire tile with a background id; look up and set the id.
      *
      * @param backgroundId the background id of the tile
      */
     PegSolitaireTile(int backgroundId) {
-        switch (backgroundId) {
-            case 0:
-                background = R.drawable.tile_blank;
-                break;
-            case 1:
-                background = R.drawable.tile_1;
-                break;
-            case 2:
-                background = R.drawable.tile_2;
-                break;
-            default:
-                background = R.drawable.tile_blank;
-        }
+        this.id = backgroundId;
+        background = R.drawable.tile_full;
     }
     @Override
     public int compareTo(@NonNull PegSolitaireTile o) {
@@ -78,21 +56,28 @@ public class PegSolitaireTile implements Comparable<PegSolitaireTile>, Serializa
     }
 
     public void setBackground(int i, boolean highlight) {
-        switch (i) {
-            case 0:
-                background = R.drawable.tile_dead;
-                break;
-            case 1:
-                background = R.drawable.tile_empty;
-                break;
-            case 2:
-                background = R.drawable.tile_full;
-                break;
-            default:
+        if (highlight) {
+            switch (i) {
+                case 1:
+                    background = R.drawable.tile_highlight;
+                    break;
+                case 2:
+                    background = R.drawable.tile_emptyhighlight;
+                    break;
+            }
+        } else {
+            switch (i) {
+                case 0:
+                    background = R.drawable.tile_dead;
+                    break;
+                case 1:
+                    background = R.drawable.tile_empty;
+                    break;
+                case 2:
+                    background = R.drawable.tile_full;
+                    break;
+            }
         }
 
-        if (highlight) {
-            background = R.drawable.tile_highlight;
-        }
     }
 }

@@ -10,7 +10,7 @@ import java.util.Stack;
 public class PegSolitaireManager extends Observable implements Serializable, Game {
 
     /**
-     * The Reversi board being managed.
+     * The Peg Solitaire board being managed.
      */
     final static String GAME_NAME = "Peg Solitaire";
     private PegSolitaireBoard pegBoard;
@@ -21,7 +21,12 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
      * Manage a new starting board.
      */
     PegSolitaireManager() {
-        this.pegBoard = new PegSolitaireBoard();
+        List<PegSolitaireTile> tiles = new ArrayList<>();
+        final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
+        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
+            tiles.add(new PegSolitaireTile(2));
+        }
+        this.pegBoard = new PegSolitaireBoard(tiles);
         pegScoreBoard = new ScoreBoard();
     }
 
