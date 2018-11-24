@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
  */
 public class SlidingTilesBoard extends Board {
 
-    /**
+    /***
      * The number of rows.
      */
     static int NUM_ROWS;

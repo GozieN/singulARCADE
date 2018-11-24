@@ -12,7 +12,7 @@ import java.util.Stack;
  */
 class SlidingTilesManager implements Serializable, Game {
 
-    /**
+    /***
      * The board being managed.
      */
      final static String GAME_NAME = "Sliding Tiles";
