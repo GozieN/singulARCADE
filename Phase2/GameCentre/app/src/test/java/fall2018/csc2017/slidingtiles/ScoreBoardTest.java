@@ -2,9 +2,6 @@ package fall2018.csc2017.slidingtiles;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 /**
@@ -21,14 +18,23 @@ public class ScoreBoardTest {
      * Make a user.
      */
     private void setUpCorrect() {
+
         scoreBoard = new ScoreBoard();
+
     }
 
     @Test
     public void testTakeNewScore() {
         setUpCorrect();
+        //subject already exists in the scoreboard
         scoreBoard.takeNewScore(BoardManager.GAME_NAME, 100);
         assertEquals(1, scoreBoard.getTopScores().size());
+
+        //add a new score to the scoreboard that is higher than the previous one
+        scoreBoard.takeNewScore(BoardManager.GAME_NAME, 200);
+        assertEquals(1, scoreBoard.getTopScores().size());
+
+        //new subject in the scoreboard
         scoreBoard.takeNewScore("Testing", 200);
         assertEquals(2, scoreBoard.getTopScores().size());
     }
@@ -41,18 +47,19 @@ public class ScoreBoardTest {
         assertEquals(1, scoreBoard.getTopScores().size());
 
         //scoreboard is full
-        scoreBoard.replaceScore(BoardManager.GAME_NAME, 222);
-        scoreBoard.replaceScore(BoardManager.GAME_NAME, 223);
-        scoreBoard.replaceScore(BoardManager.GAME_NAME, 224);
-        scoreBoard.replaceScore(BoardManager.GAME_NAME, 225);
-        scoreBoard.replaceScore(BoardManager.GAME_NAME, 226);
-        scoreBoard.replaceScore(BoardManager.GAME_NAME, 227);
-        scoreBoard.replaceScore(BoardManager.GAME_NAME, 228);
-        scoreBoard.replaceScore(BoardManager.GAME_NAME, 229);
-        scoreBoard.replaceScore(BoardManager.GAME_NAME, 230);
-        assertEquals(1, scoreBoard.getTopScores().size());
-        scoreBoard.replaceScore(BoardManager.GAME_NAME, 275);
-        assertEquals(1, scoreBoard.getTopScores().size());
+        scoreBoard.replaceScore("NewGameName1", 222);
+        scoreBoard.replaceScore("NewGameName2", 223);
+        scoreBoard.replaceScore("NewGameName3", 224);
+        scoreBoard.replaceScore("NewGameName4", 225);
+        scoreBoard.replaceScore("NewGameName5", 226);
+        scoreBoard.replaceScore("NewGameName6", 227);
+        scoreBoard.replaceScore("NewGameName7", 228);
+        scoreBoard.replaceScore("NewGameName8", 229);
+        scoreBoard.replaceScore("NewGameName9", 230);
+        assertEquals(10, scoreBoard.getTopScores().size());
+
+        scoreBoard.replaceScore("NewGameName10", 300);
+        assertEquals(10, scoreBoard.getTopScores().size());
     }
 
     @Test

@@ -3,6 +3,7 @@ package fall2018.csc2017.slidingtiles;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * A Tile in a sliding tiles puzzle.
@@ -55,6 +56,13 @@ public class Tile implements Comparable<Tile>, Serializable {
      */
     Tile(int backgroundId) {
         id = backgroundId + 1;
+
+        ArrayList tileList = new ArrayList<>();
+        tileList.add(R.drawable.tile_1);
+
+
+
+
         // This looks so ugly.
         switch (backgroundId + 1) {
             case 1:

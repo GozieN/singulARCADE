@@ -124,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         try {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream == null) {
+                System.out.println("this means file was null");
                 saveToFile(fileName);
             }
             else {
@@ -147,10 +148,12 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void saveToFile(String fileName) {
         try {
+            System.out.println("I am trying to save to file");
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
             outputStream.writeObject(userManager);
             outputStream.close();
+            System.out.println("I successfully saved to file");
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }

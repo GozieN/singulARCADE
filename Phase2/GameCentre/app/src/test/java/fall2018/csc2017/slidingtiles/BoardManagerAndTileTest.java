@@ -45,6 +45,7 @@ public class BoardManagerAndTileTest {
         boardManager = new BoardManager(board);
     }
 
+    //These tests are for BoardManager class
     /**
      * Shuffle a few tiles.
      */
@@ -110,6 +111,9 @@ public class BoardManagerAndTileTest {
         List<Tile> tiles = makeTiles();
         Board board = new Board(tiles);
         Board.setDimensions(3);
+        boardManager.setBoard(board);
+        assertEquals(board, boardManager.getBoard());
+        Board.setDimensions(5);
         boardManager.setBoard(board);
         assertEquals(board, boardManager.getBoard());
     }
@@ -198,9 +202,29 @@ public class BoardManagerAndTileTest {
         user.pushGameStates(BoardManager.GAME_NAME, arrayList);
         user.pushGameStates(BoardManager.GAME_NAME, arrayList);
         assertEquals(6667, boardManager.getScore());
-
-
     }
 
+    //These tests are for Tile class:
+    /**
+     * Test whether the constructor of Tiles class works
+     */
+    @Test
+    public void testSetUpTiles() {
+        Board.setDimensions(5);
+        List<Tile> tiles = makeTiles();
+        Board board = new Board(tiles);
+        assertEquals(25, board.numTiles());
+    }
+
+
+    /**
+     * Test whether compareTo works
+     */
+    @Test
+    public void testCompareTo() {
+        setUpCorrect();
+        Tile comparingTile = boardManager.getBoard().getTile(1,1);
+        assertEquals(5, boardManager.getBoard().getTile(0,0).compareTo(comparingTile));
+    }
 }
 
