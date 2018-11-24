@@ -30,8 +30,7 @@
         android:layout_width="106dp"
         android:layout_height="52dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:text="Save Game"
+        android:text="Save and Exit Game"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

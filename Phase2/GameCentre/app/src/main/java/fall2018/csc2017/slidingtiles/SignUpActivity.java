@@ -32,8 +32,6 @@ public class SignUpActivity extends AppCompatActivity {
      */
     private UserManager userManager;
 
-    private ScoreBoard scoreBoard;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,11 +121,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
             else {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                ArrayList arrayList = (ArrayList) input.readObject();
-                userManager = (UserManager) arrayList.get(0);
-                scoreBoard = (ScoreBoard) arrayList.get(1);
-
-//                userManager = (UserManager) input.readObject();
+                userManager = (UserManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -145,14 +139,10 @@ public class SignUpActivity extends AppCompatActivity {
      * @param fileName the name of the file
      */
     public void saveToFile(String fileName) {
-
-        ArrayList arrayList= new ArrayList();
-        arrayList.add(userManager);
-        arrayList.add(scoreBoard);
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(arrayList);
+            outputStream.writeObject(userManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
