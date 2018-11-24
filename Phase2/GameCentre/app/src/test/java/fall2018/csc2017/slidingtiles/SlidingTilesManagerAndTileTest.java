@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class BoardManagerAndTileTest {
 
     /** The board manager for testing. */
-    BoardManager boardManager;
+    SlidingTilesManager boardManager;
 
     /**
      * Make a set of tiles that are in order.
@@ -41,8 +41,8 @@ public class BoardManagerAndTileTest {
     private void setUpCorrect() {
         Board.setDimensions(4);
         List<Tile> tiles = makeTiles();
-        Board board = new Board(tiles);
-        boardManager = new BoardManager(board);
+        SlidingTilesBoard board = new SlidingTilesBoard(tiles);
+        boardManager = new SlidingTilesManager(board);
     }
 
     //These tests are for BoardManager class
@@ -109,7 +109,7 @@ public class BoardManagerAndTileTest {
         setUpCorrect();
         Board.setDimensions(3);
         List<Tile> tiles = makeTiles();
-        Board board = new Board(tiles);
+        SlidingTilesBoard board = new SlidingTilesBoard(tiles);
         Board.setDimensions(3);
         boardManager.setBoard(board);
         assertEquals(board, boardManager.getBoard());
@@ -154,28 +154,28 @@ public class BoardManagerAndTileTest {
         setUpCorrect();
         User user = new User("Dianna", "Dianna");
         GameLauncher.setCurrentUser(user);
-        GameLauncher.getCurrentUser().setRecentManagerOfBoard(BoardManager.GAME_NAME, boardManager);
+        GameLauncher.getCurrentUser().setRecentManagerOfBoard(SlidingTilesManager.GAME_NAME, boardManager);
 
 
         //nothing should be switched at this point bc the position is too far away
-        ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).touchMove(1);
-        assertEquals(0, GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size());
+        ((SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME)).touchMove(1);
+        assertEquals(0, GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size());
 
         //switch with the tile above
-        ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).touchMove(11);
-        assertEquals(1, GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size());
+        ((SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME)).touchMove(11);
+        assertEquals(1, GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size());
 
         //switch with the tile below
-        ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).touchMove(15);
-        assertEquals(2, GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size());
+        ((SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME)).touchMove(15);
+        assertEquals(2, GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size());
 
         //switch with the tile to the left
-        ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).touchMove(14);
-        assertEquals(3, GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size());
+        ((SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME)).touchMove(14);
+        assertEquals(3, GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size());
 
         //switch with the tile to the right
-        ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).touchMove(15);
-        assertEquals(4, GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size());
+        ((SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME)).touchMove(15);
+        assertEquals(4, GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size());
 
     }
 
@@ -187,7 +187,7 @@ public class BoardManagerAndTileTest {
         setUpCorrect();
         User user = new User("Dianna", "Dianna");
         GameLauncher.setCurrentUser(user);
-        BoardManager boardManager = (BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME);
+        SlidingTilesManager boardManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
 
         //When no moves have been completed
         assertEquals(-1, boardManager.getScore());
@@ -198,9 +198,9 @@ public class BoardManagerAndTileTest {
         arrayList.add(1);
         arrayList.add(2);
         arrayList.add(3);
-        user.pushGameStates(BoardManager.GAME_NAME, arrayList);
-        user.pushGameStates(BoardManager.GAME_NAME, arrayList);
-        user.pushGameStates(BoardManager.GAME_NAME, arrayList);
+        user.pushGameStates(SlidingTilesManager.GAME_NAME, arrayList);
+        user.pushGameStates(SlidingTilesManager.GAME_NAME, arrayList);
+        user.pushGameStates(SlidingTilesManager.GAME_NAME, arrayList);
         assertEquals(6667, boardManager.getScore());
     }
 
@@ -212,7 +212,7 @@ public class BoardManagerAndTileTest {
     public void testSetUpTiles() {
         Board.setDimensions(5);
         List<Tile> tiles = makeTiles();
-        Board board = new Board(tiles);
+        SlidingTilesBoard board = new SlidingTilesBoard(tiles);
         assertEquals(25, board.numTiles());
     }
 

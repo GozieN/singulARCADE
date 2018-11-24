@@ -12,14 +12,14 @@ import static org.junit.Assert.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
- * Unit tests for the BoardManager class.
+ * Unit tests for the SlidingTilesManager class.
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 
 public class BoardTest {
 
     /** The board for testing. */
-    Board board;
+    SlidingTilesBoard board;
 
     /**
      * Make a set of tiles that are in order.
@@ -45,7 +45,7 @@ public class BoardTest {
     private void setUpCorrect() {
         Board.setDimensions(4);
         List<Tile> tiles = makeTiles();
-        board = new Board(tiles);
+        board = new SlidingTilesBoard(tiles);
     }
 
     /**
