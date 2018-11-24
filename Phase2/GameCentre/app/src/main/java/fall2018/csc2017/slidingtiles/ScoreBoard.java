@@ -28,12 +28,6 @@ public class ScoreBoard implements Serializable {
     final static private int TOP_NUM_SCORES = 10;
 
     /**
-     * Return the hashmap containing the specified scores
-     * @return the hashmap holding the specified scores
-     */
-    HashMap<String, Integer> getTopScores() {return topScores;}
-
-    /**
      *
      * @param subject: String of userid who achieved score
      * @param score: Integer score that user achieved playing game
@@ -54,24 +48,30 @@ public class ScoreBoard implements Serializable {
      * @param subject: String of userid who achieved score
      * @param score: Integer score that user achieved playing game
      */
-     void replaceScore(String subject, Integer score) {
-        if (topScores.size() < TOP_NUM_SCORES) { //IF SCOREBOARD NOT FULL, ADD SCORE
+    private boolean replaceScore(String subject, Integer score) {
+        boolean replaced = false;
+        if (topScores.size() < 5) { //IF SCOREBOARD NOT FULL, ADD SCORE
             topScores.put(subject, score);
+            replaced = true;
         } else {
             for (Entry<String, Integer> item : sortValueSet()) {
                 //COMPARE VALUES HERE, IF SCORE IS HIGHER THAN ONE OF THE SCOREBOARD SCORES, THEN REPLACE
                 if (item.getValue() < score) {
                     topScores.put(subject, score);
-                    removeSmallestScore();
+                    replaced = true;
                 }
             }
+            if (replaced) {
+                removeSmallestScore();
+            }
         }
+        return replaced;
     }
 
     /**
      * Removes the smallest entry in hashmap topScores when a higher one enters the ScoreBoard
      */
-     void removeSmallestScore() {
+    private void removeSmallestScore() {
         int length = 0;
         for (Entry<String, Integer> item : sortValueSet()) {
             length += 1;
@@ -89,7 +89,7 @@ public class ScoreBoard implements Serializable {
      * Adapted from: http://www.java67.com/2015/01/how-to-sort-hashmap-in-java-based-on.html
      *
      */
-     Set<Entry<String, Integer>> sortValueSet() {
+    private Set<Entry<String, Integer>> sortValueSet() {
         //Get a Set of Map Entries from topScores HashMap and put them into a List
         Set<Entry<String, Integer>> setOfScores = topScores.entrySet();
         List<Entry<String, Integer>> scores = new ArrayList<>(setOfScores);
