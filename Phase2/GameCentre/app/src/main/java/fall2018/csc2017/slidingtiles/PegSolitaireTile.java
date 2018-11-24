@@ -72,24 +72,27 @@ public class PegSolitaireTile implements Comparable<PegSolitaireTile>, Serializa
         return o.id - this.id;
     }
 
-    public void setId(int i) {
+    public void setId(int i, boolean highlight) {
         this.id = i;
-        setBackground(i);
+        setBackground(i, highlight);
     }
 
-    public void setBackground(int i) {
+    public void setBackground(int i, boolean highlight) {
         switch (i) {
             case 0:
-                background = R.drawable.tile_1;
+                background = R.drawable.tile_dead;
                 break;
             case 1:
-                background = R.drawable.tile_2;
+                background = R.drawable.tile_empty;
                 break;
             case 2:
-                background = R.drawable.tile_3;
+                background = R.drawable.tile_full;
                 break;
             default:
+        }
 
+        if (highlight) {
+            background = R.drawable.tile_highlight;
         }
     }
 }
