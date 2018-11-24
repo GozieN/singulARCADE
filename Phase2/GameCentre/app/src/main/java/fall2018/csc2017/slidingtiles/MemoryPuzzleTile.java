@@ -57,7 +57,6 @@ public class MemoryPuzzleTile implements Comparable<MemoryPuzzleTile>, Serializa
 
 
     //TODO: refactor this!!!!!!!!!!
-    
 
     @Override
     public int compareTo(@NonNull MemoryPuzzleTile o) {
