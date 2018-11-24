@@ -48,18 +48,24 @@ public class ScoreBoard implements Serializable {
      * @param subject: String of userid who achieved score
      * @param score: Integer score that user achieved playing game
      */
-    private void replaceScore(String subject, Integer score) {
-        if (topScores.size() < TOP_NUM_SCORES) { //IF SCOREBOARD NOT FULL, ADD SCORE
+    private boolean replaceScore(String subject, Integer score) {
+        boolean replaced = false;
+        if (topScores.size() < 5) { //IF SCOREBOARD NOT FULL, ADD SCORE
             topScores.put(subject, score);
+            replaced = true;
         } else {
             for (Entry<String, Integer> item : sortValueSet()) {
                 //COMPARE VALUES HERE, IF SCORE IS HIGHER THAN ONE OF THE SCOREBOARD SCORES, THEN REPLACE
                 if (item.getValue() < score) {
                     topScores.put(subject, score);
-                    removeSmallestScore();
+                    replaced = true;
                 }
             }
+            if (replaced) {
+                removeSmallestScore();
+            }
         }
+        return replaced;
     }
 
     /**
