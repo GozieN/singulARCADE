@@ -46,9 +46,9 @@ public class User implements Serializable{
         this.username = username;
         this.password = password;
         this.gameStates = new HashMap<>();
-        gameStates.put(BoardManager.GAME_NAME, new Stack<List>());
+        gameStates.put(SlidingTilesManager.GAME_NAME, new Stack<List>());
         this.recentManagerOfBoard = new HashMap<>();
-        recentManagerOfBoard.put(BoardManager.GAME_NAME, new BoardManager());
+        recentManagerOfBoard.put(SlidingTilesManager.GAME_NAME, new SlidingTilesManager());
         this.userScoreBoard = new ScoreBoard();
     }
 

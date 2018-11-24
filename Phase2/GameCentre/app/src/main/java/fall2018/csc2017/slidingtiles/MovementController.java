@@ -36,8 +36,8 @@ class MovementController {
             }
         }
 
-        if (boardManager instanceof BoardManager){
-            BoardManager thisBoard = (BoardManager) boardManager;
+        if (boardManager instanceof SlidingTilesManager){
+            SlidingTilesManager thisBoard = (SlidingTilesManager) boardManager;
             if (thisBoard.isValidTap(position)) {
                 thisBoard.touchMove(position);
                 if (thisBoard.isOver()) {

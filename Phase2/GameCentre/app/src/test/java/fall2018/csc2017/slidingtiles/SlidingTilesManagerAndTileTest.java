@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  * Unit tests for the BoardManager class.
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class BoardManagerAndTileTest {
+public class SlidingTilesManagerAndTileTest {
 
     /** The board manager for testing. */
     SlidingTilesManager boardManager;
@@ -23,7 +23,7 @@ public class BoardManagerAndTileTest {
      */
     private List<Tile> makeTiles() {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
                 tiles.add(new Tile(tileNum, tileNum));
@@ -39,7 +39,7 @@ public class BoardManagerAndTileTest {
      * Make a solved Board.
      */
     private void setUpCorrect() {
-        Board.setDimensions(4);
+        SlidingTilesBoard.setDimensions(4);
         List<Tile> tiles = makeTiles();
         SlidingTilesBoard board = new SlidingTilesBoard(tiles);
         boardManager = new SlidingTilesManager(board);
@@ -210,7 +210,7 @@ public class BoardManagerAndTileTest {
      */
     @Test
     public void testSetUpTiles() {
-        Board.setDimensions(5);
+        SlidingTilesBoard.setDimensions(5);
         List<Tile> tiles = makeTiles();
         SlidingTilesBoard board = new SlidingTilesBoard(tiles);
         assertEquals(25, board.numTiles());

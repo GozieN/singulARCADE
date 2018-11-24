@@ -27,7 +27,7 @@ public class UserAndGameLauncherTest {
      */
     private List<Tile> makeTiles() {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
                 tiles.add(new Tile(tileNum, tileNum));
@@ -45,7 +45,7 @@ public class UserAndGameLauncherTest {
     private void setUpCorrect() {
         user = new User("TestingUsername", "TestingPassword");
         GameLauncher.setCurrentUser(user);
-        Board.setDimensions(4);
+        SlidingTilesBoard.setDimensions(4);
         List<Tile> tiles = makeTiles();
         board = new SlidingTilesBoard(tiles);
         user.setRecentManagerOfBoard(SlidingTilesManager.GAME_NAME, new SlidingTilesManager(board));
@@ -150,7 +150,7 @@ public class UserAndGameLauncherTest {
         assertEquals(null, GameLauncher.getCurrentUser().getRecentManagerOfBoard("NonExistentBoard"));
 
         //Now create a manager that previously did not exist
-        Board.setDimensions(5);
+        SlidingTilesBoard.setDimensions(5);
         List<Tile> tiles = makeTiles();
         board = new SlidingTilesBoard(tiles);
         GameLauncher.getCurrentUser().setRecentManagerOfBoard("NonExistentBoard", board);

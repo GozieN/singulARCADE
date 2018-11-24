@@ -21,11 +21,6 @@ import java.util.ArrayList;
 public class StartingActivity extends AppCompatActivity {
 
     /**
-     * The board manager.
-     */
-    private BoardManager boardManager;
-
-    /**
      * The user manager.
      */
     private UserManager userManager;
@@ -91,9 +86,9 @@ public class StartingActivity extends AppCompatActivity {
      * Switch to the GameActivity view to play the game.
      */
     private void switchToGame() {
-        Intent tmp = new Intent(this, GameActivity.class);
+        Intent tmp = new Intent(this, PlaySlidingTilesActivity.class);
         loadFromFile(LoginActivity.SAVE_FILENAME);
-        if (GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size() == 0) {
+        if (GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size() == 0) {
             makeToastNoGameToLoadText();
         }
         else {startActivity(tmp);}
@@ -122,7 +117,6 @@ public class StartingActivity extends AppCompatActivity {
             else {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 userManager = (UserManager) input.readObject();
-                boardManager = (BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME);
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {

@@ -56,12 +56,12 @@ public class ScoreBoard implements Serializable {
      */
      boolean replaceScore(String subject, Integer score) {
         boolean replaced = false;
-        if (topScores.size() < TOP_NUM_SCORES) { //IF SCOREBOARD NOT FULL, ADD SCORE
+        if (topScores.size() < TOP_NUM_SCORES) { //If scoreboard is not full, add score
             topScores.put(subject, score);
             replaced = true;
         } else {
             for (Entry<String, Integer> item : sortValueSet()) {
-                //COMPARE VALUES HERE, IF SCORE IS HIGHER THAN ONE OF THE SCOREBOARD SCORES, THEN REPLACE
+                //Compare values here- if score is higher than one of the scoreboard scores, the replace
                 if (item.getValue() < score) {
                     topScores.put(subject, score);
                     replaced = true;
@@ -111,7 +111,7 @@ public class ScoreBoard implements Serializable {
                 } else {
                     Integer i1 = o1.getValue();
                     Integer i2 = o2.getValue();
-                    return -(i1.compareTo(i2)); //ITEMS IN DESCENDING ORDER
+                    return -(i1.compareTo(i2)); //Items in descending order
                 }
             }
         };

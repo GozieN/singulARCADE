@@ -35,7 +35,7 @@ public class GameCentreActivity extends AppCompatActivity {
 
 
          //Activate Sliding Tile Button.
-        Button SlidingTilesBtn = findViewById(R.id.SlidingTiles);
+        Button SlidingTilesBtn = findViewById(R.id.slidingTiles);
         SlidingTilesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +45,7 @@ public class GameCentreActivity extends AppCompatActivity {
         });
 
         //Activate Memory puzzle Button.
-        Button Memorypuzzle = findViewById(R.id.Memorypuzzle);
+        Button Memorypuzzle = findViewById(R.id.memoryPuzzle);
         Memorypuzzle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

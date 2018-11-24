@@ -24,13 +24,16 @@ import java.util.Stack;
 /**
  * The game activity.
  */
-public class GameActivity extends AppCompatActivity implements Observer {
+public class PlaySlidingTilesActivity extends AppCompatActivity implements Observer {
 
     /**
      * The board manager.
      */
     private SlidingTilesManager slidingTilesManager;
 
+    /**
+     * The user manager.
+     */
     private UserManager userManager;
 
     /**
@@ -80,7 +83,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 //            //PegSolitaireManager slidingTilesManager = (PegSolitaireManager) slidingTilesManager;
 //            gridView = findViewById(R.id.squareGrid);
 //        }
-        gridView.setNumColumns(Board.NUM_COLS);
+        gridView.setNumColumns(SlidingTilesBoard.NUM_COLS);
         gridView.setSlidingTilesManager(slidingTilesManager);
         slidingTilesManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
@@ -93,8 +96,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / Board.NUM_COLS;
-                        columnHeight = displayHeight / Board.NUM_ROWS;
+                        columnWidth = displayWidth / SlidingTilesBoard.NUM_COLS;
+                        columnHeight = displayHeight / SlidingTilesBoard.NUM_ROWS;
 
                         display();
                     }
@@ -108,10 +111,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        Board board = slidingTilesManager.getBoard();
+        SlidingTilesBoard board = slidingTilesManager.getBoard();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
+        for (int row = 0; row != SlidingTilesBoard.NUM_ROWS; row++) {
+            for (int col = 0; col != SlidingTilesBoard.NUM_COLS; col++) {
                 Button tmp = new Button(context);
                 tmp.setBackgroundResource(board.getTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
@@ -123,11 +126,11 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = slidingTilesManager.getBoard();
+        SlidingTilesBoard board = slidingTilesManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
-            int row = nextPos / Board.NUM_ROWS;
-            int col = nextPos % Board.NUM_COLS;
+            int row = nextPos / SlidingTilesBoard.NUM_ROWS;
+            int col = nextPos % SlidingTilesBoard.NUM_COLS;
             b.setBackgroundResource(board.getTile(row, col).getBackground());
             nextPos++;
         }
@@ -140,7 +143,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onPause() {
         super.onPause();
-//        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
         saveToFile(LoginActivity.SAVE_FILENAME);
     }
 
@@ -149,7 +151,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      *
      * @param fileName the name of the file
      */
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);
@@ -158,11 +160,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
             }
             else {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                ArrayList arrayList = (ArrayList) input.readObject();
-                userManager = (UserManager) arrayList.get(0);
-                SlidingTilesManager.gameScoreBoard = (ScoreBoard) arrayList.get(1);
+                userManager = (UserManager) input.readObject();
                 slidingTilesManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
-//                userManager = (UserManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -180,14 +179,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @param fileName the name of the file
      */
     public void saveToFile(String fileName) {
-
-        ArrayList arrayList= new ArrayList();
-        arrayList.add(userManager);
-        arrayList.add(SlidingTilesManager.gameScoreBoard);
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(arrayList);
+            outputStream.writeObject(userManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
@@ -230,20 +225,30 @@ public class GameActivity extends AppCompatActivity implements Observer {
         Integer score = slidingTilesManager.getScore();
         SlidingTilesManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, score);
-        //TODO: here maybe save the new stuff?? aka make sure updated score of user is put in and update on overall scoreboard for game
-        saveToFile(LoginActivity.SAVE_FILENAME); //this will save the user w the new score... but need to fix it for other scoreboards
+        saveToFile(LoginActivity.SAVE_FILENAME);
     }
 
     /**
-     * Motify user when undo limit is reached.
+     * Notify user when undo limit is reached.
      */
     private void makeToastUndoLimitText() {
         Toast.makeText(this, "Undo Limit Reached", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Notify user when they have made no moves, so are not allowed to undo
+     */
     private void makeToastNoUndoText() {
         Toast.makeText(this, "Undo Not Possible", Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * Notify user when they have made no moves, so are not allowed to undo
+     */
+    private void makeToastNoSaveAndQuit() {
+        Toast.makeText(this, "Must make a move before saving", Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * Activate the save button.
      */
@@ -252,8 +257,12 @@ public class GameActivity extends AppCompatActivity implements Observer {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeToastSavedText();
-                switchToGameCentre();
+                if (GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size() > 0) {
+                    makeToastSavedText();
+                    switchToGameCentre();
+                }
+                else {makeToastNoSaveAndQuit();
+                }
             }
         });
     }

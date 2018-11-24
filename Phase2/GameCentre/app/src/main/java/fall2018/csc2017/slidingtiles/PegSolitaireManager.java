@@ -138,7 +138,7 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
      */
     public int getScore() {
         Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates("Peg Solitaire");
-        double tempScore = Math.pow((stackOfMoves.size() + 2*GameActivity.numberOfUndos), -1);
+        double tempScore = Math.pow((stackOfMoves.size() + 2*PlaySlidingTilesActivity.numberOfUndos), -1);
         //if 6, multiply by 10000
         if (Board.NUM_ROWS == 6) {
             return (int) Math.round(tempScore * 10000);

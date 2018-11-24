@@ -16,7 +16,7 @@ class SlidingTilesManager implements Serializable, Game {
      * The board being managed.
      */
      final static String GAME_NAME = "Sliding Tiles";
-     private Board board;
+     private SlidingTilesBoard board;
 
      static ScoreBoard gameScoreBoard = new ScoreBoard();
     /**
@@ -24,20 +24,20 @@ class SlidingTilesManager implements Serializable, Game {
      *
      * @param board the board
      */
-    SlidingTilesManager(Board board) {
+    SlidingTilesManager(SlidingTilesBoard board) {
         this.board = board;
     }
 
     /**
      * Return the current board.
      */
-    public Board getBoard() {
+    public SlidingTilesBoard getBoard() {
         return board;
     }
     /**
      * Set a new board.
      */
-    void setBoard(Board board) {
+    void setBoard(SlidingTilesBoard board) {
         this.board = board;
         board.update();
     }
@@ -46,7 +46,7 @@ class SlidingTilesManager implements Serializable, Game {
      */
     SlidingTilesManager() {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
                 tiles.add(new Tile(tileNum, tileNum));
@@ -106,12 +106,12 @@ class SlidingTilesManager implements Serializable, Game {
         while (boardIterator.hasNext()) {
             Tile currentTile = boardIterator.next();
             if (currentTile.getId() == blankId) {
-                int returning = i/Board.NUM_COLS + 1;
+                int returning = i/SlidingTilesBoard.NUM_COLS + 1;
                 return returning;
             }
             i++;
         }
-        return Board.NUM_COLS;
+        return SlidingTilesBoard.NUM_COLS;
     }
 
 
@@ -123,14 +123,14 @@ class SlidingTilesManager implements Serializable, Game {
      */
     public boolean isValidTap(int position) {
 
-        int row = position / Board.NUM_COLS;
-        int col = position % Board.NUM_COLS;
+        int row = position / SlidingTilesBoard.NUM_COLS;
+        int col = position % SlidingTilesBoard.NUM_COLS;
         int blankId = board.numTiles();
         // Are any of the 4 the blank tile?
         Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == Board.NUM_ROWS - 1 ? null : board.getTile(row + 1, col);
+        Tile below = row == SlidingTilesBoard.NUM_ROWS - 1 ? null : board.getTile(row + 1, col);
         Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == Board.NUM_COLS - 1 ? null : board.getTile(row, col + 1);
+        Tile right = col == SlidingTilesBoard.NUM_COLS - 1 ? null : board.getTile(row, col + 1);
         return (below != null && below.getId() == blankId)
                 || (above != null && above.getId() == blankId)
                 || (left != null && left.getId() == blankId)
@@ -144,16 +144,16 @@ class SlidingTilesManager implements Serializable, Game {
      */
     public void touchMove(int position) {
 
-        int row = position / Board.NUM_ROWS;
-        int col = position % Board.NUM_COLS;
+        int row = position / SlidingTilesBoard.NUM_ROWS;
+        int col = position % SlidingTilesBoard.NUM_COLS;
         int blankId = board.numTiles();
 
         if (this.isValidTap(position)) {
 
             Tile above = row == 0 ? null : board.getTile(row - 1, col);
-            Tile below = row == Board.NUM_ROWS - 1 ? null : board.getTile(row + 1, col);
+            Tile below = row == SlidingTilesBoard.NUM_ROWS - 1 ? null : board.getTile(row + 1, col);
             Tile left = col == 0 ? null : board.getTile(row, col - 1);
-            Tile right = col == Board.NUM_COLS - 1 ? null : board.getTile(row, col + 1);
+            Tile right = col == SlidingTilesBoard.NUM_COLS - 1 ? null : board.getTile(row, col + 1);
 
             if (above != null && above.getId() == blankId) {
                 GameLauncher.getCurrentUser().pushGameStates(GAME_NAME, board.swapTiles(row, col, row - 1, col));
@@ -177,11 +177,11 @@ class SlidingTilesManager implements Serializable, Game {
         Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates("Sliding Tiles");
         double tempScore = Math.pow((stackOfMoves.size() + 2*PlaySlidingTilesActivity.numberOfUndos), -1);
         //if 3, multiply by 10000
-        if (Board.NUM_ROWS == 3) {
+        if (SlidingTilesBoard.NUM_ROWS == 3) {
             return (int) Math.round(tempScore * 10000);
         }
         //if 4, multiply by 20000
-        else if (Board.NUM_ROWS == 4) {
+        else if (SlidingTilesBoard.NUM_ROWS == 4) {
             return (int) Math.round(tempScore * 20000);
         }
         //if 5, multiply by 30000
