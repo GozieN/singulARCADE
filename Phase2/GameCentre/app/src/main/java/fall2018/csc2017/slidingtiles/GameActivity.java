@@ -32,6 +32,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     private BoardManager boardManager;
 
+    /**
+     * The user manager.
+     */
     private UserManager userManager;
 
     /**
@@ -141,7 +144,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onPause() {
         super.onPause();
-//        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
         saveToFile(LoginActivity.SAVE_FILENAME);
     }
 
@@ -159,11 +161,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
             }
             else {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                ArrayList arrayList = (ArrayList) input.readObject();
-                userManager = (UserManager) arrayList.get(0);
-                BoardManager.gameScoreBoard = (ScoreBoard) arrayList.get(1);
+                userManager = (UserManager) input.readObject();
                 boardManager = (BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME);
-//                userManager = (UserManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -181,14 +180,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @param fileName the name of the file
      */
     public void saveToFile(String fileName) {
-
-        ArrayList arrayList= new ArrayList();
-        arrayList.add(userManager);
-        arrayList.add(BoardManager.gameScoreBoard);
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(arrayList);
+            outputStream.writeObject(userManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
@@ -229,9 +224,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     private void endOfGame() {
         Integer score = boardManager.getScore();
+        System.out.println(boardManager.gameScoreBoard);
         BoardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(BoardManager.GAME_NAME, score);
-        //TODO: here maybe save the new stuff?? aka make sure updated score of user is put in and update on overall scoreboard for game
         saveToFile(LoginActivity.SAVE_FILENAME); //this will save the user w the new score... but need to fix it for other scoreboards
     }
 
@@ -245,6 +240,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private void makeToastNoUndoText() {
         Toast.makeText(this, "Undo Not Possible", Toast.LENGTH_SHORT).show();
     }
+
     /**
      * Activate the save button.
      */
@@ -253,11 +249,21 @@ public class GameActivity extends AppCompatActivity implements Observer {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeToastSavedText();
-                switchToGameCentre();
+                if (GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size() == 0) {
+                    makeToastNoGameToSaveText();
+                }
+                else {
+                    makeToastSavedText();
+                    switchToGameCentre();
+                }
             }
         });
     }
+
+    private void makeToastNoGameToSaveText() {
+        Toast.makeText(this, "Must make a move before saving game", Toast.LENGTH_SHORT).show();
+    }
+
 
     private void switchToGameCentre() {
         Intent tmp = new Intent(this, GameCentreActivity.class);

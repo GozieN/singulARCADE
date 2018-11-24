@@ -52,7 +52,7 @@ public class PegSolitaireBoard extends Observable implements Serializable {
      *
      */
     private void setUpSquareBoard() {
-        this.tiles[2][3].setId(1);
+        this.tiles[2][3].setId(1, false);
 
     }
 
@@ -63,9 +63,9 @@ public class PegSolitaireBoard extends Observable implements Serializable {
         for (int row = 0; row != this.tiles.length; row++) {
             for (int col = 0; col != this.tiles[0].length; col++) {
                 if ((col < 2 || col > 4) & (row < 2 || row > 4)) {
-                    this.tiles[row][col].setId(0);
+                    this.tiles[row][col].setId(0, false);
                 } else if (row == 3 && col == 3) {
-                    this.tiles[row][col].setId(1);
+                    this.tiles[row][col].setId(1, false);
                 }
             }
         }
@@ -93,9 +93,9 @@ public class PegSolitaireBoard extends Observable implements Serializable {
     private void fillUpDiamondRow(int row, int i, int j, PegSolitaireTile[] tileRow) {
        for (int k = 0; k != tileRow.length; k++) {
            if (k < i && k > j) {
-               this.tiles[row][k].setId(0);
+               this.tiles[row][k].setId(0, false);
            } else if (row == 4 && k == 4) {
-               this.tiles[4][4].setId(1);
+               this.tiles[4][4].setId(1, false);
            }
        }
     }
@@ -138,13 +138,13 @@ public class PegSolitaireBoard extends Observable implements Serializable {
         tiles[row2][col2] = temporaryTile;
 
         if (row2 - row1 == 2) {
-            tiles[row1 + 1][col1].setId(1);
+            tiles[row1 + 1][col1].setId(1, false);
         } else if (row1 - row2 == 2) {
-            tiles[row2 + 1][col1].setId(1);
+            tiles[row2 + 1][col1].setId(1, false);
         } else if (col2 - col1 == 2) {
-            tiles[row1][col1 + 1].setId(1);
+            tiles[row1][col1 + 1].setId(1, false);
         } else if (col1 - col2 == 2) {
-            tiles[row1][col2 + 1].setId(1);
+            tiles[row1][col2 + 1].setId(1, false);
         }
 
         // store new tile as well?

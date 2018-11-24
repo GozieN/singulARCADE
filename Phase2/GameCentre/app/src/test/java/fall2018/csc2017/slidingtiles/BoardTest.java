@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -134,5 +135,14 @@ public class BoardTest {
             i++;
         }
         assertEquals(16, boardIterator.next().getId());
+
+        //try to get a tile that is out of range- throw exception
+        try {
+            boardIterator.next();
+            fail("NoSuchElementException: No more tiles");
+        }
+        catch (NoSuchElementException e) {
+
+        }
     }
 }

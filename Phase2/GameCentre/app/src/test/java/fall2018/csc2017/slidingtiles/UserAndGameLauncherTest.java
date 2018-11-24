@@ -51,6 +51,7 @@ public class UserAndGameLauncherTest {
         user.setRecentManagerOfBoard(BoardManager.GAME_NAME, new BoardManager(board));
     }
 
+    //These tests are for User class
     /**
      * Test getUsername works
      */
@@ -75,11 +76,16 @@ public class UserAndGameLauncherTest {
     @Test
     public void testGetStackOfGameStates() {
         setUpCorrect();
+        //The stack exists but is empty
         ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).touchMove(1);
         assertEquals(0, GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size());
 
+        //The stack exists and there is one item present
         ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).touchMove(11);
         assertEquals(1, GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size());
+
+        //The stack does not exist
+        assertEquals(0, GameLauncher.getCurrentUser().getStackOfGameStates("NonExistentGame").size());
     }
 
     /**
@@ -88,6 +94,8 @@ public class UserAndGameLauncherTest {
     @Test
     public void testGetState() {
         setUpCorrect();
+
+        //The stack exists and there is a state present
         ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).touchMove(11);
         ArrayList arrayList = new ArrayList();
         arrayList.add(2);
@@ -95,6 +103,9 @@ public class UserAndGameLauncherTest {
         arrayList.add(3);
         arrayList.add(3);
         assertEquals(arrayList, GameLauncher.getCurrentUser().getState(BoardManager.GAME_NAME));
+
+        //The stack does not exist
+        assertEquals(null, GameLauncher.getCurrentUser().getState("NonExistentGame"));
     }
 
     /**
@@ -115,13 +126,17 @@ public class UserAndGameLauncherTest {
         //when one move has been completed
         GameLauncher.getCurrentUser().pushGameStates(BoardManager.GAME_NAME, arrayList);
         assertEquals(1, GameLauncher.getCurrentUser().getStackOfGameStates(BoardManager.GAME_NAME).size());
+
+        //when the board manager does not exist
+        GameLauncher.getCurrentUser().pushGameStates("NonExistentBoard", arrayList);
+        assertEquals(1, GameLauncher.getCurrentUser().getStackOfGameStates("NonExistentBoard").size());
     }
 
     /**
-     * Test getRecentManagerOfBoard works
+     * Test getRecentManagerOfBoard and setRecentManagerOfBoard works
      */
     @Test
-    public void testGetRecentManagerOfBoard() {
+    public void testGetAndSetRecentManagerOfBoard() {
         setUpCorrect();
         //original board is set to 4x4
         assertEquals(4, ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).getBoard().getDimensions());
@@ -130,8 +145,20 @@ public class UserAndGameLauncherTest {
         //board is now being set to 3x3
         newBoardManager.getBoard().setDimensions(3);
         assertEquals(3, ((BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME)).getBoard().getDimensions());
+
+        //The manager does not exist
+        assertEquals(null, GameLauncher.getCurrentUser().getRecentManagerOfBoard("NonExistentBoard"));
+
+        //Now create a manager that previously did not exist
+        Board.setDimensions(5);
+        List<Tile> tiles = makeTiles();
+        board = new Board(tiles);
+        GameLauncher.getCurrentUser().setRecentManagerOfBoard("NonExistentBoard", board);
+        assertEquals(board, GameLauncher.getCurrentUser().getRecentManagerOfBoard("NonExistentBoard"));
     }
 
+
+    //These tests are for GameLauncher class
     /**
      * Test getCurrentUser and setCurrentUser.
      */
