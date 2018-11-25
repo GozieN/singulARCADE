@@ -66,7 +66,7 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(MemoryGameBoard.NUM_COLS);
-        gridView.setMemoryBoardManager(memoryBoardManager);
+        gridView.setManager(memoryBoardManager);
         memoryBoardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
