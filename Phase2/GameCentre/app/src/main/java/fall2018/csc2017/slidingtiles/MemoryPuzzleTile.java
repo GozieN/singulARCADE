@@ -212,5 +212,21 @@ public class MemoryPuzzleTile implements Comparable<MemoryPuzzleTile>, Serializa
         }
         return -1;
     }
+
+    /**
+     * Return the topLayer id.
+     * @return the topLayer id
+     */
+    public int getTopLayer() {
+        return topLayer;
     }
+
+    /**
+     * Set the topLayer id.
+     * @param topLayer the topLayer id
+     */
+    public void setTopLayer(int topLayer) {
+        this.topLayer = topLayer;
+    }
+}
 
