@@ -18,6 +18,11 @@ public class MemoryPuzzleTile implements Comparable<MemoryPuzzleTile>, Serializa
     private int id;
 
     /**
+     * The id of the topLayer displayed on the top of the board.
+     */
+    private int topLayer;
+
+    /**
      * Return the background id.
      *
      * @return the background id
