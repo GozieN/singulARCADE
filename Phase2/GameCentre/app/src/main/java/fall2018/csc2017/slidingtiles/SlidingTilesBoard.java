@@ -23,15 +23,9 @@ public class SlidingTilesBoard extends Board {
     static int NUM_COLS;
 
     /**
-     * Return all the tiles for the board
-     * @return all the tiles for the board
-     */
-    Tile[][] getTiles() {return tiles;}
-
-    /**
      * The tiles on the board in row-major order.
      */
-    private Tile[][] tiles = new Tile[NUM_ROWS][NUM_COLS];
+    private SlidingTile[][] tiles = new SlidingTile[NUM_ROWS][NUM_COLS];
 
     /**
      * A new board of tiles in row-major order.
@@ -39,9 +33,8 @@ public class SlidingTilesBoard extends Board {
      *
      * @param tiles the tiles for the board
      */
-    SlidingTilesBoard(List<Tile> tiles) {
-        Iterator<Tile> iter = tiles.iterator();
-        System.out.println(SlidingTilesBoard.NUM_ROWS + SlidingTilesBoard.NUM_COLS);
+    SlidingTilesBoard(List<SlidingTile> tiles) {
+        Iterator<SlidingTile> iter = tiles.iterator();
         for (int row = 0; row != SlidingTilesBoard.NUM_ROWS; row++) {
             for (int col = 0; col != SlidingTilesBoard.NUM_COLS; col++) {
                 if (!iter.hasNext()) {
@@ -52,6 +45,12 @@ public class SlidingTilesBoard extends Board {
             }
         }
     }
+
+    /**
+     * Return all the tiles for the board
+     * @return all the tiles for the board
+     */
+    SlidingTile[][] getTiles() {return tiles;}
 
     /**
      * Return the number of tiles on the board.
@@ -69,7 +68,7 @@ public class SlidingTilesBoard extends Board {
      * @param col the tile column
      * @return the tile at (row, col)
      */
-    public Tile getTile(int row, int col) {
+    public SlidingTile getTile(int row, int col) {
         return tiles[row][col];
     }
 
@@ -94,7 +93,7 @@ public class SlidingTilesBoard extends Board {
      * @param col2 the second tile col
      */
     public List swapTiles(int row1, int col1, int row2, int col2) {
-        Tile temporaryTile = this.getTile(row1, col1);
+        SlidingTile temporaryTile = this.getTile(row1, col1);
         tiles[row1][col1] = tiles[row2][col2];
         tiles[row2][col2] = temporaryTile;
         update();

@@ -15,8 +15,8 @@ public class PegSolitaireBoardAndTileTest {
     PegSolitaireBoard pegSolitaireBoard;
 
     /**
-     * Make a set of tiles that are in order.
-     * @return a set of tiles that are in order
+     * Make a set of tiles.
+     * @return a set of tiles
      */
     private List<PegSolitaireTile> makeTiles() {
         List<PegSolitaireTile> tiles = new ArrayList<>();

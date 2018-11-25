@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  * Unit tests for the BoardManager class.
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class SlidingTilesManagerAndTileTest {
+public class SlidingTileManagerAndTileTest {
 
     /** The board manager for testing. */
     SlidingTilesManager boardManager;
@@ -21,14 +21,14 @@ public class SlidingTilesManagerAndTileTest {
      * Make a set of tiles that are in order.
      * @return a set of tiles that are in order
      */
-    private List<Tile> makeTiles() {
-        List<Tile> tiles = new ArrayList<>();
+    private List<SlidingTile> makeTiles() {
+        List<SlidingTile> tiles = new ArrayList<>();
         final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(tileNum, tileNum));
+                tiles.add(new SlidingTile(tileNum, tileNum));
             } else {
-                tiles.add(new Tile(tileNum));
+                tiles.add(new SlidingTile(tileNum));
             }
         }
 
@@ -40,7 +40,7 @@ public class SlidingTilesManagerAndTileTest {
      */
     private void setUpCorrect() {
         SlidingTilesBoard.setDimensions(4);
-        List<Tile> tiles = makeTiles();
+        List<SlidingTile> tiles = makeTiles();
         SlidingTilesBoard board = new SlidingTilesBoard(tiles);
         boardManager = new SlidingTilesManager(board);
     }
@@ -108,7 +108,7 @@ public class SlidingTilesManagerAndTileTest {
     public void testGetAndSetBoard() {
         setUpCorrect();
         SlidingTilesBoard.setDimensions(3);
-        List<Tile> tiles = makeTiles();
+        List<SlidingTile> tiles = makeTiles();
         SlidingTilesBoard board = new SlidingTilesBoard(tiles);
         SlidingTilesBoard.setDimensions(3);
         boardManager.setBoard(board);
@@ -211,7 +211,7 @@ public class SlidingTilesManagerAndTileTest {
     @Test
     public void testSetUpTiles() {
         SlidingTilesBoard.setDimensions(5);
-        List<Tile> tiles = makeTiles();
+        List<SlidingTile> tiles = makeTiles();
         SlidingTilesBoard board = new SlidingTilesBoard(tiles);
         assertEquals(25, board.numTiles());
     }
@@ -223,7 +223,7 @@ public class SlidingTilesManagerAndTileTest {
     @Test
     public void testCompareTo() {
         setUpCorrect();
-        Tile comparingTile = boardManager.getBoard().getTile(1,1);
+        SlidingTile comparingTile = boardManager.getBoard().getTile(1,1);
         assertEquals(5, boardManager.getBoard().getTile(0,0).compareTo(comparingTile));
     }
 
@@ -242,7 +242,7 @@ public class SlidingTilesManagerAndTileTest {
         assertFalse(boardManager.isSolvable());
 
         //solvable with an odd-sized board
-        List<Tile> tiles = makeTiles();
+        List<SlidingTile> tiles = makeTiles();
         SlidingTilesBoard board = new SlidingTilesBoard(tiles);
         SlidingTilesBoard.setDimensions(3);
         boardManager.setBoard(board);

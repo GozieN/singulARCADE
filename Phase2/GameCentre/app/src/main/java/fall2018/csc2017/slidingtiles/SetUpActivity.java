@@ -45,7 +45,6 @@ public class SetUpActivity extends AppCompatActivity {
     static int undoLimit;
 
     private UserManager userManager;
-    private ScoreBoard scoreBoard;
     private Game gameManager;
     private String game;
 
@@ -126,27 +125,6 @@ public class SetUpActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Return a Board.
-     * @return a Board
-     */
-    private SlidingTilesBoard makeBoard () {
-        SlidingTilesBoard board;
-        SlidingTilesBoard.setDimensions(shape);
-
-        List<Tile> tiles = new ArrayList<>();
-        final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(tileNum, tileNum));
-            } else {
-                tiles.add(new Tile(tileNum));
-            }
-        }
-        Collections.shuffle(tiles);
-        board = new SlidingTilesBoard(tiles);
-        return board;
-    }
 
     /**
      * Switch to game screen.
@@ -155,9 +133,10 @@ public class SetUpActivity extends AppCompatActivity {
         Intent tmp;
         if (game.equals("SLIDING TILES")) {
             tmp = new Intent(this, PlaySlidingTilesActivity.class);
-            SlidingTilesManager slidingTilesManager = new SlidingTilesManager(makeBoard());
-            while (! isSolvable(slidingTilesManager)) {
-                slidingTilesManager = new SlidingTilesManager(makeBoard());
+            SlidingTilesBoard.setDimensions(shape);
+            gameManager = new SlidingTilesManager();
+            while (! ((SlidingTilesManager)gameManager).isSolvable()) {
+                gameManager = new SlidingTilesManager();
             }
             GameLauncher.getCurrentUser().setRecentManagerOfBoard(SlidingTilesManager.GAME_NAME, gameManager);
         } else { //game.equals("PEG SOLITAIRE")
@@ -168,38 +147,6 @@ public class SetUpActivity extends AppCompatActivity {
         tmp.putExtra("game", PegSolitaireManager.GAME_NAME);
         saveToFile(LoginActivity.SAVE_FILENAME);
         startActivity(tmp);
-    }
-
-    /**
-     *
-     * @param slidingTilesManager the slidingTilesManager that is being used in the game about to be played.
-     * @return true iff the sliding tiles game will be solvable.
-     */
-    private boolean isSolvable(SlidingTilesManager slidingTilesManager) {
-        //adapted from https://puzzling.stackexchange.com/questions/25563/do-i-have-an-unsolvable-15-puzzle
-        ArrayList tileOrder = slidingTilesManager.getTilesInArrayList();
-        int blankId = slidingTilesManager.positionBlankTile();
-        //check the amount of inversions
-        //adapted from https://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable
-        int inversions = 0;
-        for (int i=0; i<tileOrder.size(); i++) {
-            for (int j=i + 1; j<tileOrder.size(); j++) {
-                if ((int) tileOrder.get(j) < (int) tileOrder.get(i)) {
-                    inversions++;
-                }
-            }
-        }
-        //if it's odd size and has an even number of inversions, the board is solvable-> return true
-        if (shape %2 != 0) {
-            if (inversions%2 == 0){
-                return true;
-            }
-            return false;
-        }
-        //otherwise it is even size and the rows the blank tile is on is odd, then the board is solvable
-        if (blankId % 2 == 0 && inversions % 2 == 0) {return true;}
-        if (blankId % 2 != 0 && inversions %2 != 0) {return true;}
-        return false;
     }
 
     /**

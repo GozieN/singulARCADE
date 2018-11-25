@@ -21,14 +21,14 @@ import java.util.ArrayList;
  */
 public class StartingActivity extends AppCompatActivity {
 
-    /**
-     * The main save file.
-     */
-    public static final String SAVE_FILENAME = "save_file.ser";
-    /**
-     * A temporary save file.
-     */
-    public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
+//    /**
+//     * The main save file.
+//     */
+//    public static final String SAVE_FILENAME = "save_file.ser";
+//    /**
+//     * A temporary save file.
+//     */
+//    public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
     /**
      * The board manager.
      */
@@ -49,7 +49,7 @@ public class StartingActivity extends AppCompatActivity {
         if (game.equals("PEG SOLITAIRE")) {
             gameManager = new PegSolitaireManager();
         }
-        saveToFile(TEMP_SAVE_FILENAME);
+        //saveToFile(LoginActivity.SAVE_FILENAME);
 
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
@@ -97,8 +97,8 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                loadFromFile(SAVE_FILENAME);
-                saveToFile(TEMP_SAVE_FILENAME);
+                loadFromFile(LoginActivity.SAVE_FILENAME);
+//                saveToFile(TEMP_SAVE_FILENAME);
                 makeToastLoadedText();
                 switchToGame();
             }

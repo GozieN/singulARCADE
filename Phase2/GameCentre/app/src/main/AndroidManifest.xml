@@ -21,6 +21,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".PlaySlidingTilesActivity" />
         <activity android:name=".PlayPegSolitaireActivity" />
+        <activity android:name=".PlayMemoryPuzzleActivity" />
         <activity android:name=".GameCentreActivity" />
         <activity android:name=".ScoreBoardActivity" />
         <activity android:name=".UserProfileActivity" />
