@@ -12,12 +12,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7393215-f930-4a6b-bd07-eca53d305376" name="Default" comment="deleted the implementaion of">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/SlidingTile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryPuzzleTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryPuzzleTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/SlidingTiles.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/fall2018/csc2017/slidingtiles/SlidingTilesBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/fall2018/csc2017/slidingtiles/SlidingTileBoardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/fall2018/csc2017/slidingtiles/SlidingTilesManagerAndTileTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/fall2018/csc2017/slidingtiles/SlidingTileManagerAndTileTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -43,7 +39,7 @@
       <file leaf-file-name="MemoryGameBoard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
+            <state relative-caret-position="780">
               <caret line="54" column="30" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -55,7 +51,7 @@
       <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
+            <state relative-caret-position="35">
               <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
             </state>
           </provider>
@@ -70,22 +66,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MemoryPuzzleTile.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MemoryPuzzleTile.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryPuzzleTile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2377">
-              <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+            <state relative-caret-position="-2240">
+              <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
               <folding>
+                <element signature="e#424#425#0" expanded="true" />
+                <element signature="e#455#456#0" expanded="true" />
+                <element signature="e#583#584#0" expanded="true" />
+                <element signature="e#623#624#0" expanded="true" />
                 <element signature="e#596#597#0" expanded="true" />
                 <element signature="e#629#630#0" expanded="true" />
                 <element signature="e#732#733#0" expanded="true" />
                 <element signature="e#757#758#0" expanded="true" />
-                <element signature="e#897#898#0" expanded="true" />
-                <element signature="e#925#926#0" expanded="true" />
-                <element signature="e#6318#6319#0" expanded="true" />
-                <element signature="e#6349#6350#0" expanded="true" />
-                <element signature="e#6477#6478#0" expanded="true" />
-                <element signature="e#6517#6518#0" expanded="true" />
+                <element signature="e#856#857#0" expanded="true" />
+                <element signature="e#877#878#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -112,8 +108,8 @@
       <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/Tile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+            <state relative-caret-position="780">
+              <caret line="52" column="24" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#523#524#0" expanded="true" />
@@ -134,13 +130,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SlidingTile.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SlidingTile.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/SlidingTile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="45">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="e#366#367#0" expanded="true" />
                 <element signature="e#410#411#0" expanded="true" />
                 <element signature="e#620#621#0" expanded="true" />
@@ -2435,10 +2430,10 @@
       <list>
         <option value="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameBoard.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryBoardManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryPuzzleTile.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/Tile.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/SlidingTiles.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/SlidingTile.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/Tile.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryPuzzleTile.java" />
       </list>
     </option>
   </component>
@@ -2666,7 +2661,28 @@
       <option name="project" value="LOCAL" />
       <updated>1543168505038</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="changed the name of class SlidingTiles into SlidingTile, which also changes the name used in the unittset. Also made implementations of the SlidingTile class">
+      <created>1543170368389</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1543170368389</updated>
+    </task>
+    <task id="LOCAL-00009" summary="deleted the implementaion of Serializable">
+      <created>1543170407941</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1543170407941</updated>
+    </task>
+    <task id="LOCAL-00010" summary="added a todo in Tile class">
+      <created>1543170466763</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1543170466763</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2742,7 +2758,10 @@
     <MESSAGE value="made the Tile class abstract and the compareTo method abstract" />
     <MESSAGE value="created a SlidingTile class that extends Tile" />
     <MESSAGE value="deleted the implementaion of Comparable interface and the compareTo method" />
-    <option name="LAST_COMMIT_MESSAGE" value="deleted the implementaion of Comparable interface and the compareTo method" />
+    <MESSAGE value="changed the name of class SlidingTiles into SlidingTile, which also changes the name used in the unittset. Also made implementations of the SlidingTile class" />
+    <MESSAGE value="deleted the implementaion of Serializable" />
+    <MESSAGE value="added a todo in Tile class" />
+    <option name="LAST_COMMIT_MESSAGE" value="added a todo in Tile class" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameBoard.java">
@@ -2788,16 +2807,16 @@
         <state relative-caret-position="615">
           <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
           <folding>
+            <element signature="e#424#425#0" expanded="true" />
+            <element signature="e#455#456#0" expanded="true" />
+            <element signature="e#583#584#0" expanded="true" />
+            <element signature="e#623#624#0" expanded="true" />
             <element signature="e#596#597#0" expanded="true" />
             <element signature="e#629#630#0" expanded="true" />
             <element signature="e#732#733#0" expanded="true" />
             <element signature="e#757#758#0" expanded="true" />
-            <element signature="e#897#898#0" expanded="true" />
-            <element signature="e#925#926#0" expanded="true" />
-            <element signature="e#6318#6319#0" expanded="true" />
-            <element signature="e#6349#6350#0" expanded="true" />
-            <element signature="e#6477#6478#0" expanded="true" />
-            <element signature="e#6517#6518#0" expanded="true" />
+            <element signature="e#856#857#0" expanded="true" />
+            <element signature="e#877#878#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2838,53 +2857,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="54" column="30" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryBoardManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1590">
-          <caret line="113" lean-forward="true" selection-start-line="113" selection-end-line="113" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/SlidingTilesBoard.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/Board.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryPuzzleTile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2377">
-          <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
-          <folding>
-            <element signature="e#596#597#0" expanded="true" />
-            <element signature="e#629#630#0" expanded="true" />
-            <element signature="e#732#733#0" expanded="true" />
-            <element signature="e#757#758#0" expanded="true" />
-            <element signature="e#897#898#0" expanded="true" />
-            <element signature="e#925#926#0" expanded="true" />
-            <element signature="e#6318#6319#0" expanded="true" />
-            <element signature="e#6349#6350#0" expanded="true" />
-            <element signature="e#6477#6478#0" expanded="true" />
-            <element signature="e#6517#6518#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2902,20 +2878,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/Tile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#523#524#0" expanded="true" />
-            <element signature="e#556#557#0" expanded="true" />
-            <element signature="e#659#660#0" expanded="true" />
-            <element signature="e#684#685#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/test/java/fall2018/csc2017/slidingtiles/SlidingTileBoardTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -2925,10 +2887,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/SlidingTile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="e#366#367#0" expanded="true" />
             <element signature="e#410#411#0" expanded="true" />
             <element signature="e#620#621#0" expanded="true" />
@@ -2939,6 +2900,63 @@
             <element signature="e#1010#1011#0" expanded="true" />
             <element signature="e#1105#1106#0" expanded="true" />
             <element signature="e#1139#1140#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/Tile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="52" column="24" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#523#524#0" expanded="true" />
+            <element signature="e#556#557#0" expanded="true" />
+            <element signature="e#659#660#0" expanded="true" />
+            <element signature="e#684#685#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryBoardManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1590">
+          <caret line="113" lean-forward="true" selection-start-line="113" selection-end-line="113" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="35">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="54" column="30" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryPuzzleTile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2240">
+          <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+          <folding>
+            <element signature="e#424#425#0" expanded="true" />
+            <element signature="e#455#456#0" expanded="true" />
+            <element signature="e#583#584#0" expanded="true" />
+            <element signature="e#623#624#0" expanded="true" />
+            <element signature="e#596#597#0" expanded="true" />
+            <element signature="e#629#630#0" expanded="true" />
+            <element signature="e#732#733#0" expanded="true" />
+            <element signature="e#757#758#0" expanded="true" />
+            <element signature="e#856#857#0" expanded="true" />
+            <element signature="e#877#878#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -5,17 +5,7 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
-public class MemoryPuzzleTile implements Comparable<MemoryPuzzleTile>, Serializable {
-
-    /**
-     * The background id to find the tile image.
-     */
-    private int background;
-
-    /**
-     * The unique id.
-     */
-    private int id;
+public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTile> {
 
     /**
      * The id of the topLayer displayed on the top of the board.
@@ -23,12 +13,28 @@ public class MemoryPuzzleTile implements Comparable<MemoryPuzzleTile>, Serializa
     private int topLayer;
 
     /**
+     * Return the topLayer id.
+     * @return the topLayer id
+     */
+    public int getTopLayer() {
+        return topLayer;
+    }
+
+    /**
+     * Set the topLayer id.
+     * @param topLayer the topLayer id
+     */
+    public void setTopLayer(int topLayer) {
+        this.topLayer = topLayer;
+    }
+
+    /**
      * Return the background id.
      *
      * @return the background id
      */
     public int getBackground() {
-        return background;
+        return super.getBackground();
     }
 
     /**
@@ -37,16 +43,7 @@ public class MemoryPuzzleTile implements Comparable<MemoryPuzzleTile>, Serializa
      * @return the tile id
      */
     public int getId() {
-        return id;
-    }
-
-    /**
-     * set the id of the memory puzzle tile
-     *
-     * @param id the new id of the tile
-     */
-    public void setId(int id) {
-        this.id = id;
+        return super.getId();
     }
 
     /**
@@ -56,8 +53,7 @@ public class MemoryPuzzleTile implements Comparable<MemoryPuzzleTile>, Serializa
      * @param background the background
      */
     MemoryPuzzleTile(int id, int background) {
-        this.id = id;
-        this.background = background;
+        super(id, background);
     }
 
 
@@ -206,27 +202,11 @@ public class MemoryPuzzleTile implements Comparable<MemoryPuzzleTile>, Serializa
 
     @Override
     public int compareTo(@NonNull MemoryPuzzleTile memoryPuzzleTile) {
-        if ((id % 2 == 0 && id == memoryPuzzleTile.getId() + 1) ||
-                (id % 2 != 0 && id == memoryPuzzleTile.getId() - 1)) {
+        if ((getId() % 2 == 0 && getId() == memoryPuzzleTile.getId() + 1) ||
+                (getId() % 2 != 0 && getId() == memoryPuzzleTile.getId() - 1)) {
             return 0;
         }
         return -1;
-    }
-
-    /**
-     * Return the topLayer id.
-     * @return the topLayer id
-     */
-    public int getTopLayer() {
-        return topLayer;
-    }
-
-    /**
-     * Set the topLayer id.
-     * @param topLayer the topLayer id
-     */
-    public void setTopLayer(int topLayer) {
-        this.topLayer = topLayer;
     }
 }
 
