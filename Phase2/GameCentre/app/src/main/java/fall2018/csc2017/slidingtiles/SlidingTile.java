@@ -2,13 +2,12 @@ package fall2018.csc2017.slidingtiles;
 
 import android.support.annotation.NonNull;
 
-import java.io.Serializable;
 
 
 /**
  * A SlidingTile in a sliding tile puzzle game.
  */
-public class SlidingTile extends Tile implements Serializable, Comparable<SlidingTile> {
+public class SlidingTile extends Tile implements Comparable<SlidingTile> {
 
     /**
      * Return the background id.
