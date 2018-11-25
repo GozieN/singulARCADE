@@ -1,11 +1,12 @@
 package fall2018.csc2017.slidingtiles;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 
-class MemoryGameBoard extends Board implements Serializable  {
+class MemoryGameBoard extends Board implements Serializable {
     /**
      * The number of rows.
      */
@@ -28,7 +29,7 @@ class MemoryGameBoard extends Board implements Serializable  {
      *
      * @param tiles the tiles for the board
      */
-     MemoryGameBoard(List<MemoryPuzzleTile> tiles) {
+    MemoryGameBoard(List<MemoryPuzzleTile> tiles) {
         Iterator<MemoryPuzzleTile> iter = tiles.iterator();
 
         for (int row = 0; row != SlidingTilesBoard.NUM_ROWS; row++) {
@@ -39,11 +40,23 @@ class MemoryGameBoard extends Board implements Serializable  {
     }
 
 
-//    int numTiles() {
-//        return NUM_ROWS*NUM_COLS;
-//    }
+    int numTiles() {
+        return NUM_ROWS * NUM_COLS;
+    }
 
-    /** Changes the dimension constants of the board and makes them n x n
+    /**
+     * Return the tile at (row, col)
+     *
+     * @param row the tile row
+     * @param col the tile column
+     * @return the tile at (row, col)
+     */
+    MemoryPuzzleTile getMemoryPuzzleTile(int row, int col) {
+        return tiles[row][col];
+    }
+
+    /**
+     * Changes the dimension constants of the board and makes them n x n
      *
      * @param dimensions the n x n dimensions of Sliding Tiles Board
      */
@@ -59,7 +72,7 @@ class MemoryGameBoard extends Board implements Serializable  {
      * @param col the tile column
      * @return the tile at (row, col)
      */
-     MemoryPuzzleTile getMemoryGameTile(int row, int col) {
+    MemoryPuzzleTile getMemoryGameTile(int row, int col) {
         return tiles[row][col];
     }
 
@@ -92,4 +105,10 @@ class MemoryGameBoard extends Board implements Serializable  {
     }
 
 
+    @Override
+    public String toString() {
+        return "MemoryBoard{" +
+                "tiles=" + Arrays.toString(tiles) +
+                '}';
+    }
 }
