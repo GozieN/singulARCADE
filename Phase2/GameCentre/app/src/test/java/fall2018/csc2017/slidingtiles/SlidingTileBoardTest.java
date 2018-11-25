@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 
-public class SlidingTilesBoardTest {
+public class SlidingTileBoardTest {
 
     /** The board for testing. */
     SlidingTilesBoard board;
