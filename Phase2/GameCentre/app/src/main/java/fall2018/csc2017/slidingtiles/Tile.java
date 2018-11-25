@@ -31,6 +31,7 @@ public abstract class Tile implements Serializable {
 
     /**
      * Set the background id.
+     *
      * @param background background id to be set to
      */
     public void setBackground(int background) {
@@ -39,6 +40,7 @@ public abstract class Tile implements Serializable {
 
     /**
      * Set the id of this Tile.
+     *
      * @param id id to be set to
      */
     public void setId(int id) {
