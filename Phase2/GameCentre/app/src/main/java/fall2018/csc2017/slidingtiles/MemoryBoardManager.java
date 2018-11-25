@@ -7,12 +7,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
- class MemoryBoardManager implements Serializable, Game{
+class MemoryBoardManager implements Serializable, Game{
     /**
      * The board being managed.
      */
     final static String GAME_NAME = "Memory Puzzle";
-    private Board board;
+    private MemoryGameBoard board;
 
     ScoreBoard gameScoreBoard;
     /**
@@ -20,7 +20,7 @@ import java.util.Stack;
      *
      * @param board the board
      */
-    MemoryBoardManager(Board board) {
+    MemoryBoardManager(MemoryGameBoard board) {
         this.board = board;
         gameScoreBoard = new ScoreBoard();
     }
@@ -28,13 +28,13 @@ import java.util.Stack;
     /**
      * Return the current board.
      */
-    Board getBoard() {
+    MemoryGameBoard getBoard() {
         return board;
     }
     /**
      * Set a new board.
      */
-    void setBoard(Board board) {
+    void setBoard(MemoryGameBoard board) {
         this.board = board;
         board.update();
     }
@@ -42,14 +42,14 @@ import java.util.Stack;
      * Manage a new shuffled board.
      */
     MemoryBoardManager() {
-        List<Tile> tiles = new ArrayList<>();
+        List<MemoryPuzzleTile> tiles = new ArrayList<>();
         final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum));
-            }
+            tiles.add(new MemoryPuzzleTile(tileNum));
+        }
         Collections.shuffle(tiles);
-        this.board = new Board(tiles);
-        gameScoreBoard = new ScoreBoard();
+        this.board = new MemoryGameBoard(tiles);
+//        gameScoreBoard = new ScoreBoard();
     }
 
     /**
@@ -91,7 +91,6 @@ import java.util.Stack;
 
     /**
      * Process a touch at position in the board, removing tiles as appropriate.
-     *
      * @param position1, position2 the positions of the tiles
      */
     public void touchMove(int position1, int position2) {
@@ -103,13 +102,13 @@ import java.util.Stack;
             if (firstTouch.getId() == secondTouch.getId() - 1){
                 firstTouch.setId(0);
                 secondTouch.setId(0);
-                }
-        else if (firstTouch.getId()%2 != 0){
-            if (firstTouch.getId() == secondTouch.getId() + 1){
-            firstTouch.setId(0);
-            secondTouch.setId(0);
+            }
+            else if (firstTouch.getId()%2 != 0){
+                if (firstTouch.getId() == secondTouch.getId() + 1){
+                    firstTouch.setId(0);
+                    secondTouch.setId(0);
                 }}
-        else {
+            else {
                 firstTouch.setId(blankId);
                 secondTouch.setId(blankId);
             }}
@@ -120,7 +119,7 @@ import java.util.Stack;
      */
     public int getScore() {
         Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates("Memory Puzzle");
-        double tempScore = Math.pow((stackOfMoves.size() + 2*GameActivity.numberOfUndos), -1);
+        double tempScore = Math.pow((stackOfMoves.size()), -1);
         //if 4, multiply by 10000
         if (Board.NUM_ROWS == 4) {
             return (int) Math.round(tempScore * 10000);
