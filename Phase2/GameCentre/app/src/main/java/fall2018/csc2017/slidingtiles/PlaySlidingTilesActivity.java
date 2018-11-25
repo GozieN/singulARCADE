@@ -70,8 +70,6 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         super.onCreate(savedInstanceState);
         loadFromFile(LoginActivity.SAVE_FILENAME);
 
-        slidingTilesManager = new SlidingTilesManager(makeBoard());
-
         createTileButtons(this);
         setContentView(R.layout.activity_main);
         addUndoButtonListener();

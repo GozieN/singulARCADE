@@ -23,12 +23,6 @@ public class SlidingTilesBoard extends Board {
     static int NUM_COLS;
 
     /**
-     * Return all the tiles for the board
-     * @return all the tiles for the board
-     */
-    Tile[][] getTiles() {return tiles;}
-
-    /**
      * The tiles on the board in row-major order.
      */
     private Tile[][] tiles = new Tile[NUM_ROWS][NUM_COLS];
@@ -52,6 +46,12 @@ public class SlidingTilesBoard extends Board {
             }
         }
     }
+
+    /**
+     * Return all the tiles for the board
+     * @return all the tiles for the board
+     */
+    Tile[][] getTiles() {return tiles;}
 
     /**
      * Return the number of tiles on the board.

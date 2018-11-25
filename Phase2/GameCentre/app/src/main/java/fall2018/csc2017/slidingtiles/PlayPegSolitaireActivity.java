@@ -122,12 +122,12 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         PegSolitaireBoard board;
 
         Integer shape = getIntent().getIntExtra("shape", 6);
-        System.out.println(100 + shape);;
+        System.out.println(100 + shape);
         PegSolitaireBoard.setDimensions(shape);
         System.out.println(shape);
 
 
-        board = new PegSolitaireBoard();
+        board = new PegSolitaireManager().getBoard();
         return board;
     }
 
