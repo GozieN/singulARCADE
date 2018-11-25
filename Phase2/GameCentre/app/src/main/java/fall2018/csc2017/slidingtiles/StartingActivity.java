@@ -153,6 +153,7 @@ public class StartingActivity extends AppCompatActivity {
          */
         private void switchToSetUp () {
             Intent tmp = new Intent(this, SetUpActivity.class);
+            tmp.putExtra("game", game);
             startActivity(tmp);
         }
 
