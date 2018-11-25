@@ -76,8 +76,10 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     }
 
     private void addView() {
-        gridView = findViewById(R.id.grid);
+        gridView = findViewById(R.id.squareGrid);
         gridView.setNumColumns(PegSolitaireBoard.NUM_COLS);
+        System.out.println("ADD VIEW: ");
+        System.out.println(pegSolitaireManager);
         gridView.setManager(pegSolitaireManager);
         pegSolitaireManager.getBoard().addObserver(this);
 

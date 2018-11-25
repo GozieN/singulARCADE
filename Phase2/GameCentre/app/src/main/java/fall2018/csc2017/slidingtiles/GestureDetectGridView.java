@@ -23,6 +23,7 @@ public class GestureDetectGridView extends GridView {
     private float mTouchX;
     private float mTouchY;
     private Game manager;
+    private boolean firsMove = false;
 
 
     public GestureDetectGridView(Context context) {
@@ -49,13 +50,19 @@ public class GestureDetectGridView extends GridView {
 
     private void init(final Context context) {
         mController = new MovementController();
+        mController.setBoardManager(manager);
+        System.out.println("MCONTROLLER BOARD MANAGER");
+        System.out.println(mController.boardManager);
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
             @Override
             public boolean onSingleTapConfirmed(MotionEvent event) {
+                System.out.println(event.getX());
+                System.out.println(event.getY());
                 int position = GestureDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
-
+                System.out.println("INIT");
+                System.out.println(manager);
                 mController.processTapMovement(context, position);
                 return true;
             }
@@ -101,6 +108,8 @@ public class GestureDetectGridView extends GridView {
     }
 
     public void setManager(Game manager) {
+        System.out.println("GRID VIEW MANAGER: ");
+        System.out.println(manager.getClass());
         this.manager = manager;
         mController.setBoardManager(manager);
     }
