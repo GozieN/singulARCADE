@@ -16,24 +16,19 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Stack;
 
 /**
  * The memory game activity.
  */
 public class MemoryGameActivity extends AppCompatActivity implements Observer {
     /**
-     * The board manager.
+     * The Memory board manager.
      */
-    private BoardManager boardManager;
+    private MemoryBoardManager memoryBoardManager;
 
     private UserManager userManager;
-
-    private ScoreBoard scoreBoard;
 
     /**
      * The buttons to display.
@@ -53,7 +48,7 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
     public void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-        if (boardManager.isOver()) {
+        if (memoryBoardManager.isOver()) {
             endOfGame();
             switchToScoreBoard();
         }
@@ -62,11 +57,7 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        loadFromFile(StartingActivity.TEMP_SAVE_FILENAME); //loaduser
         loadFromFile(LoginActivity.SAVE_FILENAME);
-
-//        BoardManager bManager = new BoardManager(makeBoard());
-//        boardManager = bManager;
 
         createTileButtons(this);
         setContentView(R.layout.activity_memory_game);
@@ -74,9 +65,9 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(Board.NUM_COLS);
-        gridView.setBoardManager(boardManager);
-        boardManager.getBoard().addObserver(this);
+        gridView.setNumColumns(MemoryGameBoard.NUM_COLS);
+        gridView.setMemoryBoardManager(memoryBoardManager);
+        memoryBoardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -87,37 +78,12 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / Board.NUM_COLS;
-                        columnHeight = displayHeight / Board.NUM_ROWS;
+                        columnWidth = displayWidth / MemoryGameBoard.NUM_COLS;
+                        columnHeight = displayHeight / MemoryGameBoard.NUM_ROWS;
 
                         display();
                     }
                 });
-    }
-
-    /**
-     * Return a Board.
-     * @return a Board
-     */
-    private Board makeBoard () {
-        Board board;
-
-        int size = getIntent().getIntExtra("size", 4);
-        Board.setDimensions(size);
-
-        List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(tileNum, tileNum));
-            } else {
-                tiles.add(new Tile(tileNum));
-            }
-        }
-
-        Collections.shuffle(tiles);
-        board = new Board(tiles);
-        return board;
     }
 
     /**
@@ -126,12 +92,15 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        Board board = boardManager.getBoard();
+        MemoryGameBoard board = memoryBoardManager.getBoard();
+        System.out.println("print board " + board.toString());
+        System.out.println("later in function createTileButtons " + board.getMemoryPuzzleTile(0,0));
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
+        for (int row = 0; row != MemoryGameBoard.NUM_ROWS; row++) {
+            for (int col = 0; col != MemoryGameBoard.NUM_COLS; col++) {
                 Button tmp = new Button(context);
-                tmp.setBackgroundResource(board.getTile(row, col).getBackground());
+                System.out.println("later in function createTileButtons " + board.getMemoryPuzzleTile(row, col));
+                tmp.setBackgroundResource(board.getMemoryPuzzleTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
             }
         }
@@ -141,12 +110,12 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = boardManager.getBoard();
+        MemoryGameBoard board = memoryBoardManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
-            int row = nextPos / Board.NUM_ROWS;
-            int col = nextPos % Board.NUM_COLS;
-            b.setBackgroundResource(board.getTile(row, col).getBackground());
+            int row = nextPos / MemoryGameBoard.NUM_ROWS;
+            int col = nextPos % MemoryGameBoard.NUM_COLS;
+            b.setBackgroundResource(board.getMemoryPuzzleTile(row, col).getBackground());
             nextPos++;
         }
         saveToFile(LoginActivity.SAVE_FILENAME);
@@ -167,7 +136,7 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
      *
      * @param fileName the name of the file
      */
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);
@@ -176,11 +145,8 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
             }
             else {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                ArrayList arrayList = (ArrayList) input.readObject();
-                userManager = (UserManager) arrayList.get(0);
-                scoreBoard = (ScoreBoard) arrayList.get(1);
-                boardManager = (BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME);
-//                userManager = (UserManager) input.readObject();
+                userManager = (UserManager) input.readObject();
+                memoryBoardManager = (MemoryBoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(MemoryBoardManager.GAME_NAME);
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -198,14 +164,10 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
      * @param fileName the name of the file
      */
     public void saveToFile(String fileName) {
-
-        ArrayList arrayList= new ArrayList();
-        arrayList.add(userManager);
-        arrayList.add(scoreBoard);
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(arrayList);
+            outputStream.writeObject(userManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
@@ -217,9 +179,9 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
      * At the end of the game, do these actions: get the score, and send score to game score board and user score board.
      */
     private void endOfGame() {
-        Integer score = boardManager.getScore();
-        boardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
-        GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(BoardManager.GAME_NAME, score);
+        Integer score = memoryBoardManager.getScore();
+        memoryBoardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
+        GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(MemoryBoardManager.GAME_NAME, score);
     }
 
     /**
@@ -243,7 +205,7 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
 
     private void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
-        tmp.putExtra("scores", boardManager.gameScoreBoard.toString());
+        tmp.putExtra("scores", memoryBoardManager.gameScoreBoard.toString());
         startActivity(tmp);
     }
 
