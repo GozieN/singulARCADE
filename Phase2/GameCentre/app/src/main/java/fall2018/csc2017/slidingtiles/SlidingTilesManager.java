@@ -69,8 +69,9 @@ class SlidingTilesManager implements Serializable, Game {
         ArrayList arrayList = new ArrayList();
         while (boardIterator.hasNext()) {
             Tile currentTile = boardIterator.next();
-            if (currentTile.getId() != board.numTiles() )
-            arrayList.add(currentTile.getId());
+            if (currentTile.getId() != board.numTiles() ) {
+                arrayList.add(currentTile.getId());
+            }
         }
         return arrayList;
     }
@@ -174,7 +175,7 @@ class SlidingTilesManager implements Serializable, Game {
      * @return the score of the current game
      */
     public int getScore() {
-        Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates("Sliding Tiles");
+        Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME);
         double tempScore = Math.pow((stackOfMoves.size() + 2*PlaySlidingTilesActivity.numberOfUndos), -1);
         //if 3, multiply by 10000
         if (SlidingTilesBoard.NUM_ROWS == 3) {
@@ -188,6 +189,45 @@ class SlidingTilesManager implements Serializable, Game {
         else {
             return (int) Math.round(tempScore * 30000);
         }
+    }
+
+    /**
+     * Adapted from: adapted from https://puzzling.stackexchange.com/questions/25563/do-i-have-an-unsolvable-15-puzzle
+     * Return true iff the sliding tiles game will be solvable.
+     * @return true iff the sliding tiles game will be solvable.
+     */
+    public boolean isSolvable() {
+        int blankId = positionBlankTile();
+        int inversions = numberOfInversions();
+        //if it's odd size and has an even number of inversions, the board is solvable-> return true
+        if (board.getDimensions()%2 != 0) {
+            if (inversions%2 == 0){
+                return true;
+            }
+            return false;
+        }
+        //otherwise it is even size and the rows the blank tile is on is odd, then the board is solvable
+        if (blankId % 2 == 0 && inversions % 2 == 0) {return true;}
+        if (blankId % 2 != 0 && inversions %2 != 0) {return true;}
+        return false;
+    }
+
+    /**
+     * Adapted from: https://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable
+     * Return the number of inversions that occur to get the id's of the tiles in order from least to greatest.
+     * @return the number of inversions that occur to get the id's of the tiles in order from least to greatest.
+     */
+    public int numberOfInversions() {
+        ArrayList tileOrder = getTilesInArrayList();
+        int inversions = 0;
+        for (int i=0; i<tileOrder.size(); i++) {
+            for (int j=i + 1; j<tileOrder.size(); j++) {
+                if ((int) tileOrder.get(j) < (int) tileOrder.get(i)) {
+                    inversions++;
+                }
+            }
+        }
+        return inversions;
     }
 
 }

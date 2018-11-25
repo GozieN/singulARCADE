@@ -140,9 +140,9 @@ public class UserAndGameLauncherTest {
         setUpCorrect();
         //original board is set to 4x4
         assertEquals(4, ((SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME)).getBoard().getDimensions());
-        SlidingTilesManager newBoardManager = new SlidingTilesManager();
 
         //board is now being set to 3x3
+        SlidingTilesManager newBoardManager = new SlidingTilesManager();
         newBoardManager.getBoard().setDimensions(3);
         assertEquals(3, ((SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME)).getBoard().getDimensions());
 

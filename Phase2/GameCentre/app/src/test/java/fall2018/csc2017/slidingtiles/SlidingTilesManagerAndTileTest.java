@@ -226,5 +226,31 @@ public class SlidingTilesManagerAndTileTest {
         Tile comparingTile = boardManager.getBoard().getTile(1,1);
         assertEquals(5, boardManager.getBoard().getTile(0,0).compareTo(comparingTile));
     }
+
+    /**
+     * Test isSolvable works
+     */
+    @Test
+    public void testIsSolvable() {
+        setUpCorrect();
+
+        //solvable with an even-sized board
+        assertTrue(boardManager.isSolvable());
+
+        //unsolvable with an even-sized board
+        boardManager.getBoard().swapTiles(0, 0, 2, 2);
+        assertFalse(boardManager.isSolvable());
+
+        //solvable with an odd-sized board
+        List<Tile> tiles = makeTiles();
+        SlidingTilesBoard board = new SlidingTilesBoard(tiles);
+        Board.setDimensions(3);
+        boardManager.setBoard(board);
+        assertTrue(boardManager.isSolvable());
+
+        //unsolvable with an odd-sized board
+        boardManager.getBoard().swapTiles(0, 0, 2, 2);
+        assertFalse(boardManager.isSolvable());
+    }
 }
 
