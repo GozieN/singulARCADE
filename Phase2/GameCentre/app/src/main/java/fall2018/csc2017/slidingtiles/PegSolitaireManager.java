@@ -15,7 +15,7 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
     final static String GAME_NAME = "Peg Solitaire";
     private PegSolitaireBoard pegBoard;
 
-    ScoreBoard pegScoreBoard;
+    static ScoreBoard pegScoreBoard;
 
     /**
      * Manage a new starting board.
@@ -46,7 +46,7 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
      * Set a new board.
      */
     void setBoard(Board board) {
-        this.pegScoreBoard = new ScoreBoard();
+        pegScoreBoard = new ScoreBoard();
         board.update();
     }
 
@@ -55,13 +55,13 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
      * @return true iff the game is over
      */
     public boolean isOver() {
-        boolean solved = true;
+        boolean solved = false;
         for (int x = 0; x < PegSolitaireBoard.NUM_ROWS; x++) {
             for (int y = 0; y < PegSolitaireBoard.NUM_COLS; y++) {
                 if (pegBoard.getPegTile(x, y).getId() != 0) {
                     int position = x * PegSolitaireBoard.NUM_ROWS;
                     if (!listOfValidMoves(position).isEmpty()) {
-                        solved = false;
+                        solved = true;
                     }
                 }
             }
@@ -138,7 +138,7 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
      */
     public int getScore() {
         Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates("Peg Solitaire");
-        double tempScore = Math.pow((stackOfMoves.size() + 2*GameActivity.numberOfUndos), -1);
+        double tempScore = Math.pow((stackOfMoves.size() + 2*PlaySlidingTilesActivity.numberOfUndos), -1);
         //if 6, multiply by 10000
         if (Board.NUM_ROWS == 6) {
             return (int) Math.round(tempScore * 10000);

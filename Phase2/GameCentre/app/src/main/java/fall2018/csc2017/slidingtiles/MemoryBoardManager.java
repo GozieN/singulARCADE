@@ -120,7 +120,7 @@ import java.util.Stack;
      */
     public int getScore() {
         Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates("Memory Puzzle");
-        double tempScore = Math.pow((stackOfMoves.size() + 2*GameActivity.numberOfUndos), -1);
+        double tempScore = Math.pow((stackOfMoves.size() + 2*PlaySlidingTilesActivity.numberOfUndos), -1);
         //if 4, multiply by 10000
         if (Board.NUM_ROWS == 4) {
             return (int) Math.round(tempScore * 10000);

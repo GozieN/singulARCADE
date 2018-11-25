@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Stack;
 
 /**
  * The memory game activity.
@@ -29,7 +28,7 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
     /**
      * The board manager.
      */
-    private BoardManager boardManager;
+    private SlidingTilesManager slidingTilesManager;
 
     private UserManager userManager;
 
@@ -53,7 +52,7 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
     public void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-        if (boardManager.isOver()) {
+        if (slidingTilesManager.isOver()) {
             endOfGame();
             switchToScoreBoard();
         }
@@ -65,8 +64,8 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
 //        loadFromFile(StartingActivity.TEMP_SAVE_FILENAME); //loaduser
         loadFromFile(LoginActivity.SAVE_FILENAME);
 
-//        BoardManager bManager = new BoardManager(makeBoard());
-//        boardManager = bManager;
+//        SlidingTilesManager bManager = new SlidingTilesManager(makeBoard());
+//        slidingTilesManager = bManager;
 
         createTileButtons(this);
         setContentView(R.layout.activity_memory_game);
@@ -75,8 +74,8 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(Board.NUM_COLS);
-        gridView.setBoardManager(boardManager);
-        boardManager.getBoard().addObserver(this);
+        gridView.setSlidingTilesManager(slidingTilesManager);
+        slidingTilesManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -103,7 +102,7 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
         Board board;
 
         int size = getIntent().getIntExtra("size", 4);
-        Board.setDimensions(size);
+        //Board.setDimensions(size);
 
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
@@ -126,7 +125,7 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        Board board = boardManager.getBoard();
+        Board board = slidingTilesManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != Board.NUM_ROWS; row++) {
             for (int col = 0; col != Board.NUM_COLS; col++) {
@@ -141,7 +140,7 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = boardManager.getBoard();
+        Board board = slidingTilesManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / Board.NUM_ROWS;
@@ -179,7 +178,7 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
                 ArrayList arrayList = (ArrayList) input.readObject();
                 userManager = (UserManager) arrayList.get(0);
                 scoreBoard = (ScoreBoard) arrayList.get(1);
-                boardManager = (BoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(BoardManager.GAME_NAME);
+                slidingTilesManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
 //                userManager = (UserManager) input.readObject();
                 inputStream.close();
             }
@@ -217,9 +216,9 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
      * At the end of the game, do these actions: get the score, and send score to game score board and user score board.
      */
     private void endOfGame() {
-        Integer score = boardManager.getScore();
-        boardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
-        GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(BoardManager.GAME_NAME, score);
+        Integer score = slidingTilesManager.getScore();
+        slidingTilesManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
+        GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, score);
     }
 
     /**
@@ -243,7 +242,7 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
 
     private void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
-        tmp.putExtra("scores", boardManager.gameScoreBoard.toString());
+        tmp.putExtra("scores", slidingTilesManager.gameScoreBoard.toString());
         startActivity(tmp);
     }
 

@@ -35,9 +35,13 @@ public class SlidingTilesBoard extends Board {
      */
     SlidingTilesBoard(List<Tile> tiles) {
         Iterator<Tile> iter = tiles.iterator();
-
+        System.out.println(SlidingTilesBoard.NUM_ROWS + SlidingTilesBoard.NUM_COLS);
         for (int row = 0; row != SlidingTilesBoard.NUM_ROWS; row++) {
             for (int col = 0; col != SlidingTilesBoard.NUM_COLS; col++) {
+                if (!iter.hasNext()) {
+                    System.out.println(row);
+                    System.out.println(col);
+                }
                 this.tiles[row][col] = iter.next();
             }
         }
@@ -61,6 +65,15 @@ public class SlidingTilesBoard extends Board {
      */
     public Tile getTile(int row, int col) {
         return tiles[row][col];
+    }
+
+    /** Changes the dimension constants of the board and makes them n x n
+     *
+     * @param dimensions the n x n dimensions of Sliding Tiles Board
+     */
+    static void setDimensions(int dimensions) {
+        NUM_COLS = dimensions;
+        NUM_ROWS = dimensions;
     }
 
     public int getDimensions() {return NUM_COLS;}

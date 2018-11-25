@@ -5,7 +5,7 @@ Adapted from:
 https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/GestureDetectGridView.java
 
 This extension of GridView contains built in logic for handling swipes between buttons.
- */
+ *///
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -22,8 +22,7 @@ public class GestureDetectGridView extends GridView {
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;
-    private BoardManager boardManager;
-    private MemoryBoardManager memoryboardManager;
+    private Game manager;
 
 
     public GestureDetectGridView(Context context) {
@@ -101,13 +100,18 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setBoardManager(BoardManager boardManager) {
-        this.boardManager = boardManager;
-        mController.setBoardManager(boardManager);
+    public void setSlidingTilesManager(SlidingTilesManager slidingTilesManager) {
+        this.manager = slidingTilesManager;
+        mController.setBoardManager(manager);
+    }
+
+    public void setPegSolitaireManager(PegSolitaireManager pegSolitaireManager) {
+        this.manager = pegSolitaireManager;
+        mController.setBoardManager(manager);
     }
 
     public void setMemoryBoardManager(MemoryBoardManager memoryBoardManager) {
-        this.memoryboardManager = memoryBoardManager;
-        mController.setBoardManager(memoryboardManager);
+        this.manager = memoryBoardManager;
+        mController.setBoardManager(manager);
 }
 }

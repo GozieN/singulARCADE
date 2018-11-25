@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -24,7 +25,7 @@ import java.util.Stack;
 /**
  * The game activity.
  */
-public class GameActivity extends AppCompatActivity implements Observer {
+public class PlaySlidingTilesActivity extends AppCompatActivity implements Observer {
 
     /**
      * The board manager.
@@ -66,23 +67,25 @@ public class GameActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         loadFromFile(LoginActivity.SAVE_FILENAME);
 
+        slidingTilesManager = new SlidingTilesManager(makeBoard());
+
         createTileButtons(this);
         setContentView(R.layout.activity_main);
         addUndoButtonListener();
         addSaveButtonListener();
 
-        // Add View to activity
-        if (slidingTilesManager instanceof SlidingTilesManager) {
-            gridView = findViewById(R.id.grid);
-            //SlidingTilesManager slidingTilesManager = (SlidingTilesManager) slidingTilesManager;
-        }
-//        if (slidingTilesManager instanceof PegSolitaireManager) {
-//            //PegSolitaireManager slidingTilesManager = (PegSolitaireManager) slidingTilesManager;
-//            gridView = findViewById(R.id.squareGrid);
-//        }
-        gridView.setNumColumns(Board.NUM_COLS);
+        addView();
+    }
+
+    /**
+     * Add View to this Activity
+     */
+    private void addView() {
+        gridView = findViewById(R.id.grid);
+        gridView.setNumColumns(SlidingTilesBoard.NUM_COLS);
         gridView.setSlidingTilesManager(slidingTilesManager);
         slidingTilesManager.getBoard().addObserver(this);
+
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -93,14 +96,38 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / Board.NUM_COLS;
-                        columnHeight = displayHeight / Board.NUM_ROWS;
+                        columnWidth = displayWidth / SlidingTilesBoard.NUM_COLS;
+                        columnHeight = displayHeight / SlidingTilesBoard.NUM_ROWS;
 
                         display();
                     }
                 });
     }
 
+    /**
+     * Return a Sliding Tiles Board.
+     * @return a SlidingTilesBoard
+     */
+    private SlidingTilesBoard makeBoard () {
+        SlidingTilesBoard board;
+
+        int size = getIntent().getIntExtra("shape", 4);
+        SlidingTilesBoard.setDimensions(size);
+
+        List<Tile> tiles = new ArrayList<>();
+        final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
+        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
+            if (tileNum == numTiles - 1) {
+                tiles.add(new Tile(tileNum, tileNum));
+            } else {
+                tiles.add(new Tile(tileNum));
+            }
+        }
+
+        Collections.shuffle(tiles);
+        board = new SlidingTilesBoard(tiles);
+        return board;
+    }
 
     /**
      * Create the buttons for displaying the tiles.
@@ -110,8 +137,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private void createTileButtons(Context context) {
         Board board = slidingTilesManager.getBoard();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
+        for (int row = 0; row != SlidingTilesBoard.NUM_ROWS; row++) {
+            for (int col = 0; col != SlidingTilesBoard.NUM_COLS; col++) {
                 Button tmp = new Button(context);
                 tmp.setBackgroundResource(board.getTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
@@ -126,8 +153,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
         Board board = slidingTilesManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
-            int row = nextPos / Board.NUM_ROWS;
-            int col = nextPos % Board.NUM_COLS;
+            int row = nextPos / SlidingTilesBoard.NUM_ROWS;
+            int col = nextPos % SlidingTilesBoard.NUM_COLS;
             b.setBackgroundResource(board.getTile(row, col).getBackground());
             nextPos++;
         }
@@ -149,7 +176,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      *
      * @param fileName the name of the file
      */
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);
@@ -158,11 +185,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
             }
             else {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                ArrayList arrayList = (ArrayList) input.readObject();
-                userManager = (UserManager) arrayList.get(0);
-                SlidingTilesManager.gameScoreBoard = (ScoreBoard) arrayList.get(1);
+                userManager = (UserManager) input.readObject();
                 slidingTilesManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
-//                userManager = (UserManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -180,14 +204,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @param fileName the name of the file
      */
     public void saveToFile(String fileName) {
-
-        ArrayList arrayList= new ArrayList();
-        arrayList.add(userManager);
-        arrayList.add(SlidingTilesManager.gameScoreBoard);
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(arrayList);
+            outputStream.writeObject(userManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());

@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * The Peg Solitaire Board.
  */
-public class PegSolitaireBoard extends Observable implements Serializable {
+public class PegSolitaireBoard extends Board implements Serializable {
     /**
      * The number of rows.
      */
@@ -121,7 +121,11 @@ public class PegSolitaireBoard extends Observable implements Serializable {
      * @return the tile at (row, col)
      */
     PegSolitaireTile getPegTile(int row, int col) {
-        return tiles[row][col];
+        if (0 <= row && row <= NUM_ROWS && 0 <= col && col <= NUM_COLS) {
+            return tiles[row][col];
+        } else {
+            return null;
+        }
     }
 
     /**

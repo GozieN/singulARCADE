@@ -2,13 +2,12 @@ package fall2018.csc2017.slidingtiles;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.support.v7.app.AppCompatActivity;
-
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,50 +15,62 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-
-/**
- * The options to decide between when setting up the board for the game sliding tiles.
- */
-public class MemoryGameSetUpActivity extends AppCompatActivity {
+public class PegSolitaireSetUpActivity extends AppCompatActivity {
     /*
-    The user's chosen board size from dropdown.
-     */
+    The user's chosen board shape from dropdown.
+     **/
     private String boardSelection;
     /*
-    The dropdown menu for board size.
+    The user's chosen undo limit from dropdown.
      */
-    private Spinner spinnerBoardSize;
-
+    private String undoSelection;
+    /*
+    The dropdown menu for board shape.
+     */
+    private Spinner spinnerBoardShape;
+    /*
+    The dropdown menu for undo.
+     */
+    private Spinner spinnerUndo;
     /*
     The user's chosen board size.
      */
-    private int size;
+    private int shape;
+    /*
+    The user's chosen undo limit.
+     */
+    static int undoLimit;
 
     private UserManager userManager;
     private ScoreBoard scoreBoard;
-    private MemoryBoardManager boardManager;
-
+    private PegSolitaireManager pegSolitaireManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_memory_game_set_up);
+        setContentView(R.layout.activity_sliding_tiles_set_up);
         addPlayButtonListener();
         loadFromFile(LoginActivity.SAVE_FILENAME);
 
         //adapted from https://developer.android.com/guide/topics/ui/controls/spinner#java
-        spinnerBoardSize = findViewById(R.id.ChooseBoardSpinner);
+        spinnerBoardShape = findViewById(R.id.ChooseBoardSpinner);
+
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapterBoardSize = ArrayAdapter.createFromResource(this,
-                R.array.slidingTilesboard_array, android.R.layout.simple_spinner_item);
+                R.array.pegSolitaireBoard_array, android.R.layout.simple_spinner_item);
+
         // Specify the layout to use when the list of choices appears
         adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         // Apply the adapter to the spinner
-        spinnerBoardSize.setAdapter(adapterBoardSize);
-        
+        spinnerBoardShape.setAdapter(adapterBoardSize);
+
+        spinnerUndo = findViewById(R.id.ChooseUndoSpinner);
+        ArrayAdapter<CharSequence> adapterUndo = ArrayAdapter.createFromResource(this,
+                R.array.undo_array, android.R.layout.simple_spinner_item);
+        adapterUndo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerUndo.setAdapter(adapterUndo);
     }
 
     /**
@@ -71,11 +82,22 @@ public class MemoryGameSetUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // adapted from https://stackoverflow.com/questions/29891237/checking-if-spinner-is-selected-and-having-null-value-in-android
-                if(spinnerBoardSize != null && spinnerBoardSize.getSelectedItem() !=null ) {
-                    boardSelection = (String) spinnerBoardSize.getSelectedItem();
+                if(spinnerBoardShape != null && spinnerBoardShape.getSelectedItem() !=null ) {
+                    if (spinnerBoardShape.getSelectedItem().equals("Square")) {
+                        shape = 6;
+                        System.out.println("SIX");
+                    } if (spinnerBoardShape.getSelectedItem().equals("Cross")) {
+                        shape = 7;
+                        System.out.println("SEVEN");
+                    } if (spinnerBoardShape.getSelectedItem().equals("Diamond")) {
+                        shape = 9;
+                        System.out.println("NINE");
+                    }
                 }
-
-                size = Character.getNumericValue(boardSelection.charAt(0));
+                if(spinnerUndo != null && spinnerUndo.getSelectedItem() !=null ) {
+                    undoSelection = (String) spinnerUndo.getSelectedItem();
+                }
+                undoLimit = Integer.valueOf(undoSelection);
                 switchToGame();
             }
         });
@@ -85,40 +107,12 @@ public class MemoryGameSetUpActivity extends AppCompatActivity {
      * Switch to game screen.
      */
     private void switchToGame() {
-        Intent tmp = new Intent(this, PlaySlidingTilesActivity.class);
-        tmp.putExtra("size", size);
-        System.out.println("size of board is " + size);
-        System.out.println("size of the board after calling makeBoard(): " + new SlidingTilesManager(makeBoard()).getBoard().NUM_COLS);
-        boardManager = new MemoryBoardManager(makeBoard());
-        System.out.println("get the boardmaranger's set num of columns: " + boardManager.getBoard().NUM_COLS);
-        GameLauncher.getCurrentUser().setRecentManagerOfBoard(SlidingTilesManager.GAME_NAME, boardManager);
+        Intent tmp = new Intent(this, PlayPegSolitaireActivity.class);
+        tmp.putExtra("shape", shape);
+        tmp.putExtra("game", PegSolitaireManager.GAME_NAME);
+        GameLauncher.getCurrentUser().setRecentManagerOfBoard(PegSolitaireManager.GAME_NAME, pegSolitaireManager);
         saveToFile(LoginActivity.SAVE_FILENAME);
         startActivity(tmp);
-    }
-
-    /**
-     * Return a Board.
-     * @return a Board
-     */
-    private Board makeBoard () {
-        Board board;
-
-        //int size = getIntent().getIntExtra("size", 4);
-        //Board.setDimensions(size);
-
-        List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(tileNum, tileNum));
-            } else {
-                tiles.add(new Tile(tileNum));
-            }
-        }
-
-        Collections.shuffle(tiles);
-        board = new Board(tiles);
-        return board;
     }
 
     /**
@@ -138,8 +132,7 @@ public class MemoryGameSetUpActivity extends AppCompatActivity {
                 ArrayList arrayList = (ArrayList) input.readObject();
                 userManager = (UserManager) arrayList.get(0);
                 scoreBoard = (ScoreBoard) arrayList.get(1);
-                boardManager = (MemoryBoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
-//                userManager = (UserManager) input.readObject();
+                pegSolitaireManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
