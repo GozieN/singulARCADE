@@ -44,16 +44,6 @@ class MemoryGameBoard extends Board implements Serializable {
         return NUM_ROWS * NUM_COLS;
     }
 
-    /**
-     * Return the tile at (row, col)
-     *
-     * @param row the tile row
-     * @param col the tile column
-     * @return the tile at (row, col)
-     */
-    MemoryPuzzleTile getMemoryPuzzleTile(int row, int col) {
-        return tiles[row][col];
-    }
 
     /**
      * Changes the dimension constants of the board and makes them n x n

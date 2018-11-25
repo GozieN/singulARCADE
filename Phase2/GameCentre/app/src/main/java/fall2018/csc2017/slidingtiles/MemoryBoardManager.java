@@ -64,7 +64,7 @@ class MemoryBoardManager implements Serializable, Game{
         Iterator<Tile> boardIterator = board.iterator();
         while (boardIterator.hasNext()) {
             Tile currentTile = boardIterator.next();
-            if (currentTile.getId() != 0) {
+            if (currentTile.getBackground() != R.drawable.memory_tile_38) {
                 solved = false;
                 return solved;
             }
@@ -79,40 +79,36 @@ class MemoryBoardManager implements Serializable, Game{
      * @return whether the tile at position is greyed out.
      */
     public boolean isValidTap(int position) {
-        Iterator<Tile> boardIterator = board.iterator();
-        int place = 0;
-        Tile currentTile = null;
-        while (place != position && boardIterator.hasNext()){
-            currentTile = boardIterator.next();
-            place += 1;
-        }
-        return currentTile.getId() != 0;
+        int row = position / MemoryGameBoard.NUM_COLS;
+        int col = position % MemoryGameBoard.NUM_COLS;
+        return board.getMemoryGameTile(row, col).getBackground() != R.drawable.memory_tile_38;
     }
 
     /**
      * Process a touch at position in the board, removing tiles as appropriate.
      * @param position1, position2 the positions of the tiles
      */
-    public void touchMove(int position1, int position2) {
-        MemoryPuzzleTile firstTouch = new MemoryPuzzleTile(position1);
-        MemoryPuzzleTile secondTouch = new MemoryPuzzleTile(position2);
-        int blankId = board.numTiles();
+    public void greyOut(int position1, int position2) {
+        int row1 = position1 / MemoryGameBoard.NUM_ROWS;
+        int col1 = position1 % MemoryGameBoard.NUM_COLS;
+        int row2 = position2 / MemoryGameBoard.NUM_ROWS;
+        int col2 = position2 % MemoryGameBoard.NUM_COLS;
 
-        if (firstTouch.getId()%2 == 0){
-            if (firstTouch.getId() == secondTouch.getId() - 1){
-                firstTouch.setId(0);
-                secondTouch.setId(0);
+        MemoryPuzzleTile t1 = board.getMemoryGameTile(row1, col1);
+        MemoryPuzzleTile t2 = board.getMemoryGameTile(row2, col2);
+
+
+        if (t1.compareTo(t2)== 0){
+                t1.setbackground() = R.drawable.memory_tile_38;
+                t2.setbackground() = R.drawable.memory_tile_38;
             }
-            else if (firstTouch.getId()%2 != 0){
-                if (firstTouch.getId() == secondTouch.getId() + 1){
-                    firstTouch.setId(0);
-                    secondTouch.setId(0);
-                }}
-            else {
-                firstTouch.setId(blankId);
-                secondTouch.setId(blankId);
-            }}
+        else {
+            t1.setbackground() = R.drawable.tile_blank;
+            t2.setbackground() = R.drawable.tile_blank;
+            }
     }
+
+
     /**
      * Return the score of the current game
      * @return the score of the current game

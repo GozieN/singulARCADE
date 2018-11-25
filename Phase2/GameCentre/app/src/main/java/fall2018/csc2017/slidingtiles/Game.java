@@ -16,7 +16,7 @@ public interface Game {
      * Return true if the certain move chosen is possible to complete.
      * @return true iff the certain move chosen is possible to complete
      */
-      boolean isValidTap(Object obj);
+      boolean isValidTap(int obj);
 
     /**
      * REturn the score of the player once they have completed the game (once the game is over).
