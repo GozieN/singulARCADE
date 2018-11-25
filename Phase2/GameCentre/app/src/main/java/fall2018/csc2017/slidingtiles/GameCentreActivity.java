@@ -18,6 +18,7 @@ public class GameCentreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_centre);
         addMyAccountButtonListener();
+        addSignOutButtonListener();
 
          //Activate the buyMoreGameBtn Button.
         Button googlePlay = findViewById(R.id.googlePlayButton);
@@ -74,6 +75,28 @@ public class GameCentreActivity extends AppCompatActivity {
      */
     private void switchToMyAccountActivity() {
         Intent tmp = new Intent(this, UserProfileActivity.class);
+        startActivity(tmp);
+    }
+
+    /**
+     * Activate sign out Button
+     */
+
+    private void addSignOutButtonListener() {
+        Button signOutButton = findViewById(R.id.logout);
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToSignIn();
+            }
+        });
+    }
+
+    /**
+     * Lead to sign in activity
+     */
+    private void switchToSignIn() {
+        Intent tmp = new Intent(this, LoginActivity.class);
         startActivity(tmp);
     }
 }
