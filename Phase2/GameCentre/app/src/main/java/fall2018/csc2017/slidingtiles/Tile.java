@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * A Tile in a sliding tiles puzzle.
  */
-public abstract class Tile implements Comparable<Tile>, Serializable {
+public abstract class Tile implements Serializable {
 
     /**
      * The background id to find the tile image.
@@ -139,7 +139,4 @@ public abstract class Tile implements Comparable<Tile>, Serializable {
                 background = R.drawable.tile_blank;
         }
     }
-
-    @Override
-    public abstract int compareTo(@NonNull Tile o);
 }
