@@ -107,13 +107,13 @@ public class SlidingTilesManagerAndTileTest {
     @Test
     public void testGetAndSetBoard() {
         setUpCorrect();
-        Board.setDimensions(3);
+        SlidingTilesBoard.setDimensions(3);
         List<Tile> tiles = makeTiles();
         SlidingTilesBoard board = new SlidingTilesBoard(tiles);
-        Board.setDimensions(3);
+        SlidingTilesBoard.setDimensions(3);
         boardManager.setBoard(board);
         assertEquals(board, boardManager.getBoard());
-        Board.setDimensions(5);
+        SlidingTilesBoard.setDimensions(5);
         boardManager.setBoard(board);
         assertEquals(board, boardManager.getBoard());
     }
@@ -244,7 +244,7 @@ public class SlidingTilesManagerAndTileTest {
         //solvable with an odd-sized board
         List<Tile> tiles = makeTiles();
         SlidingTilesBoard board = new SlidingTilesBoard(tiles);
-        Board.setDimensions(3);
+        SlidingTilesBoard.setDimensions(3);
         boardManager.setBoard(board);
         assertTrue(boardManager.isSolvable());
 
