@@ -152,7 +152,7 @@ public class StartingActivity extends AppCompatActivity {
          * Switch to the SetUp view to play the game.
          */
         private void switchToSetUp () {
-            Intent tmp = new Intent(this, SlidingTilesSetUpActivity.class);
+            Intent tmp = new Intent(this, SetUpActivity.class);
             startActivity(tmp);
         }
 

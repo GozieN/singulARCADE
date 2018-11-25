@@ -45,13 +45,13 @@ class MemoryBoardManager implements Serializable, Game {
      * Manage a new shuffled board.
      */
     MemoryBoardManager() {
-        List<Tile> tiles = new ArrayList<>();
+        List<MemoryPuzzleTile> tiles = new ArrayList<>();
         final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum));
+            tiles.add(new MemoryPuzzleTile(tileNum));
             }
         Collections.shuffle(tiles);
-        this.board = new Board(tiles);
+        this.board = new MemoryGameBoard(tiles);
         gameScoreBoard = new ScoreBoard();
     }
 

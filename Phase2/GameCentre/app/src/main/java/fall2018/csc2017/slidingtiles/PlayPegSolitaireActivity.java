@@ -181,7 +181,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (numberOfUndos < PegSolitaireSetUpActivity.undoLimit) {
+                if (numberOfUndos < SetUpActivity.undoLimit) {
                     Stack totalStates = GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.GAME_NAME);
                     if(totalStates.size() != 0) {
                         List state = GameLauncher.getCurrentUser().getState(PegSolitaireManager.GAME_NAME);

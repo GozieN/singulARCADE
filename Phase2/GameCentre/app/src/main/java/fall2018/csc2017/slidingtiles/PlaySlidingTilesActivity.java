@@ -224,7 +224,7 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (numberOfUndos < SlidingTilesSetUpActivity.undoLimit) {
+                if (numberOfUndos < SetUpActivity.undoLimit) {
                     Stack totalStates = GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME);
                     if(totalStates.size() != 0) {
                         List state = GameLauncher.getCurrentUser().getState(SlidingTilesManager.GAME_NAME);
