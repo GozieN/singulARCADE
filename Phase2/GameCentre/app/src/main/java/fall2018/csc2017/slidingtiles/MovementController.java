@@ -7,7 +7,7 @@ import android.widget.Toast;
 class MovementController {
 
     private Game boardManager = null;
-    boolean firstMove = true;
+    private boolean firstMove = true;
 
     MovementController() {
     }
@@ -36,7 +36,7 @@ class MovementController {
             }
         }
 
-        if (boardManager instanceof SlidingTilesManager){
+        if (boardManager instanceof SlidingTilesManager) {
             SlidingTilesManager thisBoard = (SlidingTilesManager) boardManager;
             if (thisBoard.isValidTap(position)) {
                 thisBoard.touchMove(position);
@@ -46,6 +46,10 @@ class MovementController {
             } else {
                 Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
             }
+        }
+
+        if (boardManager instanceof MemoryBoardManager) {
+            //TODO: fill in what happens in Memory Puzzle
         }
     }
 }

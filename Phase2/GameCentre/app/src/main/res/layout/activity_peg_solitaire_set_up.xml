@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SlidingTilesSetUpActivity">
+    tools:context=".SetUpActivity">
 
     <Spinner
-        android:id="@+id/ChooseSlidingTilesSpinner"
+        android:id="@+id/ChoosePegSolitaireSpinner"
         android:layout_width="272dp"
         android:layout_height="62dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="236dp" />
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="232dp" />
 
     <TextView
         android:id="@+id/SetupText"
@@ -23,23 +23,21 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="17dp"
         android:layout_marginTop="61dp"
-        android:text="Sliding Tiles Game Setup"
         android:gravity="center"
+        android:text="Peg Solitaire Game Setup"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/ChooseSizeView"
-        android:layout_width="258dp"
+        android:id="@+id/ChooseBoardView"
+        android:layout_width="259dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/ChooseBoardSpinner"
         android:layout_alignParentTop="true"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="166dp"
-        android:gravity="center"
-        android:text="Choose the Dimensions of the Sliding Tiles board: "
-        android:textAlignment="textStart"
+        android:layout_marginTop="173dp"
+        android:text="Choose the shape of the Peg Solitaire board:"
         android:textSize="18sp" />
 
     <TextView

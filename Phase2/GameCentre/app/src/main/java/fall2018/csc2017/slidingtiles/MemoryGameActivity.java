@@ -16,8 +16,11 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Stack;
 
 /**
  * The memory game activity.
@@ -29,6 +32,8 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
     private MemoryBoardManager memoryBoardManager;
 
     private UserManager userManager;
+
+    private ScoreBoard scoreBoard;
 
     /**
      * The buttons to display.
@@ -94,13 +99,13 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
     private void createTileButtons(Context context) {
         MemoryGameBoard board = memoryBoardManager.getBoard();
         System.out.println("print board " + board.toString());
-        System.out.println("later in function createTileButtons " + board.getMemoryPuzzleTile(0,0));
+        System.out.println("later in function createTileButtons " + board.getMemoryGameTile(0,0));
         tileButtons = new ArrayList<>();
         for (int row = 0; row != MemoryGameBoard.NUM_ROWS; row++) {
             for (int col = 0; col != MemoryGameBoard.NUM_COLS; col++) {
                 Button tmp = new Button(context);
-                System.out.println("later in function createTileButtons " + board.getMemoryPuzzleTile(row, col));
-                tmp.setBackgroundResource(board.getMemoryPuzzleTile(row, col).getBackground());
+                System.out.println("later in function createTileButtons " + board.getMemoryGameTile(row, col));
+                tmp.setBackgroundResource(board.getMemoryGameTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
             }
         }
@@ -115,7 +120,7 @@ public class MemoryGameActivity extends AppCompatActivity implements Observer {
         for (Button b : tileButtons) {
             int row = nextPos / MemoryGameBoard.NUM_ROWS;
             int col = nextPos % MemoryGameBoard.NUM_COLS;
-            b.setBackgroundResource(board.getMemoryPuzzleTile(row, col).getBackground());
+            b.setBackgroundResource(board.getMemoryGameTile(row, col).getBackground());
             nextPos++;
         }
         saveToFile(LoginActivity.SAVE_FILENAME);

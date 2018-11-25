@@ -32,6 +32,10 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
 
     Board() {}
 
+    Board(List<Tile> tiles) {
+
+    }
+
     /**
      * Return all the tiles for the board
      * @return all the tiles for the board
@@ -57,15 +61,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      */
     Tile getTile(int row, int col) {
         return tiles[row][col];
-    }
-
-    /** Changes the dimension constants of the board and makes them n x n
-     *
-     * @param dimensions the n x n dimensions of Sliding Tiles Board
-     */
-    static void setDimensions(int dimensions) {
-        NUM_COLS = dimensions;
-        NUM_ROWS = dimensions;
     }
 
     int getDimensions() {return NUM_COLS;}
