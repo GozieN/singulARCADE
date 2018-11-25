@@ -1,5 +1,6 @@
 package fall2018.csc2017.slidingtiles;
 
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.Observable;
@@ -13,6 +14,17 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
      */
     // Display
     public void display() {
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        addView();
+    }
+
+    private void addView() {
 
     }
 

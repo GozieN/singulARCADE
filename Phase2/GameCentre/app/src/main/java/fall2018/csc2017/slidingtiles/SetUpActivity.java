@@ -218,9 +218,9 @@ public class SetUpActivity extends AppCompatActivity {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 userManager = (UserManager) input.readObject();
                 if (game.equals("SLIDING TILES")) {
-                    gameManager = (Game) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
+                    gameManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
                 } else {
-                    gameManager = (Game) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
+                    gameManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
                 }
                 inputStream.close();
             }

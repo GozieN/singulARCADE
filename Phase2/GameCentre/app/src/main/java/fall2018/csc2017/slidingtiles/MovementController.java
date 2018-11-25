@@ -18,6 +18,7 @@ class MovementController {
 
     void processTapMovement(Context context, int position) {
         if (boardManager instanceof PegSolitaireManager) {
+            System.out.println("tap!");
             PegSolitaireManager thisBoard = (PegSolitaireManager) boardManager;
             firstMove = !firstMove;
             int position1 = 0;
@@ -37,6 +38,7 @@ class MovementController {
         }
 
         if (boardManager instanceof SlidingTilesManager) {
+            System.out.println("sliding tiles tap!");
             SlidingTilesManager thisBoard = (SlidingTilesManager) boardManager;
             if (thisBoard.isValidTap(position)) {
                 thisBoard.touchMove(position);

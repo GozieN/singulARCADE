@@ -78,7 +78,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     private void addView() {
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(PegSolitaireBoard.NUM_COLS);
-        gridView.setPegSolitaireManager(pegSolitaireManager);
+        gridView.setManager(pegSolitaireManager);
         pegSolitaireManager.getBoard().addObserver(this);
 
         // Observer sets up desired dimensions as well as calls our display function
@@ -121,13 +121,16 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     private PegSolitaireBoard makeBoard() {
         PegSolitaireBoard board;
 
-        Integer shape = getIntent().getIntExtra("shape", 6);
-        System.out.println(100 + shape);;
-        PegSolitaireBoard.setDimensions(shape);
-        System.out.println(shape);
+        Integer size = getIntent().getIntExtra("shape", 6);
+        PegSolitaireBoard.setDimensions(size);
 
+        List<PegSolitaireTile> tiles = new ArrayList<>();
+        final int numTiles = PegSolitaireBoard.NUM_ROWS * PegSolitaireBoard.NUM_COLS;
+        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
+            tiles.add(new PegSolitaireTile(tileNum));
+        }
 
-        board = new PegSolitaireBoard();
+        board = new PegSolitaireBoard(tiles);
         return board;
     }
 

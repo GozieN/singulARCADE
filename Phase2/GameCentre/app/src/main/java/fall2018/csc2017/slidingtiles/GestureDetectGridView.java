@@ -100,18 +100,8 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setSlidingTilesManager(SlidingTilesManager slidingTilesManager) {
-        this.manager = slidingTilesManager;
+    public void setManager(Game manager) {
+        this.manager = manager;
         mController.setBoardManager(manager);
     }
-
-    public void setPegSolitaireManager(PegSolitaireManager pegSolitaireManager) {
-        this.manager = pegSolitaireManager;
-        mController.setBoardManager(manager);
-    }
-
-    public void setMemoryBoardManager(MemoryBoardManager memoryBoardManager) {
-        this.manager = memoryBoardManager;
-        mController.setBoardManager(manager);
-}
 }

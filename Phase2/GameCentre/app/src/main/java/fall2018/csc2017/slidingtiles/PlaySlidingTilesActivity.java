@@ -86,7 +86,7 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
     private void addView() {
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(SlidingTilesBoard.NUM_COLS);
-        gridView.setSlidingTilesManager(slidingTilesManager);
+        gridView.setManager(slidingTilesManager);
         slidingTilesManager.getBoard().addObserver(this);
 
         // Observer sets up desired dimensions as well as calls our display function
@@ -153,7 +153,7 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = slidingTilesManager.getBoard();
+        SlidingTilesBoard board = slidingTilesManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / SlidingTilesBoard.NUM_ROWS;

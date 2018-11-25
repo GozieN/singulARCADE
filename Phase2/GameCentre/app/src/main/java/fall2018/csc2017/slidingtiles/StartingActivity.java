@@ -134,7 +134,7 @@ public class StartingActivity extends AppCompatActivity {
         Intent tmp;
         if (game.equals("SLIDING TILES")) {
             tmp = new Intent(this, PlaySlidingTilesActivity.class);
-        } if (game.equals("PEG SOLITAIRE")) {
+        } else if (game.equals("PEG SOLITAIRE")) {
             tmp = new Intent(this, PlayPegSolitaireActivity.class);
         } else {
             tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
