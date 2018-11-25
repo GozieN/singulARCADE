@@ -47,8 +47,9 @@ public class ScoreBoardActivity extends AppCompatActivity {
         xButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Clicking xButton finishes this actuvity- it closes the scoreboard
+                //Clicking xButton finishes this activity- it closes the scoreboard and returns to the main menu of game options
                 ScoreBoardActivity.this.finish();
+                switchToMainMenu();
             }
         });
     }
