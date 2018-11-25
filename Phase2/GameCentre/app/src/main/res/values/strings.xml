@@ -30,6 +30,13 @@
         <item>Diamond</item>
     </string-array>
 
+    <string-array name="memoryPuzzle_array">
+
+        <item>4 x 4 Board</item>
+        <item>5 x 5 Board</item>
+        <item>6 x 6 Board</item>
+    </string-array>
+
     <string-array name="undo_array">
         <item>3</item>
         <item>5</item>

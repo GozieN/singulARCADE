@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -20,6 +21,19 @@ import java.util.ArrayList;
  */
 public class StartingActivity extends AppCompatActivity {
 
+//    /**
+//     * The main save file.
+//     */
+//    public static final String SAVE_FILENAME = "save_file.ser";
+//    /**
+//     * A temporary save file.
+//     */
+//    public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
+    /**
+     * The board manager.
+     */
+    private Game gameManager;
+    String game;
     /**
      * The user manager.
      */
@@ -28,10 +42,34 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        game = getIntent().getStringExtra("welcomeText");
+        if (game.equals("SLIDING TILES")) {
+            gameManager = new SlidingTilesManager();
+        }
+        if (game.equals("PEG SOLITAIRE")) {
+            gameManager = new PegSolitaireManager();
+        }
+        //saveToFile(LoginActivity.SAVE_FILENAME);
+
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
         addLoadButtonListener();
+
+        setVariableText();
     }
+
+    /**
+     * Set the text dependent on the user's choice of game.
+     */
+    private void setVariableText() {
+        String welcome = "WELCOME TO " + getIntent().getStringExtra("welcomeText");
+        String instructions = getIntent().getStringExtra("instructionsText");
+        TextView welcomeText = findViewById(R.id.welcomeText);
+        TextView instructionsText = findViewById(R.id.instructionsText);
+        welcomeText.setText(welcome);
+        instructionsText.setText(instructions);
+    }
+
 
     /**
      * Activate the start button.
@@ -41,7 +79,11 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchToSetUp();
+                if (game.equals("PEG SOLITAIRE") || (game.equals("SLIDING TILES"))) {
+                    switchToSetUp();
+                } else {
+                    switchToMemoryPuzzleSetup();
+                }
             }
         });
     }
@@ -54,6 +96,9 @@ public class StartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                loadFromFile(LoginActivity.SAVE_FILENAME);
+//                saveToFile(TEMP_SAVE_FILENAME);
                 makeToastLoadedText();
                 switchToGame();
             }
@@ -86,61 +131,78 @@ public class StartingActivity extends AppCompatActivity {
      * Switch to the GameActivity view to play the game.
      */
     private void switchToGame() {
-        Intent tmp = new Intent(this, PlaySlidingTilesActivity.class);
+        Intent tmp;
+        if (game.equals("SLIDING TILES")) {
+            tmp = new Intent(this, PlaySlidingTilesActivity.class);
+        } else if (game.equals("PEG SOLITAIRE")) {
+            tmp = new Intent(this, PlayPegSolitaireActivity.class);
+        } else {
+            tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
+        }
         loadFromFile(LoginActivity.SAVE_FILENAME);
-        if (GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size() == 0) {
+        if (GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).isEmpty()) {
             makeToastNoGameToLoadText();
-        }
-        else {startActivity(tmp);}
-    }
-
-    /**
-     * Switch to the SetUp view to play the game.
-     */
-    private void switchToSetUp() {
-        Intent tmp = new Intent(this, SlidingTilesSetUpActivity.class);
-        startActivity(tmp);
-    }
-
-    /**
-     * Load the user manager and scoreboard from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    private void loadFromFile(String fileName) {
-
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream == null) {
-                saveToFile(fileName);
+        } else {
+            startActivity(tmp);
             }
-            else {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                userManager = (UserManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + fileName);
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
-    }
 
-    /**
-     * Save the user manager and scoreboard to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(userManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
+
+        /**
+         * Switch to the SetUp view to play the game.
+         */
+        private void switchToSetUp () {
+            Intent tmp = new Intent(this, SetUpActivity.class);
+            tmp.putExtra("game", game);
+            startActivity(tmp);
+        }
+
+        /**
+         * Switch to the Memory Puzzle Game's setup
+         */
+        private void switchToMemoryPuzzleSetup () {
+            Intent tmp = new Intent(this, MemoryGameSetUpActivity.class);
+            startActivity(tmp);
+        }
+
+        /**
+         * Load the board manager from fileName.
+         *
+         * @param fileName the name of the file
+         */
+        public void loadFromFile (String fileName){
+
+            try {
+                InputStream inputStream = this.openFileInput(fileName);
+                if (inputStream == null) {
+                    saveToFile(fileName);
+                } else {
+                    ObjectInputStream input = new ObjectInputStream(inputStream);
+                    userManager = (UserManager) input.readObject();
+                    inputStream.close();
+                }
+            } catch (FileNotFoundException e) {
+                Log.e("login activity", "File not found: " + fileName);
+            } catch (IOException e) {
+                Log.e("login activity", "Can not read file: " + e.toString());
+            } catch (ClassNotFoundException e) {
+                Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            }
+        }
+
+        /**
+         * Save the user manager and scoreboard to fileName.
+         *
+         * @param fileName the name of the file
+         */
+        public void saveToFile (String fileName){
+            try {
+                ObjectOutputStream outputStream = new ObjectOutputStream(
+                        this.openFileOutput(fileName, MODE_PRIVATE));
+                outputStream.writeObject(userManager);
+                outputStream.close();
+            } catch (IOException e) {
+                Log.e("Exception", "File write failed: " + e.toString());
+            }
         }
     }
-}

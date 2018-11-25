@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * The main save file.
      */
-    public static final String SAVE_FILENAME = "anything.ser";
+    public static final String SAVE_FILENAME = "saving_file.ser";
 
     /**
      * The user manager.

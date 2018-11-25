@@ -25,14 +25,14 @@ public class UserAndGameLauncherTest {
      * Make a set of tiles that are in order.
      * @return a set of tiles that are in order
      */
-    private List<Tile> makeTiles() {
-        List<Tile> tiles = new ArrayList<>();
+    private List<SlidingTile> makeTiles() {
+        List<SlidingTile> tiles = new ArrayList<>();
         final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(tileNum, tileNum));
+                tiles.add(new SlidingTile(tileNum, tileNum));
             } else {
-                tiles.add(new Tile(tileNum));
+                tiles.add(new SlidingTile(tileNum));
             }
         }
 
@@ -46,7 +46,7 @@ public class UserAndGameLauncherTest {
         user = new User("TestingUsername", "TestingPassword");
         GameLauncher.setCurrentUser(user);
         SlidingTilesBoard.setDimensions(4);
-        List<Tile> tiles = makeTiles();
+        List<SlidingTile> tiles = makeTiles();
         board = new SlidingTilesBoard(tiles);
         user.setRecentManagerOfBoard(SlidingTilesManager.GAME_NAME, new SlidingTilesManager(board));
     }
@@ -140,9 +140,9 @@ public class UserAndGameLauncherTest {
         setUpCorrect();
         //original board is set to 4x4
         assertEquals(4, ((SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME)).getBoard().getDimensions());
-        SlidingTilesManager newBoardManager = new SlidingTilesManager();
 
         //board is now being set to 3x3
+        SlidingTilesManager newBoardManager = new SlidingTilesManager();
         newBoardManager.getBoard().setDimensions(3);
         assertEquals(3, ((SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME)).getBoard().getDimensions());
 
@@ -151,7 +151,7 @@ public class UserAndGameLauncherTest {
 
         //Now create a manager that previously did not exist
         SlidingTilesBoard.setDimensions(5);
-        List<Tile> tiles = makeTiles();
+        List<SlidingTile> tiles = makeTiles();
         board = new SlidingTilesBoard(tiles);
         GameLauncher.getCurrentUser().setRecentManagerOfBoard("NonExistentBoard", board);
         assertEquals(board, GameLauncher.getCurrentUser().getRecentManagerOfBoard("NonExistentBoard"));

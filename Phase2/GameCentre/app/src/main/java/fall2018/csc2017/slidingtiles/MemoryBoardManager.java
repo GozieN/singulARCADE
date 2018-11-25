@@ -7,20 +7,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
- class MemoryBoardManager implements Serializable, Game{
+class MemoryBoardManager implements Serializable, Game {
     /**
      * The board being managed.
      */
     final static String GAME_NAME = "Memory Puzzle";
-    private Board board;
+    private MemoryGameBoard board;
 
     ScoreBoard gameScoreBoard;
+
     /**
      * Manage a board that has been pre-populated.
      *
      * @param board the board
      */
-    MemoryBoardManager(Board board) {
+    MemoryBoardManager(MemoryGameBoard board) {
         this.board = board;
         gameScoreBoard = new ScoreBoard();
     }
@@ -28,27 +29,29 @@ import java.util.Stack;
     /**
      * Return the current board.
      */
-    Board getBoard() {
+    MemoryGameBoard getBoard() {
         return board;
     }
+
     /**
      * Set a new board.
      */
-    void setBoard(Board board) {
+    void setBoard(MemoryGameBoard board) {
         this.board = board;
         board.update();
     }
+
     /**
      * Manage a new shuffled board.
      */
     MemoryBoardManager() {
-        List<Tile> tiles = new ArrayList<>();
+        List<MemoryPuzzleTile> tiles = new ArrayList<>();
         final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum));
+            tiles.add(new MemoryPuzzleTile(tileNum));
             }
         Collections.shuffle(tiles);
-        this.board = new Board(tiles);
+        this.board = new MemoryGameBoard(tiles);
         gameScoreBoard = new ScoreBoard();
     }
 
@@ -64,7 +67,7 @@ import java.util.Stack;
         Iterator<Tile> boardIterator = board.iterator();
         while (boardIterator.hasNext()) {
             Tile currentTile = boardIterator.next();
-            if (currentTile.getId() != 0) {
+            if (currentTile.getBackground() != R.drawable.memory_tile_38) {
                 solved = false;
                 return solved;
             }
@@ -79,14 +82,9 @@ import java.util.Stack;
      * @return whether the tile at position is greyed out.
      */
     public boolean isValidTap(int position) {
-        Iterator<Tile> boardIterator = board.iterator();
-        int place = 0;
-        Tile currentTile = null;
-        while (place != position && boardIterator.hasNext()){
-            currentTile = boardIterator.next();
-            place += 1;
-        }
-        return currentTile.getId() != 0;
+        int row = position / MemoryGameBoard.NUM_COLS;
+        int col = position % MemoryGameBoard.NUM_COLS;
+        return board.getMemoryGameTile(row, col).getBackground() != R.drawable.memory_tile_38;
     }
 
     /**
@@ -94,33 +92,34 @@ import java.util.Stack;
      *
      * @param position1, position2 the positions of the tiles
      */
-    public void touchMove(int position1, int position2) {
-        MemoryPuzzleTile firstTouch = new MemoryPuzzleTile(position1);
-        MemoryPuzzleTile secondTouch = new MemoryPuzzleTile(position2);
-        int blankId = board.numTiles();
+    public void greyOut(int position1, int position2) {
+        int row1 = position1 / MemoryGameBoard.NUM_ROWS;
+        int col1 = position1 % MemoryGameBoard.NUM_COLS;
+        int row2 = position2 / MemoryGameBoard.NUM_ROWS;
+        int col2 = position2 % MemoryGameBoard.NUM_COLS;
 
-        if (firstTouch.getId()%2 == 0){
-            if (firstTouch.getId() == secondTouch.getId() - 1){
-                firstTouch.setId(0);
-                secondTouch.setId(0);
-                }
-        else if (firstTouch.getId()%2 != 0){
-            if (firstTouch.getId() == secondTouch.getId() + 1){
-            firstTouch.setId(0);
-            secondTouch.setId(0);
-                }}
-        else {
-                firstTouch.setId(blankId);
-                secondTouch.setId(blankId);
-            }}
+        MemoryPuzzleTile t1 = board.getMemoryGameTile(row1, col1);
+        MemoryPuzzleTile t2 = board.getMemoryGameTile(row2, col2);
+
+
+        if (t1.compareTo(t2) == 0) {
+            t1.setTopLayer(R.drawable.memory_tile_38);
+            t2.setTopLayer(R.drawable.memory_tile_38);
+        } else {
+            t1.setTopLayer(R.drawable.tile_blank);
+            t2.setTopLayer(R.drawable.tile_blank);
+        }
     }
+
+
     /**
      * Return the score of the current game
+     *
      * @return the score of the current game
      */
     public int getScore() {
-        Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates("Memory Puzzle");
-        double tempScore = Math.pow((stackOfMoves.size() + 2*GameActivity.numberOfUndos), -1);
+        Stack<List> stackOfMoves = GameLauncher.getCurrentUser().getStackOfGameStates("Memory Puzzle");
+        double tempScore = Math.pow((stackOfMoves.size()), -1);
         //if 4, multiply by 10000
         if (Board.NUM_ROWS == 4) {
             return (int) Math.round(tempScore * 10000);

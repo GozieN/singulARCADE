@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 
-public class SlidingTilesBoardTest {
+public class SlidingTileBoardTest {
 
     /** The board for testing. */
     SlidingTilesBoard board;
@@ -25,14 +25,14 @@ public class SlidingTilesBoardTest {
      * Make a set of tiles that are in order.
      * @return a set of tiles that are in order
      */
-    private List<Tile> makeTiles() {
-        List<Tile> tiles = new ArrayList<>();
+    private List<SlidingTile> makeTiles() {
+        List<SlidingTile> tiles = new ArrayList<>();
         final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(tileNum, tileNum));
+                tiles.add(new SlidingTile(tileNum, tileNum));
             } else {
-                tiles.add(new Tile(tileNum));
+                tiles.add(new SlidingTile(tileNum));
             }
         }
 
@@ -44,7 +44,7 @@ public class SlidingTilesBoardTest {
      */
     private void setUpCorrect() {
         SlidingTilesBoard.setDimensions(4);
-        List<Tile> tiles = makeTiles();
+        List<SlidingTile> tiles = makeTiles();
         board = new SlidingTilesBoard(tiles);
     }
 

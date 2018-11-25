@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -74,18 +75,18 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         addUndoButtonListener();
         addSaveButtonListener();
 
-        // Add View to activity
-        if (slidingTilesManager instanceof SlidingTilesManager) {
-            gridView = findViewById(R.id.grid);
-            //SlidingTilesManager slidingTilesManager = (SlidingTilesManager) slidingTilesManager;
-        }
-//        if (slidingTilesManager instanceof PegSolitaireManager) {
-//            //PegSolitaireManager slidingTilesManager = (PegSolitaireManager) slidingTilesManager;
-//            gridView = findViewById(R.id.squareGrid);
-//        }
+        addView();
+    }
+
+    /**
+     * Add View to this Activity
+     */
+    private void addView() {
+        gridView = findViewById(R.id.grid);
         gridView.setNumColumns(SlidingTilesBoard.NUM_COLS);
         gridView.setSlidingTilesManager(slidingTilesManager);
         slidingTilesManager.getBoard().addObserver(this);
+
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -111,7 +112,7 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        SlidingTilesBoard board = slidingTilesManager.getBoard();
+        Board board = slidingTilesManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != SlidingTilesBoard.NUM_ROWS; row++) {
             for (int col = 0; col != SlidingTilesBoard.NUM_COLS; col++) {
@@ -126,7 +127,7 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        SlidingTilesBoard board = slidingTilesManager.getBoard();
+        Board board = slidingTilesManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / SlidingTilesBoard.NUM_ROWS;
@@ -197,7 +198,7 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (numberOfUndos < SlidingTilesSetUpActivity.undoLimit) {
+                if (numberOfUndos < SetUpActivity.undoLimit) {
                     Stack totalStates = GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME);
                     if(totalStates.size() != 0) {
                         List state = GameLauncher.getCurrentUser().getState(SlidingTilesManager.GAME_NAME);
@@ -257,7 +258,7 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size() > 0) {
+                if (!GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).isEmpty()) {
                     makeToastSavedText();
                     switchToGameCentre();
                 }
