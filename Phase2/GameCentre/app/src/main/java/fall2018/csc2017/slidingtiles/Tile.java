@@ -18,7 +18,7 @@ public abstract class Tile implements Serializable {
     /**
      * The unique id.
      */
-    private int id;
+    public int id;
 
     /**
      * Return the background id.
