@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
-public class MemoryPuzzleTile implements Comparable<MemoryPuzzleTile>, Serializable{
+public class MemoryPuzzleTile implements Comparable<MemoryPuzzleTile>, Serializable {
 
     /**
      * The background id to find the tile image.
@@ -77,9 +77,12 @@ public class MemoryPuzzleTile implements Comparable<MemoryPuzzleTile>, Serializa
     }
 
     @Override
-    public int compareTo(@NonNull MemoryPuzzleTile o) {
-        //TODO
-        return 0;
+    public int compareTo(@NonNull MemoryPuzzleTile memoryPuzzleTile) {
+        if ((id % 2 == 0 && id == memoryPuzzleTile.getId() + 1) ||
+                (id % 2 != 0 && id == memoryPuzzleTile.getId() - 1)) {
+            return 0;
+        }
+        return -1;
     }
 }
 
