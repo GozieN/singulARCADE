@@ -49,6 +49,9 @@ public abstract class Tile implements Serializable {
         this.background = R.drawable.tile_blank;
     }
 
+
+    //TODO refactor this
+
     /**
      * A tile with a background id; look up and set the id.
      *
