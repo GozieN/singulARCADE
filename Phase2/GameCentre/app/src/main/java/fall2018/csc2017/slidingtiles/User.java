@@ -36,6 +36,11 @@ public class User implements Serializable{
      */
     private HashMap<String, Object> recentManagerOfBoard;
 
+//    /**
+//     * The most recent board of each game that the user plays.
+//     */
+//    private HashMap<String, Object> recentManagerOfMemoryBoard;
+
     /**
      * A new user with a unique username and password.
      *
@@ -47,8 +52,11 @@ public class User implements Serializable{
         this.password = password;
         this.gameStates = new HashMap<>();
         gameStates.put(SlidingTilesManager.GAME_NAME, new Stack<List>());
+        gameStates.put(MemoryBoardManager.GAME_NAME, new Stack<List>());
         this.recentManagerOfBoard = new HashMap<>();
         recentManagerOfBoard.put(SlidingTilesManager.GAME_NAME, new SlidingTilesManager());
+        recentManagerOfBoard.put(MemoryBoardManager.GAME_NAME, new MemoryBoardManager());
+
         this.userScoreBoard = new ScoreBoard();
     }
 
@@ -76,8 +84,8 @@ public class User implements Serializable{
      */
     List getState(String game) {
         if (gameStates.containsKey(game)) {
-                Stack gameState = gameStates.get(game);
-                return (List) gameState.pop();
+            Stack gameState = gameStates.get(game);
+            return (List) gameState.pop();
         }
         return null;
     }
@@ -136,4 +144,3 @@ public class User implements Serializable{
         else {recentManagerOfBoard.put(game, newManagerOfBoard);}
     }
 }
-
