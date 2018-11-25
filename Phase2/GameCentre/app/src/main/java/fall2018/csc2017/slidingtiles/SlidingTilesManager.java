@@ -45,13 +45,13 @@ class SlidingTilesManager implements Serializable, Game {
      * Manage a new shuffled board.
      */
     SlidingTilesManager() {
-        List<Tile> tiles = new ArrayList<>();
+        List<SlidingTile> tiles = new ArrayList<>();
         final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(tileNum, tileNum));
+                tiles.add(new SlidingTile(tileNum, tileNum));
             } else {
-                tiles.add(new Tile(tileNum));
+                tiles.add(new SlidingTile(tileNum));
             }
         }
 
