@@ -32,6 +32,9 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
      */
     private SlidingTilesManager slidingTilesManager;
 
+    /**
+     * The user manager.
+     */
     private UserManager userManager;
 
     /**
@@ -167,7 +170,6 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
     @Override
     protected void onPause() {
         super.onPause();
-//        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
         saveToFile(LoginActivity.SAVE_FILENAME);
     }
 
@@ -250,20 +252,30 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         Integer score = slidingTilesManager.getScore();
         SlidingTilesManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, score);
-        //TODO: here maybe save the new stuff?? aka make sure updated score of user is put in and update on overall scoreboard for game
-        saveToFile(LoginActivity.SAVE_FILENAME); //this will save the user w the new score... but need to fix it for other scoreboards
+        saveToFile(LoginActivity.SAVE_FILENAME);
     }
 
     /**
-     * Motify user when undo limit is reached.
+     * Notify user when undo limit is reached.
      */
     private void makeToastUndoLimitText() {
         Toast.makeText(this, "Undo Limit Reached", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Notify user when they have made no moves, so are not allowed to undo
+     */
     private void makeToastNoUndoText() {
         Toast.makeText(this, "Undo Not Possible", Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * Notify user when they have made no moves, so are not allowed to undo
+     */
+    private void makeToastNoSaveAndQuit() {
+        Toast.makeText(this, "Must make a move before saving", Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * Activate the save button.
      */
@@ -272,8 +284,12 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeToastSavedText();
-                switchToGameCentre();
+                if (!GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).isEmpty()) {
+                    makeToastSavedText();
+                    switchToGameCentre();
+                }
+                else {makeToastNoSaveAndQuit();
+                }
             }
         });
     }

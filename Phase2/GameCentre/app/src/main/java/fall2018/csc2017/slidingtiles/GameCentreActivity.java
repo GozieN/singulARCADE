@@ -19,6 +19,7 @@ public class GameCentreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_centre);
         addMyAccountButtonListener();
         addBuyMoreGameButton();
+        addSignOutButtonListener();
 
         addPegSolitaireButtonListener();
         addSlidingTilesButtonListener();
@@ -72,6 +73,7 @@ public class GameCentreActivity extends AppCompatActivity {
             }
         });
     }
+
 
     /**
      * Activate the button to switch screens to UserManagerActivity.
@@ -128,5 +130,27 @@ public class GameCentreActivity extends AppCompatActivity {
         //TODO: FILL IN THE INSTRUCTIONS FOR MEMORY PUZZLE
         memoryPuzzleIntent.putExtra("instructionsText", "HOW TO PLAY: ");
         startActivity(memoryPuzzleIntent);
+    }
+
+    /**
+     * Activate sign out Button
+     */
+
+    private void addSignOutButtonListener() {
+        Button signOutButton = findViewById(R.id.logout);
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToSignIn();
+            }
+        });
+    }
+
+    /**
+     * Lead to sign in activity
+     */
+    private void switchToSignIn() {
+        Intent tmp = new Intent(this, LoginActivity.class);
+        startActivity(tmp);
     }
 }

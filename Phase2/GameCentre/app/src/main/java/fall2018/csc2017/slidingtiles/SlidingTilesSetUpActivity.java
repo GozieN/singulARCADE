@@ -48,7 +48,6 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
     static int undoLimit;
 
     private UserManager userManager;
-    private ScoreBoard scoreBoard;
     private SlidingTilesManager slidingTilesManager;
 
     @Override
@@ -104,9 +103,10 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
     private void switchToGame() {
         Intent tmp = new Intent(this, PlaySlidingTilesActivity.class);
         tmp.putExtra("size", size);
-        slidingTilesManager = new SlidingTilesManager(makeBoard());
-        while (! isSolvable(slidingTilesManager)) {
-            slidingTilesManager = new SlidingTilesManager(makeBoard());
+        SlidingTilesBoard.setDimensions(size);
+        slidingTilesManager = new SlidingTilesManager();
+        while (! slidingTilesManager.isSolvable()) {
+            slidingTilesManager = new SlidingTilesManager();
         }
         GameLauncher.getCurrentUser().setRecentManagerOfBoard(SlidingTilesManager.GAME_NAME, slidingTilesManager);
         saveToFile(LoginActivity.SAVE_FILENAME);
@@ -114,66 +114,11 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
     }
 
     /**
-     * Return a Board.
-     * @return a Board
-     */
-    private SlidingTilesBoard makeBoard () {
-        SlidingTilesBoard board;
-
-        SlidingTilesBoard.setDimensions(size);
-
-        List<Tile> tiles = new ArrayList<>();
-        final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(tileNum, tileNum));
-            } else {
-                tiles.add(new Tile(tileNum));
-            }
-        }
-        Collections.shuffle(tiles);
-        board = new SlidingTilesBoard(tiles);
-        return board;
-    }
-
-    /**
-     *
-     * @param slidingTilesManager the slidingTilesManager that is being used in the game about to be played.
-     * @return true iff the sliding tiles game will be solvable.
-     */
-    private boolean isSolvable(SlidingTilesManager slidingTilesManager) {
-        //adapted from https://puzzling.stackexchange.com/questions/25563/do-i-have-an-unsolvable-15-puzzle
-        ArrayList tileOrder = slidingTilesManager.getTilesInArrayList();
-        int blankId = slidingTilesManager.positionBlankTile();
-        //check the amount of inversions
-        //adapted from https://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable
-        int inversions = 0;
-        for (int i=0; i<tileOrder.size(); i++) {
-            for (int j=i + 1; j<tileOrder.size(); j++) {
-                if ((int) tileOrder.get(j) < (int) tileOrder.get(i)) {
-                    inversions++;
-                }
-            }
-        }
-        //if it's odd size and has an even number of inversions, the board is solvable-> return true
-        if (size%2 != 0) {
-            if (inversions%2 == 0){
-                return true;
-            }
-            return false;
-        }
-        //otherwise it is even size and the rows the blank tile is on is odd, then the board is solvable
-        if (blankId % 2 == 0 && inversions % 2 == 0) {return true;}
-        if (blankId % 2 != 0 && inversions %2 != 0) {return true;}
-        return false;
-    }
-
-    /**
      * Load the user manager and scoreboard from fileName.
      *
      * @param fileName the name of the file
      */
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);
@@ -182,9 +127,7 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
             }
             else {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                ArrayList arrayList = (ArrayList) input.readObject();
-                userManager = (UserManager) arrayList.get(0);
-                scoreBoard = (ScoreBoard) arrayList.get(1);
+                userManager = (UserManager) input.readObject();
                 slidingTilesManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
                 inputStream.close();
             }
@@ -203,14 +146,10 @@ public class SlidingTilesSetUpActivity extends AppCompatActivity {
      * @param fileName the name of the file
      */
     public void saveToFile(String fileName) {
-
-        ArrayList arrayList= new ArrayList();
-        arrayList.add(userManager);
-        arrayList.add(scoreBoard);
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(arrayList);
+            outputStream.writeObject(userManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());

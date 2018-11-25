@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 
-public class BoardTest {
+public class SlidingTilesBoardTest {
 
     /** The board for testing. */
     SlidingTilesBoard board;
@@ -27,7 +27,7 @@ public class BoardTest {
      */
     private List<Tile> makeTiles() {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
                 tiles.add(new Tile(tileNum, tileNum));
@@ -43,7 +43,7 @@ public class BoardTest {
      * Make a solved Board.
      */
     private void setUpCorrect() {
-        Board.setDimensions(4);
+        SlidingTilesBoard.setDimensions(4);
         List<Tile> tiles = makeTiles();
         board = new SlidingTilesBoard(tiles);
     }
@@ -94,7 +94,7 @@ public class BoardTest {
     @Test
     public void testToString() {
         setUpCorrect();
-        String string = "Board{" + "tiles=" + Arrays.toString(board.getTiles()) + "}";
+        String string = "SlidingTilesBoard{" + "tiles=" + Arrays.toString(board.getTiles()) + "}";
         assertEquals(string, board.toString());
 
     }

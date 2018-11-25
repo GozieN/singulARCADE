@@ -15,9 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 
 /**
@@ -25,14 +22,14 @@ import java.util.List;
  */
 public class MemoryGameSetUpActivity extends AppCompatActivity {
     /*
-    The user's chosen board size from dropdown.
-     */
+The user's chosen board size from dropdown.
+ */
     private String boardSelection;
+
     /*
     The dropdown menu for board size.
      */
     private Spinner spinnerBoardSize;
-
     /*
     The user's chosen board size.
      */
@@ -40,8 +37,7 @@ public class MemoryGameSetUpActivity extends AppCompatActivity {
 
     private UserManager userManager;
     private ScoreBoard scoreBoard;
-    private MemoryBoardManager boardManager;
-
+    private MemoryBoardManager memoryBoardManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +50,11 @@ public class MemoryGameSetUpActivity extends AppCompatActivity {
         spinnerBoardSize = findViewById(R.id.ChooseBoardSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapterBoardSize = ArrayAdapter.createFromResource(this,
-                R.array.slidingTilesboard_array, android.R.layout.simple_spinner_item);
+                R.array.memoryPuzzle_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinnerBoardSize.setAdapter(adapterBoardSize);
-        
     }
 
     /**
@@ -85,40 +80,13 @@ public class MemoryGameSetUpActivity extends AppCompatActivity {
      * Switch to game screen.
      */
     private void switchToGame() {
-        Intent tmp = new Intent(this, PlaySlidingTilesActivity.class);
+        Intent tmp = new Intent(this, MemoryGameActivity.class);
         tmp.putExtra("size", size);
-        System.out.println("size of board is " + size);
-        System.out.println("size of the board after calling makeBoard(): " + new SlidingTilesManager(makeBoard()).getBoard().NUM_COLS);
-        boardManager = new MemoryBoardManager(makeBoard());
-        System.out.println("get the boardmaranger's set num of columns: " + boardManager.getBoard().NUM_COLS);
-        GameLauncher.getCurrentUser().setRecentManagerOfBoard(SlidingTilesManager.GAME_NAME, boardManager);
+        MemoryGameBoard.setDimensions(size);
+        memoryBoardManager = new MemoryBoardManager();
+        GameLauncher.getCurrentUser().setRecentManagerOfBoard(MemoryBoardManager.GAME_NAME, memoryBoardManager);
         saveToFile(LoginActivity.SAVE_FILENAME);
         startActivity(tmp);
-    }
-
-    /**
-     * Return a Board.
-     * @return a Board
-     */
-    private Board makeBoard () {
-        Board board;
-
-        //int size = getIntent().getIntExtra("size", 4);
-        //Board.setDimensions(size);
-
-        List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(tileNum, tileNum));
-            } else {
-                tiles.add(new Tile(tileNum));
-            }
-        }
-
-        Collections.shuffle(tiles);
-        board = new Board(tiles);
-        return board;
     }
 
     /**
@@ -126,7 +94,7 @@ public class MemoryGameSetUpActivity extends AppCompatActivity {
      *
      * @param fileName the name of the file
      */
-    private void loadFromFile(String fileName) {
+    public void loadFromFile(String fileName) {
 
         try {
             InputStream inputStream = this.openFileInput(fileName);
@@ -135,11 +103,7 @@ public class MemoryGameSetUpActivity extends AppCompatActivity {
             }
             else {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                ArrayList arrayList = (ArrayList) input.readObject();
-                userManager = (UserManager) arrayList.get(0);
-                scoreBoard = (ScoreBoard) arrayList.get(1);
-                boardManager = (MemoryBoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
-//                userManager = (UserManager) input.readObject();
+                userManager = (UserManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -157,14 +121,10 @@ public class MemoryGameSetUpActivity extends AppCompatActivity {
      * @param fileName the name of the file
      */
     public void saveToFile(String fileName) {
-
-        ArrayList arrayList= new ArrayList();
-        arrayList.add(userManager);
-        arrayList.add(scoreBoard);
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(arrayList);
+            outputStream.writeObject(userManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
