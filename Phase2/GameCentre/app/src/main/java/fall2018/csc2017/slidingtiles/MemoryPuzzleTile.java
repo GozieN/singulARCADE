@@ -18,6 +18,11 @@ public class MemoryPuzzleTile implements Comparable<MemoryPuzzleTile>, Serializa
     private int id;
 
     /**
+     * The id of the topLayer displayed on the top of the board.
+     */
+    private int topLayer;
+
+    /**
      * Return the background id.
      *
      * @return the background id
@@ -207,5 +212,21 @@ public class MemoryPuzzleTile implements Comparable<MemoryPuzzleTile>, Serializa
         }
         return -1;
     }
+
+    /**
+     * Return the topLayer id.
+     * @return the topLayer id
+     */
+    public int getTopLayer() {
+        return topLayer;
     }
+
+    /**
+     * Set the topLayer id.
+     * @param topLayer the topLayer id
+     */
+    public void setTopLayer(int topLayer) {
+        this.topLayer = topLayer;
+    }
+}
 

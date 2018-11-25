@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
-class MemoryBoardManager implements Serializable, Game{
+class MemoryBoardManager implements Serializable, Game {
     /**
      * The board being managed.
      */
@@ -15,6 +15,7 @@ class MemoryBoardManager implements Serializable, Game{
     private MemoryGameBoard board;
 
     ScoreBoard gameScoreBoard;
+
     /**
      * Manage a board that has been pre-populated.
      *
@@ -31,6 +32,7 @@ class MemoryBoardManager implements Serializable, Game{
     MemoryGameBoard getBoard() {
         return board;
     }
+
     /**
      * Set a new board.
      */
@@ -38,6 +40,7 @@ class MemoryBoardManager implements Serializable, Game{
         this.board = board;
         board.update();
     }
+
     /**
      * Manage a new shuffled board.
      */
@@ -86,6 +89,7 @@ class MemoryBoardManager implements Serializable, Game{
 
     /**
      * Process a touch at position in the board, removing tiles as appropriate.
+     *
      * @param position1, position2 the positions of the tiles
      */
     public void greyOut(int position1, int position2) {
@@ -98,23 +102,23 @@ class MemoryBoardManager implements Serializable, Game{
         MemoryPuzzleTile t2 = board.getMemoryGameTile(row2, col2);
 
 
-        if (t1.compareTo(t2)== 0){
-                t1.setbackground() = R.drawable.memory_tile_38;
-                t2.setbackground() = R.drawable.memory_tile_38;
-            }
-        else {
-            t1.setbackground() = R.drawable.tile_blank;
-            t2.setbackground() = R.drawable.tile_blank;
-            }
+        if (t1.compareTo(t2) == 0) {
+            t1.setTopLayer(R.drawable.memory_tile_38);
+            t2.setTopLayer(R.drawable.memory_tile_38);
+        } else {
+            t1.setTopLayer(R.drawable.tile_blank);
+            t2.setTopLayer(R.drawable.tile_blank);
+        }
     }
 
 
     /**
      * Return the score of the current game
+     *
      * @return the score of the current game
      */
     public int getScore() {
-        Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates("Memory Puzzle");
+        Stack<List> stackOfMoves = GameLauncher.getCurrentUser().getStackOfGameStates("Memory Puzzle");
         double tempScore = Math.pow((stackOfMoves.size()), -1);
         //if 4, multiply by 10000
         if (Board.NUM_ROWS == 4) {
