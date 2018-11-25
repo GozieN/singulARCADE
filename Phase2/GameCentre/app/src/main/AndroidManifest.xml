@@ -20,11 +20,12 @@
         <activity android:name=".StartingActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".PlaySlidingTilesActivity" />
+        <activity android:name=".PlayPegSolitaireActivity" />
         <activity android:name=".GameCentreActivity" />
         <activity android:name=".ScoreBoardActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".SlidingTilesSetUpActivity" />
+        <activity android:name=".SetUpActivity" />
     </application>
 
 </manifest>

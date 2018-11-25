@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fall2018.csc2017.slidingtiles.GameActivity">
+    tools:context="fall2018.csc2017.slidingtiles.PlaySlidingTilesActivity">
 
     <Button
         android:id="@+id/SaveButton"
@@ -30,7 +30,7 @@
         app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:context="fall2018.csc2017.slidingtiles.GameActivity">
+        tools:context="fall2018.csc2017.slidingtiles.PlaySlidingTilesActivity">
 
     </fall2018.csc2017.slidingtiles.GestureDetectGridView>
 
