@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 /**
  * The sliding tiles board.
  */
-public class Board extends Observable implements Serializable, Iterable<Tile> {
+public class Board extends Observable implements Serializable {
 
     /**
      * The number of rows.
@@ -97,53 +97,53 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     }
 
 
-    /** Return a new Iterator over the Tiles in the Board.
-     *
-     * @return a new Iterator over the Tiles in the Board.
-     */
-    @NonNull
-    @Override
-    public Iterator<Tile> iterator() {
-        return new BoardIterator();
-    }
-
-    /**
-     * An iterator for the tiles in the board.
-     */
-    private class BoardIterator implements Iterator<Tile> {
-
-        /**The row that the next tile in the board is located in.*/
-        int row = 0;
-        /**The column that the next tile in the board is located in.*/
-        int col = 0;
-
-        /** Return whether the board has another tile.
-         *
-         * @return whether the board has another tile
-         */
-        @Override
-        public boolean hasNext() {
-            return col <= NUM_COLS - 1 && row <= NUM_ROWS - 1;
-        }
-
-        /** Return the next tile in the board.
-         *
-         * @return the next tile in the board
-         */
-        @Override
-        public Tile next() {
-            if (!hasNext()) {
-                throw new NoSuchElementException("No more tiles");
-            }
-
-            Tile nextTile = getTile(row, col);
-            if (col == NUM_COLS - 1) {
-                row++;
-                col = 0;
-            } else {
-                col++;
-            }
-            return nextTile;
-        }
-    }
+//    /** Return a new Iterator over the Tiles in the Board.
+//     *
+//     * @return a new Iterator over the Tiles in the Board.
+//     */
+//    @NonNull
+//    @Override
+//    public Iterator<Tile> iterator() {
+//        return new BoardIterator();
+//    }
+//
+//    /**
+//     * An iterator for the tiles in the board.
+//     */
+//    private class BoardIterator implements Iterator<Tile> {
+//
+//        /**The row that the next tile in the board is located in.*/
+//        int row = 0;
+//        /**The column that the next tile in the board is located in.*/
+//        int col = 0;
+//
+//        /** Return whether the board has another tile.
+//         *
+//         * @return whether the board has another tile
+//         */
+//        @Override
+//        public boolean hasNext() {
+//            return col <= NUM_COLS - 1 && row <= NUM_ROWS - 1;
+//        }
+//
+//        /** Return the next tile in the board.
+//         *
+//         * @return the next tile in the board
+//         */
+//        @Override
+//        public Tile next() {
+//            if (!hasNext()) {
+//                throw new NoSuchElementException("No more tiles");
+//            }
+//
+//            Tile nextTile = getTile(row, col);
+//            if (col == NUM_COLS - 1) {
+//                row++;
+//                col = 0;
+//            } else {
+//                col++;
+//            }
+//            return nextTile;
+//        }
+//    }
 }

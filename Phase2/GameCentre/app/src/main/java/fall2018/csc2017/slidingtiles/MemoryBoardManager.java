@@ -47,7 +47,7 @@ class MemoryBoardManager implements Serializable, Game {
         final int numTiles = MemoryGameBoard.NUM_ROWS * MemoryGameBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new MemoryPuzzleTile(tileNum));
-            }
+        }
         Collections.shuffle(tiles);
         this.board = new MemoryGameBoard(tiles);
         gameScoreBoard = new ScoreBoard();
@@ -62,12 +62,12 @@ class MemoryBoardManager implements Serializable, Game {
      */
     public boolean isOver() {
         boolean solved = true;
-        Iterator<MemoryPuzzleTile> boardIterator = board.iterator();
-        while (boardIterator.hasNext()) {
-            MemoryPuzzleTile currentTile = boardIterator.next();
+        Iterator<MemoryPuzzleTile> iterator = board.iterator();
+        while (iterator.hasNext()) {
+            MemoryPuzzleTile currentTile = iterator.next();
+            System.out.println(currentTile.getId());
             if (currentTile.getTopLayer() != R.drawable.memory_tile_38) {
                 solved = false;
-                return solved;
             }
         }
         return solved;
