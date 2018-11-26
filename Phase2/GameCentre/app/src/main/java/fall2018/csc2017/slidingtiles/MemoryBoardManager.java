@@ -82,7 +82,7 @@ class MemoryBoardManager implements Serializable, Game {
     public boolean isValidTap(int position) {
         int row = position / MemoryGameBoard.NUM_COLS;
         int col = position % MemoryGameBoard.NUM_COLS;
-        return board.getMemoryGameTile(row, col).getBackground() != R.drawable.memory_tile_38;
+        return board.getMemoryGameTile(row, col).getTopLayer() != R.drawable.memory_tile_38;
     }
 
     /**
