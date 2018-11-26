@@ -28,7 +28,6 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".SetUpActivity" />
         <activity android:name=".MemoryGameSetUpActivity" />
-        <activity android:name=".MemoryGameActivity" />
     </application>
 
 </manifest>
