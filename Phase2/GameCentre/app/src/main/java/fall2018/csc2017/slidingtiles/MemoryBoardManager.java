@@ -110,6 +110,20 @@ class MemoryBoardManager implements Serializable, Game {
     }
 
 
+      /**
+     * Make a move on the Memory game board, i.e. flip the tile chosen by the user to reveal the
+     * image underneath
+     *
+     * @param position the position of the tile on the board
+     */
+      void flipTile(int position) {
+          int row = position / MemoryGameBoard.NUM_ROWS;
+          int col = position % MemoryGameBoard.NUM_COLS;
+        MemoryPuzzleTile tile = board.getMemoryGameTile(row, col);
+        tile.setTopLayer(tile.getBackground());
+    }
+
+
     /**
      * Return the score of the current game
      *

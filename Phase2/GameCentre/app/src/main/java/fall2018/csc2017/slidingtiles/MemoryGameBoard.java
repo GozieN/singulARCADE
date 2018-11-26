@@ -69,18 +69,6 @@ public class MemoryGameBoard extends Board implements Serializable, Iterable<Mem
         return tiles[row][col];
     }
 
-//    /**
-//     * Make a move on the Memory game board, i.e. flip the tile chosen by the user to reveal the
-//     * image underneath
-//     *
-//     * @param row the first tile row
-//     * @param col the first tile col
-//     */
-//      void flipTile(int row, int col) {
-//        MemoryPuzzleTile ImageTile = MemoryPuzzleTile.background.getID();
-//        MemoryPuzzleTile MemoryPuzzleTile[row][col] = ImageTile;
-//        update();
-//    }
 
 
     void update() {
