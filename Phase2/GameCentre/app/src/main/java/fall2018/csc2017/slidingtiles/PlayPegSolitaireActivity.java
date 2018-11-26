@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -191,6 +192,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
                         int col2 = (Integer) state.get(1);
                         pegSolitaireManager.getBoard().moveGamepiece(row1, col1, row2, col2);
                         numberOfUndos++;
+                        setNumberOfUndosText();
                     } else {
                         makeToastNoUndoText();
                     }
@@ -274,8 +276,36 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         saveToFile(LoginActivity.SAVE_FILENAME); //this will save the user w the new score... but need to fix it for other scoreboards
     }
 
+
+    /**
+     * Set and modify the text showing the number of moves the user completed after each move the user makes.
+     * TODO: if a new xml file is made then change the id of the TextView box
+     */
+    public void setNumberOfMovesText() {
+        if (numberOfUndos > SetUpActivity.undoLimit) {
+            numberOfUndos = SetUpActivity.undoLimit;
+        }
+        int numMoves = 1 + numberOfUndos + GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size();
+        TextView moves = findViewById(R.id.changingNumberOfMoves);
+        moves.setText(Integer.toString(numMoves));
+    }
+
+    /**
+     * Set and modify the text showing the number of undos the user completed after each undo the user makes.
+     * TODO: if a new xml file is made then change the id of the TextView box
+     */
+    public void setNumberOfUndosText() {
+        if (numberOfUndos > SetUpActivity.undoLimit) {
+            numberOfUndos = SetUpActivity.undoLimit;
+        }
+        TextView undos = findViewById(R.id.changingNumberOfUndos);
+        undos.setText(Integer.toString(numberOfUndos));
+    }
+
     @Override
     public void update(Observable o, Object arg) {
+        setNumberOfMovesText();
+        setNumberOfUndosText();
         display();
     }
 }

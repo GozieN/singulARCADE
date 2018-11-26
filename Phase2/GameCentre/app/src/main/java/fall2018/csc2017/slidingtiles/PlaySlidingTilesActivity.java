@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -16,7 +17,6 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -55,6 +55,9 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
+
+    PlaySlidingTilesActivity() {}
+
     // Display
     public void display() {
         updateTileButtons();
@@ -208,6 +211,7 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
                         int col2 = (Integer) state.get(1);
                         slidingTilesManager.getBoard().swapTiles(row1, col1, row2, col2);
                         numberOfUndos++;
+                        setNumberOfUndosText();
                     } else {
                         makeToastNoUndoText();
                     }
@@ -286,8 +290,33 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Set and modify the text showing the number of moves the user completed after each move the user makes.
+     */
+    public void setNumberOfMovesText() {
+        if (numberOfUndos > SetUpActivity.undoLimit) {
+            numberOfUndos = SetUpActivity.undoLimit;
+        }
+        int numMoves = 1 + numberOfUndos + GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size();
+        TextView moves = findViewById(R.id.changingNumberOfMoves);
+        moves.setText(Integer.toString(numMoves));
+    }
+
+    /**
+     * Set and modify the text showing the number of undos the user completed after each undo the user makes.
+     */
+    public void setNumberOfUndosText() {
+        if (numberOfUndos > SetUpActivity.undoLimit) {
+            numberOfUndos = SetUpActivity.undoLimit;
+        }
+        TextView undos = findViewById(R.id.changingNumberOfUndos);
+        undos.setText(Integer.toString(numberOfUndos));
+    }
+
     @Override
     public void update(Observable o, Object arg) {
+        setNumberOfMovesText();
+        setNumberOfUndosText();
         display();
     }
 }
