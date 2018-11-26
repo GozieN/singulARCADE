@@ -119,11 +119,11 @@ class MemoryBoardManager implements Serializable, Game {
         Stack<List> stackOfMoves = GameLauncher.getCurrentUser().getStackOfGameStates("Memory Puzzle");
         double tempScore = Math.pow((stackOfMoves.size()), -1);
         //if 4, multiply by 10000
-        if (Board.NUM_ROWS == 4) {
+        if (MemoryGameBoard.NUM_ROWS == 4) {
             return (int) Math.round(tempScore * 10000);
         }
         //if 5, multiply by 20000
-        else if (Board.NUM_ROWS == 5) {
+        else if (MemoryGameBoard.NUM_ROWS == 5) {
             return (int) Math.round(tempScore * 20000);
         }
         //if 6, multiply by 30000
