@@ -62,10 +62,10 @@ class MemoryBoardManager implements Serializable, Game {
      */
     public boolean isOver() {
         boolean solved = true;
-        Iterator<Tile> boardIterator = board.iterator();
+        Iterator<MemoryPuzzleTile> boardIterator = board.iterator();
         while (boardIterator.hasNext()) {
-            Tile currentTile = boardIterator.next();
-            if (currentTile.getBackground() != R.drawable.memory_tile_38) {
+            MemoryPuzzleTile currentTile = boardIterator.next();
+            if (currentTile.getTopLayer() != R.drawable.memory_tile_38) {
                 solved = false;
                 return solved;
             }
