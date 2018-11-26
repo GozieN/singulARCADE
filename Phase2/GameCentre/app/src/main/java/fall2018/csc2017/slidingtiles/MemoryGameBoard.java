@@ -1,12 +1,15 @@
 package fall2018.csc2017.slidingtiles;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
-class MemoryGameBoard extends Board implements Serializable {
+public class MemoryGameBoard extends Board implements Serializable {
     /**
      * The number of rows.
      */
@@ -32,8 +35,8 @@ class MemoryGameBoard extends Board implements Serializable {
     MemoryGameBoard(List<MemoryPuzzleTile> tiles) {
         Iterator<MemoryPuzzleTile> iter = tiles.iterator();
 
-        for (int row = 0; row != SlidingTilesBoard.NUM_ROWS; row++) {
-            for (int col = 0; col != SlidingTilesBoard.NUM_COLS; col++) {
+        for (int row = 0; row != MemoryGameBoard.NUM_ROWS; row++) {
+            for (int col = 0; col != MemoryGameBoard.NUM_COLS; col++) {
                 this.tiles[row][col] = iter.next();
             }
         }
