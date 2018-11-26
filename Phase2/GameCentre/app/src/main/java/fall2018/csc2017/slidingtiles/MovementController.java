@@ -23,7 +23,6 @@ class MovementController {
         System.out.println(boardManager.getClass());
         if (boardManager instanceof PegSolitaireManager) {
             PegSolitaireManager thisBoard = (PegSolitaireManager) boardManager;
-            firstMove = !firstMove;
             if (thisBoard.isValidTap(position) && firstMove) {
                 thisBoard.firstMove(position);
                 firstMove = false;
