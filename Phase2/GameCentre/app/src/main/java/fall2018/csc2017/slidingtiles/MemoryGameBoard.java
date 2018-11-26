@@ -6,9 +6,10 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
-public class MemoryGameBoard extends Board implements Serializable {
+public class MemoryGameBoard extends Board implements Serializable, Iterable<MemoryPuzzleTile> {
     /**
      * The number of rows.
      */
@@ -100,14 +101,14 @@ public class MemoryGameBoard extends Board implements Serializable {
      * @return a new Iterator over the Tiles in the SlidingTilesBoard.
      */
     @NonNull
-    public Iterator<Tile> iterator() {
+    public Iterator<MemoryPuzzleTile> iterator() {
         return new MemoryGameBoard.BoardIterator();
     }
 
     /**
      * An iterator for the tiles in the board.
      */
-    private class BoardIterator implements Iterator<Tile> {
+    private class BoardIterator implements Iterator<MemoryPuzzleTile> {
 
         /**The row that the next tile in the board is located in.*/
         int row = 0;

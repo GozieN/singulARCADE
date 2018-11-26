@@ -47,7 +47,7 @@ class MemoryBoardManager implements Serializable, Game {
         final int numTiles = MemoryGameBoard.NUM_ROWS * MemoryGameBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new MemoryPuzzleTile(tileNum));
-            }
+        }
         Collections.shuffle(tiles);
         this.board = new MemoryGameBoard(tiles);
         gameScoreBoard = new ScoreBoard();
@@ -62,12 +62,12 @@ class MemoryBoardManager implements Serializable, Game {
      */
     public boolean isOver() {
         boolean solved = true;
-        Iterator<Tile> boardIterator = board.iterator();
-        while (boardIterator.hasNext()) {
-            Tile currentTile = boardIterator.next();
-            if (currentTile.getBackground() != R.drawable.memory_tile_38) {
+        Iterator<MemoryPuzzleTile> iterator = board.iterator();
+        while (iterator.hasNext()) {
+            MemoryPuzzleTile currentTile = iterator.next();
+            System.out.println(currentTile.getId());
+            if (currentTile.getTopLayer() != R.drawable.memory_tile_38) {
                 solved = false;
-                return solved;
             }
         }
         return solved;
@@ -82,7 +82,7 @@ class MemoryBoardManager implements Serializable, Game {
     public boolean isValidTap(int position) {
         int row = position / MemoryGameBoard.NUM_COLS;
         int col = position % MemoryGameBoard.NUM_COLS;
-        return board.getMemoryGameTile(row, col).getBackground() != R.drawable.memory_tile_38;
+        return board.getMemoryGameTile(row, col).getTopLayer() != R.drawable.memory_tile_38;
     }
 
     /**
@@ -119,11 +119,11 @@ class MemoryBoardManager implements Serializable, Game {
         Stack<List> stackOfMoves = GameLauncher.getCurrentUser().getStackOfGameStates("Memory Puzzle");
         double tempScore = Math.pow((stackOfMoves.size()), -1);
         //if 4, multiply by 10000
-        if (Board.NUM_ROWS == 4) {
+        if (MemoryGameBoard.NUM_ROWS == 4) {
             return (int) Math.round(tempScore * 10000);
         }
         //if 5, multiply by 20000
-        else if (Board.NUM_ROWS == 5) {
+        else if (MemoryGameBoard.NUM_ROWS == 5) {
             return (int) Math.round(tempScore * 20000);
         }
         //if 6, multiply by 30000

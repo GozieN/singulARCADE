@@ -97,8 +97,7 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
         for (int row = 0; row != MemoryGameBoard.NUM_ROWS; row++) {
             for (int col = 0; col != MemoryGameBoard.NUM_COLS; col++) {
                 Button tmp = new Button(context);
-                System.out.println("later in function createTileButtons " + board.getMemoryGameTile(row, col));
-                tmp.setBackgroundResource(board.getMemoryGameTile(row, col).getBackground());
+                tmp.setBackgroundResource(board.getMemoryGameTile(row, col).getTopLayer());
                 this.tileButtons.add(tmp);
             }
         }
@@ -113,7 +112,7 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
         for (Button b : tileButtons) {
             int row = nextPos / MemoryGameBoard.NUM_ROWS;
             int col = nextPos % MemoryGameBoard.NUM_COLS;
-            b.setBackgroundResource(board.getMemoryGameTile(row, col).getBackground());
+            b.setBackgroundResource(board.getMemoryGameTile(row, col).getTopLayer());
             nextPos++;
         }
         saveToFile(LoginActivity.SAVE_FILENAME);
