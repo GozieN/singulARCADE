@@ -27,12 +27,13 @@ class MovementController {
                 thisBoard.firstMove(position);
                 firstMove = false;
                 previousMove = position;
-            } else if (thisBoard.isValidTap(position) && !firstMove) {
+            } else if (thisBoard.isValidSecondTap(previousMove, position) && !firstMove) {
                 thisBoard.touchMove(previousMove, position);
                 firstMove = true;
                 if (thisBoard.isOver()) {
                     Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 }
+
             } else {
                 Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
             }

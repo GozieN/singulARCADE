@@ -3,11 +3,12 @@ package fall2018.csc2017.slidingtiles;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
 
-public class PegSolitaireManager extends Observable implements Serializable, Game {
+public class PegSolitaireManager implements Serializable, Game {
 
     /**
      * The Peg Solitaire board being managed.
@@ -81,10 +82,11 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
     public void firstMove(int position) {
         int row = position / PegSolitaireBoard.NUM_ROWS;
         int col = position % PegSolitaireBoard.NUM_COLS;
-        pegBoard.highlightTile(row, col);
+        pegBoard.addOrRemoveHighlight(row, col);
         for (List<Integer> move : listOfValidMoves(position)) {
-            pegBoard.highlightTile(move.get(0), move.get(1));
+            pegBoard.addOrRemoveHighlight(move.get(0), move.get(1));
         }
+        pegBoard.update();
 
     }
 
@@ -98,8 +100,15 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
         int col1 = position1 % PegSolitaireBoard.NUM_COLS;
         int row2 = position2 / PegSolitaireBoard.NUM_ROWS;
         int col2 = position2 % PegSolitaireBoard.NUM_COLS;
-
         pegBoard.moveGamepiece(row1, col1, row2, col2);
+
+        for (List<Integer> move : listOfValidMoves(position1)) {
+            if (move.get(0) != row2 && move.get(1) != col2) {
+                pegBoard.addOrRemoveHighlight(move.get(0), move.get(1));
+            }
+        }
+        pegBoard.update();
+
     }
 
     /**
@@ -108,6 +117,30 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
      */
     public boolean isValidTap(int position) {
         return !listOfValidMoves(position).isEmpty();
+    }
+
+    /**
+     * Return true if the second tap is valid.
+     * @return true iff the second tap is valid.
+     */
+    public boolean isValidSecondTap(int previousMove, int position) {
+        int row = position / PegSolitaireBoard.NUM_ROWS;
+        int col = position % PegSolitaireBoard.NUM_COLS;
+
+        for (List<Integer> move : listOfValidMoves(previousMove)) {
+            if (row == move.get(0) && col == move.get(1)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Removes any highlights on tiles.
+     *
+     */
+    void removeAllHighlights() {
+
     }
 
 
