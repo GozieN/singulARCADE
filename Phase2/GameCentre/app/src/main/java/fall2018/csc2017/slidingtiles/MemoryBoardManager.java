@@ -46,7 +46,7 @@ class MemoryBoardManager implements Serializable, Game {
      */
     MemoryBoardManager() {
         List<MemoryPuzzleTile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        final int numTiles = MemoryGameBoard.NUM_ROWS * MemoryGameBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new MemoryPuzzleTile(tileNum));
             }
@@ -132,6 +132,10 @@ class MemoryBoardManager implements Serializable, Game {
         else {
             return (int) Math.round(tempScore * 30000);
         }
+    }
+
+    public static void main(String[] args) {
+        new MemoryBoardManager();
     }
 
 }
