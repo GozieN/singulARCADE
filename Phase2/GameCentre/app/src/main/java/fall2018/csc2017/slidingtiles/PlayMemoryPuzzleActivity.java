@@ -93,8 +93,6 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
      */
     private void createTileButtons(Context context) {
         MemoryGameBoard board = memoryBoardManager.getBoard();
-        System.out.println("print board " + board.toString());
-        System.out.println("later in function createTileButtons " + board.getMemoryGameTile(0, 0));
         tileButtons = new ArrayList<>();
         for (int row = 0; row != MemoryGameBoard.NUM_ROWS; row++) {
             for (int col = 0; col != MemoryGameBoard.NUM_COLS; col++) {

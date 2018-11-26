@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 
-class MemoryGameBoard extends Board implements Serializable {
+public class MemoryGameBoard extends Board implements Serializable {
     /**
      * The number of rows.
      */

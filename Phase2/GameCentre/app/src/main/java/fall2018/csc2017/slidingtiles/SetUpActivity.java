@@ -139,9 +139,13 @@ public class SetUpActivity extends AppCompatActivity {
                 gameManager = new SlidingTilesManager();
             }
             GameLauncher.getCurrentUser().setRecentManagerOfBoard(SlidingTilesManager.GAME_NAME, gameManager);
+            GameLauncher.getCurrentUser().setEmptyStackOfGameStates(SlidingTilesManager.GAME_NAME);
+            PlaySlidingTilesActivity.numberOfUndos = 0;
         } else { //game.equals("PEG SOLITAIRE")
             tmp = new Intent(this, PlayPegSolitaireActivity.class);
             GameLauncher.getCurrentUser().setRecentManagerOfBoard(PegSolitaireManager.GAME_NAME, gameManager);
+            GameLauncher.getCurrentUser().setEmptyStackOfGameStates(PegSolitaireManager.GAME_NAME);
+            PlayPegSolitaireActivity.numberOfUndos = 0;
         }
         tmp.putExtra("shape", shape);
         tmp.putExtra("game", PegSolitaireManager.GAME_NAME);
