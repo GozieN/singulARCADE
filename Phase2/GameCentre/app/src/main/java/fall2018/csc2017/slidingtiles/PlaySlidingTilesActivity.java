@@ -4,18 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -31,11 +25,6 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
      * The board manager.
      */
     private SlidingTilesManager slidingTilesManager;
-
-    /**
-     * The user manager.
-     */
-    private UserManager userManager;
 
     /**
      * The buttons to display.
@@ -71,8 +60,8 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(LoginActivity.SAVE_FILENAME);
-
+        SaveAndLoad.loadFromFile(PlaySlidingTilesActivity.this, LoginActivity.SAVE_FILENAME);
+        slidingTilesManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
         createTileButtons(this);
         setContentView(R.layout.activity_main);
         addUndoButtonListener();
@@ -138,7 +127,7 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
             b.setBackgroundResource(board.getTile(row, col).getBackground());
             nextPos++;
         }
-        saveToFile(LoginActivity.SAVE_FILENAME);
+        SaveAndLoad.saveToFile(PlaySlidingTilesActivity.this, LoginActivity.SAVE_FILENAME);
     }
 
     /**
@@ -147,51 +136,9 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(LoginActivity.SAVE_FILENAME);
+        SaveAndLoad.saveToFile(PlaySlidingTilesActivity.this, LoginActivity.SAVE_FILENAME);
     }
 
-    /**
-     * Load the user manager and scoreboard from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void loadFromFile(String fileName) {
-
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream == null) {
-                saveToFile(fileName);
-            }
-            else {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                userManager = (UserManager) input.readObject();
-                slidingTilesManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + fileName);
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
-    /**
-     * Save the user manager and scoreboard to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(userManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
 
     /**
      * Activate the undo button.
@@ -230,7 +177,7 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         Integer score = slidingTilesManager.getScore();
         SlidingTilesManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, score);
-        saveToFile(LoginActivity.SAVE_FILENAME);
+        SaveAndLoad.saveToFile(PlaySlidingTilesActivity.this, LoginActivity.SAVE_FILENAME);
     }
 
     /**
