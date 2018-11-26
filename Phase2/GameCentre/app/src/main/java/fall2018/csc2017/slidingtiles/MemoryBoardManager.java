@@ -13,8 +13,7 @@ class MemoryBoardManager implements Serializable, Game {
      */
     final static String GAME_NAME = "Memory Puzzle";
     private MemoryGameBoard board;
-
-    ScoreBoard gameScoreBoard;
+    static ScoreBoard gameScoreBoard = new ScoreBoard();
 
     /**
      * Manage a board that has been pre-populated.
@@ -23,7 +22,6 @@ class MemoryBoardManager implements Serializable, Game {
      */
     MemoryBoardManager(MemoryGameBoard board) {
         this.board = board;
-        gameScoreBoard = new ScoreBoard();
     }
 
     /**
@@ -46,7 +44,7 @@ class MemoryBoardManager implements Serializable, Game {
      */
     MemoryBoardManager() {
         List<MemoryPuzzleTile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        final int numTiles = MemoryGameBoard.NUM_ROWS * MemoryGameBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new MemoryPuzzleTile(tileNum));
             }

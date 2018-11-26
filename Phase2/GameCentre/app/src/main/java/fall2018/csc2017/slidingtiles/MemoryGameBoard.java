@@ -1,9 +1,12 @@
 package fall2018.csc2017.slidingtiles;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 class MemoryGameBoard extends Board implements Serializable {
@@ -32,8 +35,8 @@ class MemoryGameBoard extends Board implements Serializable {
     MemoryGameBoard(List<MemoryPuzzleTile> tiles) {
         Iterator<MemoryPuzzleTile> iter = tiles.iterator();
 
-        for (int row = 0; row != SlidingTilesBoard.NUM_ROWS; row++) {
-            for (int col = 0; col != SlidingTilesBoard.NUM_COLS; col++) {
+        for (int row = 0; row != MemoryGameBoard.NUM_ROWS; row++) {
+            for (int col = 0; col != MemoryGameBoard.NUM_COLS; col++) {
                 this.tiles[row][col] = iter.next();
             }
         }
@@ -62,7 +65,7 @@ class MemoryGameBoard extends Board implements Serializable {
      * @param col the tile column
      * @return the tile at (row, col)
      */
-    MemoryPuzzleTile getMemoryGameTile(int row, int col) {
+     MemoryPuzzleTile getMemoryGameTile(int row, int col) {
         return tiles[row][col];
     }
 
@@ -79,15 +82,6 @@ class MemoryGameBoard extends Board implements Serializable {
 //        update();
 //    }
 
-//    /**
-//     * Highlights the tile at row, col to denote it as an available move to the user
-//     *
-//     * @param row
-//     * @param col
-//     */
-//    void highlightTile(int row, int col) {
-//
-//    }
 
     void update() {
         setChanged();
@@ -100,5 +94,54 @@ class MemoryGameBoard extends Board implements Serializable {
         return "MemoryBoard{" +
                 "tiles=" + Arrays.toString(tiles) +
                 '}';
+    }
+
+    /** Return a new Iterator over the Tiles in the SlidingTilesBoard.
+     *
+     * @return a new Iterator over the Tiles in the SlidingTilesBoard.
+     */
+    @NonNull
+    public Iterator<Tile> iterator() {
+        return new MemoryGameBoard.BoardIterator();
+    }
+
+    /**
+     * An iterator for the tiles in the board.
+     */
+    private class BoardIterator implements Iterator<Tile> {
+
+        /**The row that the next tile in the board is located in.*/
+        int row = 0;
+        /**The column that the next tile in the board is located in.*/
+        int col = 0;
+
+        /** Return whether the board has another tile.
+         *
+         * @return whether the board has another tile
+         */
+        @Override
+        public boolean hasNext() {
+            return col <= NUM_COLS - 1 && row <= NUM_ROWS - 1;
+        }
+
+        /** Return the next tile in the board.
+         *
+         * @return the next tile in the board
+         */
+        @Override
+        public MemoryPuzzleTile next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("No more tiles");
+            }
+
+            MemoryPuzzleTile nextTile = getMemoryGameTile(row, col);
+            if (col == NUM_COLS - 1) {
+                row++;
+                col = 0;
+            } else {
+                col++;
+            }
+            return nextTile;
+        }
     }
 }
