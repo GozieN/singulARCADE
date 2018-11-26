@@ -128,7 +128,10 @@ public class GameCentreActivity extends AppCompatActivity {
         memoryPuzzleIntent.putExtra("welcomeText", "MEMORY PUZZLE");
 
         //TODO: FILL IN THE INSTRUCTIONS FOR MEMORY PUZZLE
-        memoryPuzzleIntent.putExtra("instructionsText", "HOW TO PLAY: ");
+        memoryPuzzleIntent.putExtra("instructionsText", "HOW TO PLAY: \n " +
+                "The goal of the game is to match each image to its duplicate. \n " +
+                "Click a tile to reveal the image underneath. If the move you just" +
+                " enacted is an odd number, you have the chance to find the matching image!");
         startActivity(memoryPuzzleIntent);
     }
 

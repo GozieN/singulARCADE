@@ -8,6 +8,7 @@ class MovementController {
 
     public Game boardManager = null;
     private boolean firstMove = true;
+    private int position2;
     private int previousMove;
 
     MovementController() {
@@ -51,7 +52,15 @@ class MovementController {
         }
 
         if (boardManager instanceof MemoryBoardManager) {
-            //TODO: fill in what happens in Memory Puzzle
+            MemoryBoardManager thisBoard = (MemoryBoardManager) boardManager;
+            if (thisBoard.isValidTap(position)) {
+                thisBoard.greyOut(position, position2);
+                if (thisBoard.isOver()) {
+                    Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+            }
         }
-    }
+        }
 }
