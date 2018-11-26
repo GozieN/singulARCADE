@@ -30,42 +30,6 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
         this.topLayer = topLayer;
     }
 
-    /**
-     * Return the background id.
-     *
-     * @return the background id
-     */
-    public int getBackground() {
-        return super.getBackground();
-    }
-
-    /**
-     * Return the tile id.
-     *
-     * @return the tile id
-     */
-    public int getId() {
-        return super.getId();
-    }
-
-    /**
-     * Set the background id.
-     *
-     * @param background background id to be set to
-     */
-    public void setBackground(int background) {
-        super.setBackground(background);
-    }
-
-    /**
-     * Set the id of this Tile.
-     *
-     * @param id id to be set to
-     */
-    public void setId(int id) {
-        super.setId(id);
-    }
-
 
     /**
      * A MemoryPuzzleTile with id and background. The background may not have a corresponding image.

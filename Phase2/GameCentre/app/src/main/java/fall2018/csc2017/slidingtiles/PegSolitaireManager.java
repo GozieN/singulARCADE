@@ -79,7 +79,9 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
      * @param position position of the peg being moved
      */
     public void firstMove(int position) {
-        List validMoves = listOfValidMoves(position);
+        int row = position / PegSolitaireBoard.NUM_ROWS;
+        int col = position % PegSolitaireBoard.NUM_COLS;
+        pegBoard.highlightTile(row, col);
         for (List<Integer> move : listOfValidMoves(position)) {
             pegBoard.highlightTile(move.get(0), move.get(1));
         }
@@ -133,7 +135,6 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
         } if (twoRight != null && oneRight != null && twoRight.getId() == 1 && oneRight.getId() == 2) {
             validMoves.add(Arrays.asList(row + 2, col));
         }
-
         return validMoves;
     }
 

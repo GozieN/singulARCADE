@@ -80,7 +80,7 @@ The user's chosen board size from dropdown.
      * Switch to game screen.
      */
     private void switchToGame() {
-        Intent tmp = new Intent(this, MemoryGameActivity.class);
+        Intent tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
         tmp.putExtra("size", size);
         MemoryGameBoard.setDimensions(size);
         memoryBoardManager = new MemoryBoardManager();

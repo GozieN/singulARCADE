@@ -131,7 +131,7 @@ public class PegSolitaireBoard extends Board {
      * @return the tile at (row, col)
      */
     PegSolitaireTile getPegTile(int row, int col) {
-        if (0 <= row && row <= NUM_ROWS && 0 <= col && col <= NUM_COLS) {
+        if (0 <= row && row < NUM_ROWS && 0 <= col && col < NUM_COLS) {
             return tiles[row][col];
         } else {
             return null;
