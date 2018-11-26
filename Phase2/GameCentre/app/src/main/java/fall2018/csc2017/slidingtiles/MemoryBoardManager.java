@@ -89,85 +89,82 @@ class MemoryBoardManager implements Serializable, Game {
                     currentTile.getTopLayer() != R.drawable.memory_tile_37) {
                 flipped = false;
             }
-            return flipped;
         }
-
-        /**
-         * Return whether the user is trying to perform a move on a tile that has already been flipped.
-         *
-         * @param position the tile to check
-         * @return whether the tile at position is greyed out.
-         */
-        public boolean isValidTap ( int position){
-            int row = position / MemoryGameBoard.NUM_COLS;
-            int col = position % MemoryGameBoard.NUM_COLS;
-            return board.getMemoryGameTile(row, col).getTopLayer() != R.drawable.memory_tile_38;
-        }
-
-        /**
-         * Process a touch at position in the board, removing tiles as appropriate.
-         *
-         * @param position1, position2 the positions of the tiles
-         */
-        public void greyOut ( int position1, int position2){
-            int row1 = position1 / MemoryGameBoard.NUM_ROWS;
-            int col1 = position1 % MemoryGameBoard.NUM_COLS;
-            int row2 = position2 / MemoryGameBoard.NUM_ROWS;
-            int col2 = position2 % MemoryGameBoard.NUM_COLS;
-
-            MemoryPuzzleTile t1 = board.getMemoryGameTile(row1, col1);
-            MemoryPuzzleTile t2 = board.getMemoryGameTile(row2, col2);
-
-
-            if (t1.compareTo(t2) == 0) {
-                t1.setTopLayer(R.drawable.memory_tile_38);
-                t2.setTopLayer(R.drawable.memory_tile_38);
-            } else {
-                t1.setTopLayer(R.drawable.tile_blank);
-                t2.setTopLayer(R.drawable.tile_blank);
-            }
-        }
-
-
-        /**
-         * Make a move on the Memory game board, i.e. flip the tile chosen by the user to reveal the
-         * image underneath
-         *
-         * @param position the position of the tile on the board
-         */
-        void flipTile ( int position){
-            int row = position / MemoryGameBoard.NUM_ROWS;
-            int col = position % MemoryGameBoard.NUM_COLS;
-            MemoryPuzzleTile tile = board.getMemoryGameTile(row, col);
-            tile.setTopLayer(tile.getBackground());
-        }
-
-
-        /**
-         * Return the score of the current game
-         *
-         * @return the score of the current game
-         */
-        public int getScore () {
-            Stack<List> stackOfMoves = GameLauncher.getCurrentUser().getStackOfGameStates("Memory Puzzle");
-            double tempScore = Math.pow((stackOfMoves.size()), -1);
-            //if 4, multiply by 10000
-            if (MemoryGameBoard.NUM_ROWS == 4) {
-                return (int) Math.round(tempScore * 10000);
-            }
-            //if 5, multiply by 20000
-            else if (MemoryGameBoard.NUM_ROWS == 5) {
-                return (int) Math.round(tempScore * 20000);
-            }
-            //if 6, multiply by 30000
-            else {
-                return (int) Math.round(tempScore * 30000);
-            }
-        }
-
-        public static void main (String[]args){
-            new MemoryBoardManager();
-        }
-
+        return flipped;
     }
+
+    /**
+     * Return whether the user is trying to perform a move on a tile that has already been flipped.
+     *
+     * @param position the tile to check
+     * @return whether the tile at position is greyed out.
+     */
+    public boolean isValidTap(int position) {
+        int row = position / MemoryGameBoard.NUM_COLS;
+        int col = position % MemoryGameBoard.NUM_COLS;
+        return board.getMemoryGameTile(row, col).getTopLayer() != R.drawable.memory_tile_38;
+    }
+
+    /**
+     * Process a touch at position in the board, removing tiles as appropriate.
+     *
+     * @param position1, position2 the positions of the tiles
+     */
+    public void greyOut(int position1, int position2) {
+        int row1 = position1 / MemoryGameBoard.NUM_ROWS;
+        int col1 = position1 % MemoryGameBoard.NUM_COLS;
+        int row2 = position2 / MemoryGameBoard.NUM_ROWS;
+        int col2 = position2 % MemoryGameBoard.NUM_COLS;
+
+        MemoryPuzzleTile t1 = board.getMemoryGameTile(row1, col1);
+        MemoryPuzzleTile t2 = board.getMemoryGameTile(row2, col2);
+
+
+        if (t1.compareTo(t2) == 0) {
+            t1.setTopLayer(R.drawable.memory_tile_38);
+            t2.setTopLayer(R.drawable.memory_tile_38);
+        } else {
+            t1.setTopLayer(R.drawable.tile_blank);
+            t2.setTopLayer(R.drawable.tile_blank);
+        }
+    }
+
+
+    /**
+     * Make a move on the Memory game board, i.e. flip the tile chosen by the user to reveal the
+     * image underneath
+     *
+     * @param position the position of the tile on the board
+     */
+    void flipTile(int position) {
+        int row = position / MemoryGameBoard.NUM_ROWS;
+        int col = position % MemoryGameBoard.NUM_COLS;
+        MemoryPuzzleTile tile = board.getMemoryGameTile(row, col);
+        tile.setTopLayer(tile.getBackground());
+    }
+
+
+    /**
+     * Return the score of the current game
+     *
+     * @return the score of the current game
+     */
+    public int getScore() {
+        Stack<List> stackOfMoves = GameLauncher.getCurrentUser().getStackOfGameStates("Memory Puzzle");
+        double tempScore = Math.pow((stackOfMoves.size()), -1);
+        //if 4, multiply by 10000
+        if (MemoryGameBoard.NUM_ROWS == 4) {
+            return (int) Math.round(tempScore * 10000);
+        }
+        //if 5, multiply by 20000
+        else if (MemoryGameBoard.NUM_ROWS == 5) {
+            return (int) Math.round(tempScore * 20000);
+        }
+        //if 6, multiply by 30000
+        else {
+            return (int) Math.round(tempScore * 30000);
+        }
+    }
+
+}
 
