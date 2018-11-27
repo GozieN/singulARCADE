@@ -70,11 +70,7 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (game.equals(PegSolitaireManager.GAME_NAME) || (game.equals(SlidingTilesManager.GAME_NAME))) {
-                    switchToSetUp();
-                } else {
-                    switchToMemoryPuzzleSetup();
-                }
+                switchToSetUp();
             }
         });
     }
@@ -166,14 +162,6 @@ public class StartingActivity extends AppCompatActivity {
         private void switchToSetUp () {
             Intent tmp = new Intent(this, SetUpActivity.class);
             tmp.putExtra("game", game);
-            startActivity(tmp);
-        }
-
-        /**
-         * Switch to the Memory Puzzle Game's setup
-         */
-        private void switchToMemoryPuzzleSetup () {
-            Intent tmp = new Intent(this, MemoryGameSetUpActivity.class);
             startActivity(tmp);
         }
 

@@ -52,9 +52,15 @@ public class SetUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         game = getIntent().getStringExtra("game");
+        setGame();
+        addPlayButtonListener();
 
+        SaveAndLoad.loadFromFile(SetUpActivity.this, LoginActivity.SAVE_FILENAME);
+        setGameManager();
+    }
+
+    private void setGame() {
         //adapted from https://developer.android.com/guide/topics/ui/controls/spinner#java
-
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             setContentView(R.layout.activity_sliding_tiles_set_up);
 
@@ -67,6 +73,7 @@ public class SetUpActivity extends AppCompatActivity {
 
             // Apply the adapter to the spinner
             spinnerBoardShape.setAdapter(adapterBoardSize);
+            undoSpinner();
         } else if (game.equals(PegSolitaireManager.GAME_NAME)) {
             setContentView(R.layout.activity_peg_solitaire_set_up);
 
@@ -79,16 +86,27 @@ public class SetUpActivity extends AppCompatActivity {
 
             // Apply the adapter to the spinner
             spinnerBoardShape.setAdapter(adapterBoardSize);
+            undoSpinner();
         } else { //game.equals("MEMORY PUZZLE")
             setContentView(R.layout.activity_memory_game_set_up);
 
+            spinnerBoardShape = findViewById(R.id.ChooseMemoryPuzzleSpinner);
+            ArrayAdapter<CharSequence> adapterBoardSize = ArrayAdapter.createFromResource(this,
+                    R.array.memoryPuzzle_array, android.R.layout.simple_spinner_item);
+
+            // Specify the layout to use when the list of choices appears
+            adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            // Apply the adapter to the spinner
+            spinnerBoardShape.setAdapter(adapterBoardSize);
+
         }
-        addPlayButtonListener();
+    }
 
-        SaveAndLoad.loadFromFile(SetUpActivity.this, LoginActivity.SAVE_FILENAME);
-        setGameManager();
-        //loadFromFile(LoginActivity.SAVE_FILENAME);
-
+    /**
+     * Add the undo spinner
+     */
+    private void undoSpinner() {
         spinnerUndo = findViewById(R.id.ChooseUndoSpinner);
         ArrayAdapter<CharSequence> adapterUndo = ArrayAdapter.createFromResource(this,
                 R.array.undo_array, android.R.layout.simple_spinner_item);
@@ -106,7 +124,7 @@ public class SetUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // adapted from https://stackoverflow.com/questions/29891237/checking-if-spinner-is-selected-and-having-null-value-in-android
                 if(spinnerBoardShape != null && spinnerBoardShape.getSelectedItem() !=null ) {
-                    if (game.equals(SlidingTilesManager.GAME_NAME)) {
+                    if (game.equals(SlidingTilesManager.GAME_NAME) || game.equals(MemoryBoardManager.GAME_NAME)) {
                         if(spinnerBoardShape != null && spinnerBoardShape.getSelectedItem() !=null ) {
                             boardSelection = (String) spinnerBoardShape.getSelectedItem();
                             shape = Character.getNumericValue(boardSelection.charAt(0));
@@ -147,11 +165,16 @@ public class SetUpActivity extends AppCompatActivity {
             GameLauncher.getCurrentUser().setRecentManagerOfBoard(SlidingTilesManager.GAME_NAME, gameManager);
             GameLauncher.getCurrentUser().setEmptyStackOfGameStates(SlidingTilesManager.GAME_NAME);
             PlaySlidingTilesActivity.numberOfUndos = 0;
-        } else { //game.equals("PEG SOLITAIRE")
+        } else if (game.equals(PegSolitaireManager.GAME_NAME)) {
             tmp = new Intent(this, PlayPegSolitaireActivity.class);
             GameLauncher.getCurrentUser().setRecentManagerOfBoard(PegSolitaireManager.GAME_NAME, gameManager);
             GameLauncher.getCurrentUser().setEmptyStackOfGameStates(PegSolitaireManager.GAME_NAME);
             PlayPegSolitaireActivity.numberOfUndos = 0;
+        } else { //game.equals("MEMORY PUZZLE")
+            tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
+            MemoryGameBoard.setDimensions(shape);
+            GameLauncher.getCurrentUser().setRecentManagerOfBoard(MemoryBoardManager.GAME_NAME, gameManager);
+            GameLauncher.getCurrentUser().setEmptyStackOfGameStates(MemoryBoardManager.GAME_NAME);
         }
         tmp.putExtra("shape", shape);
         tmp.putExtra("game", PegSolitaireManager.GAME_NAME);
@@ -166,8 +189,10 @@ public class SetUpActivity extends AppCompatActivity {
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             gameManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
         }
-        else {
+        if (game.equals(PegSolitaireManager.GAME_NAME)) {
             gameManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
+        } else {
+            gameManager = (MemoryBoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(MemoryBoardManager.GAME_NAME);
         }
     }
 
