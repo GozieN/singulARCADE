@@ -12,8 +12,8 @@
         android:layout_height="62dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="232dp" />
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="270dp" />
 
     <TextView
         android:id="@+id/SetupText"
@@ -21,8 +21,8 @@
         android:layout_height="92dp"
         android:layout_alignStart="@+id/ChooseUndoSpinner"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="61dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="65dp"
         android:gravity="center"
         android:text="Peg Solitaire Game Setup"
         android:textAlignment="center"
@@ -33,10 +33,12 @@
         android:id="@+id/ChooseBoardView"
         android:layout_width="259dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ChooseBoardSpinner"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="173dp"
+        android:layout_below="@+id/SetupText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="82dp"
         android:text="Choose the shape of the Peg Solitaire board:"
         android:textSize="18sp" />
 
@@ -44,10 +46,12 @@
         android:id="@+id/ChooseUndoView"
         android:layout_width="266dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ChooseBoardSpinner"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="289dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="266dp"
         android:text="Choose the maximum number of moves you can undo."
         android:textSize="18sp" />
 
@@ -58,7 +62,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="71dp"
-        android:layout_marginBottom="207dp" />
+        android:layout_marginBottom="192dp" />
 
     <Button
         android:id="@+id/PlayButton"
@@ -66,8 +70,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="164dp"
-        android:layout_marginTop="510dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="166dp"
+        android:layout_marginTop="515dp"
+        android:layout_marginBottom="96dp"
         android:text="Play" />
 
 </RelativeLayout>
