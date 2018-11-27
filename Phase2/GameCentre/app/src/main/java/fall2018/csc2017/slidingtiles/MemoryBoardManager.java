@@ -11,7 +11,7 @@ class MemoryBoardManager implements Serializable, Game {
     /**
      * The board being managed.
      */
-    final static String GAME_NAME = "Memory Puzzle";
+    final static String GAME_NAME = "MEMORY PUZZLE";
     private MemoryGameBoard board;
     static ScoreBoard gameScoreBoard = new ScoreBoard();
 

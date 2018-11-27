@@ -13,7 +13,7 @@ public class PegSolitaireManager implements Serializable, Game {
     /**
      * The Peg Solitaire board being managed.
      */
-    final static String GAME_NAME = "Peg Solitaire";
+    final static String GAME_NAME = "PEG SOLITAIRE";
     private PegSolitaireBoard pegBoard;
 
     static ScoreBoard pegScoreBoard;

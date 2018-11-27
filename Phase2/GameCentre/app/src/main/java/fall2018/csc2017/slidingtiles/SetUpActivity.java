@@ -55,7 +55,7 @@ public class SetUpActivity extends AppCompatActivity {
 
         //adapted from https://developer.android.com/guide/topics/ui/controls/spinner#java
 
-        if (game.equals("SLIDING TILES")) {
+        if (game.equals(SlidingTilesManager.GAME_NAME)) {
             setContentView(R.layout.activity_sliding_tiles_set_up);
 
             spinnerBoardShape = findViewById(R.id.ChooseSlidingTilesSpinner);
@@ -67,7 +67,7 @@ public class SetUpActivity extends AppCompatActivity {
 
             // Apply the adapter to the spinner
             spinnerBoardShape.setAdapter(adapterBoardSize);
-        } else if (game.equals("PEG SOLITAIRE")) {
+        } else if (game.equals(PegSolitaireManager.GAME_NAME)) {
             setContentView(R.layout.activity_peg_solitaire_set_up);
 
             spinnerBoardShape = findViewById(R.id.ChoosePegSolitaireSpinner);
@@ -106,7 +106,7 @@ public class SetUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // adapted from https://stackoverflow.com/questions/29891237/checking-if-spinner-is-selected-and-having-null-value-in-android
                 if(spinnerBoardShape != null && spinnerBoardShape.getSelectedItem() !=null ) {
-                    if (game.equals("SLIDING TILES")) {
+                    if (game.equals(SlidingTilesManager.GAME_NAME)) {
                         if(spinnerBoardShape != null && spinnerBoardShape.getSelectedItem() !=null ) {
                             boardSelection = (String) spinnerBoardShape.getSelectedItem();
                             shape = Character.getNumericValue(boardSelection.charAt(0));
@@ -137,7 +137,7 @@ public class SetUpActivity extends AppCompatActivity {
      */
     private void switchToGame() {
         Intent tmp;
-        if (game.equals("SLIDING TILES")) {
+        if (game.equals(SlidingTilesManager.GAME_NAME)) {
             tmp = new Intent(this, PlaySlidingTilesActivity.class);
             SlidingTilesBoard.setDimensions(shape);
             gameManager = new SlidingTilesManager();
@@ -163,7 +163,7 @@ public class SetUpActivity extends AppCompatActivity {
     }
 
     public void setGameManager() {
-        if (game.equals("SLIDING TILES")) {
+        if (game.equals(SlidingTilesManager.GAME_NAME)) {
             gameManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
         }
         else {

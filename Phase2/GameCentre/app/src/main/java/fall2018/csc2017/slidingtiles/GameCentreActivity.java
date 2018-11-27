@@ -101,7 +101,7 @@ public class GameCentreActivity extends AppCompatActivity {
      */
     private void switchToSlidingTilesActivity() {
         Intent slidingTilesIntent = new Intent(getApplicationContext(), StartingActivity.class);
-        slidingTilesIntent.putExtra("welcomeText", "SLIDING TILES");
+        slidingTilesIntent.putExtra("welcomeText", SlidingTilesManager.GAME_NAME);
         slidingTilesIntent.putExtra("instructionsText", "HOW TO PLAY: \n " +
                 "Slide the tiles around until you have the correct configuation of numbers/image");
         startActivity(slidingTilesIntent);
@@ -112,7 +112,7 @@ public class GameCentreActivity extends AppCompatActivity {
      */
     private void switchToPegSolitaireActivity() {
         Intent pegSolitaireIntent = new Intent(getApplicationContext(), StartingActivity.class);
-        pegSolitaireIntent.putExtra("welcomeText", "PEG SOLITAIRE");
+        pegSolitaireIntent.putExtra("welcomeText", PegSolitaireManager.GAME_NAME);
         pegSolitaireIntent.putExtra("instructionsText", "HOW TO PLAY: \n " +
                 "Your goal is to clear all of the pegs but one. \n " +
                 "To clear a peg, jump over it into an empty space. \n " +
@@ -125,7 +125,7 @@ public class GameCentreActivity extends AppCompatActivity {
      */
     private void switchToMemoryPuzzleActivity() {
         Intent memoryPuzzleIntent = new Intent(getApplicationContext(), StartingActivity.class);
-        memoryPuzzleIntent.putExtra("welcomeText", "MEMORY PUZZLE");
+        memoryPuzzleIntent.putExtra("welcomeText", MemoryBoardManager.GAME_NAME);
 
         //TODO: FILL IN THE INSTRUCTIONS FOR MEMORY PUZZLE
         memoryPuzzleIntent.putExtra("instructionsText", "HOW TO PLAY: \n " +
