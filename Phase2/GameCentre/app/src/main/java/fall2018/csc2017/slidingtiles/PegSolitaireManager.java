@@ -62,11 +62,17 @@ public class PegSolitaireManager implements Serializable, Game {
      */
     public boolean isOver() {
         boolean solved = true;
-        for (int x = 0; x < PegSolitaireBoard.NUM_ROWS; x++) {
-            for (int y = 0; y < PegSolitaireBoard.NUM_COLS; y++) {
-                if (pegBoard.hasAdjacent(x, y)) {
-                        solved = false;
-                }
+//        for (int x = 0; x < PegSolitaireBoard.NUM_ROWS; x++) {
+//            for (int y = 0; y < PegSolitaireBoard.NUM_COLS; y++) {
+//                if (pegBoard.hasAdjacent(x, y)) {
+//                        solved = false;
+//                }
+//            }
+//        }
+
+        for (int x = 0; x < PegSolitaireBoard.NUM_ROWS * PegSolitaireBoard.NUM_COLS; x++) {
+            if (isValidTap(x)) {
+                solved = false;
             }
         }
         return solved;
@@ -108,13 +114,15 @@ public class PegSolitaireManager implements Serializable, Game {
         int col1 = position1 % PegSolitaireBoard.NUM_COLS;
         int row2 = position2 / PegSolitaireBoard.NUM_ROWS;
         int col2 = position2 % PegSolitaireBoard.NUM_COLS;
-        pegBoard.moveGamepiece(row1, col1, row2, col2);
+
 
         for (List<Integer> move : listOfValidMoves(position1)) {
             if (move.get(0) != row2 && move.get(1) != col2) {
                 pegBoard.addOrRemoveHighlight(move.get(0), move.get(1));
             }
         }
+
+        pegBoard.moveGamepiece(row1, col1, row2, col2);
         pegBoard.update();
 
     }

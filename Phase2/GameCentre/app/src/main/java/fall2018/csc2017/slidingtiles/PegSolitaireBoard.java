@@ -176,7 +176,7 @@ public class PegSolitaireBoard extends Board {
      */
     void addOrRemoveHighlight(int row, int col) {
         PegSolitaireTile tile = getPegTile(row, col);
-        tile.setBackground(tile.getId(), !tile.highlight);
+        tile.setId(tile.getId(), !tile.highlight);
     }
 
 
@@ -220,10 +220,10 @@ public class PegSolitaireBoard extends Board {
         PegSolitaireTile left = getPegTile(row - 1 , col);
         PegSolitaireTile right = getPegTile(row + 1, col);
 
-        return !((above == null || above.getId() != 2) &&
-                (below == null || below.getId() != 2) &&
-                (left == null || left.getId() != 2) &&
-                (right == null || right.getId() != 2));
+        return ((above == null || above.getId() == 2) &&
+                (below == null || below.getId() == 2) &&
+                (left == null || left.getId() == 2) &&
+                (right == null || right.getId() == 2));
     }
 
     void update() {
