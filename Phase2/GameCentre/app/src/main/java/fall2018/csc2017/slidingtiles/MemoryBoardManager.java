@@ -76,18 +76,18 @@ class MemoryBoardManager implements Serializable, Game {
 
 
     /**
-     * Return whether there is a MemoryPuzzleTile flipped on the board.
+     * Return the number of MemoryPuzzleTile flipped on the board.
      *
-     * @return whether there is a MemoryPuzzleTile flipped on the board.
+     * @return the number of MemoryPuzzleTile flipped on the board.
      */
-    public boolean noTileFlipped() {
-        boolean flipped = true;
+    public int numTileFlipped() {
+        int flipped = 0;
         Iterator<MemoryPuzzleTile> boarditerator = board.iterator();
         while (boarditerator.hasNext()) {
             MemoryPuzzleTile currentTile = boarditerator.next();
             if (currentTile.getTopLayer() != R.drawable.memory_tile_38 ||
                     currentTile.getTopLayer() != R.drawable.memory_tile_37) {
-                flipped = false;
+                flipped++;
             }
         }
         return flipped;
@@ -102,7 +102,8 @@ class MemoryBoardManager implements Serializable, Game {
     public boolean isValidTap(int position) {
         int row = position / MemoryGameBoard.NUM_COLS;
         int col = position % MemoryGameBoard.NUM_COLS;
-        return board.getMemoryGameTile(row, col).getTopLayer() != R.drawable.memory_tile_38;
+        int topLayer = board.getMemoryGameTile(row, col).getTopLayer();
+        return numTileFlipped() < 2 && topLayer == R.drawable.memory_tile_37;
     }
 
     /**
@@ -124,8 +125,8 @@ class MemoryBoardManager implements Serializable, Game {
             t1.setTopLayer(R.drawable.memory_tile_38);
             t2.setTopLayer(R.drawable.memory_tile_38);
         } else {
-            t1.setTopLayer(R.drawable.tile_blank);
-            t2.setTopLayer(R.drawable.tile_blank);
+            t1.setTopLayer(R.drawable.memory_tile_37);
+            t2.setTopLayer(R.drawable.memory_tile_37);
         }
     }
 
