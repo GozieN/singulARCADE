@@ -56,7 +56,9 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         if (pegSolitaireManager.isOver()) {
-            endOfGame();
+            if (pegSolitaireManager.hasWon()) {
+                endOfGame();
+            }
             switchToScoreBoard();
         }
     }

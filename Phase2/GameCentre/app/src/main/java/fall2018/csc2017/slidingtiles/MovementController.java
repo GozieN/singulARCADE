@@ -32,7 +32,11 @@ class MovementController {
                 thisBoard.touchMove(previousMove, position);
                 firstMove = true;
                 if (thisBoard.isOver()) {
-                    Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+                    if (thisBoard.hasWon()) {
+                        Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "GAME OVER! TO WIN YOU MUST RID THE BOARD OF ALL PEGS BUT ONE! TRY AGAIN!", Toast.LENGTH_LONG).show();
+                    }
                 }
 
             } else {
