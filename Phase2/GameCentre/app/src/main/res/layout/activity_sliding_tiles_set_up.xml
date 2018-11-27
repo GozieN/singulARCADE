@@ -12,8 +12,8 @@
         android:layout_height="62dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="236dp" />
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="258dp" />
 
     <TextView
         android:id="@+id/SetupText"
@@ -21,10 +21,10 @@
         android:layout_height="92dp"
         android:layout_alignStart="@+id/ChooseUndoSpinner"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="61dp"
-        android:text="Sliding Tiles Game Setup"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="66dp"
         android:gravity="center"
+        android:text="Sliding Tiles Game Setup"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -33,10 +33,12 @@
         android:id="@+id/ChooseSizeView"
         android:layout_width="258dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ChooseBoardSpinner"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="166dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="189dp"
+        android:layout_marginEnd="82dp"
         android:gravity="center"
         android:text="Choose the Dimensions of the Sliding Tiles board: "
         android:textAlignment="textStart"
@@ -46,10 +48,12 @@
         android:id="@+id/ChooseUndoView"
         android:layout_width="266dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ChooseBoardSpinner"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="289dp"
+        android:layout_marginStart="73dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="269dp"
         android:text="Choose the maximum number of moves you can undo."
         android:textSize="18sp" />
 
@@ -60,7 +64,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="71dp"
-        android:layout_marginBottom="207dp" />
+        android:layout_marginBottom="184dp" />
 
     <Button
         android:id="@+id/PlayButton"
@@ -68,8 +72,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="164dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="160dp"
         android:layout_marginTop="510dp"
+        android:layout_marginBottom="101dp"
         android:text="Play" />
 
 </RelativeLayout>
