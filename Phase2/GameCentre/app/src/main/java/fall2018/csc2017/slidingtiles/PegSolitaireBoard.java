@@ -46,10 +46,6 @@ public class PegSolitaireBoard extends Board {
         }
     }
 
-    PegSolitaireBoard() {
-
-    }
-
     /**
      *
      */
@@ -148,8 +144,12 @@ public class PegSolitaireBoard extends Board {
      */
     List moveGamepiece(int row1, int col1, int row2, int col2) {
         PegSolitaireTile temporaryTile = this.getPegTile(row1, col1);
-        tiles[row1][col1] = tiles[row2][col2];
-        tiles[row2][col2] = temporaryTile;
+        System.out.println(temporaryTile.getId());
+        //tiles[row1][col1] = tiles[row2][col2];
+        //tiles[row2][col2] = temporaryTile;
+
+        tiles[row1][col1].setId(1, false);
+        tiles[row2][col2].setId(2, false);
 
         if (row2 - row1 == 2) {
             tiles[row1 + 1][col1].setId(1, false);
@@ -169,14 +169,61 @@ public class PegSolitaireBoard extends Board {
     }
 
     /**
-     * Highlights the tile at row, col to denote it as an available move to the user
+     * Highlights/removes highlights for the tile at row, col.
      *
      * @param row
      * @param col
      */
-    void highlightTile(int row, int col) {
+    void addOrRemoveHighlight(int row, int col) {
         PegSolitaireTile tile = getPegTile(row, col);
-        tile.setBackground(tile.getId(), true);
+        tile.setId(tile.getId(), !tile.highlight);
+    }
+
+
+    /**
+     * Counts number of pegs remaining on Peg Solitaire Board
+     * @return number of pegs that are on the Peg Solitaire Board
+     */
+    int numRemainingPegs() {
+        int counter = 0;
+        for (PegSolitaireTile[] tileRow : tiles) {
+            for (PegSolitaireTile tile : tileRow) {
+                if (tile.getId() == 2) {
+                    counter ++;
+                }
+            }
+        }
+        System.out.println(counter);
+        return counter;
+    }
+
+    /**
+     * Returns a list of all tiles on the Peg Solitaire Board
+     */
+    List<PegSolitaireTile> tilesOnBoard() {
+        List<PegSolitaireTile> listTiles = new ArrayList<>();
+        for (PegSolitaireTile[] tileRow : tiles) {
+            for (PegSolitaireTile tile : tileRow) {
+                listTiles.add(tile);
+            }
+        }
+        return listTiles;
+    }
+
+    /**
+     * Returns if the peg on the PegSolitaireBoard has an adjacent peg
+     * @return true if the peg at (row, col) has at least one adjacent peg
+     */
+    boolean hasAdjacent(int row, int col) {
+        PegSolitaireTile above = getPegTile(row, col - 1);
+        PegSolitaireTile below = getPegTile(row, col + 1);
+        PegSolitaireTile left = getPegTile(row - 1 , col);
+        PegSolitaireTile right = getPegTile(row + 1, col);
+
+        return ((above == null || above.getId() == 2) &&
+                (below == null || below.getId() == 2) &&
+                (left == null || left.getId() == 2) &&
+                (right == null || right.getId() == 2));
     }
 
     void update() {

@@ -15,7 +15,7 @@ class SlidingTilesManager implements Serializable, Game {
     /***
      * The board being managed.
      */
-     final static String GAME_NAME = "Sliding Tiles";
+     final static String GAME_NAME = "SLIDING TILES";
      private SlidingTilesBoard board;
 
      static ScoreBoard gameScoreBoard = new ScoreBoard();

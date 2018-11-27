@@ -3,16 +3,17 @@ package fall2018.csc2017.slidingtiles;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 import java.util.Observable;
 import java.util.Stack;
 
-public class PegSolitaireManager extends Observable implements Serializable, Game {
+public class PegSolitaireManager implements Serializable, Game {
 
     /**
      * The Peg Solitaire board being managed.
      */
-    final static String GAME_NAME = "Peg Solitaire";
+    final static String GAME_NAME = "PEG SOLITAIRE";
     private PegSolitaireBoard pegBoard;
 
     static ScoreBoard pegScoreBoard;
@@ -60,18 +61,24 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
      * @return true iff the game is over
      */
     public boolean isOver() {
-        boolean solved = false;
-        for (int x = 0; x < PegSolitaireBoard.NUM_ROWS; x++) {
-            for (int y = 0; y < PegSolitaireBoard.NUM_COLS; y++) {
-                if (pegBoard.getPegTile(x, y).getId() != 0) {
-                    int position = x * PegSolitaireBoard.NUM_ROWS;
-                    if (!listOfValidMoves(position).isEmpty()) {
-                        solved = true;
-                    }
-                }
+        boolean solved = true;
+        for (int x = 0; x < PegSolitaireBoard.NUM_ROWS * PegSolitaireBoard.NUM_COLS; x++) {
+            if (!listOfValidMoves(x).isEmpty()) {
+                solved = false;
             }
         }
         return solved;
+    }
+
+    /**
+     * Return true if the player has won i.e. there is only one remaining peg on the board
+     * @return true iff the player has gotten rid of all pegs except one
+     */
+    boolean hasWon() {
+        if (isOver()) {
+            return pegBoard.numRemainingPegs() == 1;
+        }
+        return false;
     }
 
     /**
@@ -81,10 +88,11 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
     public void firstMove(int position) {
         int row = position / PegSolitaireBoard.NUM_ROWS;
         int col = position % PegSolitaireBoard.NUM_COLS;
-        pegBoard.highlightTile(row, col);
+        pegBoard.addOrRemoveHighlight(row, col);
         for (List<Integer> move : listOfValidMoves(position)) {
-            pegBoard.highlightTile(move.get(0), move.get(1));
+            pegBoard.addOrRemoveHighlight(move.get(0), move.get(1));
         }
+        pegBoard.update();
 
     }
 
@@ -99,7 +107,15 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
         int row2 = position2 / PegSolitaireBoard.NUM_ROWS;
         int col2 = position2 % PegSolitaireBoard.NUM_COLS;
 
+        for (List<Integer> move : listOfValidMoves(position1)) {
+            if (move.get(0) != row2 || move.get(1) != col2) {
+                pegBoard.addOrRemoveHighlight(move.get(0), move.get(1));
+            }
+        }
+
         pegBoard.moveGamepiece(row1, col1, row2, col2);
+        pegBoard.update();
+
     }
 
     /**
@@ -108,6 +124,22 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
      */
     public boolean isValidTap(int position) {
         return !listOfValidMoves(position).isEmpty();
+    }
+
+    /**
+     * Return true if the second tap is valid.
+     * @return true iff the second tap is valid.
+     */
+    public boolean isValidSecondTap(int previousMove, int position) {
+        int row = position / PegSolitaireBoard.NUM_ROWS;
+        int col = position % PegSolitaireBoard.NUM_COLS;
+
+        for (List<Integer> move : listOfValidMoves(previousMove)) {
+            if (row == move.get(0) && col == move.get(1)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -126,15 +158,18 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
         PegSolitaireTile twoRight = pegBoard.getPegTile(row, col + 2);
         PegSolitaireTile oneRight = pegBoard.getPegTile(row, col + 1);
 
-        if (twoAbove != null && oneAbove != null && twoAbove.getId() == 1 && oneAbove.getId() == 2) {
-            validMoves.add(Arrays.asList(row - 2, col));
-        } if (twoBelow != null && oneBelow != null && twoBelow.getId() == 1 && oneBelow.getId() == 2) {
-            validMoves.add(Arrays.asList(row + 2, col));
-        } if (twoLeft != null && oneLeft != null && twoLeft.getId() == 1 && oneLeft.getId() == 2) {
-            validMoves.add(Arrays.asList(row, col - 2));
-        } if (twoRight != null && oneRight != null && twoRight.getId() == 1 && oneRight.getId() == 2) {
-            validMoves.add(Arrays.asList(row, col + 2));
+        if (pegBoard.getPegTile(row, col).getId() == 2) {
+            if (twoAbove != null && oneAbove != null && twoAbove.getId() == 1 && oneAbove.getId() == 2) {
+                validMoves.add(Arrays.asList(row - 2, col));
+            } if (twoBelow != null && oneBelow != null && twoBelow.getId() == 1 && oneBelow.getId() == 2) {
+                validMoves.add(Arrays.asList(row + 2, col));
+            } if (twoLeft != null && oneLeft != null && twoLeft.getId() == 1 && oneLeft.getId() == 2) {
+                validMoves.add(Arrays.asList(row, col - 2));
+            } if (twoRight != null && oneRight != null && twoRight.getId() == 1 && oneRight.getId() == 2) {
+                validMoves.add(Arrays.asList(row, col + 2));
+            }
         }
+
         return validMoves;
     }
 
