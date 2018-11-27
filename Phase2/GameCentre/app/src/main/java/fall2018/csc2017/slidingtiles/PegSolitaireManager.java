@@ -62,6 +62,11 @@ public class PegSolitaireManager implements Serializable, Game {
      */
     public boolean isOver() {
         boolean solved = false;
+//        for (PegSolitaireTile tile : pegBoard.tilesOnBoard()) {
+//            if (tile.getId() != 0) {
+//
+//            }
+//        }
         for (int x = 0; x < PegSolitaireBoard.NUM_ROWS; x++) {
             for (int y = 0; y < PegSolitaireBoard.NUM_COLS; y++) {
                 if (pegBoard.getPegTile(x, y).getId() != 0) {
@@ -179,6 +184,7 @@ public class PegSolitaireManager implements Serializable, Game {
         } if (twoRight != null && oneRight != null && twoRight.getId() == 1 && oneRight.getId() == 2) {
             validMoves.add(Arrays.asList(row, col + 2));
         }
+        System.out.println(validMoves);
         return validMoves;
     }
 
