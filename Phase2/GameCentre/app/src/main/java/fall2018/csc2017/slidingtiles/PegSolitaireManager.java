@@ -107,9 +107,8 @@ public class PegSolitaireManager implements Serializable, Game {
         int row2 = position2 / PegSolitaireBoard.NUM_ROWS;
         int col2 = position2 % PegSolitaireBoard.NUM_COLS;
 
-
         for (List<Integer> move : listOfValidMoves(position1)) {
-            if (move.get(0) != row2 && move.get(1) != col2) {
+            if (move.get(0) != row2 || move.get(1) != col2) {
                 pegBoard.addOrRemoveHighlight(move.get(0), move.get(1));
             }
         }
@@ -141,14 +140,6 @@ public class PegSolitaireManager implements Serializable, Game {
             }
         }
         return false;
-    }
-
-    /**
-     * Removes any highlights on tiles.
-     *
-     */
-    void removeAllHighlights() {
-
     }
 
 
