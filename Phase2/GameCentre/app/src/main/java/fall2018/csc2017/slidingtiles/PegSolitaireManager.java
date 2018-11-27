@@ -62,16 +62,8 @@ public class PegSolitaireManager implements Serializable, Game {
      */
     public boolean isOver() {
         boolean solved = true;
-//        for (int x = 0; x < PegSolitaireBoard.NUM_ROWS; x++) {
-//            for (int y = 0; y < PegSolitaireBoard.NUM_COLS; y++) {
-//                if (pegBoard.hasAdjacent(x, y)) {
-//                        solved = false;
-//                }
-//            }
-//        }
-
         for (int x = 0; x < PegSolitaireBoard.NUM_ROWS * PegSolitaireBoard.NUM_COLS; x++) {
-            if (isValidTap(x)) {
+            if (!listOfValidMoves(x).isEmpty()) {
                 solved = false;
             }
         }
@@ -175,16 +167,18 @@ public class PegSolitaireManager implements Serializable, Game {
         PegSolitaireTile twoRight = pegBoard.getPegTile(row, col + 2);
         PegSolitaireTile oneRight = pegBoard.getPegTile(row, col + 1);
 
-        if (twoAbove != null && oneAbove != null && twoAbove.getId() == 1 && oneAbove.getId() == 2) {
-            validMoves.add(Arrays.asList(row - 2, col));
-        } if (twoBelow != null && oneBelow != null && twoBelow.getId() == 1 && oneBelow.getId() == 2) {
-            validMoves.add(Arrays.asList(row + 2, col));
-        } if (twoLeft != null && oneLeft != null && twoLeft.getId() == 1 && oneLeft.getId() == 2) {
-            validMoves.add(Arrays.asList(row, col - 2));
-        } if (twoRight != null && oneRight != null && twoRight.getId() == 1 && oneRight.getId() == 2) {
-            validMoves.add(Arrays.asList(row, col + 2));
+        if (pegBoard.getPegTile(row, col).getId() == 2) {
+            if (twoAbove != null && oneAbove != null && twoAbove.getId() == 1 && oneAbove.getId() == 2) {
+                validMoves.add(Arrays.asList(row - 2, col));
+            } if (twoBelow != null && oneBelow != null && twoBelow.getId() == 1 && oneBelow.getId() == 2) {
+                validMoves.add(Arrays.asList(row + 2, col));
+            } if (twoLeft != null && oneLeft != null && twoLeft.getId() == 1 && oneLeft.getId() == 2) {
+                validMoves.add(Arrays.asList(row, col - 2));
+            } if (twoRight != null && oneRight != null && twoRight.getId() == 1 && oneRight.getId() == 2) {
+                validMoves.add(Arrays.asList(row, col + 2));
+            }
         }
-        System.out.println(validMoves);
+
         return validMoves;
     }
 

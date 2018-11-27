@@ -15,13 +15,10 @@ class MovementController {
     }
 
     void setBoardManager(Game boardManager) {
-        System.out.println("MCONTROLLER SET BOARDMANAGER:");
-        System.out.println(boardManager);
         this.boardManager = boardManager;
     }
 
     void processTapMovement(Context context, int position) {
-        System.out.println(boardManager.getClass());
         if (boardManager instanceof PegSolitaireManager) {
             PegSolitaireManager thisBoard = (PegSolitaireManager) boardManager;
             if (thisBoard.isValidTap(position) && firstMove) {
