@@ -84,7 +84,10 @@ public class SetUpActivity extends AppCompatActivity {
 
         }
         addPlayButtonListener();
-        loadFromFile(LoginActivity.SAVE_FILENAME);
+
+        SaveAndLoad.loadFromFile(SetUpActivity.this, LoginActivity.SAVE_FILENAME);
+        setGameManager();
+        //loadFromFile(LoginActivity.SAVE_FILENAME);
 
         spinnerUndo = findViewById(R.id.ChooseUndoSpinner);
         ArrayAdapter<CharSequence> adapterUndo = ArrayAdapter.createFromResource(this,
@@ -142,60 +145,76 @@ public class SetUpActivity extends AppCompatActivity {
                 gameManager = new SlidingTilesManager();
             }
             GameLauncher.getCurrentUser().setRecentManagerOfBoard(SlidingTilesManager.GAME_NAME, gameManager);
+            GameLauncher.getCurrentUser().setEmptyStackOfGameStates(SlidingTilesManager.GAME_NAME);
+            PlaySlidingTilesActivity.numberOfUndos = 0;
         } else { //game.equals("PEG SOLITAIRE")
             tmp = new Intent(this, PlayPegSolitaireActivity.class);
             GameLauncher.getCurrentUser().setRecentManagerOfBoard(PegSolitaireManager.GAME_NAME, gameManager);
+            GameLauncher.getCurrentUser().setEmptyStackOfGameStates(PegSolitaireManager.GAME_NAME);
+            PlayPegSolitaireActivity.numberOfUndos = 0;
         }
         tmp.putExtra("shape", shape);
         tmp.putExtra("game", PegSolitaireManager.GAME_NAME);
-        saveToFile(LoginActivity.SAVE_FILENAME);
+
+        SaveAndLoad.saveToFile(SetUpActivity.this, LoginActivity.SAVE_FILENAME);
+        //saveToFile(LoginActivity.SAVE_FILENAME);
+
         startActivity(tmp);
     }
 
-    /**
-     * Load the user manager and scoreboard from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void loadFromFile(String fileName) {
-
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream == null) {
-                saveToFile(fileName);
-            }
-            else {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                userManager = (UserManager) input.readObject();
-                if (game.equals("SLIDING TILES")) {
-                    gameManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
-                } else {
-                    gameManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
-                }
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + fileName);
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+    public void setGameManager() {
+        if (game.equals("SLIDING TILES")) {
+            gameManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
+        }
+        else {
+            gameManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
         }
     }
 
-    /**
-     * Save the user manager and scoreboard to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(userManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
+//    /**
+//     * Load the user manager and scoreboard from fileName.
+//     *
+//     * @param fileName the name of the file
+//     */
+//    public void loadFromFile(String fileName) {
+//
+//        try {
+//            InputStream inputStream = this.openFileInput(fileName);
+//            if (inputStream == null) {
+//                saveToFile(fileName);
+//            }
+//            else {
+//                ObjectInputStream input = new ObjectInputStream(inputStream);
+//                userManager = (UserManager) input.readObject();
+//                if (game.equals("SLIDING TILES")) {
+//                    gameManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
+//                } else {
+//                    gameManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
+//                }
+//                inputStream.close();
+//            }
+//        } catch (FileNotFoundException e) {
+//            Log.e("login activity", "File not found: " + fileName);
+//        } catch (IOException e) {
+//            Log.e("login activity", "Can not read file: " + e.toString());
+//        } catch (ClassNotFoundException e) {
+//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+//        }
+//    }
+
+//    /**
+//     * Save the user manager and scoreboard to fileName.
+//     *
+//     * @param fileName the name of the file
+//     */
+//    public void saveToFile(String fileName) {
+//        try {
+//            ObjectOutputStream outputStream = new ObjectOutputStream(
+//                    this.openFileOutput(fileName, MODE_PRIVATE));
+//            outputStream.writeObject(userManager);
+//            outputStream.close();
+//        } catch (IOException e) {
+//            Log.e("Exception", "File write failed: " + e.toString());
+//        }
+//    }
 }

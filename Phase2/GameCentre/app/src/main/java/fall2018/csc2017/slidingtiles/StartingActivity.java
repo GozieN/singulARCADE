@@ -21,23 +21,15 @@ import java.util.ArrayList;
  */
 public class StartingActivity extends AppCompatActivity {
 
-//    /**
-//     * The main save file.
-//     */
-//    public static final String SAVE_FILENAME = "save_file.ser";
-//    /**
-//     * A temporary save file.
-//     */
-//    public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
     /**
      * The board manager.
      */
-    private Game gameManager;
-    String game;
+    Game gameManager;
+
     /**
-     * The user manager.
+     * The name of the current game being played.
      */
-    private UserManager userManager;
+    String game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +41,6 @@ public class StartingActivity extends AppCompatActivity {
         if (game.equals("PEG SOLITAIRE")) {
             gameManager = new PegSolitaireManager();
         }
-        //saveToFile(LoginActivity.SAVE_FILENAME);
 
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
@@ -97,8 +88,9 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                loadFromFile(LoginActivity.SAVE_FILENAME);
-//                saveToFile(TEMP_SAVE_FILENAME);
+
+                SaveAndLoad.loadFromFile(StartingActivity.this, LoginActivity.SAVE_FILENAME);
+                //loadFromFile(LoginActivity.SAVE_FILENAME);
                 makeToastLoadedText();
                 switchToGame();
             }
@@ -139,12 +131,32 @@ public class StartingActivity extends AppCompatActivity {
         } else {
             tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
         }
-        loadFromFile(LoginActivity.SAVE_FILENAME);
-        if (GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).isEmpty()) {
+        SaveAndLoad.loadFromFile(StartingActivity.this, LoginActivity.SAVE_FILENAME);
+        //loadFromFile(LoginActivity.SAVE_FILENAME);
+        if (isGameStackEmpty()) {
             makeToastNoGameToLoadText();
         } else {
             startActivity(tmp);
+        }
+    }
+
+        public boolean isGameStackEmpty() {
+            if (game.equals("SLIDING TILES")) {
+                if (GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).isEmpty()) {
+                    return true;
+                }
             }
+            else if (game.equals("PEG SOLITAIRE")) {
+                if (GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.GAME_NAME).isEmpty()) {
+                    return true;
+                }
+            } else {
+                if (GameLauncher.getCurrentUser().getStackOfGameStates(MemoryBoardManager.GAME_NAME).isEmpty()) {
+                    makeToastNoGameToLoadText();
+                    return true;
+                }
+            }
+            return false;
         }
 
 
@@ -165,44 +177,44 @@ public class StartingActivity extends AppCompatActivity {
             startActivity(tmp);
         }
 
-        /**
-         * Load the board manager from fileName.
-         *
-         * @param fileName the name of the file
-         */
-        public void loadFromFile (String fileName){
+//        /**
+//         * Load the board manager from fileName.
+//         *
+//         * @param fileName the name of the file
+//         */
+//        public void loadFromFile (String fileName){
+//
+//            try {
+//                InputStream inputStream = this.openFileInput(fileName);
+//                if (inputStream == null) {
+//                    saveToFile(fileName);
+//                } else {
+//                    ObjectInputStream input = new ObjectInputStream(inputStream);
+//                    userManager = (UserManager) input.readObject();
+//                    inputStream.close();
+//                }
+//            } catch (FileNotFoundException e) {
+//                Log.e("login activity", "File not found: " + fileName);
+//            } catch (IOException e) {
+//                Log.e("login activity", "Can not read file: " + e.toString());
+//            } catch (ClassNotFoundException e) {
+//                Log.e("login activity", "File contained unexpected data type: " + e.toString());
+//            }
+//        }
 
-            try {
-                InputStream inputStream = this.openFileInput(fileName);
-                if (inputStream == null) {
-                    saveToFile(fileName);
-                } else {
-                    ObjectInputStream input = new ObjectInputStream(inputStream);
-                    userManager = (UserManager) input.readObject();
-                    inputStream.close();
-                }
-            } catch (FileNotFoundException e) {
-                Log.e("login activity", "File not found: " + fileName);
-            } catch (IOException e) {
-                Log.e("login activity", "Can not read file: " + e.toString());
-            } catch (ClassNotFoundException e) {
-                Log.e("login activity", "File contained unexpected data type: " + e.toString());
-            }
-        }
-
-        /**
-         * Save the user manager and scoreboard to fileName.
-         *
-         * @param fileName the name of the file
-         */
-        public void saveToFile (String fileName){
-            try {
-                ObjectOutputStream outputStream = new ObjectOutputStream(
-                        this.openFileOutput(fileName, MODE_PRIVATE));
-                outputStream.writeObject(userManager);
-                outputStream.close();
-            } catch (IOException e) {
-                Log.e("Exception", "File write failed: " + e.toString());
-            }
-        }
+//        /**
+//         * Save the user manager and scoreboard to fileName.
+//         *
+//         * @param fileName the name of the file
+//         */
+//        public void saveToFile (String fileName){
+//            try {
+//                ObjectOutputStream outputStream = new ObjectOutputStream(
+//                        this.openFileOutput(fileName, MODE_PRIVATE));
+//                outputStream.writeObject(userManager);
+//                outputStream.close();
+//            } catch (IOException e) {
+//                Log.e("Exception", "File write failed: " + e.toString());
+//            }
+//        }
     }

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -63,7 +64,9 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(LoginActivity.SAVE_FILENAME);
+        SaveAndLoad.loadFromFile(PlayPegSolitaireActivity.this, LoginActivity.SAVE_FILENAME);
+        pegSolitaireManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
+        //loadFromFile(LoginActivity.SAVE_FILENAME);
 
         pegSolitaireManager = new PegSolitaireManager(makeBoard());
 
@@ -76,7 +79,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     }
 
     private void addView() {
-        gridView = findViewById(R.id.squareGrid);
+        gridView = findViewById(R.id.grid);
         gridView.setNumColumns(PegSolitaireBoard.NUM_COLS);
         System.out.println("ADD VIEW: ");
         System.out.println(pegSolitaireManager);
@@ -113,7 +116,8 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
             b.setBackgroundResource(board.getPegTile(row, col).getBackground());
             nextPos++;
         }
-        saveToFile(LoginActivity.SAVE_FILENAME);
+        SaveAndLoad.saveToFile(PlayPegSolitaireActivity.this, LoginActivity.SAVE_FILENAME);
+        //saveToFile(LoginActivity.SAVE_FILENAME);
     }
 
     /**
@@ -129,7 +133,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         List<PegSolitaireTile> tiles = new ArrayList<>();
         final int numTiles = PegSolitaireBoard.NUM_ROWS * PegSolitaireBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new PegSolitaireTile(tileNum));
+            tiles.add(new PegSolitaireTile(2));
         }
 
         board = new PegSolitaireBoard(tiles);
@@ -196,6 +200,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
                         int col2 = (Integer) state.get(1);
                         pegSolitaireManager.getBoard().moveGamepiece(row1, col1, row2, col2);
                         numberOfUndos++;
+                        setNumberOfUndosText();
                     } else {
                         makeToastNoUndoText();
                     }
@@ -225,48 +230,48 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         Toast.makeText(this, "Undo Not Possible", Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * Load the user manager and scoreboard from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void loadFromFile(String fileName) {
+//    /**
+//     * Load the user manager and scoreboard from fileName.
+//     *
+//     * @param fileName the name of the file
+//     */
+//    public void loadFromFile(String fileName) {
+//
+//        try {
+//            InputStream inputStream = this.openFileInput(fileName);
+//            if (inputStream == null) {
+//                saveToFile(fileName);
+//            }
+//            else {
+//                ObjectInputStream input = new ObjectInputStream(inputStream);
+//                userManager = (UserManager) input.readObject();
+//                pegSolitaireManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
+//                inputStream.close();
+//            }
+//        } catch (FileNotFoundException e) {
+//            Log.e("login activity", "File not found: " + fileName);
+//        } catch (IOException e) {
+//            Log.e("login activity", "Can not read file: " + e.toString());
+//        } catch (ClassNotFoundException e) {
+//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+//        }
+//    }
 
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream == null) {
-                saveToFile(fileName);
-            }
-            else {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                userManager = (UserManager) input.readObject();
-                pegSolitaireManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + fileName);
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
-    /**
-     * Save the user manager and scoreboard to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(userManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
+//    /**
+//     * Save the user manager and scoreboard to fileName.
+//     *
+//     * @param fileName the name of the file
+//     */
+//    public void saveToFile(String fileName) {
+//        try {
+//            ObjectOutputStream outputStream = new ObjectOutputStream(
+//                    this.openFileOutput(fileName, MODE_PRIVATE));
+//            outputStream.writeObject(userManager);
+//            outputStream.close();
+//        } catch (IOException e) {
+//            Log.e("Exception", "File write failed: " + e.toString());
+//        }
+//    }
 
     /**
      * At the end of the game, do these actions: get the score, and send score to game score board and user score board.
@@ -276,11 +281,40 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         PegSolitaireManager.pegScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(PegSolitaireManager.GAME_NAME, score);
         //TODO: here maybe save the new stuff?? aka make sure updated score of user is put in and update on overall scoreboard for game
-        saveToFile(LoginActivity.SAVE_FILENAME); //this will save the user w the new score... but need to fix it for other scoreboards
+        SaveAndLoad.saveToFile(PlayPegSolitaireActivity.this, LoginActivity.SAVE_FILENAME);
+        //saveToFile(LoginActivity.SAVE_FILENAME); //this will save the user w the new score... but need to fix it for other scoreboards
+    }
+
+
+    /**
+     * Set and modify the text showing the number of moves the user completed after each move the user makes.
+     * TODO: if a new xml file is made then change the id of the TextView box
+     */
+    public void setNumberOfMovesText() {
+        if (numberOfUndos > SetUpActivity.undoLimit) {
+            numberOfUndos = SetUpActivity.undoLimit;
+        }
+        int numMoves = 1 + numberOfUndos + GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size();
+        TextView moves = findViewById(R.id.changingNumberOfMoves);
+        moves.setText(Integer.toString(numMoves));
+    }
+
+    /**
+     * Set and modify the text showing the number of undos the user completed after each undo the user makes.
+     * TODO: if a new xml file is made then change the id of the TextView box
+     */
+    public void setNumberOfUndosText() {
+        if (numberOfUndos > SetUpActivity.undoLimit) {
+            numberOfUndos = SetUpActivity.undoLimit;
+        }
+        TextView undos = findViewById(R.id.changingNumberOfUndos);
+        undos.setText(Integer.toString(numberOfUndos));
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        setNumberOfMovesText();
+        setNumberOfUndosText();
         display();
     }
 }

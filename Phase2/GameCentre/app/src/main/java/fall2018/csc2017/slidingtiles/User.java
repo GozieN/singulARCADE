@@ -55,7 +55,7 @@ public class User implements Serializable{
         gameStates.put(MemoryBoardManager.GAME_NAME, new Stack<List>());
         this.recentManagerOfBoard = new HashMap<>();
         recentManagerOfBoard.put(SlidingTilesManager.GAME_NAME, new SlidingTilesManager());
-        recentManagerOfBoard.put(MemoryBoardManager.GAME_NAME, new MemoryBoardManager());
+//        recentManagerOfBoard.put(MemoryBoardManager.GAME_NAME, new MemoryBoardManager());
 
         this.userScoreBoard = new ScoreBoard();
     }
@@ -100,6 +100,15 @@ public class User implements Serializable{
             return gameStates.get(game);
         }
         return new Stack<>();
+    }
+
+    void setEmptyStackOfGameStates(String game) {
+        if (gameStates.containsKey(game)) {
+            gameStates.replace(game, new Stack<List>());
+        }
+        else {
+            gameStates.put(game, new Stack<List>());
+        }
     }
 
     /**

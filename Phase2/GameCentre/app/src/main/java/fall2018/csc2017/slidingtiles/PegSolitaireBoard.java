@@ -148,8 +148,12 @@ public class PegSolitaireBoard extends Board {
      */
     List moveGamepiece(int row1, int col1, int row2, int col2) {
         PegSolitaireTile temporaryTile = this.getPegTile(row1, col1);
-        tiles[row1][col1] = tiles[row2][col2];
-        tiles[row2][col2] = temporaryTile;
+        System.out.println(temporaryTile.getId());
+        //tiles[row1][col1] = tiles[row2][col2];
+        //tiles[row2][col2] = temporaryTile;
+
+        tiles[row1][col1].setId(1, false);
+        tiles[row2][col2].setId(2, false);
 
         if (row2 - row1 == 2) {
             tiles[row1 + 1][col1].setId(1, false);
@@ -169,15 +173,16 @@ public class PegSolitaireBoard extends Board {
     }
 
     /**
-     * Highlights the tile at row, col to denote it as an available move to the user
+     * Highlights/removes highlights for the tile at row, col.
      *
      * @param row
      * @param col
      */
-    void highlightTile(int row, int col) {
+    void addOrRemoveHighlight(int row, int col) {
         PegSolitaireTile tile = getPegTile(row, col);
-        tile.setBackground(tile.getId(), true);
+        tile.setBackground(tile.getId(), !tile.highlight);
     }
+
 
     /**
      * Counts number of pegs remaining on Peg Solitaire Board

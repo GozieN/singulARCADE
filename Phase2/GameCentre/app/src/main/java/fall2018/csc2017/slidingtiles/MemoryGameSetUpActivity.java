@@ -44,7 +44,8 @@ The user's chosen board size from dropdown.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory_game_set_up);
         addPlayButtonListener();
-        loadFromFile(LoginActivity.SAVE_FILENAME);
+        SaveAndLoad.loadFromFile(MemoryGameSetUpActivity.this, LoginActivity.SAVE_FILENAME);
+        //loadFromFile(LoginActivity.SAVE_FILENAME);
 
         //adapted from https://developer.android.com/guide/topics/ui/controls/spinner#java
         spinnerBoardSize = findViewById(R.id.ChooseBoardSpinner);
@@ -80,54 +81,55 @@ The user's chosen board size from dropdown.
      * Switch to game screen.
      */
     private void switchToGame() {
-        Intent tmp = new Intent(this, MemoryGameActivity.class);
+        Intent tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
         tmp.putExtra("size", size);
         MemoryGameBoard.setDimensions(size);
         memoryBoardManager = new MemoryBoardManager();
         GameLauncher.getCurrentUser().setRecentManagerOfBoard(MemoryBoardManager.GAME_NAME, memoryBoardManager);
-        saveToFile(LoginActivity.SAVE_FILENAME);
+        SaveAndLoad.saveToFile(MemoryGameSetUpActivity.this, LoginActivity.SAVE_FILENAME);
+        //saveToFile(LoginActivity.SAVE_FILENAME);
         startActivity(tmp);
     }
 
-    /**
-     * Load the user manager and scoreboard from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void loadFromFile(String fileName) {
+//    /**
+//     * Load the user manager and scoreboard from fileName.
+//     *
+//     * @param fileName the name of the file
+//     */
+//    public void loadFromFile(String fileName) {
+//
+//        try {
+//            InputStream inputStream = this.openFileInput(fileName);
+//            if (inputStream == null) {
+//                saveToFile(fileName);
+//            }
+//            else {
+//                ObjectInputStream input = new ObjectInputStream(inputStream);
+//                userManager = (UserManager) input.readObject();
+//                inputStream.close();
+//            }
+//        } catch (FileNotFoundException e) {
+//            Log.e("login activity", "File not found: " + fileName);
+//        } catch (IOException e) {
+//            Log.e("login activity", "Can not read file: " + e.toString());
+//        } catch (ClassNotFoundException e) {
+//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+//        }
+//    }
 
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream == null) {
-                saveToFile(fileName);
-            }
-            else {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                userManager = (UserManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + fileName);
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
-    /**
-     * Save the user manager and scoreboard to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(userManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
+//    /**
+//     * Save the user manager and scoreboard to fileName.
+//     *
+//     * @param fileName the name of the file
+//     */
+//    public void saveToFile(String fileName) {
+//        try {
+//            ObjectOutputStream outputStream = new ObjectOutputStream(
+//                    this.openFileOutput(fileName, MODE_PRIVATE));
+//            outputStream.writeObject(userManager);
+//            outputStream.close();
+//        } catch (IOException e) {
+//            Log.e("Exception", "File write failed: " + e.toString());
+//        }
+//    }
 }

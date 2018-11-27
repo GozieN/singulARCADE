@@ -57,7 +57,9 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(LoginActivity.SAVE_FILENAME);
+        SaveAndLoad.loadFromFile(PlayMemoryPuzzleActivity.this, LoginActivity.SAVE_FILENAME);
+        memoryBoardManager = (MemoryBoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(MemoryBoardManager.GAME_NAME);
+        //loadFromFile(LoginActivity.SAVE_FILENAME);
 
         createTileButtons(this);
         setContentView(R.layout.activity_memory_game);
@@ -66,7 +68,7 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(MemoryGameBoard.NUM_COLS);
-        gridView.setMemoryBoardManager(memoryBoardManager);
+        gridView.setManager(memoryBoardManager);
         memoryBoardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -93,14 +95,11 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
      */
     private void createTileButtons(Context context) {
         MemoryGameBoard board = memoryBoardManager.getBoard();
-        System.out.println("print board " + board.toString());
-        System.out.println("later in function createTileButtons " + board.getMemoryGameTile(0, 0));
         tileButtons = new ArrayList<>();
         for (int row = 0; row != MemoryGameBoard.NUM_ROWS; row++) {
             for (int col = 0; col != MemoryGameBoard.NUM_COLS; col++) {
                 Button tmp = new Button(context);
-                System.out.println("later in function createTileButtons " + board.getMemoryGameTile(row, col));
-                tmp.setBackgroundResource(board.getMemoryGameTile(row, col).getBackground());
+                tmp.setBackgroundResource(board.getMemoryGameTile(row, col).getTopLayer());
                 this.tileButtons.add(tmp);
             }
         }
@@ -115,10 +114,11 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
         for (Button b : tileButtons) {
             int row = nextPos / MemoryGameBoard.NUM_ROWS;
             int col = nextPos % MemoryGameBoard.NUM_COLS;
-            b.setBackgroundResource(board.getMemoryGameTile(row, col).getBackground());
+            b.setBackgroundResource(board.getMemoryGameTile(row, col).getTopLayer());
             nextPos++;
         }
-        saveToFile(LoginActivity.SAVE_FILENAME);
+        SaveAndLoad.saveToFile(PlayMemoryPuzzleActivity.this, LoginActivity.SAVE_FILENAME);
+        //saveToFile(LoginActivity.SAVE_FILENAME);
     }
 
     /**
@@ -128,50 +128,51 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
     protected void onPause() {
         super.onPause();
 //        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
-        saveToFile(LoginActivity.SAVE_FILENAME);
+        SaveAndLoad.saveToFile(PlayMemoryPuzzleActivity.this, LoginActivity.SAVE_FILENAME);
+        //saveToFile(LoginActivity.SAVE_FILENAME);
     }
 
-    /**
-     * Load the user manager and scoreboard from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void loadFromFile(String fileName) {
+//    /**
+//     * Load the user manager and scoreboard from fileName.
+//     *
+//     * @param fileName the name of the file
+//     */
+//    public void loadFromFile(String fileName) {
+//
+//        try {
+//            InputStream inputStream = this.openFileInput(fileName);
+//            if (inputStream == null) {
+//                saveToFile(fileName);
+//            } else {
+//                ObjectInputStream input = new ObjectInputStream(inputStream);
+//                userManager = (UserManager) input.readObject();
+//                memoryBoardManager = (MemoryBoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(MemoryBoardManager.GAME_NAME);
+//                inputStream.close();
+//            }
+//        } catch (FileNotFoundException e) {
+//            Log.e("login activity", "File not found: " + fileName);
+//        } catch (IOException e) {
+//            Log.e("login activity", "Can not read file: " + e.toString());
+//        } catch (ClassNotFoundException e) {
+//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+//        }
+//    }
 
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream == null) {
-                saveToFile(fileName);
-            } else {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                userManager = (UserManager) input.readObject();
-                memoryBoardManager = (MemoryBoardManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(MemoryBoardManager.GAME_NAME);
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + fileName);
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
-    /**
-     * Save the user manager and scoreboard to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(userManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
+//    /**
+//     * Save the user manager and scoreboard to fileName.
+//     *
+//     * @param fileName the name of the file
+//     */
+//    public void saveToFile(String fileName) {
+//        try {
+//            ObjectOutputStream outputStream = new ObjectOutputStream(
+//                    this.openFileOutput(fileName, MODE_PRIVATE));
+//            outputStream.writeObject(userManager);
+//            outputStream.close();
+//        } catch (IOException e) {
+//            Log.e("Exception", "File write failed: " + e.toString());
+//        }
+//    }
 
 
     /**
