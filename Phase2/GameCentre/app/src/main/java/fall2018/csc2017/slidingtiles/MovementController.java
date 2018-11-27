@@ -8,7 +8,6 @@ class MovementController {
 
     public Game boardManager = null;
     private boolean firstMove = true;
-    private int position2;
     private int previousMove;
 
     MovementController() {
@@ -56,7 +55,8 @@ class MovementController {
         if (boardManager instanceof MemoryBoardManager) {
             MemoryBoardManager thisBoard = (MemoryBoardManager) boardManager;
             if (thisBoard.isValidTap(position)) {
-                thisBoard.greyOut(position, position2);
+                thisBoard.flipTile(position);
+
                 if (thisBoard.isOver()) {
                     Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 }

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
+import java.util.TreeMap;
 
 class MemoryBoardManager implements Serializable, Game {
     /**
@@ -73,6 +74,25 @@ class MemoryBoardManager implements Serializable, Game {
         return solved;
     }
 
+
+    /**
+     * Return the number of MemoryPuzzleTile flipped on the board.
+     *
+     * @return the number of MemoryPuzzleTile flipped on the board.
+     */
+    public int numTileFlipped() {
+        int flipped = 0;
+        Iterator<MemoryPuzzleTile> boarditerator = board.iterator();
+        while (boarditerator.hasNext()) {
+            MemoryPuzzleTile currentTile = boarditerator.next();
+            if (currentTile.getTopLayer() != R.drawable.memory_tile_38 ||
+                    currentTile.getTopLayer() != R.drawable.memory_tile_37) {
+                flipped++;
+            }
+        }
+        return flipped;
+    }
+
     /**
      * Return whether the user is trying to perform a move on a tile that has already been flipped.
      *
@@ -82,7 +102,8 @@ class MemoryBoardManager implements Serializable, Game {
     public boolean isValidTap(int position) {
         int row = position / MemoryGameBoard.NUM_COLS;
         int col = position % MemoryGameBoard.NUM_COLS;
-        return board.getMemoryGameTile(row, col).getTopLayer() != R.drawable.memory_tile_38;
+        int topLayer = board.getMemoryGameTile(row, col).getTopLayer();
+        return numTileFlipped() < 2 && topLayer == R.drawable.memory_tile_37;
     }
 
     /**
@@ -104,21 +125,21 @@ class MemoryBoardManager implements Serializable, Game {
             t1.setTopLayer(R.drawable.memory_tile_38);
             t2.setTopLayer(R.drawable.memory_tile_38);
         } else {
-            t1.setTopLayer(R.drawable.tile_blank);
-            t2.setTopLayer(R.drawable.tile_blank);
+            t1.setTopLayer(R.drawable.memory_tile_37);
+            t2.setTopLayer(R.drawable.memory_tile_37);
         }
     }
 
 
-      /**
+    /**
      * Make a move on the Memory game board, i.e. flip the tile chosen by the user to reveal the
      * image underneath
      *
      * @param position the position of the tile on the board
      */
-      void flipTile(int position) {
-          int row = position / MemoryGameBoard.NUM_ROWS;
-          int col = position % MemoryGameBoard.NUM_COLS;
+    void flipTile(int position) {
+        int row = position / MemoryGameBoard.NUM_ROWS;
+        int col = position % MemoryGameBoard.NUM_COLS;
         MemoryPuzzleTile tile = board.getMemoryGameTile(row, col);
         tile.setTopLayer(tile.getBackground());
     }
@@ -144,10 +165,6 @@ class MemoryBoardManager implements Serializable, Game {
         else {
             return (int) Math.round(tempScore * 30000);
         }
-    }
-
-    public static void main(String[] args) {
-        new MemoryBoardManager();
     }
 
 }

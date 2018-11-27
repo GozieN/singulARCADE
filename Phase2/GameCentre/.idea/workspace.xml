@@ -14,7 +14,7 @@
     <list default="true" id="a7b31034-3a1d-42a1-b25b-319bebb0e839" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryBoardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryBoardManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MovementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MovementController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -52,7 +52,7 @@
       <file leaf-file-name="PlayMemoryPuzzleActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/PlayMemoryPuzzleActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-190">
+            <state relative-caret-position="79">
               <caret line="72" column="16" lean-forward="true" selection-start-line="72" selection-start-column="16" selection-end-line="72" selection-end-column="16" />
               <folding>
                 <element signature="e#2232#2867#0" expanded="true" />
@@ -65,8 +65,8 @@
       <file leaf-file-name="MemoryBoardManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryBoardManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="481">
-              <caret line="122" column="47" lean-forward="true" selection-start-line="122" selection-start-column="47" selection-end-line="122" selection-end-column="47" />
+            <state relative-caret-position="615">
+              <caret line="114" column="56" selection-start-line="114" selection-start-column="56" selection-end-line="114" selection-end-column="56" />
               <folding>
                 <element signature="e#603#604#0" expanded="true" />
                 <element signature="e#637#638#0" expanded="true" />
@@ -75,20 +75,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MemoryGameSetUpActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameSetUpActivity.java">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="84" selection-start-line="84" selection-end-line="84" />
+            <state relative-caret-position="210">
+              <caret line="14" selection-start-line="14" selection-end-line="18" selection-end-column="34" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlaySlidingTilesActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/PlaySlidingTilesActivity.java">
+      <file leaf-file-name="PegSolitaireBoard.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/PegSolitaireBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1410">
-              <caret line="117" column="53" selection-start-line="117" selection-start-column="53" selection-end-line="117" selection-end-column="53" />
+            <state relative-caret-position="105">
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SlidingTilesManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/SlidingTilesManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-212">
+              <caret line="89" column="47" selection-start-line="89" selection-start-column="47" selection-end-line="89" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MemoryGameSetUpActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameSetUpActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1005">
+              <caret line="84" selection-start-line="84" selection-end-line="84" />
             </state>
           </provider>
         </entry>
@@ -105,26 +123,8 @@
       <file leaf-file-name="MovementController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MovementController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="54" column="9" lean-forward="true" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SetUpActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/SetUpActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StartingActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/StartingActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2233">
-              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+            <state relative-caret-position="520">
+              <caret line="54" column="37" lean-forward="true" selection-start-line="54" selection-start-column="37" selection-end-line="54" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -2416,6 +2416,8 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameSetUpActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameBoard.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MovementController.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/Game.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryBoardManager.java" />
       </list>
     </option>
@@ -2746,7 +2748,28 @@
       <option name="project" value="LOCAL" />
       <updated>1543261527812</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="move the flipTile method from MemoryGameBoard to MemoryBoardManager and modified the implementation">
+      <created>1543262052595</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1543262052595</updated>
+    </task>
+    <task id="LOCAL-00011" summary="added a method called noTileFlipped">
+      <created>1543266896258</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1543266896258</updated>
+    </task>
+    <task id="LOCAL-00012" summary="moved the return statement from inside the if statement to the outside">
+      <created>1543267093271</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1543267093271</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2832,7 +2855,10 @@
     <MESSAGE value="change the toplayer to be set to the blank tile not the grey tile" />
     <MESSAGE value="fixed the isover method in MemoryBoardManager" />
     <MESSAGE value="call getTopLayer instead of getBackground" />
-    <option name="LAST_COMMIT_MESSAGE" value="call getTopLayer instead of getBackground" />
+    <MESSAGE value="move the flipTile method from MemoryGameBoard to MemoryBoardManager and modified the implementation" />
+    <MESSAGE value="added a method called noTileFlipped" />
+    <MESSAGE value="moved the return statement from inside the if statement to the outside" />
+    <option name="LAST_COMMIT_MESSAGE" value="moved the return statement from inside the if statement to the outside" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2866,13 +2892,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/PegSolitaireBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -2911,13 +2930,6 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/memory_tile_37.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/SlidingTilesManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="89" column="47" selection-start-line="89" selection-start-column="47" selection-end-line="89" selection-end-column="47" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-27/android/view/ViewTreeObserver.java">
@@ -3087,13 +3099,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameSetUpActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="84" selection-start-line="84" selection-end-line="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameBoard.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
@@ -3104,9 +3109,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/GameCentreActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1077">
+          <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryGameSetUpActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1005">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/PlayMemoryPuzzleActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-190">
+        <state relative-caret-position="79">
           <caret line="72" column="16" lean-forward="true" selection-start-line="72" selection-start-column="16" selection-end-line="72" selection-end-column="16" />
           <folding>
             <element signature="e#2232#2867#0" expanded="true" />
@@ -3115,24 +3134,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MovementController.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/SlidingTilesManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="54" column="9" lean-forward="true" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
+        <state relative-caret-position="-212">
+          <caret line="89" column="47" selection-start-line="89" selection-start-column="47" selection-end-line="89" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/GameCentreActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/PegSolitaireBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1077">
-          <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
+        <state relative-caret-position="105">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MovementController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="54" column="37" lean-forward="true" selection-start-line="54" selection-start-column="37" selection-end-line="54" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" selection-start-line="14" selection-end-line="18" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fall2018/csc2017/slidingtiles/MemoryBoardManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="122" column="47" lean-forward="true" selection-start-line="122" selection-start-column="47" selection-end-line="122" selection-end-column="47" />
+        <state relative-caret-position="615">
+          <caret line="114" column="56" selection-start-line="114" selection-start-column="56" selection-end-line="114" selection-end-column="56" />
           <folding>
             <element signature="e#603#604#0" expanded="true" />
             <element signature="e#637#638#0" expanded="true" />
