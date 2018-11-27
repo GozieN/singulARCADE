@@ -61,19 +61,11 @@ public class PegSolitaireManager implements Serializable, Game {
      * @return true iff the game is over
      */
     public boolean isOver() {
-        boolean solved = false;
-//        for (PegSolitaireTile tile : pegBoard.tilesOnBoard()) {
-//            if (tile.getId() != 0) {
-//
-//            }
-//        }
+        boolean solved = true;
         for (int x = 0; x < PegSolitaireBoard.NUM_ROWS; x++) {
             for (int y = 0; y < PegSolitaireBoard.NUM_COLS; y++) {
-                if (pegBoard.getPegTile(x, y).getId() != 0) {
-                    int position = x * PegSolitaireBoard.NUM_ROWS;
-                    if (!listOfValidMoves(position).isEmpty()) {
-                        solved = true;
-                    }
+                if (pegBoard.hasAdjacent(x, y)) {
+                        solved = false;
                 }
             }
         }
@@ -84,7 +76,7 @@ public class PegSolitaireManager implements Serializable, Game {
      * Return true if the player has won i.e. there is only one remaining peg on the board
      * @return true iff the player has gotten rid of all pegs except one
      */
-    public boolean hasWon() {
+    boolean hasWon() {
         if (isOver()) {
             return pegBoard.numRemainingPegs() == 1;
         }
