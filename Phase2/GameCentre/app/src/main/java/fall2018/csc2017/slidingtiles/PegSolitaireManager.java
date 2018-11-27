@@ -75,6 +75,17 @@ public class PegSolitaireManager extends Observable implements Serializable, Gam
     }
 
     /**
+     * Return true if the player has won i.e. there is only one remaining peg on the board
+     * @return true iff the player has gotten rid of all pegs except one
+     */
+    public boolean hasWon() {
+        if (isOver()) {
+            return pegBoard.numRemainingPegs() == 1;
+        }
+        return false;
+    }
+
+    /**
      *
      * @param position position of the peg being moved
      */

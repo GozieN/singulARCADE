@@ -179,6 +179,22 @@ public class PegSolitaireBoard extends Board {
         tile.setBackground(tile.getId(), true);
     }
 
+    /**
+     * Counts number of pegs remaining on Peg Solitaire Board
+     * @return number of pegs that are on the Peg Solitaire Board
+     */
+    int numRemainingPegs() {
+        int counter = 0;
+        for (PegSolitaireTile[] tileRow : tiles) {
+            for (PegSolitaireTile tile : tileRow) {
+                if (tile.getId() == 2) {
+                    counter ++;
+                }
+            }
+        }
+        return counter;
+    }
+
     void update() {
         setChanged();
         notifyObservers();

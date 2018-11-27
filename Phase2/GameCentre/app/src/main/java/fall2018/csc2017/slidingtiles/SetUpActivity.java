@@ -67,7 +67,7 @@ public class SetUpActivity extends AppCompatActivity {
 
             // Apply the adapter to the spinner
             spinnerBoardShape.setAdapter(adapterBoardSize);
-        } else { // game.equals("PEG SOLITAIRE")
+        } else if (game.equals("PEG SOLITAIRE")) {
             setContentView(R.layout.activity_peg_solitaire_set_up);
 
             spinnerBoardShape = findViewById(R.id.ChoosePegSolitaireSpinner);
@@ -79,6 +79,9 @@ public class SetUpActivity extends AppCompatActivity {
 
             // Apply the adapter to the spinner
             spinnerBoardShape.setAdapter(adapterBoardSize);
+        } else { //game.equals("MEMORY PUZZLE")
+            setContentView(R.layout.activity_memory_game_set_up);
+
         }
         addPlayButtonListener();
         loadFromFile(LoginActivity.SAVE_FILENAME);
