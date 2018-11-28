@@ -51,9 +51,10 @@ public class PegSolitaireManager implements Serializable, Game {
     /**
      * Set a new board.
      */
-    void setBoard(Board board) {
+    void setBoard(PegSolitaireBoard board) {
         pegScoreBoard = new ScoreBoard();
-        board.update();
+        this.pegBoard = board;
+        pegBoard.update();
     }
 
     /**

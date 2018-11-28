@@ -120,6 +120,12 @@ public class PegSolitaireBoard extends Board {
     }
 
     /**
+     * Return all the tiles for the board
+     * @return all the tiles for the board
+     */
+    PegSolitaireTile[][] getPegTiles() {return tiles;}
+
+    /**
      * Return the tile at (row, col)
      *
      * @param row the tile row
