@@ -143,7 +143,6 @@ public class SetUpActivity extends AppCompatActivity {
             tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
             MemoryGameBoard.setDimensions(shape);
             gameManager = new MemoryBoardManager();
-            //MemoryGameBoard.setDimensions(shape);
         }
         GameLauncher.getCurrentUser().setNumOfUndos(game, 0);
         GameLauncher.getCurrentUser().setRecentManagerOfBoard(game, gameManager);
