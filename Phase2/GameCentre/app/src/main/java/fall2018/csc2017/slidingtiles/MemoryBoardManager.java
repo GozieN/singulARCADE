@@ -85,7 +85,7 @@ class MemoryBoardManager implements Serializable, Game {
         Iterator<MemoryPuzzleTile> boarditerator = board.iterator();
         while (boarditerator.hasNext()) {
             MemoryPuzzleTile currentTile = boarditerator.next();
-            if (currentTile.getTopLayer() != R.drawable.memory_tile_38 ||
+            if (currentTile.getTopLayer() != R.drawable.memory_tile_38 &&
                     currentTile.getTopLayer() != R.drawable.memory_tile_37) {
                 flipped++;
             }
@@ -107,27 +107,33 @@ class MemoryBoardManager implements Serializable, Game {
     }
 
     /**
-     * Process a touch at position in the board, removing tiles as appropriate.
+     * Set the topLayer of both of the MemoryPuzzleTiles to grey.
      *
-     * @param position1, position2 the positions of the tiles
+     * @param firstTap  the first MemoryPuzzleTile that the user tapped on
+     * @param secondTap the second MemoryPuzzleTile that the user tapped on
      */
-    public void greyOut(int position1, int position2) {
-        int row1 = position1 / MemoryGameBoard.NUM_ROWS;
-        int col1 = position1 % MemoryGameBoard.NUM_COLS;
-        int row2 = position2 / MemoryGameBoard.NUM_ROWS;
-        int col2 = position2 % MemoryGameBoard.NUM_COLS;
-
-        MemoryPuzzleTile t1 = board.getMemoryGameTile(row1, col1);
-        MemoryPuzzleTile t2 = board.getMemoryGameTile(row2, col2);
-
-
-        if (t1.compareTo(t2) == 0) {
-            t1.setTopLayer(R.drawable.memory_tile_38);
-            t2.setTopLayer(R.drawable.memory_tile_38);
-        } else {
-            t1.setTopLayer(R.drawable.memory_tile_37);
-            t2.setTopLayer(R.drawable.memory_tile_37);
+    public void greyOut(MemoryPuzzleTile firstTap, MemoryPuzzleTile secondTap) {
+        if (firstTap.compareTo(secondTap) == 0) {
+            firstTap.setTopLayer(R.drawable.memory_tile_38);
+            secondTap.setTopLayer(R.drawable.memory_tile_38);
+            firstTap.setBackground(R.drawable.memory_tile_38);
+            secondTap.setBackground(R.drawable.memory_tile_38);
         }
+        board.update();
+    }
+
+    /**
+     * Flip the flipped MemoryPuzzleTile back to a white tile.
+     *
+     * @param firstTap  the first MemoryPuzzleTile that the user tapped on
+     * @param secondTap the second MemoryPuzzleTile that the user tapped on
+     */
+    public void flipBack(MemoryPuzzleTile firstTap, MemoryPuzzleTile secondTap) {
+        if (firstTap.compareTo(secondTap) != 0) {
+            firstTap.setTopLayer(R.drawable.memory_tile_37);
+            secondTap.setTopLayer(R.drawable.memory_tile_37);
+        }
+        board.update();
     }
 
 
@@ -137,11 +143,12 @@ class MemoryBoardManager implements Serializable, Game {
      *
      * @param position the position of the tile on the board
      */
-    void flipTile(int position) {
+    public void flipTile(int position) {
         int row = position / MemoryGameBoard.NUM_ROWS;
         int col = position % MemoryGameBoard.NUM_COLS;
         MemoryPuzzleTile tile = board.getMemoryGameTile(row, col);
         tile.setTopLayer(tile.getBackground());
+        board.update();
     }
 
 

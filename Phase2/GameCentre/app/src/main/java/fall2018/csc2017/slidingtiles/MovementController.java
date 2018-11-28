@@ -9,6 +9,8 @@ class MovementController {
     private Game boardManager = null;
     private boolean firstMove = true;
     private int previousMove;
+    private MemoryPuzzleTile firstTap;
+    private MemoryPuzzleTile secondTap;
 
     MovementController() {
     }
@@ -57,15 +59,26 @@ class MovementController {
 
         if (boardManager instanceof MemoryBoardManager) {
             MemoryBoardManager thisBoard = (MemoryBoardManager) boardManager;
+            int row = position / MemoryGameBoard.NUM_COLS;
+            int col = position % MemoryGameBoard.NUM_COLS;
             if (thisBoard.isValidTap(position)) {
-                thisBoard.flipTile(position);
-
+                if (thisBoard.numTileFlipped() == 0) {
+                    firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
+                    thisBoard.flipTile(position);
+                } else {
+                    secondTap = thisBoard.getBoard().getMemoryGameTile(row, col);
+                    thisBoard.flipTile(position);
+                    thisBoard.greyOut(firstTap, secondTap);
+                }
                 if (thisBoard.isOver()) {
                     Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+                thisBoard.flipBack(firstTap, secondTap);
+                firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
+                thisBoard.flipTile(position);
+                //Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
             }
         }
-        }
+    }
 }
