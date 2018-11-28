@@ -41,6 +41,9 @@ public class StartingActivity extends AppCompatActivity {
         if (game.equals(PegSolitaireManager.GAME_NAME)) {
             gameManager = new PegSolitaireManager();
         }
+        if (game.equals(MemoryBoardManager.GAME_NAME)) {
+            gameManager = new MemoryBoardManager();
+        }
 
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
@@ -83,8 +86,6 @@ public class StartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 SaveAndLoad.loadFromFile(StartingActivity.this, LoginActivity.SAVE_FILENAME);
                 //loadFromFile(LoginActivity.SAVE_FILENAME);
                 makeToastLoadedText();

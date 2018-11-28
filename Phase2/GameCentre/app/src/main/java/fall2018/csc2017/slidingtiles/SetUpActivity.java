@@ -54,7 +54,6 @@ public class SetUpActivity extends AppCompatActivity {
         game = getIntent().getStringExtra("game");
         setGame();
         addPlayButtonListener();
-
         SaveAndLoad.loadFromFile(SetUpActivity.this, LoginActivity.SAVE_FILENAME);
         setGameManager();
     }
@@ -142,8 +141,9 @@ public class SetUpActivity extends AppCompatActivity {
                 if(spinnerUndo != null && spinnerUndo.getSelectedItem() !=null ) {
                     undoSelection = (String) spinnerUndo.getSelectedItem();
                 }
-
-                undoLimit = Integer.valueOf(undoSelection);
+                if (game.equals(SlidingTilesManager.GAME_NAME) || (game.equals(PegSolitaireManager.GAME_NAME))) {
+                    undoLimit = Integer.valueOf(undoSelection);
+                }
                 switchToGame();
             }
         });
@@ -173,6 +173,8 @@ public class SetUpActivity extends AppCompatActivity {
         } else { //game.equals("MEMORY PUZZLE")
             tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
             MemoryGameBoard.setDimensions(shape);
+            gameManager = new MemoryBoardManager();
+            //MemoryGameBoard.setDimensions(shape);
             GameLauncher.getCurrentUser().setRecentManagerOfBoard(MemoryBoardManager.GAME_NAME, gameManager);
             GameLauncher.getCurrentUser().setEmptyStackOfGameStates(MemoryBoardManager.GAME_NAME);
         }
