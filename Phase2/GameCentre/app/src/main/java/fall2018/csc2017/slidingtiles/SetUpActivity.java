@@ -89,7 +89,7 @@ public class SetUpActivity extends AppCompatActivity {
         } else { //game.equals("MEMORY PUZZLE")
             setContentView(R.layout.activity_memory_game_set_up);
 
-            spinnerBoardShape = findViewById(R.id.ChooseMemoryPuzzleSpinner);
+            spinnerBoardShape = findViewById(R.id.ChooseBoardSpinner);
             ArrayAdapter<CharSequence> adapterBoardSize = ArrayAdapter.createFromResource(this,
                     R.array.memoryPuzzle_array, android.R.layout.simple_spinner_item);
 
