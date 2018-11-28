@@ -148,26 +148,42 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (numberOfUndos < SetUpActivity.undoLimit) {
-                    Stack totalStates = GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME);
-                    if(totalStates.size() != 0) {
-                        List state = GameLauncher.getCurrentUser().getState(SlidingTilesManager.GAME_NAME);
-                        int row1 = (Integer) state.get(2);
-                        int col1 = (Integer) state.get(3);
-                        int row2 = (Integer) state.get(0);
-                        int col2 = (Integer) state.get(1);
-                        slidingTilesManager.getBoard().swapTiles(row1, col1, row2, col2);
-                        numberOfUndos++;
-                        setNumberOfUndosText();
-                    } else {
-                        makeToastNoUndoText();
-                    }
-
-                } else {
+                String undoText = usedNumberOfUndos();
+                if (undoText.equals("setNumberOfMovesText")) {
+                    setNumberOfUndosText();
+                }
+                else if (undoText.equals("NoUndoText")) {
+                    makeToastNoUndoText();
+                }
+                else { //got "UndoLimitText";
                     makeToastUndoLimitText();
                 }
             }
         });
+    }
+
+    public String usedNumberOfUndos() {
+        if (numberOfUndos < SetUpActivity.undoLimit) {
+            Stack totalStates = GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME);
+            if(totalStates.size() != 0) {
+                List state = GameLauncher.getCurrentUser().getState(SlidingTilesManager.GAME_NAME);
+                int row1 = (Integer) state.get(2);
+                int col1 = (Integer) state.get(3);
+                int row2 = (Integer) state.get(0);
+                int col2 = (Integer) state.get(1);
+                slidingTilesManager.getBoard().swapTiles(row1, col1, row2, col2);
+                numberOfUndos++;
+                return "setNumberOfMovesText";
+                //setNumberOfUndosText();
+            }
+            else {
+                return "NoUndoText";
+                //makeToastNoUndoText();
+            }
+
+        }
+        return "UndoLimitText";
+            //makeToastUndoLimitText();
     }
 
     /**
