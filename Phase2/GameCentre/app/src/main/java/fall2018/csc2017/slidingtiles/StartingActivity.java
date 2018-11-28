@@ -120,27 +120,19 @@ public class StartingActivity extends AppCompatActivity {
         }
         SaveAndLoad.loadFromFile(StartingActivity.this, LoginActivity.SAVE_FILENAME);
         if (GameLauncher.getCurrentUser().getStackOfGameStates(game).isEmpty()
-                && GameLauncher.getCurrentUser().getNumOfUndos(game)==0) {
+                && GameLauncher.getCurrentUser().getNumOfUndos(game) == 0) {
             makeToastNoGameToLoadText();
         } else {
             startActivity(tmp);
         }
     }
 
-        /**
-         * Switch to the SetUp view to play the game.
-         */
-        private void switchToSetUp () {
-            Intent tmp = new Intent(this, SetUpActivity.class);
-            tmp.putExtra("game", game);
-            startActivity(tmp);
-        }
-
-        /**
-         * Switch to the Memory Puzzle Game's setup
-         */
-        private void switchToMemoryPuzzleSetup () {
-            Intent tmp = new Intent(this, MemoryGameSetUpActivity.class);
-            startActivity(tmp);
-        }
+    /**
+     * Switch to the SetUp view to play the game.
+     */
+    private void switchToSetUp() {
+        Intent tmp = new Intent(this, SetUpActivity.class);
+        tmp.putExtra("game", game);
+        startActivity(tmp);
     }
+}

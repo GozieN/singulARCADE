@@ -1,3 +1,4 @@
+
 package fall2018.csc2017.slidingtiles;
 
 import android.content.Intent;
@@ -9,7 +10,10 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 public class SetUpActivity extends AppCompatActivity {
-
+    //    /*
+//    The user's chosen board shape/dimensions from dropdown.
+//     **/
+//    private String boardSelection;
     /*
     The user's chosen undo limit from dropdown.
      */
@@ -41,19 +45,15 @@ public class SetUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setUpController = new SetUpAndStartController();
         game = getIntent().getStringExtra("game");
-        setSpinnerOnCreate();
-        addPlayButtonListener();
-        SaveAndLoad.loadFromFile(SetUpActivity.this, LoginActivity.SAVE_FILENAME);
-        gameManager = (Game) setUpController.setGameManager(game);
-        setSpinnerUndoOnCreate();
-        //other games by other people:
         setGame();
         addPlayButtonListener();
         SaveAndLoad.loadFromFile(SetUpActivity.this, LoginActivity.SAVE_FILENAME);
-        setGameManager();
+        gameManager = (Game) setUpController.setGameManager(game);
+        //undoSpinner();
     }
 
-    public void setSpinnerOnCreate() {
+    private void setGame() {
+        //adapted from https://developer.android.com/guide/topics/ui/controls/spinner#java
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             setContentView(R.layout.activity_sliding_tiles_set_up);
 
@@ -76,11 +76,22 @@ public class SetUpActivity extends AppCompatActivity {
 
             // Specify the layout to use when the list of choices appears
             adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
             // Apply the adapter to the spinner
             spinnerBoardShape.setAdapter(adapterBoardSize);
             undoSpinner();
         } else { //game.equals("MEMORY PUZZLE")
             setContentView(R.layout.activity_memory_game_set_up);
+
+            spinnerBoardShape = findViewById(R.id.ChooseBoardSpinner);
+            ArrayAdapter<CharSequence> adapterBoardSize = ArrayAdapter.createFromResource(this,
+                    R.array.memoryPuzzle_array, android.R.layout.simple_spinner_item);
+
+            // Specify the layout to use when the list of choices appears
+            adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            // Apply the adapter to the spinner
+            spinnerBoardShape.setAdapter(adapterBoardSize);
 
         }
     }
@@ -88,23 +99,12 @@ public class SetUpActivity extends AppCompatActivity {
     /**
      * Add the undo spinner
      */
-    public void setSpinnerUndoOnCreate() {
+    private void undoSpinner() {
         spinnerUndo = findViewById(R.id.ChooseUndoSpinner);
         ArrayAdapter<CharSequence> adapterUndo = ArrayAdapter.createFromResource(this,
                 R.array.undo_array, android.R.layout.simple_spinner_item);
         adapterUndo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerUndo.setAdapter(adapterUndo);
-
-        //what they did here:
-//        spinnerBoardShape = findViewById(R.id.ChooseMemoryPuzzleSpinner);
-//        ArrayAdapter<CharSequence> adapterBoardSize = ArrayAdapter.createFromResource(this,
-//                R.array.memoryPuzzle_array, android.R.layout.simple_spinner_item);
-//
-//        // Specify the layout to use when the list of choices appears
-//        adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//
-//        // Apply the adapter to the spinner
-//        spinnerBoardShape.setAdapter(adapterBoardSize);
     }
 
     /**
@@ -117,14 +117,12 @@ public class SetUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // adapted from https://stackoverflow.com/questions/29891237/checking-if-spinner-is-selected-and-having-null-value-in-android
                 shape = setUpController.setBoardShape(game, spinnerBoardShape);
-                if(spinnerUndo != null && spinnerUndo.getSelectedItem() !=null ) {
+                if (spinnerUndo != null && spinnerUndo.getSelectedItem() != null) {
                     undoSelection = (String) spinnerUndo.getSelectedItem();
                 }
-                //they did:
-//                if (game.equals(SlidingTilesManager.GAME_NAME) || (game.equals(PegSolitaireManager.GAME_NAME))) {
-//                    undoLimit = Integer.valueOf(undoSelection);
-//                }
-                undoLimit = Integer.valueOf(undoSelection);
+                if (game.equals(SlidingTilesManager.GAME_NAME) || (game.equals(PegSolitaireManager.GAME_NAME))) {
+                    undoLimit = Integer.valueOf(undoSelection);
+                }
                 switchToGame();
             }
         });
@@ -139,15 +137,13 @@ public class SetUpActivity extends AppCompatActivity {
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             tmp = new Intent(this, PlaySlidingTilesActivity.class);
             gameManager = setUpController.setSolvableBoardManager(shape);
-        }
-    else if (game.equals(PegSolitaireManager.GAME_NAME)) {
-        tmp = new Intent(this, PlayPegSolitaireActivity.class);
-        }
-        else {
-            else { //game.equals("MEMORY PUZZLE")
-                tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
-                MemoryGameBoard.setDimensions(shape);
-                gameManager = new MemoryBoardManager();
+        } else if (game.equals(PegSolitaireManager.GAME_NAME)) {
+            tmp = new Intent(this, PlayPegSolitaireActivity.class);
+        } else { //game.equals("MEMORY PUZZLE")
+            tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
+            MemoryGameBoard.setDimensions(shape);
+            gameManager = new MemoryBoardManager();
+            //MemoryGameBoard.setDimensions(shape);
         }
         GameLauncher.getCurrentUser().setNumOfUndos(game, 0);
         GameLauncher.getCurrentUser().setRecentManagerOfBoard(game, gameManager);
