@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 class MovementController {
 
-    public Game boardManager = null;
+    private Game boardManager = null;
     private boolean firstMove = true;
     private int previousMove;
     private MemoryPuzzleTile firstTap;
@@ -37,6 +37,9 @@ class MovementController {
                     }
                 }
 
+            } else if (position == previousMove && !firstMove) {
+                thisBoard.firstMove(position);
+                firstMove = true;
             } else {
                 Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
             }
