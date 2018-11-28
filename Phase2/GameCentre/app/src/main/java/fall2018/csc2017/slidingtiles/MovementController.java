@@ -71,8 +71,8 @@ class MovementController {
                     Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 }
             } else {
-//                thisBoard.flipBack(firstTap, secondTap);
-//                firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
+                thisBoard.flipBack(firstTap, secondTap);
+                firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
                 Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
             }
         }
