@@ -35,11 +35,14 @@ public class StartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         game = getIntent().getStringExtra("welcomeText");
-        if (game.equals("SLIDING TILES")) {
+        if (game.equals(SlidingTilesManager.GAME_NAME)) {
             gameManager = new SlidingTilesManager();
         }
-        if (game.equals("PEG SOLITAIRE")) {
+        if (game.equals(PegSolitaireManager.GAME_NAME)) {
             gameManager = new PegSolitaireManager();
+        }
+        if (game.equals(MemoryBoardManager.GAME_NAME)) {
+            gameManager = new MemoryBoardManager();
         }
 
         setContentView(R.layout.activity_starting_);
@@ -70,11 +73,7 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (game.equals("PEG SOLITAIRE") || (game.equals("SLIDING TILES"))) {
-                    switchToSetUp();
-                } else {
-                    switchToMemoryPuzzleSetup();
-                }
+                switchToSetUp();
             }
         });
     }
@@ -87,8 +86,6 @@ public class StartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 SaveAndLoad.loadFromFile(StartingActivity.this, LoginActivity.SAVE_FILENAME);
                 //loadFromFile(LoginActivity.SAVE_FILENAME);
                 makeToastLoadedText();
@@ -124,9 +121,9 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void switchToGame() {
         Intent tmp;
-        if (game.equals("SLIDING TILES")) {
+        if (game.equals(SlidingTilesManager.GAME_NAME)) {
             tmp = new Intent(this, PlaySlidingTilesActivity.class);
-        } else if (game.equals("PEG SOLITAIRE")) {
+        } else if (game.equals(PegSolitaireManager.GAME_NAME)) {
             tmp = new Intent(this, PlayPegSolitaireActivity.class);
         } else {
             tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
@@ -141,12 +138,12 @@ public class StartingActivity extends AppCompatActivity {
     }
 
         public boolean isGameStackEmpty() {
-            if (game.equals("SLIDING TILES")) {
+            if (game.equals(SlidingTilesManager.GAME_NAME)) {
                 if (GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).isEmpty()) {
                     return true;
                 }
             }
-            else if (game.equals("PEG SOLITAIRE")) {
+            else if (game.equals(PegSolitaireManager.GAME_NAME)) {
                 if (GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.GAME_NAME).isEmpty()) {
                     return true;
                 }
@@ -166,14 +163,6 @@ public class StartingActivity extends AppCompatActivity {
         private void switchToSetUp () {
             Intent tmp = new Intent(this, SetUpActivity.class);
             tmp.putExtra("game", game);
-            startActivity(tmp);
-        }
-
-        /**
-         * Switch to the Memory Puzzle Game's setup
-         */
-        private void switchToMemoryPuzzleSetup () {
-            Intent tmp = new Intent(this, MemoryGameSetUpActivity.class);
             startActivity(tmp);
         }
 
