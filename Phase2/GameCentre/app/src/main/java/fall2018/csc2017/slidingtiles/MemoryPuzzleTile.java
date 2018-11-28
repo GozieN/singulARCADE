@@ -177,15 +177,11 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
 //     * @param backgroundId the background id of the tile
 //     */
 //    MemoryPuzzleTile(int backgroundId) {
-//        id = backgroundId;
+//        super(backgroundId,-1);
 //        String fileName = "memory_tile_" + backgroundId;
 //        background = App.getContext().getResources().getIdentifier(
 //                fileName, "drawable", "fall2018.csc2017.slidingtiles");
 //    }
-//
-//    public static void main(String[] args) {
-//        MemoryPuzzleTile memo = new MemoryPuzzleTile(1);
-//        memo.getBackground();
 
     @Override
     public int compareTo(@NonNull MemoryPuzzleTile memoryPuzzleTile) {
