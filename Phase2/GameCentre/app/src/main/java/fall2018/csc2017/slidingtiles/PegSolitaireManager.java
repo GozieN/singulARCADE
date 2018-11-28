@@ -51,9 +51,10 @@ public class PegSolitaireManager implements Serializable, Game {
     /**
      * Set a new board.
      */
-    void setBoard(Board board) {
+    void setBoard(PegSolitaireBoard board) {
         pegScoreBoard = new ScoreBoard();
-        board.update();
+        this.pegBoard = board;
+        pegBoard.update();
     }
 
     /**
@@ -113,7 +114,7 @@ public class PegSolitaireManager implements Serializable, Game {
             }
         }
 
-        pegBoard.moveGamepiece(row1, col1, row2, col2);
+        GameLauncher.getCurrentUser().pushGameStates(GAME_NAME, pegBoard.moveGamepiece(row1, col1, row2, col2));
         pegBoard.update();
 
     }

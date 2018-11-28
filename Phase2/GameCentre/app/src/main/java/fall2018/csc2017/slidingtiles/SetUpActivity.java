@@ -46,6 +46,11 @@ public class SetUpActivity extends AppCompatActivity {
         SaveAndLoad.loadFromFile(SetUpActivity.this, LoginActivity.SAVE_FILENAME);
         gameManager = (Game) setUpController.setGameManager(game);
         setSpinnerUndoOnCreate();
+        //other games by other people:
+        setGame();
+        addPlayButtonListener();
+        SaveAndLoad.loadFromFile(SetUpActivity.this, LoginActivity.SAVE_FILENAME);
+        setGameManager();
     }
 
     public void setSpinnerOnCreate() {
@@ -61,6 +66,7 @@ public class SetUpActivity extends AppCompatActivity {
 
             // Apply the adapter to the spinner
             spinnerBoardShape.setAdapter(adapterBoardSize);
+            undoSpinner();
         } else if (game.equals(PegSolitaireManager.GAME_NAME)) {
             setContentView(R.layout.activity_peg_solitaire_set_up);
 
@@ -72,18 +78,33 @@ public class SetUpActivity extends AppCompatActivity {
             adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             // Apply the adapter to the spinner
             spinnerBoardShape.setAdapter(adapterBoardSize);
+            undoSpinner();
         } else { //game.equals("MEMORY PUZZLE")
             setContentView(R.layout.activity_memory_game_set_up);
 
         }
     }
 
+    /**
+     * Add the undo spinner
+     */
     public void setSpinnerUndoOnCreate() {
         spinnerUndo = findViewById(R.id.ChooseUndoSpinner);
         ArrayAdapter<CharSequence> adapterUndo = ArrayAdapter.createFromResource(this,
                 R.array.undo_array, android.R.layout.simple_spinner_item);
         adapterUndo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerUndo.setAdapter(adapterUndo);
+
+        //what they did here:
+//        spinnerBoardShape = findViewById(R.id.ChooseMemoryPuzzleSpinner);
+//        ArrayAdapter<CharSequence> adapterBoardSize = ArrayAdapter.createFromResource(this,
+//                R.array.memoryPuzzle_array, android.R.layout.simple_spinner_item);
+//
+//        // Specify the layout to use when the list of choices appears
+//        adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        // Apply the adapter to the spinner
+//        spinnerBoardShape.setAdapter(adapterBoardSize);
     }
 
     /**
@@ -99,6 +120,10 @@ public class SetUpActivity extends AppCompatActivity {
                 if(spinnerUndo != null && spinnerUndo.getSelectedItem() !=null ) {
                     undoSelection = (String) spinnerUndo.getSelectedItem();
                 }
+                //they did:
+//                if (game.equals(SlidingTilesManager.GAME_NAME) || (game.equals(PegSolitaireManager.GAME_NAME))) {
+//                    undoLimit = Integer.valueOf(undoSelection);
+//                }
                 undoLimit = Integer.valueOf(undoSelection);
                 switchToGame();
             }
@@ -115,8 +140,14 @@ public class SetUpActivity extends AppCompatActivity {
             tmp = new Intent(this, PlaySlidingTilesActivity.class);
             gameManager = setUpController.setSolvableBoardManager(shape);
         }
-        else { //game.equals("PEG SOLITAIRE")
-            tmp = new Intent(this, PlayPegSolitaireActivity.class);
+    else if (game.equals(PegSolitaireManager.GAME_NAME)) {
+        tmp = new Intent(this, PlayPegSolitaireActivity.class);
+        }
+        else {
+            else { //game.equals("MEMORY PUZZLE")
+                tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
+                MemoryGameBoard.setDimensions(shape);
+                gameManager = new MemoryBoardManager();
         }
         GameLauncher.getCurrentUser().setNumOfUndos(game, 0);
         GameLauncher.getCurrentUser().setRecentManagerOfBoard(game, gameManager);

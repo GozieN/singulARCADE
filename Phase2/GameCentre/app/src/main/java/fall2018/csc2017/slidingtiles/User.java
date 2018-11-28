@@ -54,10 +54,10 @@ public class User implements Serializable{
         this.password = password;
         this.gameStates = new HashMap<>();
         gameStates.put(SlidingTilesManager.GAME_NAME, new Stack<List>());
-        gameStates.put(MemoryBoardManager.GAME_NAME, new Stack<List>());
+        gameStates.put(PegSolitaireManager.GAME_NAME, new Stack<List>());
         this.recentManagerOfBoard = new HashMap<>();
         recentManagerOfBoard.put(SlidingTilesManager.GAME_NAME, new SlidingTilesManager());
-//        recentManagerOfBoard.put(MemoryBoardManager.GAME_NAME, new MemoryBoardManager());
+        recentManagerOfBoard.put(PegSolitaireManager.GAME_NAME, new PegSolitaireManager());
 
         this.userScoreBoard = new ScoreBoard();
         this.numOfUndos = new HashMap<>();

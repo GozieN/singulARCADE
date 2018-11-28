@@ -159,7 +159,6 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME) != 0);
                 if ((!GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).isEmpty())
                     || (GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME) != 0)) {
                     makeToastSavedText();

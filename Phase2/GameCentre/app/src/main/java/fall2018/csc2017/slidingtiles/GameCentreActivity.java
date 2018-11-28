@@ -109,7 +109,7 @@ public class GameCentreActivity extends AppCompatActivity {
     private void switchToSlidingTilesActivity() {
         Intent slidingTilesIntent = new Intent(getApplicationContext(), StartingActivity.class);
         slidingTilesIntent.putExtra("welcomeText", SlidingTilesManager.GAME_NAME);
-        slidingTilesIntent.putExtra("instructionsText", "HOW TO PLAY: \n " +
+        slidingTilesIntent.putExtra("instructionsText", "HOW TO PLAY: \n" +
                 "Slide the tiles around until you have the correct configuation of numbers/image");
         startActivity(slidingTilesIntent);
     }
@@ -120,10 +120,8 @@ public class GameCentreActivity extends AppCompatActivity {
     private void switchToPegSolitaireActivity() {
         Intent pegSolitaireIntent = new Intent(getApplicationContext(), StartingActivity.class);
         pegSolitaireIntent.putExtra("welcomeText", PegSolitaireManager.GAME_NAME);
-        pegSolitaireIntent.putExtra("instructionsText", "HOW TO PLAY: \n " +
-                "Your goal is to clear all of the pegs but one. \n " +
-                "To clear a peg, jump over it into an empty space. \n " +
-                "Click a peg to select it, and then click an empty space to make a jump.");
+        pegSolitaireIntent.putExtra("instructionsText", "HOW TO PLAY: \n" +
+                "Jump over pegs to make them disappear. \n" + "You win when there is only one peg left. ");
         startActivity(pegSolitaireIntent);
     }
 
@@ -134,9 +132,8 @@ public class GameCentreActivity extends AppCompatActivity {
         Intent memoryPuzzleIntent = new Intent(getApplicationContext(), StartingActivity.class);
         memoryPuzzleIntent.putExtra("welcomeText", MemoryBoardManager.GAME_NAME);
 
-        //TODO: FILL IN THE INSTRUCTIONS FOR MEMORY PUZZLE
-        memoryPuzzleIntent.putExtra("instructionsText", "HOW TO PLAY: \n " +
-                "The goal of the game is to match each image to its duplicate. \n " +
+        memoryPuzzleIntent.putExtra("instructionsText", "HOW TO PLAY: \n" +
+                "The goal of the game is to match each image to its duplicate. \n" +
                 "Click a tile to reveal the image underneath. If the move you just" +
                 " enacted is an odd number, you have the chance to find the matching image!");
         startActivity(memoryPuzzleIntent);

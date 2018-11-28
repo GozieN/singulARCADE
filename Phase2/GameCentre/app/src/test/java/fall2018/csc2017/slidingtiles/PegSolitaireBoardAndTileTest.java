@@ -76,7 +76,7 @@ public class PegSolitaireBoardAndTileTest {
     public void testGetDimensions() {
         setUpSquare();
         assertEquals(36, pegSolitaireBoard.getDimensions());
-        pegSolitaireBoard.setDimensions(9);
+        PegSolitaireBoard.setDimensions(9);
         assertEquals(81, pegSolitaireBoard.getDimensions());
     }
 
@@ -93,13 +93,26 @@ public class PegSolitaireBoardAndTileTest {
     }
 
     /**
-     * Test highlightTile works
+     * Test addOrRemoveHighlight works
      */
     @Test
-    public void testHighlightTile() {
+    public void testAddOrRemoveHighlight() {
         setUpSquare();
-        pegSolitaireBoard.highlightTile(1, 3);
+        pegSolitaireBoard.addOrRemoveHighlight(1, 3);
         assertEquals(R.drawable.tile_highlight, pegSolitaireBoard.getPegTile(1,3).getBackground());
+
+    }
+
+    /**
+     * Test addOrRemoveHighlight works
+     */
+    @Test
+    public void testNumRemainingPegs() {
+        setUpDiamond();
+        pegSolitaireBoard.moveGamepiece(2, 4, 4, 4);
+        pegSolitaireBoard.moveGamepiece(3, 6, 4, 3);
+        //pegSolitaireBoard.moveGamepiece(3, 3, 5, 3);
+        assertEquals(38, pegSolitaireBoard.numRemainingPegs());
 
     }
 

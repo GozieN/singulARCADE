@@ -31,6 +31,11 @@ public class StartingActivity extends AppCompatActivity {
         game = getIntent().getStringExtra("welcomeText");
         gameManager = (Game) startController.newGameManager(game);
 
+        //add this to helper function
+//        if (game.equals(MemoryBoardManager.GAME_NAME)) {
+//            gameManager = new MemoryBoardManager();
+//        }
+
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
         addLoadButtonListener();
@@ -59,11 +64,7 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (game.equals(PegSolitaireManager.GAME_NAME) || (game.equals(SlidingTilesManager.GAME_NAME))) {
-                    switchToSetUp();
-                } else {
-                    switchToMemoryPuzzleSetup();
-                }
+                switchToSetUp();
             }
         });
     }
