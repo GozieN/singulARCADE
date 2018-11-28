@@ -116,6 +116,8 @@ class MemoryBoardManager implements Serializable, Game {
         if (firstTap.compareTo(secondTap) == 0) {
             firstTap.setTopLayer(R.drawable.memory_tile_38);
             secondTap.setTopLayer(R.drawable.memory_tile_38);
+            firstTap.setBackground(R.drawable.memory_tile_38);
+            secondTap.setBackground(R.drawable.memory_tile_38);
         }
         board.update();
     }
