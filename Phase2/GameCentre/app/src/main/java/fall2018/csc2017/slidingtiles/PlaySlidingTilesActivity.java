@@ -45,8 +45,6 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
      * of positions, and then call the adapter to set the view.
      */
 
-    PlaySlidingTilesActivity() {}
-
     // Display
     public void display() {
         updateTileButtons();

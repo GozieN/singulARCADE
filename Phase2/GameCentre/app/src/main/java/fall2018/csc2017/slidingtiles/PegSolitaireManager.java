@@ -113,7 +113,7 @@ public class PegSolitaireManager implements Serializable, Game {
             }
         }
 
-        pegBoard.moveGamepiece(row1, col1, row2, col2);
+        GameLauncher.getCurrentUser().pushGameStates(GAME_NAME, pegBoard.moveGamepiece(row1, col1, row2, col2));
         pegBoard.update();
 
     }
@@ -178,7 +178,7 @@ public class PegSolitaireManager implements Serializable, Game {
      * @return the score of the current game
      */
     public int getScore() {
-        Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates("Peg Solitaire");
+        Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates(GAME_NAME);
         double tempScore = Math.pow((stackOfMoves.size() + 2*PlaySlidingTilesActivity.numberOfUndos), -1);
         //if 6, multiply by 10000
         if (Board.NUM_ROWS == 6) {

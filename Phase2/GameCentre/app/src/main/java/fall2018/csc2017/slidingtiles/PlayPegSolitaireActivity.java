@@ -198,7 +198,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
                         int col1 = (Integer) state.get(3);
                         int row2 = (Integer) state.get(0);
                         int col2 = (Integer) state.get(1);
-                        pegSolitaireManager.getBoard().moveGamepiece(row1, col1, row2, col2);
+                        pegSolitaireManager.getBoard().undoMove(row1, col1, row2, col2);
                         numberOfUndos++;
                         setNumberOfUndosText();
                     } else {
@@ -294,7 +294,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         if (numberOfUndos > SetUpActivity.undoLimit) {
             numberOfUndos = SetUpActivity.undoLimit;
         }
-        int numMoves = 1 + numberOfUndos + GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size();
+        int numMoves = 1 + numberOfUndos + GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.GAME_NAME).size();
         TextView moves = findViewById(R.id.changingNumberOfMoves);
         moves.setText(Integer.toString(numMoves));
     }

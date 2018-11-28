@@ -92,7 +92,7 @@ public class SlidingTilesBoard extends Board {
      * @param row2 the second tile row
      * @param col2 the second tile col
      */
-    public List swapTiles(int row1, int col1, int row2, int col2) {
+    public List<Integer> swapTiles(int row1, int col1, int row2, int col2) {
         SlidingTile temporaryTile = this.getTile(row1, col1);
         tiles[row1][col1] = tiles[row2][col2];
         tiles[row2][col2] = temporaryTile;
