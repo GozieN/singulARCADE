@@ -81,4 +81,8 @@ class UserManager implements Serializable {
     ArrayList<User> getListOfUsers() {
         return listOfUsers;
     }
+
+    User lastAddedUser() {
+        return getListOfUsers().get(getListOfUsers().size()-1);
+    }
 }

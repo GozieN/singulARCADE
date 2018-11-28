@@ -1,6 +1,5 @@
 package fall2018.csc2017.slidingtiles;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,10 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Stack;
 
 /**
  * The game activity.
@@ -36,23 +33,23 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
     private static int columnWidth, columnHeight;
 
     /**
-     * The number of times a user has clicked the undo button.
-     */
-    static int numberOfUndos = 0;
-
-    /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
 
-    PlaySlidingTilesActivity() {}
+    PlaySlidingTilesController playSlidingTilesController;
+
+    PlaySlidingTilesActivity() {
+        this.playSlidingTilesController  = new PlaySlidingTilesController();
+    }
 
     // Display
     public void display() {
-        updateTileButtons();
+        tileButtons = playSlidingTilesController.updateTileButtons();
+
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         if (slidingTilesManager.isOver()) {
-            endOfGame();
+            playSlidingTilesController.endOfGame(slidingTilesManager);
             switchToScoreBoard();
         }
     }
@@ -62,12 +59,15 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         super.onCreate(savedInstanceState);
         SaveAndLoad.loadFromFile(PlaySlidingTilesActivity.this, LoginActivity.SAVE_FILENAME);
         slidingTilesManager = (SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
-        createTileButtons(this);
+        playSlidingTilesController.createTileButtons(this, slidingTilesManager);
+
+        SaveAndLoad.saveToFile(PlaySlidingTilesActivity.this, LoginActivity.SAVE_FILENAME);
         setContentView(R.layout.activity_main);
         addUndoButtonListener();
         addSaveButtonListener();
 
         addView();
+
     }
 
     /**
@@ -97,39 +97,6 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
                 });
     }
 
-
-    /**
-     * Create the buttons for displaying the tiles.
-     *
-     * @param context the context
-     */
-    private void createTileButtons(Context context) {
-        Board board = slidingTilesManager.getBoard();
-        tileButtons = new ArrayList<>();
-        for (int row = 0; row != SlidingTilesBoard.NUM_ROWS; row++) {
-            for (int col = 0; col != SlidingTilesBoard.NUM_COLS; col++) {
-                Button tmp = new Button(context);
-                tmp.setBackgroundResource(board.getTile(row, col).getBackground());
-                this.tileButtons.add(tmp);
-            }
-        }
-    }
-
-    /**
-     * Update the backgrounds on the buttons to match the tiles.
-     */
-    private void updateTileButtons() {
-        SlidingTilesBoard board = slidingTilesManager.getBoard();
-        int nextPos = 0;
-        for (Button b : tileButtons) {
-            int row = nextPos / SlidingTilesBoard.NUM_ROWS;
-            int col = nextPos % SlidingTilesBoard.NUM_COLS;
-            b.setBackgroundResource(board.getTile(row, col).getBackground());
-            nextPos++;
-        }
-        SaveAndLoad.saveToFile(PlaySlidingTilesActivity.this, LoginActivity.SAVE_FILENAME);
-    }
-
     /**
      * Dispatch onPause() to fragments.
      */
@@ -148,9 +115,10 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String undoText = usedNumberOfUndos();
+                String undoText = playSlidingTilesController.usedNumberOfUndos();
                 if (undoText.equals("setNumberOfMovesText")) {
                     setNumberOfUndosText();
+                    SaveAndLoad.saveToFile(PlaySlidingTilesActivity.this, LoginActivity.SAVE_FILENAME);
                 }
                 else if (undoText.equals("NoUndoText")) {
                     makeToastNoUndoText();
@@ -160,40 +128,6 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
                 }
             }
         });
-    }
-
-    public String usedNumberOfUndos() {
-        if (numberOfUndos < SetUpActivity.undoLimit) {
-            Stack totalStates = GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME);
-            if(totalStates.size() != 0) {
-                List state = GameLauncher.getCurrentUser().getState(SlidingTilesManager.GAME_NAME);
-                int row1 = (Integer) state.get(2);
-                int col1 = (Integer) state.get(3);
-                int row2 = (Integer) state.get(0);
-                int col2 = (Integer) state.get(1);
-                slidingTilesManager.getBoard().swapTiles(row1, col1, row2, col2);
-                numberOfUndos++;
-                return "setNumberOfMovesText";
-                //setNumberOfUndosText();
-            }
-            else {
-                return "NoUndoText";
-                //makeToastNoUndoText();
-            }
-
-        }
-        return "UndoLimitText";
-            //makeToastUndoLimitText();
-    }
-
-    /**
-     * At the end of the game, do these actions: get the score, and send score to game score board and user score board.
-     */
-    private void endOfGame() {
-        Integer score = slidingTilesManager.getScore();
-        SlidingTilesManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
-        GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, score);
-        SaveAndLoad.saveToFile(PlaySlidingTilesActivity.this, LoginActivity.SAVE_FILENAME);
     }
 
     /**
@@ -225,7 +159,9 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).isEmpty()) {
+                System.out.println(GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME) != 0);
+                if ((!GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).isEmpty())
+                    || (GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME) != 0)) {
                     makeToastSavedText();
                     switchToGameCentre();
                 }
@@ -235,12 +171,12 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         });
     }
 
-    private void switchToGameCentre() {
+    public void switchToGameCentre() {
         Intent tmp = new Intent(this, GameCentreActivity.class);
         startActivity(tmp);
     }
 
-    private void switchToScoreBoard() {
+    public void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
         tmp.putExtra("scores", SlidingTilesManager.gameScoreBoard.toString());
         startActivity(tmp);
@@ -257,21 +193,15 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
      * Set and modify the text showing the number of moves the user completed after each move the user makes.
      */
     public void setNumberOfMovesText() {
-        if (numberOfUndos > SetUpActivity.undoLimit) {
-            numberOfUndos = SetUpActivity.undoLimit;
-        }
-        int numMoves = 1 + numberOfUndos + GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size();
+        int numMoves = this.playSlidingTilesController.numOfMoves();
         TextView moves = findViewById(R.id.changingNumberOfMoves);
         moves.setText(Integer.toString(numMoves));
     }
-
     /**
      * Set and modify the text showing the number of undos the user completed after each undo the user makes.
      */
     public void setNumberOfUndosText() {
-        if (numberOfUndos > SetUpActivity.undoLimit) {
-            numberOfUndos = SetUpActivity.undoLimit;
-        }
+        int numberOfUndos = this.playSlidingTilesController.numOfUndos();
         TextView undos = findViewById(R.id.changingNumberOfUndos);
         undos.setText(Integer.toString(numberOfUndos));
     }

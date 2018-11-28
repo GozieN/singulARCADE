@@ -176,7 +176,7 @@ class SlidingTilesManager implements Serializable, Game {
      */
     public int getScore() {
         Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME);
-        double tempScore = Math.pow((stackOfMoves.size() + 2*PlaySlidingTilesActivity.numberOfUndos), -1);
+        double tempScore = Math.pow((stackOfMoves.size() + 2*GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME)), -1);
         //if 3, multiply by 10000
         if (SlidingTilesBoard.NUM_ROWS == 3) {
             return (int) Math.round(tempScore * 10000);
@@ -229,5 +229,4 @@ class SlidingTilesManager implements Serializable, Game {
         }
         return inversions;
     }
-
 }
