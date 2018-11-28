@@ -197,7 +197,7 @@ public class PegSolitaireBoard extends Board {
      */
     void addOrRemoveHighlight(int row, int col) {
         PegSolitaireTile tile = getPegTile(row, col);
-        tile.setId(tile.getId(), !tile.highlight);
+        tile.setId(tile.getId(), !tile.isHighlight());
     }
 
     /**

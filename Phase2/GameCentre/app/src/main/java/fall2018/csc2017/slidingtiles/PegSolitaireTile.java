@@ -16,12 +16,12 @@ public class PegSolitaireTile implements Comparable<PegSolitaireTile>, Serializa
     /**
      * The unique id.
      */
-    int id;
+    private int id;
 
     /**
      * Tells whether the tile is highlighted or not.
      */
-    boolean highlight;
+    private boolean highlight;
 
     /**
      * Return the background id.
@@ -41,6 +41,10 @@ public class PegSolitaireTile implements Comparable<PegSolitaireTile>, Serializa
         return id;
     }
 
+
+    public boolean isHighlight() {
+        return highlight;
+    }
     /**
      * A PegSolitaire tile with a background id; look up and set the id.
      *
