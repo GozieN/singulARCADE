@@ -107,7 +107,6 @@ public class PegSolitaireManager implements Serializable, Game {
         int col1 = position1 % PegSolitaireBoard.NUM_COLS;
         int row2 = position2 / PegSolitaireBoard.NUM_ROWS;
         int col2 = position2 % PegSolitaireBoard.NUM_COLS;
-
         for (List<Integer> move : listOfValidMoves(position1)) {
             if (move.get(0) != row2 || move.get(1) != col2) {
                 pegBoard.addOrRemoveHighlight(move.get(0), move.get(1));
@@ -179,14 +178,14 @@ public class PegSolitaireManager implements Serializable, Game {
      * @return the score of the current game
      */
     public int getScore() {
-        Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates(GAME_NAME);
-        double tempScore = Math.pow((stackOfMoves.size() + 2*PlaySlidingTilesActivity.numberOfUndos), -1);
+        Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.GAME_NAME);
+        double tempScore = Math.pow((stackOfMoves.size() + 2*GameLauncher.getCurrentUser().getNumOfUndos(PegSolitaireManager.GAME_NAME)), -1);
         //if 6, multiply by 10000
-        if (Board.NUM_ROWS == 6) {
+        if (PegSolitaireBoard.NUM_ROWS == 6) {
             return (int) Math.round(tempScore * 10000);
         }
         //if 7, multiply by 20000
-        else if (Board.NUM_ROWS == 7) {
+        else if (PegSolitaireBoard.NUM_ROWS == 7) {
             return (int) Math.round(tempScore * 20000);
         }
         //if 9, multiply by 30000

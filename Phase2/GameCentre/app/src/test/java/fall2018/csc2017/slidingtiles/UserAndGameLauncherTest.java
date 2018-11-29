@@ -157,6 +157,36 @@ public class UserAndGameLauncherTest {
         assertEquals(board, GameLauncher.getCurrentUser().getRecentManagerOfBoard("NonExistentBoard"));
     }
 
+    /**
+     * Test setEmptyStackOfGameStates
+     */
+    @Test
+    public void testSetEmptyStackOfGameStates() {
+        setUpCorrect();
+        GameLauncher.getCurrentUser().setEmptyStackOfGameStates(SlidingTilesManager.GAME_NAME);
+        assertEquals(0, GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size());
+
+        //The key is not already in the hashmap
+        GameLauncher.getCurrentUser().setEmptyStackOfGameStates("New Game");
+        assertEquals(0, GameLauncher.getCurrentUser().getStackOfGameStates("New Game").size());
+    }
+
+    /**
+     * Test setNumOfUndos and getNumOfUndos works
+     */
+    @Test
+    public void testSetAndGetNumOfUndos() {
+        setUpCorrect();
+
+        //the key exists in the hashmap
+        GameLauncher.getCurrentUser().setNumOfUndos(SlidingTilesManager.GAME_NAME, 0);
+        GameLauncher.getCurrentUser().setNumOfUndos(SlidingTilesManager.GAME_NAME, 3);
+        assertEquals(3, GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME));
+
+        //the key does not exist in the hashmap
+        GameLauncher.getCurrentUser().setNumOfUndos("New Game", 8);
+        assertEquals(8, GameLauncher.getCurrentUser().getNumOfUndos("New Game"));
+    }
 
     //These tests are for GameLauncher class
     /**

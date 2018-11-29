@@ -26,7 +26,8 @@ class UserManager implements Serializable {
                 }
             }
             return listOfUsers.get(i).getPassword().equals(password);
-        } else {
+        }
+        else {
             return false;
         }
     }
@@ -80,5 +81,20 @@ class UserManager implements Serializable {
      */
     ArrayList<User> getListOfUsers() {
         return listOfUsers;
+    }
+
+    /**
+     * Return the most recently added user in the list of users.
+     * @return the most recently added user in the list of users.
+     */
+    User lastAddedUser() {
+        return getListOfUsers().get(getListOfUsers().size()-1);
+    }
+
+    /**
+     * Empty the list of users
+     */
+    void emptyListOfUsers() {
+        listOfUsers = new ArrayList<>();
     }
 }

@@ -47,19 +47,39 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                 if (username.isEmpty() || password.isEmpty()){
-                    Toast.makeText(SignUpActivity.this, "No input provided", Toast.LENGTH_SHORT).show();
+                    makeToastNoInputProvidedText();
                 }
                 else if(userManager.signUp(username, password)){
-
-                    GameLauncher.setCurrentUser(userManager.getListOfUsers().get(userManager.getListOfUsers().size()-1));
-                    Toast.makeText(SignUpActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
+                    GameLauncher.setCurrentUser(userManager.lastAddedUser());
+                    makeToastSignUpSuccessful();
                     switchToCreateAccount();
                 }
                 else{
-                    Toast.makeText(SignUpActivity.this, "This username has already been taken, try another.", Toast.LENGTH_SHORT).show();
+                    makeToastSignUpUnsuccessful();
                 }
             }
         });
+    }
+
+    /**
+     * Display that the user did not input information for a username and password to sign in.
+     */
+    private void makeToastNoInputProvidedText() {
+        Toast.makeText(SignUpActivity.this, "No input provided", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Display that the sign up was successful.
+     */
+    private void makeToastSignUpSuccessful() {
+        Toast.makeText(SignUpActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Display that the sign up was unsuccessful since the username inputted by the user is already used by another user.
+     */
+    private void makeToastSignUpUnsuccessful() {
+        Toast.makeText(SignUpActivity.this, "This username has already been taken, try another.", Toast.LENGTH_SHORT).show();
     }
 
     /**

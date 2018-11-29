@@ -36,10 +36,10 @@ public class User implements Serializable{
      */
     private HashMap<String, Object> recentManagerOfBoard;
 
-//    /**
-//     * The most recent board of each game that the user plays.
-//     */
-//    private HashMap<String, Object> recentManagerOfMemoryBoard;
+    /**
+     *  The amount of undos completed for each game the user played.
+     */
+    private HashMap<String, Integer> numOfUndos;
 
     /**
      * A new user with a unique username and password.
@@ -58,6 +58,7 @@ public class User implements Serializable{
         recentManagerOfBoard.put(PegSolitaireManager.GAME_NAME, new PegSolitaireManager());
 
         this.userScoreBoard = new ScoreBoard();
+        this.numOfUndos = new HashMap<>();
     }
 
     /**
@@ -151,5 +152,19 @@ public class User implements Serializable{
             recentManagerOfBoard.replace(game, newManagerOfBoard);
         }
         else {recentManagerOfBoard.put(game, newManagerOfBoard);}
+    }
+
+    void setNumOfUndos(String game, int numUndos) {
+        if (numOfUndos.containsKey(game)) {
+            numOfUndos.replace(game, numUndos);
+        }
+        else {numOfUndos.put(game, numUndos);}
+    }
+
+    int getNumOfUndos(String game) {
+        if (numOfUndos.containsKey(game)) {
+            return numOfUndos.get(game);
+        }
+        return 0;
     }
 }

@@ -34,14 +34,21 @@ public class GameCentreActivity extends AppCompatActivity {
         googlePlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String googlePlay = "https://play.google.com/store";
-                Uri webaddress = Uri.parse(googlePlay);
-                Intent goToGooglePlay = new Intent(Intent.ACTION_VIEW, webaddress);
-                if (goToGooglePlay.resolveActivity(getPackageManager()) != null){
-                    startActivity(goToGooglePlay);
-                }
+                switchToGooglePlay();
             }
         });
+    }
+
+    /**
+     * Switch the user's screen from the GameCentreActivity to the Google Play store.
+     */
+    private void switchToGooglePlay() {
+        String googlePlay = "https://play.google.com/store";
+        Uri webAddress = Uri.parse(googlePlay);
+        Intent goToGooglePlay = new Intent(Intent.ACTION_VIEW, webAddress);
+        if (goToGooglePlay.resolveActivity(getPackageManager()) != null){
+            startActivity(goToGooglePlay);
+        }
     }
 
     private void addPegSolitaireButtonListener() {

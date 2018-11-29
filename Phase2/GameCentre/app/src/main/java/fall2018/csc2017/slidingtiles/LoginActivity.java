@@ -51,22 +51,40 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = UsernameInput.getText().toString().trim();
                 String password = PasswordInput.getText().toString().trim();
-
-
                 if (username.isEmpty() || password.isEmpty()){
-                    Toast.makeText(LoginActivity.this, "No input provided", Toast.LENGTH_SHORT).show();
+                    makeToastNoInputProvidedText();
                 }
-
                 else if(userManager.signIn(username, password)){
                     GameLauncher.setCurrentUser(userManager.findUser(username));
                     switchToGameCentreActivity();
-                    Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    makeToastLoginSuccessful();
                 }
                 else{
-                    Toast.makeText(LoginActivity.this, "Login Unsuccessful, try again.", Toast.LENGTH_SHORT).show();
+                    makeToastLoginUnsuccessful();
                 }
             }
         });
+    }
+
+    /**
+     * Display that the user did not input information for a username and password to sign in.
+     */
+    private void makeToastNoInputProvidedText() {
+        Toast.makeText(LoginActivity.this, "No input provided", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Display that the login was successful.
+     */
+    private void makeToastLoginSuccessful() {
+        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Display that the login was unsuccessful as the user put in a non-existent username or wrong password.
+     */
+    private void makeToastLoginUnsuccessful() {
+        Toast.makeText(LoginActivity.this, "Login Unsuccessful, try again.", Toast.LENGTH_SHORT).show();
     }
 
     /**

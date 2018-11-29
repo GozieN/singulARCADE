@@ -144,6 +144,8 @@ public class SlidingTileManagerAndTileTest {
         //if the blank tile is anywhere else but the last tile- this case, is the row above
         boardManager.getBoard().swapTiles(3,3, 2,3);
         assertEquals(3, boardManager.positionBlankTile());
+
+
     }
 
     /**
@@ -192,7 +194,7 @@ public class SlidingTileManagerAndTileTest {
         //When no moves have been completed
         assertEquals(-1, boardManager.getScore());
 
-        //When you have completed some moves
+        //When you have completed some moves on a 4x4 board
         ArrayList arrayList = new ArrayList();
         arrayList.add(1);
         arrayList.add(1);
@@ -202,29 +204,15 @@ public class SlidingTileManagerAndTileTest {
         user.pushGameStates(SlidingTilesManager.GAME_NAME, arrayList);
         user.pushGameStates(SlidingTilesManager.GAME_NAME, arrayList);
         assertEquals(6667, boardManager.getScore());
-    }
 
-    //These tests are for Tile class:
-    /**
-     * Test whether the constructor of Tiles class works
-     */
-    @Test
-    public void testSetUpTiles() {
-        SlidingTilesBoard.setDimensions(5);
-        List<SlidingTile> tiles = makeTiles();
-        SlidingTilesBoard board = new SlidingTilesBoard(tiles);
-        assertEquals(25, board.numTiles());
-    }
+        //When you have completed some moves on a 5x5 board
+        boardManager.getBoard().setDimensions(5);
+        assertEquals(10000, boardManager.getScore());
 
+        //When you have completed some moves on a 3x3 board
+        boardManager.getBoard().setDimensions(3);
+        assertEquals(3333, boardManager.getScore());
 
-    /**
-     * Test whether compareTo works
-     */
-    @Test
-    public void testCompareTo() {
-        setUpCorrect();
-        SlidingTile comparingTile = boardManager.getBoard().getTile(1,1);
-        assertEquals(5, boardManager.getBoard().getTile(0,0).compareTo(comparingTile));
     }
 
     /**
@@ -251,6 +239,31 @@ public class SlidingTileManagerAndTileTest {
         //unsolvable with an odd-sized board
         boardManager.getBoard().swapTiles(0, 0, 2, 2);
         assertFalse(boardManager.isSolvable());
+    }
+
+    //These tests are for Tile class:
+    /**
+     * Test whether the constructor of Tiles class works
+     */
+    @Test
+    public void testSetUpTiles() {
+        SlidingTilesBoard.setDimensions(5);
+        List<SlidingTile> tiles = makeTiles();
+        SlidingTilesBoard board = new SlidingTilesBoard(tiles);
+        assertEquals(25, board.numTiles());
+        SlidingTile slidingTile = new SlidingTile(25);
+        assertEquals(R.drawable.tile_blank, slidingTile.getBackground());
+    }
+
+
+    /**
+     * Test whether compareTo works
+     */
+    @Test
+    public void testCompareTo() {
+        setUpCorrect();
+        SlidingTile comparingTile = boardManager.getBoard().getTile(1,1);
+        assertEquals(5, boardManager.getBoard().getTile(0,0).compareTo(comparingTile));
     }
 }
 

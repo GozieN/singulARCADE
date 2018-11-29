@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
-import java.util.TreeMap;
 
 class MemoryBoardManager implements Serializable, Game {
     /**
@@ -66,7 +65,6 @@ class MemoryBoardManager implements Serializable, Game {
         Iterator<MemoryPuzzleTile> iterator = board.iterator();
         while (iterator.hasNext()) {
             MemoryPuzzleTile currentTile = iterator.next();
-            System.out.println(currentTile.getId());
             if (currentTile.getTopLayer() != R.drawable.memory_tile_38) {
                 solved = false;
             }
