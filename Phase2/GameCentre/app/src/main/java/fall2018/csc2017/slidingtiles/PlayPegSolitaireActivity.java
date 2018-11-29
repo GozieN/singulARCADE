@@ -31,7 +31,6 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
      */
     private PegSolitaireManager pegSolitaireManager;
 
-    private UserManager userManager;
     /**
      *
      */
@@ -42,10 +41,11 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     private static int columnWidth, columnHeight;
 
 
-    /**
-     * The number of times a user has clicked the undo button.
-     */
-    static int numberOfUndos = 0;
+    PlayPegSolitaireController playPegSolitaireController;
+
+    PlayPegSolitaireActivity() {
+        playPegSolitaireController = new PlayPegSolitaireController();
+    }
 
     /**
      * Set up the background image for each button based on the master list
@@ -53,11 +53,11 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
      */
     // Display
     public void display() {
-        updateTileButtons();
+        tileButtons = playPegSolitaireController.updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         if (pegSolitaireManager.isOver()) {
             if (pegSolitaireManager.hasWon()) {
-                endOfGame();
+                playPegSolitaireController.endOfGame(pegSolitaireManager);
             }
             switchToScoreBoard();
         }
@@ -68,11 +68,12 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         super.onCreate(savedInstanceState);
         SaveAndLoad.loadFromFile(PlayPegSolitaireActivity.this, LoginActivity.SAVE_FILENAME);
         pegSolitaireManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
-        //loadFromFile(LoginActivity.SAVE_FILENAME);
+        Integer size = getIntent().getIntExtra("shape", 6);
+        PegSolitaireBoard.setDimensions(size);
+        pegSolitaireManager = new PegSolitaireManager();
+        playPegSolitaireController.createTileButtons(this, pegSolitaireManager);
 
-        pegSolitaireManager = new PegSolitaireManager(makeBoard());
-
-        createTileButtons(this);
+        SaveAndLoad.saveToFile(PlayPegSolitaireActivity.this, LoginActivity.SAVE_FILENAME);
         setContentView(R.layout.activity_main);
         addUndoButtonListener();
         addSaveButtonListener();
@@ -105,59 +106,6 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     }
 
     /**
-     * Update the backgrounds on the buttons to match the tiles.
-     */
-    private void updateTileButtons() {
-        PegSolitaireBoard board = pegSolitaireManager.getBoard();
-        int nextPos = 0;
-        for (Button b : tileButtons) {
-            int row = nextPos / PegSolitaireBoard.NUM_ROWS;
-            int col = nextPos % PegSolitaireBoard.NUM_COLS;
-            b.setBackgroundResource(board.getPegTile(row, col).getBackground());
-            nextPos++;
-        }
-        SaveAndLoad.saveToFile(PlayPegSolitaireActivity.this, LoginActivity.SAVE_FILENAME);
-        //saveToFile(LoginActivity.SAVE_FILENAME);
-    }
-
-    /**
-     * Return a Peg Solitaire Board.
-     * @return a PegSolitaireBoard
-     */
-    private PegSolitaireBoard makeBoard() {
-        PegSolitaireBoard board;
-
-        Integer size = getIntent().getIntExtra("shape", 6);
-        PegSolitaireBoard.setDimensions(size);
-
-        List<PegSolitaireTile> tiles = new ArrayList<>();
-        final int numTiles = PegSolitaireBoard.NUM_ROWS * PegSolitaireBoard.NUM_COLS;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new PegSolitaireTile(2));
-        }
-
-        board = new PegSolitaireBoard(tiles);
-        return board;
-    }
-
-    /**
-     * Create the buttons for displaying the tiles.
-     *
-     * @param context the context
-     */
-    private void createTileButtons(Context context) {
-        PegSolitaireBoard board = pegSolitaireManager.getBoard();
-        tileButtons = new ArrayList<>();
-        for (int row = 0; row != PegSolitaireBoard.NUM_ROWS; row++) {
-            for (int col = 0; col != PegSolitaireBoard.NUM_COLS; col++) {
-                Button tmp = new Button(context);
-                tmp.setBackgroundResource(board.getPegTile(row, col).getBackground());
-                this.tileButtons.add(tmp);
-            }
-        }
-    }
-
-    /**
      * Activate the save button.
      */
     private void addSaveButtonListener() {
@@ -165,8 +113,13 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeToastSavedText();
-                switchToGameCentre();
+                if ((!GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.GAME_NAME).isEmpty())
+                        || (GameLauncher.getCurrentUser().getNumOfUndos(PegSolitaireManager.GAME_NAME) != 0)) {
+                    makeToastSavedText();
+                    switchToGameCentre();
+                }
+                else {makeToastNoSaveAndQuit();
+                }
             }
         });
     }
@@ -190,22 +143,15 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (numberOfUndos < SetUpActivity.undoLimit) {
-                    Stack totalStates = GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.GAME_NAME);
-                    if(totalStates.size() != 0) {
-                        List state = GameLauncher.getCurrentUser().getState(PegSolitaireManager.GAME_NAME);
-                        int row1 = (Integer) state.get(2);
-                        int col1 = (Integer) state.get(3);
-                        int row2 = (Integer) state.get(0);
-                        int col2 = (Integer) state.get(1);
-                        pegSolitaireManager.getBoard().undoMove(row1, col1, row2, col2);
-                        numberOfUndos++;
-                        setNumberOfUndosText();
-                    } else {
-                        makeToastNoUndoText();
-                    }
-
-                } else {
+                String undoText = playPegSolitaireController.usedNumberOfUndos();
+                if (undoText.equals("setNumberOfMovesText")) {
+                    setNumberOfUndosText();
+                    SaveAndLoad.saveToFile(PlayPegSolitaireActivity.this, LoginActivity.SAVE_FILENAME);
+                }
+                else if (undoText.equals("NoUndoText")) {
+                    makeToastNoUndoText();
+                }
+                else { //got "UndoLimitText";
                     makeToastUndoLimitText();
                 }
             }
@@ -230,71 +176,13 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         Toast.makeText(this, "Undo Not Possible", Toast.LENGTH_SHORT).show();
     }
 
-//    /**
-//     * Load the user manager and scoreboard from fileName.
-//     *
-//     * @param fileName the name of the file
-//     */
-//    public void loadFromFile(String fileName) {
-//
-//        try {
-//            InputStream inputStream = this.openFileInput(fileName);
-//            if (inputStream == null) {
-//                saveToFile(fileName);
-//            }
-//            else {
-//                ObjectInputStream input = new ObjectInputStream(inputStream);
-//                userManager = (UserManager) input.readObject();
-//                pegSolitaireManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
-//                inputStream.close();
-//            }
-//        } catch (FileNotFoundException e) {
-//            Log.e("login activity", "File not found: " + fileName);
-//        } catch (IOException e) {
-//            Log.e("login activity", "Can not read file: " + e.toString());
-//        } catch (ClassNotFoundException e) {
-//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-//        }
-//    }
-
-//    /**
-//     * Save the user manager and scoreboard to fileName.
-//     *
-//     * @param fileName the name of the file
-//     */
-//    public void saveToFile(String fileName) {
-//        try {
-//            ObjectOutputStream outputStream = new ObjectOutputStream(
-//                    this.openFileOutput(fileName, MODE_PRIVATE));
-//            outputStream.writeObject(userManager);
-//            outputStream.close();
-//        } catch (IOException e) {
-//            Log.e("Exception", "File write failed: " + e.toString());
-//        }
-//    }
-
-    /**
-     * At the end of the game, do these actions: get the score, and send score to game score board and user score board.
-     */
-    private void endOfGame() {
-        Integer score = pegSolitaireManager.getScore();
-        PegSolitaireManager.pegScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
-        GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(PegSolitaireManager.GAME_NAME, score);
-        //TODO: here maybe save the new stuff?? aka make sure updated score of user is put in and update on overall scoreboard for game
-        SaveAndLoad.saveToFile(PlayPegSolitaireActivity.this, LoginActivity.SAVE_FILENAME);
-        //saveToFile(LoginActivity.SAVE_FILENAME); //this will save the user w the new score... but need to fix it for other scoreboards
-    }
-
 
     /**
      * Set and modify the text showing the number of moves the user completed after each move the user makes.
      * TODO: if a new xml file is made then change the id of the TextView box
      */
     public void setNumberOfMovesText() {
-        if (numberOfUndos > SetUpActivity.undoLimit) {
-            numberOfUndos = SetUpActivity.undoLimit;
-        }
-        int numMoves = 1 + numberOfUndos + GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.GAME_NAME).size();
+        int numMoves = this.playPegSolitaireController.numOfMoves();
         TextView moves = findViewById(R.id.changingNumberOfMoves);
         moves.setText(Integer.toString(numMoves));
     }
@@ -304,11 +192,16 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
      * TODO: if a new xml file is made then change the id of the TextView box
      */
     public void setNumberOfUndosText() {
-        if (numberOfUndos > SetUpActivity.undoLimit) {
-            numberOfUndos = SetUpActivity.undoLimit;
-        }
+        int numberOfUndos = this.playPegSolitaireController.numOfUndos();
         TextView undos = findViewById(R.id.changingNumberOfUndos);
         undos.setText(Integer.toString(numberOfUndos));
+    }
+
+    /**
+     * Notify user when they have made no moves, so are not allowed to undo
+     */
+    private void makeToastNoSaveAndQuit() {
+        Toast.makeText(this, "Must make a move before saving", Toast.LENGTH_SHORT).show();
     }
 
     @Override

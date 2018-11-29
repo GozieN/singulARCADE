@@ -78,7 +78,6 @@ public class PlaySlidingTilesController {
             else {
                 return "NoUndoText";
             }
-
         }
         return "UndoLimitText";
     }

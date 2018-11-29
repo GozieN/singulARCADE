@@ -10,10 +10,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 public class SetUpActivity extends AppCompatActivity {
-    //    /*
-//    The user's chosen board shape/dimensions from dropdown.
-//     **/
-//    private String boardSelection;
     /*
     The user's chosen undo limit from dropdown.
      */
