@@ -61,12 +61,12 @@ public class PegSolitaireBoardAndTileTest {
     }
 
     /**
-     * Test getTile works
+     * Test getPegTile and getPegTiles works
      */
     @Test
     public void testGetTile() {
-        setUpDiamond();
-        assertEquals(0, pegSolitaireBoard.getPegTile(1, 0).getId());
+       setUpDiamond();
+       assertEquals(0, pegSolitaireBoard.getPegTile(1, 0).getId());
     }
 
     /**
@@ -104,7 +104,7 @@ public class PegSolitaireBoardAndTileTest {
     }
 
     /**
-     * Test addOrRemoveHighlight works
+     * Test numRemainingPegs works
      */
     @Test
     public void testNumRemainingPegs() {
@@ -114,6 +114,34 @@ public class PegSolitaireBoardAndTileTest {
         //pegSolitaireBoard.moveGamepiece(3, 3, 5, 3);
         assertEquals(38, pegSolitaireBoard.numRemainingPegs());
 
+    }
+
+    /**
+     * Test undoMove works
+     */
+    @Test
+    public void testUndoMove() {
+        setUpDiamond();
+        pegSolitaireBoard.moveGamepiece(2, 4, 4, 4);
+        pegSolitaireBoard.moveGamepiece(3, 6, 3, 4);
+        pegSolitaireBoard.moveGamepiece(2, 2, 2, 4);
+        pegSolitaireBoard.moveGamepiece(5, 5, 3, 5);
+        pegSolitaireBoard.undoMove(3, 4, 3, 6);
+        assertEquals(true, pegSolitaireBoard.getPegTile(3, 6).getId() == 2);
+        assertEquals(true, pegSolitaireBoard.getPegTile(3, 5).getId() == 2);
+        assertEquals(true, pegSolitaireBoard.getPegTile(3, 4).getId() == 1);
+        pegSolitaireBoard.undoMove(4, 4, 2, 4);
+        assertEquals(true, pegSolitaireBoard.getPegTile(4, 4).getId() == 1);
+        assertEquals(true, pegSolitaireBoard.getPegTile(3, 4).getId() == 2);
+        assertEquals(true, pegSolitaireBoard.getPegTile(2, 4).getId() == 2);
+        pegSolitaireBoard.undoMove(2, 4, 2, 2);
+        assertEquals(true, pegSolitaireBoard.getPegTile(2, 4).getId() == 1);
+        assertEquals(true, pegSolitaireBoard.getPegTile(2, 3).getId() == 2);
+        assertEquals(true, pegSolitaireBoard.getPegTile(2, 2).getId() == 2);
+        pegSolitaireBoard.undoMove(3, 5, 5, 5);
+        assertEquals(true, pegSolitaireBoard.getPegTile(3, 5).getId() == 1);
+        assertEquals(true, pegSolitaireBoard.getPegTile(4, 5).getId() == 2);
+        assertEquals(true, pegSolitaireBoard.getPegTile(5, 5).getId() == 2);
     }
 
 
