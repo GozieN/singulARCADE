@@ -126,7 +126,9 @@ class MemoryBoardManager implements Serializable, Game {
      * @param tap the MemoryPuzzleTile that the user tapped on
      */
     public void flipBack(MemoryPuzzleTile tap) {
-        tap.setTopLayer(R.drawable.memory_tile_37);
+        if (tap.getTopLayer() != R.drawable.memory_tile_38) {
+            tap.setTopLayer(R.drawable.memory_tile_37);
+        }
         board.update();
     }
 
