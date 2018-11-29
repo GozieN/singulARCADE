@@ -119,10 +119,16 @@ public class StartingActivity extends AppCompatActivity {
             tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
         }
         SaveAndLoad.loadFromFile(StartingActivity.this, LoginActivity.SAVE_FILENAME);
-        if (GameLauncher.getCurrentUser().getStackOfGameStates(game).isEmpty()
+        if (game.equals(MemoryBoardManager.GAME_NAME)) {
+            if (GameLauncher.getCurrentUser().getStackOfGameStates(game).isEmpty()) {
+                makeToastNoGameToLoadText();
+            }
+        }
+        else if (GameLauncher.getCurrentUser().getStackOfGameStates(game).isEmpty()
                 && GameLauncher.getCurrentUser().getNumOfUndos(game) == 0) {
             makeToastNoGameToLoadText();
-        } else {
+        }
+        else {
             startActivity(tmp);
         }
     }
