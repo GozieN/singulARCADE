@@ -65,10 +65,10 @@ class MovementController {
                 if (thisBoard.numTileFlipped() == 0) {
                     firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
                     thisBoard.flipTile(position);
-                } else {
+                } else if (thisBoard.numTileFlipped() == 0){
                     secondTap = thisBoard.getBoard().getMemoryGameTile(row, col);
-                    thisBoard.flipTile(position);
                     thisBoard.greyOut(firstTap, secondTap);
+                    thisBoard.flipBack(firstTap);
                 }
                 if (thisBoard.isOver()) {
                     Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
