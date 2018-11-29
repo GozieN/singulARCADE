@@ -152,13 +152,18 @@ public class PegSolitaireManagerTest {
     @Test
     public void testTouchMove() {
         setUpDiamondStart();
-        int firstMovePosition = 42;
+        boardManager.touchMove(42, 40);
+        boardManager.touchMove(59, 41);
+        boardManager.touchMove(57, 59);
+        int firstMovePosition = 40;
         boardManager.firstMove(firstMovePosition);
-        boardManager.touchMove(firstMovePosition, 40);
-        assertEquals(true, boardManager.getBoard().getPegTile(4, 6).getId() == 1);
-        assertEquals(true, boardManager.getBoard().getPegTile(4, 4).getId() == 2);
+        boardManager.touchMove(firstMovePosition, 42);
+        assertEquals(true, boardManager.getBoard().getPegTile(4, 6).getId() == 2);
+        assertEquals(true, boardManager.getBoard().getPegTile(4, 4).getId() == 1);
+        assertEquals(true, boardManager.getBoard().getPegTile(4, 5).getId() == 1);
         assertEquals(false, boardManager.getBoard().getPegTile(4, 6).isHighlight());
         assertEquals(false, boardManager.getBoard().getPegTile(4, 4).isHighlight());
+        assertEquals(false, boardManager.getBoard().getPegTile(6, 4).isHighlight());
     }
 
     /**
