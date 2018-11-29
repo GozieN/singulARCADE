@@ -36,12 +36,10 @@ public class User implements Serializable{
      */
     private HashMap<String, Object> recentManagerOfBoard;
 
+    /**
+     *  The amount of undos completed for each game the user played.
+     */
     private HashMap<String, Integer> numOfUndos;
-
-//    /**
-//     * The most recent board of each game that the user plays.
-//     */
-//    private HashMap<String, Object> recentManagerOfMemoryBoard;
 
     /**
      * A new user with a unique username and password.

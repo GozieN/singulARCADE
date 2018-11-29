@@ -23,6 +23,38 @@ public class UserManagerTest {
     }
 
     /**
+     * Test signIn works
+     */
+    @Test
+    public void testSignIn() {
+        setUpCorrect();
+        //there are no users present
+        userManager.emptyListOfUsers();
+        assertEquals(false, userManager.signIn("NoUsers", "NoPasswords"));
+
+        setUpCorrect();
+
+        //the user exists and the password is correct
+        assertEquals(true, userManager.signIn("TestingUsername", "TestingPassword"));
+
+        //the user exists, but the password is incorrect
+        assertEquals(false, userManager.signIn("TestingUsername", "WrongPassword"));
+
+        //the user does not exist
+        assertEquals(false, userManager.signIn("NonExistentUser", "TestingPassword"));
+    }
+
+    /**
+     * Test emptyListOfUsers
+     */
+    @Test
+    public void testEmptyListOfUsers() {
+        setUpCorrect();
+        userManager.emptyListOfUsers();
+        assertEquals(0, userManager.getListOfUsers().size());
+    }
+
+    /**
      * Test signUp works
      */
     @Test
@@ -37,23 +69,6 @@ public class UserManagerTest {
         //make a new account
         userManager.signUp("TestingUsername2", "TestingPassword2");
         assertEquals(2, userManager.getListOfUsers().size());
-    }
-
-    /**
-     * Test signIn works
-     */
-    @Test
-    public void testSignIn() {
-        setUpCorrect();
-        //the user exists and the password is correct
-        assertEquals(true, userManager.signIn("TestingUsername", "TestingPassword"));
-
-        //the user exists, but the password is incorrect
-        assertEquals(false, userManager.signIn("TestingUsername", "WrongPassword"));
-
-        //the user does not exist
-        assertEquals(false, userManager.signIn("NonExistentUser", "TestingPassword"));
-
     }
 
     /**
@@ -76,5 +91,14 @@ public class UserManagerTest {
     public void testGetListOfUsers() {
         setUpCorrect();
         assertEquals(1, userManager.getListOfUsers().size());
+    }
+
+    /**
+     * Test lastAddedUser works
+     */
+    @Test
+    public void testLastAddedUser() {
+        setUpCorrect();
+        assertEquals("TestingUsername", userManager.lastAddedUser().getUsername());
     }
 }

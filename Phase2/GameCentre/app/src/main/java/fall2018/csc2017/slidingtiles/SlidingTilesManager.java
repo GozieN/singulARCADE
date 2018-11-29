@@ -102,17 +102,19 @@ class SlidingTilesManager implements Serializable, Game {
      */
     public int positionBlankTile() {
         int blankId = board.numTiles();
+        int returning = SlidingTilesBoard.NUM_COLS;
         Iterator<Tile> boardIterator = board.iterator();
         int i = 0;
         while (boardIterator.hasNext()) {
             Tile currentTile = boardIterator.next();
             if (currentTile.getId() == blankId) {
-                int returning = i/SlidingTilesBoard.NUM_COLS + 1;
-                return returning;
+                returning = i/SlidingTilesBoard.NUM_COLS + 1;
+                //return returning;
             }
             i++;
         }
-        return SlidingTilesBoard.NUM_COLS;
+        return returning;
+        //return SlidingTilesBoard.NUM_COLS;
     }
 
 

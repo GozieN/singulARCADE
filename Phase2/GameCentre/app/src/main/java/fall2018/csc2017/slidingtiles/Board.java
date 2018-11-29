@@ -32,9 +32,9 @@ public class Board extends Observable implements Serializable {
 
     Board() {}
 
-    Board(List<Tile> tiles) {
-
-    }
+//    Board(List<Tile> tiles) {
+//
+//    }
 
     /**
      * Return all the tiles for the board

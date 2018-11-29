@@ -72,10 +72,20 @@ public class ScoreBoardTest {
         scoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, 100);
         StringBuilder s = new StringBuilder();
         s.append("1. ");
-        s.append("Sliding Tiles");
+        s.append("SLIDING TILES");
         s.append(" : ");
         s.append(100);
         s.append(System.getProperty("line.separator"));
         assertEquals(s.toString(), scoreBoard.toString());
+
+        //multiple scores on the scoreboard
+        scoreBoard.takeNewScore("TESTING", 100);
+        s.append("2. ");
+        s.append("TESTING");
+        s.append(" : ");
+        s.append(100);
+        s.append(System.getProperty("line.separator"));
+        assertEquals(s.toString(), scoreBoard.toString());
+
     }
 }

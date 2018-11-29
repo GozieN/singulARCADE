@@ -38,8 +38,6 @@ public class SlidingTilesBoard extends Board {
         for (int row = 0; row != SlidingTilesBoard.NUM_ROWS; row++) {
             for (int col = 0; col != SlidingTilesBoard.NUM_COLS; col++) {
                 if (!iter.hasNext()) {
-                    System.out.println(row);
-                    System.out.println(col);
                 }
                 this.tiles[row][col] = iter.next();
             }

@@ -171,5 +171,55 @@ public class PegSolitaireManagerTest {
         setUpDiamondWin();
         assertEquals(true, boardManager.hasWon());
 
+        //the game is not over
+        setUpDiamondStart();
+        assertEquals(false, boardManager.hasWon());
+
+    }
+
+    /**
+     * Test whether getScore works
+     */
+    @Test
+    public void testGetScore() {
+        setUpDiamondWin();
+        User user = new User("Dianna", "Dianna");
+        GameLauncher.setCurrentUser(user);
+        PegSolitaireManager pegSolitaireManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
+
+        //When no moves have been completed
+        assertEquals(-1, pegSolitaireManager.getScore());
+
+        //When you have completed some moves on a 4x4 board
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(1);
+        arrayList.add(1);
+        arrayList.add(2);
+        arrayList.add(3);
+        user.pushGameStates(PegSolitaireManager.GAME_NAME, arrayList);
+        user.pushGameStates(PegSolitaireManager.GAME_NAME, arrayList);
+        user.pushGameStates(PegSolitaireManager.GAME_NAME, arrayList);
+        assertEquals(10000, pegSolitaireManager.getScore());
+
+        //When you have completed some moves on a 5x5 board
+        pegSolitaireManager.getBoard().setDimensions(7);
+        assertEquals(6667, pegSolitaireManager.getScore());
+
+        //When you have completed some moves on a 3x3 board
+        pegSolitaireManager.getBoard().setDimensions(6);
+        assertEquals(3333, pegSolitaireManager.getScore());
+
+    }
+
+    /**
+     * Test undo move works
+     */
+    @Test
+    public void testUndoMove() {
+        setUpDiamondStart();
+        int firstMovePosition = 42;
+        boardManager.firstMove(firstMovePosition);
+        boardManager.touchMove(firstMovePosition, 40);
+
     }
 }

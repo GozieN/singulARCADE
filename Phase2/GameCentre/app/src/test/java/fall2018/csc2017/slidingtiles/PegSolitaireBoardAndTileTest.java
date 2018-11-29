@@ -116,5 +116,15 @@ public class PegSolitaireBoardAndTileTest {
 
     }
 
+    /**
+     * Test whether compareTo works
+     */
+    @Test
+    public void testCompareTo() {
+        setUpDiamond();
+        PegSolitaireTile comparingTile = pegSolitaireBoard.getOneTile(2,5);
+        assertEquals(2, pegSolitaireBoard.getOneTile(0,0).compareTo(comparingTile));
+    }
+
 
 }

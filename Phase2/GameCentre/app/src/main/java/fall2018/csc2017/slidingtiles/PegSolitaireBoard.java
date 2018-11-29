@@ -102,6 +102,17 @@ public class PegSolitaireBoard extends Board {
         return NUM_ROWS*NUM_COLS;
     }
 
+    /**
+     * Return the tile at (row, col)
+     *
+     * @param row the tile row
+     * @param col the tile column
+     * @return the tile at (row, col)
+     */
+    public PegSolitaireTile getOneTile(int row, int col) {
+        return tiles[row][col];
+    }
+
     /** Changes the dimension constants of the board and makes them n x n
      *
      * @param dimensions the n x n dimensions of Sliding Tiles Board
