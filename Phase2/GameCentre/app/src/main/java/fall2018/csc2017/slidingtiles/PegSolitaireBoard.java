@@ -184,23 +184,22 @@ public class PegSolitaireBoard extends Board {
         // row1, col1 refers to the "full" tile, row2, col2 refers to the "empty" tile
     }
 
+    /**
+     * Undo moves given the appropriate row and columns.
+     * @param row1
+     * @param col1
+     * @param row2
+     * @param col2
+     */
     void undoMove(int row1, int col1, int row2, int col2) {
         moveGamepiece(row1, col1, row2, col2);
         if (row1 - row2 == 2) {
-            System.out.println(row1 + 1);
-            System.out.println(col1);
-            tiles[row1 + 1][col1].setId(2, false);
-        } else if (row1 - row2 == 2) {
-            System.out.println(row2 + 1);
-            System.out.println(col1);
-            tiles[row2 + 1][col1].setId(2, false);
+            tiles[row1 - 1][col1].setId(2, false);
+        } else if (row2 - row1 == 2) {
+            tiles[row2 - 1][col1].setId(2, false);
         } else if (col2 - col1 == 2) {
-            System.out.println(row1);
-            System.out.println(col1 + 1);
             tiles[row1][col1 + 1].setId(2, false);
         } else if (col1 - col2 == 2) {
-            System.out.println(row1);
-            System.out.println(col2 + 1);
             tiles[row1][col2 + 1].setId(2, false);
         }
         update();
@@ -231,6 +230,13 @@ public class PegSolitaireBoard extends Board {
             }
         }
         return counter;
+    }
+
+    @Override
+    public String toString() {
+        return "PegSolitaireBoard{" +
+                "tiles=" + Arrays.toString(tiles) +
+                '}';
     }
 
     void update() {
