@@ -21,6 +21,7 @@ public class SlidingTile extends Tile implements Comparable<SlidingTile> {
     }
 
 
+    // Adapted from stackoverflow https://stackoverflow.com/questions/6583843/how-to-access-resource-with-dynamic-name-in-my-case
 
     /**
      * A SlidingTile with a background id; look up and set the id.

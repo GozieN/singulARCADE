@@ -62,8 +62,6 @@ public class MemoryBoardGameAndManagerAndTileTest {
         public void testIsOver() {
             setUpCorrect();
             assertEquals(false, boardManager.isOver());
-//            solvedBoard();
-//            assertEquals(true, boardManager.isOver());
         }
 
         /**
@@ -209,7 +207,7 @@ public class MemoryBoardGameAndManagerAndTileTest {
             List<MemoryPuzzleTile> tiles = makeTiles();
             MemoryGameBoard board = new MemoryGameBoard(tiles);
             assertEquals(25, board.numTiles());
-            MemoryPuzzleTile memTile = new MemoryPuzzleTile(R.drawable.memory_tile_37);
+            MemoryPuzzleTile memTile = new MemoryPuzzleTile(37);
             assertEquals(R.drawable.memory_tile_38, memTile.getBackground());
         }
 
