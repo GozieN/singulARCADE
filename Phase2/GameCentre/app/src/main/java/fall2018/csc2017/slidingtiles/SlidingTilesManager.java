@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * Manages a board, including swapping tiles, checking for a win, and managing taps.
+ * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
 class SlidingTilesManager implements Serializable, Game {
 
