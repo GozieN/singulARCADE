@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class MemoryBoardGameAndTileTest {
+public class MemoryBoardGameAndManagerAndTileTest {
 
         /** The board manager for testing. */
         MemoryBoardManager boardManager;
