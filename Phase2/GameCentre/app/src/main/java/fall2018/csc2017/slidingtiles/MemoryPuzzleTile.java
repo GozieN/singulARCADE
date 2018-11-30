@@ -48,9 +48,9 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
     MemoryPuzzleTile(int backgroundId) {
         super(backgroundId, -1);
         setTopLayer(R.drawable.memory_tile_37);
-        String Name = "memory_tile_" + id;
+        String Name = "memory_tile_" + getId();
         try {
-            int id = R.drawable.class.getField(Name).getInt(null);
+            setBackground(R.drawable.class.getField(Name).getInt(null));
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {

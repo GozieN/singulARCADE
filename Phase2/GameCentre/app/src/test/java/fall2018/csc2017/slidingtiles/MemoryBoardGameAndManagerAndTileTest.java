@@ -166,11 +166,11 @@ public class MemoryBoardGameAndManagerAndTileTest {
             assertEquals(3333, boardManager.getScore());
 
             //When you have completed some moves on a 5x5 board
-            boardManager.getBoard().setDimensions(5);
+            MemoryGameBoard.setDimensions(5);
             assertEquals(6667, boardManager.getScore());
 
             //When you have completed some moves on a 6x6 board
-            boardManager.getBoard().setDimensions(6);
+            MemoryGameBoard.setDimensions(6);
             assertEquals(10000, boardManager.getScore());
 
         }
@@ -209,7 +209,7 @@ public class MemoryBoardGameAndManagerAndTileTest {
             List<MemoryPuzzleTile> tiles = makeTiles();
             MemoryGameBoard board = new MemoryGameBoard(tiles);
             assertEquals(25, board.numTiles());
-            MemoryPuzzleTile memTile = new MemoryPuzzleTile(37);
+            MemoryPuzzleTile memTile = new MemoryPuzzleTile(R.drawable.memory_tile_37);
             assertEquals(R.drawable.memory_tile_38, memTile.getBackground());
         }
 
