@@ -39,9 +39,6 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
         super(id, background);
     }
 
-
-    //TODO: fix this
-
     /**
      * A Memory Puzzle tile with a background id; look up and set the id.
      *
@@ -168,6 +165,11 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
         }
     }
 
+    /**
+     * Return true if the images are the same
+     * @param memoryPuzzleTile the tile being compared
+     * @return true if the images are the same
+     */
     @Override
     public int compareTo(@NonNull MemoryPuzzleTile memoryPuzzleTile) {
         if ((getId() % 2 == 0 && getId() == memoryPuzzleTile.getId() + 1) ||

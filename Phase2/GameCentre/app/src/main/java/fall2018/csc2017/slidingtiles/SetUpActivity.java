@@ -31,7 +31,14 @@ public class SetUpActivity extends AppCompatActivity {
      */
     static int undoLimit;
 
+    /**
+     * The manager of the game being played
+     */
     private Game gameManager;
+
+    /**
+     * The name of the game
+     */
     private String game;
 
     SetUpAndStartController setUpController;
@@ -48,6 +55,9 @@ public class SetUpActivity extends AppCompatActivity {
         //undoSpinner();
     }
 
+    /**
+     * Set the shape / dimensions of the game and if applicable, the amount of undos
+     */
     private void setGame() {
         //adapted from https://developer.android.com/guide/topics/ui/controls/spinner#java
         if (game.equals(SlidingTilesManager.GAME_NAME)) {

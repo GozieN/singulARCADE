@@ -3,9 +3,7 @@ package fall2018.csc2017.slidingtiles;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
-import java.util.Observable;
 import java.util.Stack;
 
 public class PegSolitaireManager implements Serializable, Game {

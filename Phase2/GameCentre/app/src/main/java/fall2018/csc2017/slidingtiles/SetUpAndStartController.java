@@ -50,6 +50,11 @@ public class SetUpAndStartController {
         return 0;
     }
 
+    /**
+     * Return the new userManager depending on the game being played
+     * @param game the name of the game being played
+     * @return the new userManager depending on the game being played
+     */
     public Object newGameManager(String game) {
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             return new SlidingTilesManager();

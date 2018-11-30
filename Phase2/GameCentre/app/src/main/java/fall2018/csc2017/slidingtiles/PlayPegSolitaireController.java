@@ -61,6 +61,10 @@ public class PlayPegSolitaireController {
         }
     }
 
+    /**
+     * Return a string that corresponds to if an undo can be used or that are available
+     * @return a string that corresponds to if an undo can be used or that are available
+     */
     public String usedNumberOfUndos() {
         numberOfUndos = GameLauncher.getCurrentUser().getNumOfUndos(PegSolitaireManager.GAME_NAME);
         if (numberOfUndos < SetUpActivity.undoLimit) {

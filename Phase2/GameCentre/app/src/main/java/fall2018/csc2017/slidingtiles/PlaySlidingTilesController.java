@@ -65,6 +65,10 @@ public class PlaySlidingTilesController {
         return tileButtons;
     }
 
+    /**
+     * Return a string that corresponds to if an undo can be used or that are available
+     * @return a string that corresponds to if an undo can be used or that are available
+     */
     public String usedNumberOfUndos() {
         numberOfUndos = GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME);
         if (numberOfUndos < SetUpActivity.undoLimit) {
@@ -96,24 +100,25 @@ public class PlaySlidingTilesController {
         boolean newUserScore = GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, score);
         return Arrays.asList(newGameScore, newUserScore);
     }
+
     /**
      * Increase moves by 1 each time a move is made
      */
-
     public static void incrementNumberOfMoves() {
         numberOfMoves++;
     }
 
     /**
      * Return the number of moves made by the user.
-     * @return int
+     * @return number of moves
      */
     public int getNumberOfMoves() {
         return numberOfMoves;
     }
+
     /**
      * Return the number of undos made by the user.
-     * @return int
+     * @return number of undos
      */
     public int getNumberOfUndos() {
         return numberOfUndos;
