@@ -119,6 +119,7 @@ public class SetUpActivity extends AppCompatActivity {
                 if (game.equals(SlidingTilesManager.GAME_NAME) || (game.equals(PegSolitaireManager.GAME_NAME))) {
                     undoLimit = Integer.valueOf(undoSelection);
                 }
+
                 switchToGame();
             }
         });
@@ -131,9 +132,13 @@ public class SetUpActivity extends AppCompatActivity {
     private void switchToGame() {
         Intent tmp;
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
+            PlaySlidingTilesController.numberOfUndos = 0;
+            PlaySlidingTilesController.numberOfMoves = 0;
             tmp = new Intent(this, PlaySlidingTilesActivity.class);
             gameManager = setUpController.setSolvableBoardManager(shape);
         } else if (game.equals(PegSolitaireManager.GAME_NAME)) {
+            PlayPegSolitaireController.numberOfUndos = 0;
+            PlayPegSolitaireController.numberOfMoves = 0;
             tmp = new Intent(this, PlayPegSolitaireActivity.class);
             PegSolitaireBoard.setDimensions(shape);
             gameManager = (PegSolitaireManager) setUpController.newGameManager(PegSolitaireManager.GAME_NAME);

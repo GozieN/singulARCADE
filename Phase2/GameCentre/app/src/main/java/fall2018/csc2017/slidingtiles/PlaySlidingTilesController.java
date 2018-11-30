@@ -23,8 +23,11 @@ public class PlaySlidingTilesController {
     /**
      * The number of times a user has clicked the undo button.
      */
-    private static int numberOfUndos = 0;
-    private static int numberOfMoves = 0;
+    static int numberOfUndos = 0;
+    /**
+     * The number of moves a user has made.
+     */
+    static int numberOfMoves = 0;
 
     PlaySlidingTilesController() {
     }
