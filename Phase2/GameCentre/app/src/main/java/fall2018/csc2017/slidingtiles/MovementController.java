@@ -64,6 +64,7 @@ class MovementController{
             int row = position / MemoryGameBoard.NUM_COLS;
             int col = position % MemoryGameBoard.NUM_COLS;
             if (thisBoard.isValidTap(position)) {
+                PlayMemoryPuzzleController.incrementNumberOfMoves();
                 if (thisBoard.numTileFlipped() == 0) {
                     firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
                     thisBoard.flipTile(position);
