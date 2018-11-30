@@ -46,8 +46,13 @@ class MemoryBoardManager implements Serializable, Game {
         List<MemoryPuzzleTile> tiles = new ArrayList<>();
         final int numTiles = MemoryGameBoard.NUM_ROWS * MemoryGameBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
+            if (numTiles == 25 && tileNum == 24){
+                tiles.add(new MemoryPuzzleTile(37));
+
+            }
+            else{
             tiles.add(new MemoryPuzzleTile(tileNum));
-        }
+        }}
         Collections.shuffle(tiles);
         this.board = new MemoryGameBoard(tiles);
         gameScoreBoard = new ScoreBoard();
@@ -159,11 +164,13 @@ class MemoryBoardManager implements Serializable, Game {
     /**
      * Flip the flipped MemoryPuzzleTile back to a white tile.
      *
-     * @param tap the MemoryPuzzleTile that the user tapped on
+     * @param firstTap  the first MemoryPuzzleTile that the user tapped on
+     * @param secondTap the second MemoryPuzzleTile that the user tapped on
      */
-    public void flipBack(MemoryPuzzleTile tap) {
-        if (tap.getTopLayer() != R.drawable.memory_tile_38) {
-            tap.setTopLayer(R.drawable.memory_tile_37);
+    public void flipBack(MemoryPuzzleTile firstTap, MemoryPuzzleTile secondTap) {
+        if (firstTap.compareTo(secondTap) != 0) {
+            firstTap.setTopLayer(R.drawable.memory_tile_37);
+            secondTap.setTopLayer(R.drawable.memory_tile_37);
         }
         board.update();
     }
