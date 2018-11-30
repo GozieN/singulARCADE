@@ -22,13 +22,17 @@ where you will be able to choose whether to start a new game or load a saved ver
 7. Clicking “LOAD SAVED GAME” will take you to the actual board of your chosen game.
 8. Clicking “NEW GAME” will take you to an options screen, where you can choose the size or shape of your board, and if the game offers it, the amount of undos allowed during a game.
 User interface - where the game is played.
-8. Play the game.
-9. Completing the game will lead you to a high scores board, where the top scores from players are displayed.
+9. Play the game.
+10. When the game is being played, you have the option to save your state.
+    For sliding tiles, you must complete at least one move before saving.
+    For peg solitaire, you must complete at least one move before saving.
+    For memory puzzle, you must have two tiles flipped before saving.
+11. Completing the game will lead you to a high scores board, where the top scores from players are displayed.
    -High Scores are calculated based on the number of moves it takes you to win, and the number of undos you used
    -Each person may be on a high score board only once!
-10. To go back to the Game Centre user interface, click “MAIN MENU”.
+12. To go back to the Game Centre user interface, click “MAIN MENU”.
 
-11. In addition to being able to choose the game you want to play, you can view your account by clicking “MY ACCOUNT”.
+13. In addition to being able to choose the game you want to play, you can view your account by clicking “MY ACCOUNT”.
 This will lead you to your profile.
-11. When on your profile page, you can view your scores by clicking “GO TO SCOREBOARD”. This scoreboard displays the highest score you have attained in each game. You can also logout from this screen.
+14. When on your profile page, you can view your scores by clicking “GO TO SCOREBOARD”. This scoreboard displays the highest score you have attained in each game. You can also logout from this screen.
 
