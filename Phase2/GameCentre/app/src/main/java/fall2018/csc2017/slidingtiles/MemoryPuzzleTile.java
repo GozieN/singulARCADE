@@ -51,7 +51,6 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
      */
     MemoryPuzzleTile(int backgroundId) {
         super(backgroundId + 1, -1);
-//        setId(backgroundId + 1);
         setTopLayer(R.drawable.memory_tile_37);
         // This looks so ugly.
         switch (backgroundId + 1) {
