@@ -11,7 +11,7 @@ import android.content.Intent;
 /**
  * The login activity for users to interact with.
  * Code citation (for login implementation): https://www.youtube.com/watch?v=qpNnfq9ZPDU
- */
+ **/
 public class LoginActivity extends AppCompatActivity {
     EditText UsernameInput;
     EditText PasswordInput;
