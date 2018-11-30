@@ -27,6 +27,7 @@ class MovementController {
                 firstMove = false;
                 previousMove = position;
             } else if (thisBoard.isValidSecondTap(previousMove, position) && !firstMove) {
+                PlayPegSolitaireController.incrementNumberOfMoves();
                 thisBoard.touchMove(previousMove, position);
                 firstMove = true;
                 if (thisBoard.isOver()) {
@@ -48,6 +49,7 @@ class MovementController {
         if (boardManager instanceof SlidingTilesManager) {
             SlidingTilesManager thisBoard = (SlidingTilesManager) boardManager;
             if (thisBoard.isValidTap(position)) {
+                PlaySlidingTilesController.incrementNumberOfMoves();
                 thisBoard.touchMove(position);
                 if (thisBoard.isOver()) {
                     Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();

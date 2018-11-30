@@ -2,6 +2,7 @@ package fall2018.csc2017.slidingtiles;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,13 +54,16 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
      */
     // Display
     public void display() {
+        setNumberOfMovesText();
+        setNumberOfUndosText();
         tileButtons = playPegSolitaireController.updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         if (pegSolitaireManager.isOver()) {
             if (pegSolitaireManager.hasWon()) {
-                playPegSolitaireController.endOfGame(pegSolitaireManager);
+                switchToScoreBoard();
+            } else {
+                displayNoMoreMovesBanner();
             }
-            switchToScoreBoard();
         }
     }
 
@@ -131,7 +135,11 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
 
     private void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
+        List<Boolean> takenScores = playPegSolitaireController.endOfGame(pegSolitaireManager);
+        ScoreBoardActivity.newGameScore = takenScores.get(0);
+        ScoreBoardActivity.newUserScore = takenScores.get(1);
         tmp.putExtra("scores", PegSolitaireManager.pegScoreBoard.toString());
+        tmp.putExtra("game", PegSolitaireManager.GAME_NAME);
         startActivity(tmp);
     }
 
@@ -182,7 +190,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
      * TODO: if a new xml file is made then change the id of the TextView box
      */
     public void setNumberOfMovesText() {
-        int numMoves = this.playPegSolitaireController.numOfMoves();
+        int numMoves = this.playPegSolitaireController.getNumberOfMoves();
         TextView moves = findViewById(R.id.changingNumberOfMoves);
         moves.setText(Integer.toString(numMoves));
     }
@@ -192,7 +200,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
      * TODO: if a new xml file is made then change the id of the TextView box
      */
     public void setNumberOfUndosText() {
-        int numberOfUndos = this.playPegSolitaireController.numOfUndos();
+        int numberOfUndos = this.playPegSolitaireController.getNumberOfUndos();
         TextView undos = findViewById(R.id.changingNumberOfUndos);
         undos.setText(Integer.toString(numberOfUndos));
     }
@@ -204,10 +212,12 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         Toast.makeText(this, "Must make a move before saving", Toast.LENGTH_SHORT).show();
     }
 
+    private void displayNoMoreMovesBanner() {
+        //TODO: make the banner
+    }
+
     @Override
     public void update(Observable o, Object arg) {
-        setNumberOfMovesText();
-        setNumberOfUndosText();
         display();
     }
 }
