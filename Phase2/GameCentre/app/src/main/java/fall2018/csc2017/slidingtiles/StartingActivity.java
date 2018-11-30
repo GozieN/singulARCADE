@@ -101,7 +101,7 @@ public class StartingActivity extends AppCompatActivity {
     }
 
     /**
-     * Switch to the GameActivity view to play the game.
+     * Switch to the GameActivity view to play the game
      */
     private void switchToGame() {
         boolean loadedGame = true;

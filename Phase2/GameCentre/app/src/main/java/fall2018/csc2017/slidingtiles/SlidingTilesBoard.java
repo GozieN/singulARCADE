@@ -109,6 +109,9 @@ public class SlidingTilesBoard extends Board {
         return Arrays.asList(row1, col1, row2, col2);
     }
 
+    /**
+     * Update and notify observers
+     */
     public void update() {
         setChanged();
         notifyObservers();

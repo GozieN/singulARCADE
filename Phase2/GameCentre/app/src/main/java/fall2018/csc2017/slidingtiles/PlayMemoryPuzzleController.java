@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PlayMemoryPuzzleController {
+/**
+ * The movement controller for the Memory Puzzle Game
+ */
+class PlayMemoryPuzzleController {
 
     /**
      * The board manager.
@@ -23,17 +26,14 @@ public class PlayMemoryPuzzleController {
      * The number of times a user has made a move.
      */
 
-    public static int numberOfMoves = 0;
-
-    PlayMemoryPuzzleController() {
-    }
+    static int numberOfMoves = 0;
 
     /**
      * Create the buttons for displaying the tiles.
      *
      * @param context the context
      */
-    public void createTileButtons(Context context, MemoryBoardManager inputMemoryPuzzleManager) {
+    void createTileButtons(Context context, MemoryBoardManager inputMemoryPuzzleManager) {
         memoryBoardManager = inputMemoryPuzzleManager;
         MemoryGameBoard board = memoryBoardManager.getBoard();
         tileButtons = new ArrayList<>();
@@ -64,7 +64,7 @@ public class PlayMemoryPuzzleController {
     /**
      * At the end of the game, do these actions: get the score, and send score to game score board and user score board.
      */
-    public List<Boolean> endOfGame(MemoryBoardManager memoryBoardManager) {
+    List<Boolean> endOfGame(MemoryBoardManager memoryBoardManager) {
         Integer score = memoryBoardManager.getScore();
         boolean newGameScore = MemoryBoardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         boolean newUserScore = GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(MemoryBoardManager.GAME_NAME, score);
@@ -76,7 +76,7 @@ public class PlayMemoryPuzzleController {
      * Increase moves by 1 each time a move is made
      */
 
-    public static void incrementNumberOfMoves() {
+    static void incrementNumberOfMoves() {
         numberOfMoves++;
     }
 
@@ -85,7 +85,7 @@ public class PlayMemoryPuzzleController {
      *
      * @return int
      */
-    public int getNumberOfMoves() {
+    int getNumberOfMoves() {
         return numberOfMoves;
     }
 

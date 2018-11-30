@@ -3,7 +3,6 @@ package fall2018.csc2017.slidingtiles;
 /**
  * An interface to be implemented by various games.
  */
-
 public interface Game {
     /**
      * Return true if the game is over.

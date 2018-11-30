@@ -53,7 +53,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     /**
-     * Activate game option Button.
+     * Activate game option Button
      */
 
     private void addToGameOptionsButtonListener() {

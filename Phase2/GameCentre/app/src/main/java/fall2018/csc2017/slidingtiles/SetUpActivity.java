@@ -8,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+/**
+ * The Activity to set up the settings of each game
+ */
 public class SetUpActivity extends AppCompatActivity {
 
     /*
@@ -30,10 +33,17 @@ public class SetUpActivity extends AppCompatActivity {
     The user's chosen undo limit.
      */
     static int undoLimit;
-
+    /**
+     * The Gmae being played
+     */
     private Game gameManager;
+    /**
+     * The name identifier of the game being played
+     */
     private String game;
-
+    /**
+     * The Movement Controller for the Set Up Activity.
+     */
     SetUpAndStartController setUpController;
 
     @Override
@@ -50,37 +60,42 @@ public class SetUpActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Set up spinners accordingly to what game is being played
+     */
     public void setSpinnerOnCreate() {
+        ArrayAdapter<CharSequence> adapterBoardSize;
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
-            System.out.println("in if");
             setContentView(R.layout.activity_sliding_tiles_set_up);
 
             spinnerBoardShape = findViewById(R.id.ChooseSlidingTilesSpinner);
-            ArrayAdapter<CharSequence> adapterBoardSize = ArrayAdapter.createFromResource(this,
+            adapterBoardSize = ArrayAdapter.createFromResource(this,
                     R.array.slidingTilesboard_array, android.R.layout.simple_spinner_item);
 
-            // Specify the layout to use when the list of choices appears
-            adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            // Apply the adapter to the spinner
-            spinnerBoardShape.setAdapter(adapterBoardSize);
         } else if (game.equals(PegSolitaireManager.GAME_NAME)) {
             setContentView(R.layout.activity_peg_solitaire_set_up);
 
             spinnerBoardShape = findViewById(R.id.ChoosePegSolitaireSpinner);
-            ArrayAdapter<CharSequence> adapterBoardSize = ArrayAdapter.createFromResource(this,
+            adapterBoardSize = ArrayAdapter.createFromResource(this,
                     R.array.pegSolitaireBoard_array, android.R.layout.simple_spinner_item);
 
-            // Specify the layout to use when the list of choices appears
-            adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            // Apply the adapter to the spinner
-            spinnerBoardShape.setAdapter(adapterBoardSize);
         } else { //game.equals("MEMORY PUZZLE")
             setContentView(R.layout.activity_memory_game_set_up);
+            spinnerBoardShape = findViewById(R.id.ChooseMemoryPuzzleSpinner);
+            adapterBoardSize = ArrayAdapter.createFromResource(this,
+                    R.array.memoryPuzzle_array, android.R.layout.simple_spinner_item);
 
         }
+        // Specify the layout to use when the list of choices appears
+        adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        spinnerBoardShape.setAdapter(adapterBoardSize);
     }
 
+    /**
+     * Set the Undo Spinner if the game implements the Undo feature
+     */
     public void setSpinnerUndoOnCreate() {
         spinnerUndo = findViewById(R.id.ChooseUndoSpinner);
         ArrayAdapter<CharSequence> adapterUndo = ArrayAdapter.createFromResource(this,
@@ -99,7 +114,7 @@ public class SetUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // adapted from https://stackoverflow.com/questions/29891237/checking-if-spinner-is-selected-and-having-null-value-in-android
                 shape = setUpController.setBoardShape(game, spinnerBoardShape);
-                if(spinnerUndo != null && spinnerUndo.getSelectedItem() !=null ) {
+                if (spinnerUndo != null && spinnerUndo.getSelectedItem() != null) {
                     undoSelection = (String) spinnerUndo.getSelectedItem();
                 }
                 if (game.equals(SlidingTilesManager.GAME_NAME) || game.equals(PegSolitaireManager.GAME_NAME)) {
@@ -119,16 +134,19 @@ public class SetUpActivity extends AppCompatActivity {
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             tmp = new Intent(this, PlaySlidingTilesActivity.class);
             gameManager = setUpController.setSolvableBoardManager(shape);
-        }
-        else if (game.equals(PegSolitaireManager.GAME_NAME)) { //game.equals("PEG SOLITAIRE")
+            PlaySlidingTilesController.numberOfMoves = 0;
+            PlaySlidingTilesController.numberOfUndos = 0;
+        } else if (game.equals(PegSolitaireManager.GAME_NAME)) { //game.equals("PEG SOLITAIRE")
             tmp = new Intent(this, PlayPegSolitaireActivity.class);
             PegSolitaireBoard.setDimensions(shape);
             gameManager = (PegSolitaireManager) setUpController.newGameManager(PegSolitaireManager.GAME_NAME);
-        }
-        else {
+            PlayPegSolitaireController.numberOfMoves = 0;
+            PlayPegSolitaireController.numberOfUndos = 0;
+        } else {
             tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
             MemoryGameBoard.setDimensions(shape);
             gameManager = (MemoryBoardManager) setUpController.newGameManager(MemoryBoardManager.GAME_NAME);
+            PlayMemoryPuzzleController.numberOfMoves = 0;
         }
         GameLauncher.getCurrentUser().setNumOfUndos(game, 0);
         GameLauncher.getCurrentUser().setRecentManagerOfBoard(game, gameManager);

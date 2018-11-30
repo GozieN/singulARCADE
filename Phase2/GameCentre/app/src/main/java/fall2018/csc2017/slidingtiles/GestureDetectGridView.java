@@ -3,8 +3,6 @@ package fall2018.csc2017.slidingtiles;
 /*
 Adapted from:
 https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/GestureDetectGridView.java
-
-This extension of GridView contains built in logic for handling swipes between buttons.
  */
 
 import android.content.Context;
@@ -13,31 +11,75 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
 
+//This extension of GridView contains built in logic for handling swipes between buttons.
 public class GestureDetectGridView extends GridView {
+    /**
+     * The minimum swiping distance
+     */
     public static final int SWIPE_MIN_DISTANCE = 100;
+    /**
+     * The gesture detector
+     */
     private GestureDetector gDetector;
+    /**
+     * The movement controller that processes all movements for the games
+     */
     private MovementController mController;
+    /**
+     * The movement fling confirmation
+     */
     private boolean mFlingConfirmed = false;
+    /**
+     * The x-coordinate location of a tap
+     */
     private float mTouchX;
+    /**
+     * The y-coordinate location of a tap
+     */
     private float mTouchY;
+    /**
+     * The game that's being played
+     */
     private Game manager;
 
-
+    /**
+     * Initializes the Gesture Detect Grid View
+     *
+     * @param context the context of the activity
+     */
     public GestureDetectGridView(Context context) {
         super(context);
         init(context);
     }
 
+    /**
+     * Initializes the Gesture Detect Grid View
+     *
+     * @param context the context of the activity
+     * @param attrs   the Attribute Set
+     */
     public GestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
+    /**
+     * Initializes the Gesture Detect Grid View
+     *
+     * @param context      the context of the activity
+     * @param attrs        the Attribute Set
+     * @param defStyleAttr the def style attribute
+     */
     public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
+    /**
+     * Detects taps and uses a movement controller to process the tap movements
+     *
+     * @param context the context of the activity
+     */
     private void init(final Context context) {
         mController = new MovementController();
         mController.setBoardManager(manager);
@@ -82,7 +124,6 @@ public class GestureDetectGridView extends GridView {
                 return true;
             }
         }
-
         return super.onInterceptTouchEvent(ev);
     }
 
@@ -93,6 +134,7 @@ public class GestureDetectGridView extends GridView {
 
     /**
      * Sets the manager for DetectGridView
+     *
      * @param manager the Game manager
      */
     public void setManager(Game manager) {

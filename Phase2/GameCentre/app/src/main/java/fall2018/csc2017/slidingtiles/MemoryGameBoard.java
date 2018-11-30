@@ -8,7 +8,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-
+/**
+ * A Memory Game Board that holds the tiles of the Memory Puzzle Game
+ */
 public class MemoryGameBoard extends Board implements Serializable, Iterable<MemoryPuzzleTile> {
     /**
      * The number of rows.

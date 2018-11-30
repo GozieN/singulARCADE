@@ -7,12 +7,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * Manages a Memory Puzzle board, including matching tiles, checking for a win, etc.
+ */
 class MemoryBoardManager implements Serializable, Game {
     /**
      * The board being managed.
      */
     final static String GAME_NAME = "MEMORY PUZZLE";
+    /**
+     * The Memory Puzzle board the Memory Board Manager manages
+     */
     private MemoryGameBoard board;
+    /**
+     * The Memory Puzzle Game Scoreboard
+     */
     static ScoreBoard gameScoreBoard = new ScoreBoard();
 
     /**
@@ -86,7 +95,7 @@ class MemoryBoardManager implements Serializable, Game {
      *
      * @return the number of MemoryPuzzleTile flipped on the board.
      */
-     int numTileFlipped() {
+    int numTileFlipped() {
         int flipped = 0;
         Iterator<MemoryPuzzleTile> boarditerator = board.iterator();
         while (boarditerator.hasNext()) {
