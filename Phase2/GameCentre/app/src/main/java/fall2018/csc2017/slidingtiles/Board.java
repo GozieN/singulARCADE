@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * The sliding tiles board.
+ * The Sliding Tiles board.
  */
 public class Board extends Observable implements Serializable {
 

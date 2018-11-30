@@ -8,7 +8,7 @@ import java.util.Observable;
 import java.io.Serializable;
 
 /**
- * The Peg Solitaire Board.
+ * The Peg Solitaire board.
  */
 public class PegSolitaireBoard extends Board {
     /**

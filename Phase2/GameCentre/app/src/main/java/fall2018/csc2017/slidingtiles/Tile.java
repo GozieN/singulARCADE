@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * A Tile in a sliding tiles puzzle.
+ * A Tile in the sliding tiles puzzle.
  */
 public abstract class Tile implements Serializable {
 
