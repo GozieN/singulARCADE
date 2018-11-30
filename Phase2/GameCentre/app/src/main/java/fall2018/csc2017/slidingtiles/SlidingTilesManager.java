@@ -15,10 +15,11 @@ class SlidingTilesManager implements Serializable, Game {
     /***
      * The board being managed.
      */
-     final static String GAME_NAME = "SLIDING TILES";
-     private SlidingTilesBoard board;
+    final static String GAME_NAME = "SLIDING TILES";
+    private SlidingTilesBoard board;
 
-     static ScoreBoard gameScoreBoard = new ScoreBoard();
+    static ScoreBoard gameScoreBoard = new ScoreBoard();
+
     /**
      * Manage a board that has been pre-populated.
      *
@@ -34,6 +35,7 @@ class SlidingTilesManager implements Serializable, Game {
     public SlidingTilesBoard getBoard() {
         return board;
     }
+
     /**
      * Set a new board.
      */
@@ -41,6 +43,7 @@ class SlidingTilesManager implements Serializable, Game {
         this.board = board;
         board.update();
     }
+
     /**
      * Manage a new shuffled board.
      */
@@ -62,6 +65,7 @@ class SlidingTilesManager implements Serializable, Game {
 
     /**
      * Return the tiles of the current board.
+     *
      * @return the tiles of the current board.
      */
     ArrayList<Object> getTilesInArrayList() {
@@ -69,7 +73,7 @@ class SlidingTilesManager implements Serializable, Game {
         ArrayList arrayList = new ArrayList();
         while (boardIterator.hasNext()) {
             Tile currentTile = boardIterator.next();
-            if (currentTile.getId() != board.numTiles() ) {
+            if (currentTile.getId() != board.numTiles()) {
                 arrayList.add(currentTile.getId());
             }
         }
@@ -98,6 +102,7 @@ class SlidingTilesManager implements Serializable, Game {
 
     /**
      * Return the row of the board that the blank tile is currently in.
+     *
      * @return the row of the board that the blank tile is currently in.
      */
     public int positionBlankTile() {
@@ -108,7 +113,7 @@ class SlidingTilesManager implements Serializable, Game {
         while (boardIterator.hasNext()) {
             Tile currentTile = boardIterator.next();
             if (currentTile.getId() == blankId) {
-                returning = i/SlidingTilesBoard.NUM_COLS + 1;
+                returning = i / SlidingTilesBoard.NUM_COLS + 1;
             }
             i++;
         }
@@ -169,14 +174,14 @@ class SlidingTilesManager implements Serializable, Game {
     }
 
 
-
     /**
      * Return the score of the current game
+     *
      * @return the score of the current game
      */
     public int getScore() {
-        Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME);
-        double tempScore = Math.pow((stackOfMoves.size() + 2*GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME)), -1);
+        Stack<List> stackOfMoves = GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME);
+        double tempScore = Math.pow((stackOfMoves.size() + 2 * GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME)), -1);
         //if 3, multiply by 10000
         if (SlidingTilesBoard.NUM_ROWS == 3) {
             return (int) Math.round(tempScore * 10000);
@@ -194,30 +199,34 @@ class SlidingTilesManager implements Serializable, Game {
     /**
      * Adapted from: adapted from https://puzzling.stackexchange.com/questions/25563/do-i-have-an-unsolvable-15-puzzle
      * Return true iff the sliding tiles game will be solvable.
+     *
      * @return true iff the sliding tiles game will be solvable.
      */
     public boolean isSolvable() {
         int blankId = positionBlankTile();
         int inversions = numberOfInversions();
         //if it's odd size and has an even number of inversions, the board is solvable-> return true
-        if (board.getDimensions()%2 != 0) {
+        if (board.getDimensions() % 2 != 0) {
             return inversions % 2 == 0;
         }
         //otherwise it is even size and the rows the blank tile is on is odd, then the board is solvable
-        if (blankId % 2 == 0 && inversions % 2 == 0) {return true;}
+        if (blankId % 2 == 0 && inversions % 2 == 0) {
+            return true;
+        }
         return blankId % 2 != 0 && inversions % 2 != 0;
     }
 
     /**
      * Adapted from: https://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable
      * Return the number of inversions that occur to get the id's of the tiles in order from least to greatest.
+     *
      * @return the number of inversions that occur to get the id's of the tiles in order from least to greatest.
      */
     public int numberOfInversions() {
         ArrayList tileOrder = getTilesInArrayList();
         int inversions = 0;
-        for (int i=0; i<tileOrder.size(); i++) {
-            for (int j=i + 1; j<tileOrder.size(); j++) {
+        for (int i = 0; i < tileOrder.size(); i++) {
+            for (int j = i + 1; j < tileOrder.size(); j++) {
                 if ((int) tileOrder.get(j) < (int) tileOrder.get(i)) {
                     inversions++;
                 }

@@ -109,8 +109,8 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
                     memoryBoardManager.resetToWhite();
                     makeToastSavedText();
                     switchToGameCentre();
-                }
-                else {makeToastNoSaveAndQuit();
+                } else {
+                    makeToastNoSaveAndQuit();
                 }
             }
         });

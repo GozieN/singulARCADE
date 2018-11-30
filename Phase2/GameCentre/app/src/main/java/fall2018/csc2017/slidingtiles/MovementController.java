@@ -93,7 +93,6 @@ class MovementController {
         if (thisBoard.isOver()) {
             makeYouWinToast(context);
 
-
         }
     }
 

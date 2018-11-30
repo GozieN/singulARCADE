@@ -45,6 +45,7 @@ public class MemoryGameBoard extends Board implements Serializable, Iterable<Mem
 
     /**
      * Return the number of tiles of the board
+     *
      * @return the number of tiles of the board
      */
     int numTiles() {
@@ -70,7 +71,7 @@ public class MemoryGameBoard extends Board implements Serializable, Iterable<Mem
      * @param col the tile column
      * @return the tile at (row, col)
      */
-     MemoryPuzzleTile getMemoryGameTile(int row, int col) {
+    MemoryPuzzleTile getMemoryGameTile(int row, int col) {
         return tiles[row][col];
     }
 
@@ -85,6 +86,7 @@ public class MemoryGameBoard extends Board implements Serializable, Iterable<Mem
 
     /**
      * Return a string representation of the board
+     *
      * @return a string representation of the board
      */
     @Override
@@ -94,7 +96,8 @@ public class MemoryGameBoard extends Board implements Serializable, Iterable<Mem
                 '}';
     }
 
-    /** Return a new Iterator over the Tiles in the SlidingTilesBoard.
+    /**
+     * Return a new Iterator over the Tiles in the SlidingTilesBoard.
      *
      * @return a new Iterator over the Tiles in the SlidingTilesBoard.
      */
@@ -108,12 +111,17 @@ public class MemoryGameBoard extends Board implements Serializable, Iterable<Mem
      */
     private class BoardIterator implements Iterator<MemoryPuzzleTile> {
 
-        /**The row that the next tile in the board is located in.*/
+        /**
+         * The row that the next tile in the board is located in.
+         */
         int row = 0;
-        /**The column that the next tile in the board is located in.*/
+        /**
+         * The column that the next tile in the board is located in.
+         */
         int col = 0;
 
-        /** Return whether the board has another tile.
+        /**
+         * Return whether the board has another tile.
          *
          * @return whether the board has another tile
          */
@@ -122,7 +130,8 @@ public class MemoryGameBoard extends Board implements Serializable, Iterable<Mem
             return col <= NUM_COLS - 1 && row <= NUM_ROWS - 1;
         }
 
-        /** Return the next tile in the board.
+        /**
+         * Return the next tile in the board.
          *
          * @return the next tile in the board
          */

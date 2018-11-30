@@ -43,16 +43,16 @@ public class PegSolitaireBoard extends Board {
         }
     }
 
-    /** Set up a square peg solitaire board.
-     *
+    /**
+     * Set up a square peg solitaire board.
      */
     private void setUpSquareBoard() {
         this.tiles[2][3].setId(1, false);
 
     }
 
-    /** Set up a cross peg solitaire board.
-     *
+    /**
+     * Set up a cross peg solitaire board.
      */
     private void setUpCrossBoard() {
         for (int row = 0; row != this.tiles.length; row++) {
@@ -66,8 +66,8 @@ public class PegSolitaireBoard extends Board {
         }
     }
 
-    /** Set up a diamond peg solitaire board.
-     *
+    /**
+     * Set up a diamond peg solitaire board.
      */
     private void setUpDiamondBoard() {
         int i = 4;
@@ -85,11 +85,12 @@ public class PegSolitaireBoard extends Board {
         }
     }
 
-    /** Set up a row in a diamond peg solitaire board.
+    /**
+     * Set up a row in a diamond peg solitaire board.
      *
-     * @param row the index that indicates the row needing to be filled up
-     * @param i the index indicating the lower bound of the full pegs
-     * @param j the index indicating the upper bound of the full pegs
+     * @param row     the index that indicates the row needing to be filled up
+     * @param i       the index indicating the lower bound of the full pegs
+     * @param j       the index indicating the upper bound of the full pegs
      * @param tileRow the row of PegSolitaireTiles that need to be set
      */
     private void fillUpDiamondRow(int row, int i, int j, PegSolitaireTile[] tileRow) {
@@ -102,12 +103,13 @@ public class PegSolitaireBoard extends Board {
         }
     }
 
-    /**Return the number of pieces on the peg solitaire board.
+    /**
+     * Return the number of pieces on the peg solitaire board.
      *
      * @return the number of pegs on the peg solitaire board.
      */
     int numPieces() {
-        return NUM_ROWS*NUM_COLS;
+        return NUM_ROWS * NUM_COLS;
     }
 
     /**
@@ -117,11 +119,12 @@ public class PegSolitaireBoard extends Board {
      * @param col the tile column
      * @return the tile at (row, col)
      */
-    public PegSolitaireTile getOneTile(int row, int col) {
+    PegSolitaireTile getOneTile(int row, int col) {
         return tiles[row][col];
     }
 
-    /** Changes the dimension constants of the board and makes them n x n
+    /**
+     * Changes the dimension constants of the board and makes them n x n
      *
      * @param dimensions the n x n dimensions of Sliding Tiles Board
      */
@@ -130,19 +133,23 @@ public class PegSolitaireBoard extends Board {
         NUM_ROWS = dimensions;
     }
 
-    /** Returns the number of columns multiplied by the number of rows.
+    /**
+     * Returns the number of columns multiplied by the number of rows.
      *
      * @return the dimensions of the board.
      */
     public int getDimensions() {
-        return NUM_COLS*NUM_ROWS;
+        return NUM_COLS * NUM_ROWS;
     }
 
     /**
      * Return all the tiles for the board
+     *
      * @return all the tiles for the board
      */
-    PegSolitaireTile[][] getPegTiles() {return tiles;}
+    PegSolitaireTile[][] getPegTiles() {
+        return tiles;
+    }
 
     /**
      * Return the tile at (row, col)
@@ -186,10 +193,11 @@ public class PegSolitaireBoard extends Board {
 
     /**
      * Undo moves given the appropriate row and columns.
-     * @param row1
-     * @param col1
-     * @param row2
-     * @param col2
+     *
+     * @param row1 the row of the first tile
+     * @param col1 the col of hte first tile
+     * @param row2 the row of the second tile
+     * @param col2 the col of the second tile
      */
     void undoMove(int row1, int col1, int row2, int col2) {
         moveGamepiece(row1, col1, row2, col2);
@@ -208,8 +216,8 @@ public class PegSolitaireBoard extends Board {
     /**
      * Highlights/removes highlights for the tile at row, col.
      *
-     * @param row
-     * @param col
+     * @param row the row of the position of the tile
+     * @param col the col of the position of the tile
      */
     void addOrRemoveHighlight(int row, int col) {
         PegSolitaireTile tile = getPegTile(row, col);
@@ -218,6 +226,7 @@ public class PegSolitaireBoard extends Board {
 
     /**
      * Counts number of pegs remaining on Peg Solitaire Board
+     *
      * @return number of pegs that are on the Peg Solitaire Board
      */
     int numRemainingPegs() {
@@ -225,7 +234,7 @@ public class PegSolitaireBoard extends Board {
         for (PegSolitaireTile[] tileRow : tiles) {
             for (PegSolitaireTile tile : tileRow) {
                 if (tile.getId() == 2) {
-                    counter ++;
+                    counter++;
                 }
             }
         }

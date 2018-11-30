@@ -42,7 +42,7 @@ public class ScoreBoardActivity extends AppCompatActivity {
      * Takes the user back to the main menu / GameCentreActivity.
      */
     public void switchToMainMenu() {
-        Intent mainMenu = new Intent (this, GameCentreActivity.class);
+        Intent mainMenu = new Intent(this, GameCentreActivity.class);
         startActivity(mainMenu);
     }
 
@@ -60,6 +60,7 @@ public class ScoreBoardActivity extends AppCompatActivity {
             }
         });
     }
+
     /**
      * Activate main menu Button
      */

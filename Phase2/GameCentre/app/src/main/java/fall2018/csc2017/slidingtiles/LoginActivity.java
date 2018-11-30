@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * The user manager.
-      */
+     */
     private UserManager userManager;
 
     @Override
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
         UsernameInput = findViewById(R.id.Username);
         PasswordInput = findViewById(R.id.Password);
-        LoginButton =  findViewById(R.id.LoginButton);
+        LoginButton = findViewById(R.id.LoginButton);
         SignUpButton = findViewById(R.id.SignUpButton);
 
 
@@ -51,15 +51,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = UsernameInput.getText().toString().trim();
                 String password = PasswordInput.getText().toString().trim();
-                if (username.isEmpty() || password.isEmpty()){
+                if (username.isEmpty() || password.isEmpty()) {
                     makeToastNoInputProvidedText();
-                }
-                else if(userManager.signIn(username, password)){
+                } else if (userManager.signIn(username, password)) {
                     GameLauncher.setCurrentUser(userManager.findUser(username));
                     switchToGameCentreActivity();
                     makeToastLoginSuccessful();
-                }
-                else{
+                } else {
                     makeToastLoginUnsuccessful();
                 }
             }

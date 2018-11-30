@@ -21,13 +21,12 @@ class UserManager implements Serializable {
             int i = 0;
             while (!listOfUsers.get(i).getUsername().equals(username)) {
                 i += 1;
-                if (i == listOfUsers.size()){
+                if (i == listOfUsers.size()) {
                     return false;
                 }
             }
             return listOfUsers.get(i).getPassword().equals(password);
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -85,10 +84,11 @@ class UserManager implements Serializable {
 
     /**
      * Return the most recently added user in the list of users.
+     *
      * @return the most recently added user in the list of users.
      */
     User lastAddedUser() {
-        return getListOfUsers().get(getListOfUsers().size()-1);
+        return getListOfUsers().get(getListOfUsers().size() - 1);
     }
 
     /**

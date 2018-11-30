@@ -26,7 +26,8 @@ public class PlayPegSolitaireController {
     public static int numberOfUndos = 0;
     public static int numberOfMoves = 0;
 
-    PlayPegSolitaireController() {}
+    PlayPegSolitaireController() {
+    }
 
     /**
      * Update the backgrounds on the buttons to match the tiles.
@@ -63,9 +64,10 @@ public class PlayPegSolitaireController {
 
     /**
      * Return a string that corresponds to if an undo can be used or that are available
+     *
      * @return a string that corresponds to if an undo can be used or that are available
      */
-    public String usedNumberOfUndos() {
+    String usedNumberOfUndos() {
         numberOfUndos = GameLauncher.getCurrentUser().getNumOfUndos(PegSolitaireManager.GAME_NAME);
         if (numberOfUndos < SetUpActivity.undoLimit) {
             Stack totalStates = GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.GAME_NAME);
@@ -79,12 +81,10 @@ public class PlayPegSolitaireController {
                 numberOfUndos++;
                 GameLauncher.getCurrentUser().setNumOfUndos(PegSolitaireManager.GAME_NAME, numberOfUndos);
                 return "setNumberOfMovesText";
-            }
-            else {
+            } else {
                 return "NoUndoText";
             }
-        }
-        else {
+        } else {
             return "UndoLimitText";
         }
     }

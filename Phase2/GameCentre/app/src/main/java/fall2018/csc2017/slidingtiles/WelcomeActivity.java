@@ -23,7 +23,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
     /**
-     * Activate the next button.
+     * Activate the next button to be live.
      */
     private void addNextButtonListener() {
         Button startButton = findViewById(R.id.NextButton);

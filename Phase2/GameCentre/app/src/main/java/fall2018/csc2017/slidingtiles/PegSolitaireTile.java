@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * A Peg Solitaire Tile in a Peg Solitaire game.
  */
-public class PegSolitaireTile implements Comparable<PegSolitaireTile>, Serializable {
+class PegSolitaireTile extends Tile implements Comparable<PegSolitaireTile>, Serializable {
     /**
      * The background id to find the peg solitaire tile image.
      */
@@ -42,30 +42,33 @@ public class PegSolitaireTile implements Comparable<PegSolitaireTile>, Serializa
     }
 
 
-    public boolean isHighlight() {
+    boolean isHighlight() {
         return highlight;
     }
+
     /**
      * A PegSolitaire tile with a background id; look up and set the id.
      *
-     * @param backgroundId the background id of the tile
+     * @param id the background id of the tile
      */
-    PegSolitaireTile(int backgroundId) {
-        this.id = backgroundId;
+    PegSolitaireTile(int id) {
+        super(id);
+        this.id = id;
         background = R.drawable.tile_full;
     }
+
     @Override
     public int compareTo(@NonNull PegSolitaireTile o) {
         return o.id - this.id;
     }
 
-    public void setId(int i, boolean highlight) {
+    void setId(int i, boolean highlight) {
         this.id = i;
         this.highlight = highlight;
         setBackground(this.id, this.highlight);
     }
 
-    public void setBackground(int i, boolean highlight) {
+    private void setBackground(int i, boolean highlight) {
         if (highlight) {
             switch (i) {
                 case 1:

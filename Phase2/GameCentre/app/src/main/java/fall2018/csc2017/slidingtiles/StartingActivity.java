@@ -119,8 +119,7 @@ public class StartingActivity extends AppCompatActivity {
                 makeToastNoGameToLoadText();
                 loadedGame = false;
             }
-        }
-        else if (GameLauncher.getCurrentUser().getStackOfGameStates(game).isEmpty()
+        } else if (GameLauncher.getCurrentUser().getStackOfGameStates(game).isEmpty()
                 && GameLauncher.getCurrentUser().getNumOfUndos(game) == 0) {
             makeToastNoGameToLoadText();
             loadedGame = false;

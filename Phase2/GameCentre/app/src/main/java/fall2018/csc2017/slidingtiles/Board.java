@@ -26,7 +26,8 @@ public class Board extends Observable implements Serializable {
      */
     private Tile[][] tiles = new Tile[NUM_ROWS][NUM_COLS];
 
-    Board() {}
+    Board() {
+    }
 
 //    Board(List<Tile> tiles) {
 //
@@ -34,9 +35,12 @@ public class Board extends Observable implements Serializable {
 
     /**
      * Return all the tiles for the board
+     *
      * @return all the tiles for the board
      */
-    Tile[][] getTiles() {return tiles;}
+    Tile[][] getTiles() {
+        return tiles;
+    }
 
 
     /**
@@ -59,11 +63,14 @@ public class Board extends Observable implements Serializable {
         return tiles[row][col];
     }
 
-    /** Return the dimensions of the board.
+    /**
+     * Return the dimensions of the board.
      *
      * @return the dimensions of the board.
      */
-    int getDimensions() {return NUM_COLS;}
+    int getDimensions() {
+        return NUM_COLS;
+    }
 
 
     /**
@@ -86,7 +93,6 @@ public class Board extends Observable implements Serializable {
         setChanged();
         notifyObservers();
     }
-
 
 
     @Override

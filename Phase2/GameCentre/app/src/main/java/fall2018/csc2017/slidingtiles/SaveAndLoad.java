@@ -30,8 +30,7 @@ public class SaveAndLoad extends AppCompatActivity {
             InputStream inputStream = context.openFileInput(fileName);
             if (inputStream == null) {
                 saveToFile(context, fileName);
-            }
-            else {
+            } else {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 userManager = (UserManager) input.readObject();
                 inputStream.close();

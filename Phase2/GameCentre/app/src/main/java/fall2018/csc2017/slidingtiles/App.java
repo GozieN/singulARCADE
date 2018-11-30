@@ -13,7 +13,7 @@ public class App extends Application {
         mContext = getApplicationContext();
     }
 
-    public Context getContext(){
+    public Context getContext() {
         return mContext;
     }
 }

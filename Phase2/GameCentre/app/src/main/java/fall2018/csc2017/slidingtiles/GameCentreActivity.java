@@ -46,7 +46,7 @@ public class GameCentreActivity extends AppCompatActivity {
         String googlePlay = "https://play.google.com/store";
         Uri webAddress = Uri.parse(googlePlay);
         Intent goToGooglePlay = new Intent(Intent.ACTION_VIEW, webAddress);
-        if (goToGooglePlay.resolveActivity(getPackageManager()) != null){
+        if (goToGooglePlay.resolveActivity(getPackageManager()) != null) {
             startActivity(goToGooglePlay);
         }
     }
@@ -73,7 +73,7 @@ public class GameCentreActivity extends AppCompatActivity {
 
     private void addMemoryPuzzleButtonListener() {
         Button memoryPuzzleButton = findViewById(R.id.memoryPuzzle);
-        memoryPuzzleButton.setOnClickListener(new View.OnClickListener(){
+        memoryPuzzleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switchToMemoryPuzzleActivity();

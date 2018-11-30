@@ -11,8 +11,10 @@ class GameLauncher implements Serializable {
      * Current user who is playing the game.
      */
     private static User currentUser;
+
     /**
      * Return the current user who is playing the game.
+     *
      * @return current user who is playing the game.
      */
     static User getCurrentUser() {
@@ -21,6 +23,7 @@ class GameLauncher implements Serializable {
 
     /**
      * Set the current user who is going to play the game.
+     *
      * @param newUser the current user that is on the device
      */
     static void setCurrentUser(User newUser) {

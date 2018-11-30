@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 /**
  * The activity for the user's personal profile.
  */
@@ -27,6 +28,7 @@ public class UserProfileActivity extends AppCompatActivity {
         userName.setText(GameLauncher.getCurrentUser().getUsername());
 
     }
+
     /**
      * Activate the Scoreboard Button
      */
@@ -63,6 +65,7 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
     }
+
     /**
      * Lead to game centre.
      */

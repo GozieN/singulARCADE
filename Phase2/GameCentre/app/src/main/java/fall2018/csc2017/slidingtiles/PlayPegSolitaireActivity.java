@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -111,23 +112,23 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
                         || (GameLauncher.getCurrentUser().getNumOfUndos(PegSolitaireManager.getName()) != 0)) {
                     makeToastSavedText();
                     switchToGameCentre();
-                }
-                else {makeToastNoSaveAndQuit();
+                } else {
+                    makeToastNoSaveAndQuit();
                 }
             }
         });
     }
 
     /**
-     * move to GameCentreActivity
+     * Move to GameCentreActivity
      */
-    private void switchToGameCentre() {
+    public void switchToGameCentre() {
         Intent tmp = new Intent(this, GameCentreActivity.class);
         startActivity(tmp);
     }
 
     /**
-     * Move to SetUpActivity
+     * Move to ScoreBoardActivity
      */
     private void switchToSetUp() {
         Intent tmp = new Intent(this, SetUpActivity.class);
@@ -160,11 +161,9 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
                 if (undoText.equals("setNumberOfMovesText")) {
                     setNumberOfUndosText();
                     SaveAndLoad.saveToFile(PlayPegSolitaireActivity.this, LoginActivity.SAVE_FILENAME);
-                }
-                else if (undoText.equals("NoUndoText")) {
+                } else if (undoText.equals("NoUndoText")) {
                     makeToastNoUndoText();
-                }
-                else { //got "UndoLimitText";
+                } else { //got "UndoLimitText";
                     makeToastUndoLimitText();
                 }
             }

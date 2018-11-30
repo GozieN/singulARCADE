@@ -15,7 +15,7 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
      *
      * @return the topLayer id
      */
-    public int getTopLayer() {
+    int getTopLayer() {
         return topLayer;
     }
 
@@ -24,7 +24,7 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
      *
      * @param topLayer the topLayer id
      */
-    public void setTopLayer(int topLayer) {
+    void setTopLayer(int topLayer) {
         this.topLayer = topLayer;
     }
 
@@ -164,24 +164,12 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
         }
     }
 
-//    /**
-//     * A Memory Puzzle tile with a background id; look up and set the id.
-//     *
-//     * @param backgroundId the background id of the tile
-//     */
-//    MemoryPuzzleTile(int backgroundId) {
-//        super(backgroundId, -1);
-//        setTopLayer(R.drawable.memory_tile_37);
-//        String Name = "memory_tile_" + getId();
-//        try {
-//            setBackground(R.drawable.class.getField(Name).getInt(null));
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchFieldException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
+    /**
+     * Return true if the images are the same
+     *
+     * @param memoryPuzzleTile the tile being compared
+     * @return true if the images are the same
+     */
     @Override
     public int compareTo(@NonNull MemoryPuzzleTile memoryPuzzleTile) {
         if ((getId() % 2 == 0 && getId() == memoryPuzzleTile.getId() + 1) ||

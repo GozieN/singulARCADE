@@ -82,6 +82,7 @@ public class PlayMemoryPuzzleController {
 
     /**
      * Return the number of moves made by the user.
+     *
      * @return int
      */
     public int getNumberOfMoves() {

@@ -63,4 +63,17 @@ public abstract class Tile implements Serializable {
         this.id = id + 1;
         this.background = R.drawable.tile_25;
     }
+
+
+    /**
+     * A Tile with id.
+     *
+     * @param id the id
+     */
+    Tile(int id) {
+        this.id = id;
+        this.background = R.drawable.tile_full;
+    }
+
+
 }

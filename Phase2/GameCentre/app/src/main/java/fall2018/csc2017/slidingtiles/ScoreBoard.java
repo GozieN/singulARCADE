@@ -16,7 +16,7 @@ public class ScoreBoard implements Serializable {
      * Class ScoreBoard: a scoreboard containing the highest scores for a game or user
      * For a Game's ScoreBoard: Each User can have at most one score on the Game Scoreboard
      * For a User's ScoreBoard: Each Game can have at most one score on the User ScoreBoard
-     *
+     * <p>
      * TreeMap topScores keeps track of the top scores
      * Key: String - the userid
      * Value: int - the score they achieved in the game
@@ -30,14 +30,16 @@ public class ScoreBoard implements Serializable {
 
     /**
      * Return the hashmap of the top scores of the scoreboard
+     *
      * @return the hashmap of the top scores of the scoreboard
      */
-    HashMap getTopScores() {return topScores;}
+    HashMap getTopScores() {
+        return topScores;
+    }
 
     /**
-     *
      * @param subject: String of userid who achieved score
-     * @param score: Integer score that user achieved playing game
+     * @param score:   Integer score that user achieved playing game
      */
     boolean takeNewScore(String subject, Integer score) {
         if (topScores.containsKey(subject)) {
@@ -45,7 +47,7 @@ public class ScoreBoard implements Serializable {
                 return replaceScore(subject, score);
             }
         } else { // topScores does not have the subject yet
-                return replaceScore(subject, score);
+            return replaceScore(subject, score);
         }
         return false;
     }
@@ -54,9 +56,9 @@ public class ScoreBoard implements Serializable {
      * Helper method for takeNewScore()
      *
      * @param subject: String of userid who achieved score
-     * @param score: Integer score that user achieved playing game
+     * @param score:   Integer score that user achieved playing game
      */
-     boolean replaceScore(String subject, Integer score) {
+    boolean replaceScore(String subject, Integer score) {
         boolean replaced = false;
         if (topScores.size() < TOP_NUM_SCORES) { //If scoreboard is not full, add score
             topScores.put(subject, score);
@@ -79,7 +81,7 @@ public class ScoreBoard implements Serializable {
     /**
      * Removes the smallest entry in hashmap topScores when a higher one enters the ScoreBoard
      */
-     void removeSmallestScore() {
+    void removeSmallestScore() {
         int length = 0;
         for (Entry<String, Integer> item : sortValueSet()) {
             length += 1;
@@ -91,13 +93,13 @@ public class ScoreBoard implements Serializable {
 
     /**
      * sortValueSet sorts the HashMap topScores by values of descending order
+     *
      * @return a Set of sorted entries from topScores. REPEAT SCORES, I.E. USERS
      * WHO GET A SCORE THEY PREVIOUSLY GOT ARE DISREGARDED!!!!!!!!! Only the highest score is kept
-     *
+     * <p>
      * Adapted from: http://www.java67.com/2015/01/how-to-sort-hashmap-in-java-based-on.html
-     *
      */
-     Set<Entry<String, Integer>> sortValueSet() {
+    Set<Entry<String, Integer>> sortValueSet() {
         //Get a Set of Map Entries from topScores HashMap and put them into a List
         Set<Entry<String, Integer>> setOfScores = topScores.entrySet();
         List<Entry<String, Integer>> scores = new ArrayList<>(setOfScores);

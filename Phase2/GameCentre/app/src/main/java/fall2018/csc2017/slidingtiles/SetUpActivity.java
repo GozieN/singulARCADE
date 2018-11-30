@@ -59,47 +59,36 @@ public class SetUpActivity extends AppCompatActivity {
      * Set the shape / dimensions of the game and if applicable, the amount of undos
      */
     private void setGame() {
+        ArrayAdapter<CharSequence> adapterBoardSize;
+
         //adapted from https://developer.android.com/guide/topics/ui/controls/spinner#java
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             setContentView(R.layout.activity_sliding_tiles_set_up);
 
             spinnerBoardShape = findViewById(R.id.ChooseSlidingTilesSpinner);
-            ArrayAdapter<CharSequence> adapterBoardSize = ArrayAdapter.createFromResource(this,
+            adapterBoardSize = ArrayAdapter.createFromResource(this,
                     R.array.slidingTilesboard_array, android.R.layout.simple_spinner_item);
 
-            // Specify the layout to use when the list of choices appears
-            adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            // Apply the adapter to the spinner
-            spinnerBoardShape.setAdapter(adapterBoardSize);
-            undoSpinner();
         } else if (game.equals(PegSolitaireManager.GAME_NAME)) {
             setContentView(R.layout.activity_peg_solitaire_set_up);
 
             spinnerBoardShape = findViewById(R.id.ChoosePegSolitaireSpinner);
-            ArrayAdapter<CharSequence> adapterBoardSize = ArrayAdapter.createFromResource(this,
+            adapterBoardSize = ArrayAdapter.createFromResource(this,
                     R.array.pegSolitaireBoard_array, android.R.layout.simple_spinner_item);
 
-            // Specify the layout to use when the list of choices appears
-            adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            // Apply the adapter to the spinner
-            spinnerBoardShape.setAdapter(adapterBoardSize);
-            undoSpinner();
         } else { //game.equals("MEMORY PUZZLE")
             setContentView(R.layout.activity_memory_game_set_up);
 
             spinnerBoardShape = findViewById(R.id.ChooseMemoryPuzzleSpinner);
-            ArrayAdapter<CharSequence> adapterBoardSize = ArrayAdapter.createFromResource(this,
+            adapterBoardSize = ArrayAdapter.createFromResource(this,
                     R.array.memoryPuzzle_array, android.R.layout.simple_spinner_item);
 
-            // Specify the layout to use when the list of choices appears
-            adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            // Apply the adapter to the spinner
-            spinnerBoardShape.setAdapter(adapterBoardSize);
-
         }
+        // Specify the layout to use when the list of choices appears
+        adapterBoardSize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        spinnerBoardShape.setAdapter(adapterBoardSize);
     }
 
     /**

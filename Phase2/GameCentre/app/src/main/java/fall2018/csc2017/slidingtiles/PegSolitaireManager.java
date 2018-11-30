@@ -57,6 +57,7 @@ public class PegSolitaireManager implements Serializable, Game {
 
     /**
      * Return true if the game is over.
+     *
      * @return true iff the game is over
      */
     public boolean isOver() {
@@ -71,6 +72,7 @@ public class PegSolitaireManager implements Serializable, Game {
 
     /**
      * Return true if the player has won i.e. there is only one remaining peg on the board
+     *
      * @return true iff the player has gotten rid of all pegs except one
      */
     boolean hasWon() {
@@ -82,9 +84,10 @@ public class PegSolitaireManager implements Serializable, Game {
 
     /**
      * Allow the user to see the possible moves that can be made based on the position.
+     *
      * @param position position of the peg being moved
      */
-    public void seePossibleMoves(int position) {
+    void seePossibleMoves(int position) {
         int row = position / PegSolitaireBoard.NUM_ROWS;
         int col = position % PegSolitaireBoard.NUM_COLS;
         pegBoard.addOrRemoveHighlight(row, col);
@@ -97,10 +100,11 @@ public class PegSolitaireManager implements Serializable, Game {
 
     /**
      * Modify the game state with the move chosen.
+     *
      * @param position1 the position of the moving peg
      * @param position2 the position the peg is moving into, should be empty
      */
-    public void touchMove(int position1, int position2) {
+    void touchMove(int position1, int position2) {
         int row1 = position1 / PegSolitaireBoard.NUM_ROWS;
         int col1 = position1 % PegSolitaireBoard.NUM_COLS;
         int row2 = position2 / PegSolitaireBoard.NUM_ROWS;
@@ -118,6 +122,7 @@ public class PegSolitaireManager implements Serializable, Game {
 
     /**
      * Return true if the certain move chosen is possible to complete.
+     *
      * @return true iff the certain move chosen is possible to complete
      */
     public boolean isValidTap(int position) {
@@ -126,9 +131,10 @@ public class PegSolitaireManager implements Serializable, Game {
 
     /**
      * Return true if the second tap is valid.
+     *
      * @return true iff the second tap is valid.
      */
-    public boolean isValidSecondTap(int previousMove, int position) {
+    boolean isValidSecondTap(int previousMove, int position) {
         int row = position / PegSolitaireBoard.NUM_ROWS;
         int col = position % PegSolitaireBoard.NUM_COLS;
 
@@ -140,7 +146,8 @@ public class PegSolitaireManager implements Serializable, Game {
         return false;
     }
 
-    /** Return a list of valid moves.
+    /**
+     * Return a list of valid moves.
      *
      * @param position the position of the user's tap
      * @return the list of valid moves that can be made in the form of [row, column]
@@ -163,11 +170,14 @@ public class PegSolitaireManager implements Serializable, Game {
         if (pegBoard.getPegTile(row, col).getId() == 2) {
             if (twoAbove != null && oneAbove != null && twoAbove.getId() == 1 && oneAbove.getId() == 2) {
                 validMoves.add(Arrays.asList(row - 2, col));
-            } if (twoBelow != null && oneBelow != null && twoBelow.getId() == 1 && oneBelow.getId() == 2) {
+            }
+            if (twoBelow != null && oneBelow != null && twoBelow.getId() == 1 && oneBelow.getId() == 2) {
                 validMoves.add(Arrays.asList(row + 2, col));
-            } if (twoLeft != null && oneLeft != null && twoLeft.getId() == 1 && oneLeft.getId() == 2) {
+            }
+            if (twoLeft != null && oneLeft != null && twoLeft.getId() == 1 && oneLeft.getId() == 2) {
                 validMoves.add(Arrays.asList(row, col - 2));
-            } if (twoRight != null && oneRight != null && twoRight.getId() == 1 && oneRight.getId() == 2) {
+            }
+            if (twoRight != null && oneRight != null && twoRight.getId() == 1 && oneRight.getId() == 2) {
                 validMoves.add(Arrays.asList(row, col + 2));
             }
         }
@@ -177,11 +187,12 @@ public class PegSolitaireManager implements Serializable, Game {
 
     /**
      * Return the score of the current game
+     *
      * @return the score of the current game
      */
     public int getScore() {
-        Stack<List> stackOfMoves= GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.GAME_NAME);
-        double tempScore = Math.pow((stackOfMoves.size() + 2*GameLauncher.getCurrentUser().getNumOfUndos(PegSolitaireManager.GAME_NAME)), -1);
+        Stack<List> stackOfMoves = GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.GAME_NAME);
+        double tempScore = Math.pow((stackOfMoves.size() + 2 * GameLauncher.getCurrentUser().getNumOfUndos(PegSolitaireManager.GAME_NAME)), -1);
         //if 6, multiply by 10000
         if (PegSolitaireBoard.NUM_ROWS == 6) {
             return (int) Math.round(tempScore * 10000);

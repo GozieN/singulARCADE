@@ -4,45 +4,47 @@ import android.widget.Spinner;
 
 public class SetUpAndStartController {
 
-    SetUpAndStartController() {}
+    SetUpAndStartController() {
+    }
 
     public Object setGameManager(String game) {
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             return GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
-        }
-        else {
+        } else {
             return GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
         }
     }
 
     /**
      * Return a solvable SlidingTilesManager
+     *
      * @param shape the size of the board
      * @return a solvable SlidingTilesManager
      */
     public SlidingTilesManager setSolvableBoardManager(int shape) {
         SlidingTilesBoard.setDimensions(shape);
         SlidingTilesManager gameManager = new SlidingTilesManager();
-        while (! gameManager.isSolvable()) {
+        while (!gameManager.isSolvable()) {
             gameManager = new SlidingTilesManager();
         }
         return gameManager;
     }
 
     public int setBoardShape(String game, Spinner spinnerBoardShape) {
-        if(spinnerBoardShape != null && spinnerBoardShape.getSelectedItem() !=null ) {
+        if (spinnerBoardShape != null && spinnerBoardShape.getSelectedItem() != null) {
             if (game.equals(SlidingTilesManager.GAME_NAME) || game.equals(MemoryBoardManager.GAME_NAME)) {
-                if(spinnerBoardShape != null && spinnerBoardShape.getSelectedItem() !=null ) {
+                if (spinnerBoardShape != null && spinnerBoardShape.getSelectedItem() != null) {
                     String boardSelection = (String) spinnerBoardShape.getSelectedItem();
                     return Character.getNumericValue(boardSelection.charAt(0));
                 }
-            }
-            else {
+            } else {
                 if (spinnerBoardShape.getSelectedItem().equals("Square")) {
                     return 6;
-                } if (spinnerBoardShape.getSelectedItem().equals("Cross")) {
+                }
+                if (spinnerBoardShape.getSelectedItem().equals("Cross")) {
                     return 7;
-                } if (spinnerBoardShape.getSelectedItem().equals("Diamond")) {
+                }
+                if (spinnerBoardShape.getSelectedItem().equals("Diamond")) {
                     return 9;
                 }
             }
@@ -52,17 +54,16 @@ public class SetUpAndStartController {
 
     /**
      * Return the new userManager depending on the game being played
+     *
      * @param game the name of the game being played
      * @return the new userManager depending on the game being played
      */
     public Object newGameManager(String game) {
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             return new SlidingTilesManager();
-        }
-        else if (game.equals(PegSolitaireManager.GAME_NAME)) {
+        } else if (game.equals(PegSolitaireManager.GAME_NAME)) {
             return new PegSolitaireManager();
-        }
-        else { //game.equals(MemoryBoardManager.GAME_NAME)
+        } else { //game.equals(MemoryBoardManager.GAME_NAME)
             return new MemoryBoardManager();
         }
     }

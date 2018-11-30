@@ -2,6 +2,7 @@ package fall2018.csc2017.slidingtiles;
 
 import android.content.Context;
 import android.widget.Button;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +38,7 @@ public class PlaySlidingTilesController {
      *
      * @param context the context
      */
-      public void createTileButtons(Context context, SlidingTilesManager inputSlidingTilesManager) {
+    public void createTileButtons(Context context, SlidingTilesManager inputSlidingTilesManager) {
         slidingTilesManager = inputSlidingTilesManager;
         Board board = slidingTilesManager.getBoard();
         tileButtons = new ArrayList<>();
@@ -67,13 +68,14 @@ public class PlaySlidingTilesController {
 
     /**
      * Return a string that corresponds to if an undo can be used or that are available
+     *
      * @return a string that corresponds to if an undo can be used or that are available
      */
     public String usedNumberOfUndos() {
         numberOfUndos = GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME);
         if (numberOfUndos < SetUpActivity.undoLimit) {
             Stack totalStates = GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME);
-            if(totalStates.size() != 0) {
+            if (totalStates.size() != 0) {
                 List state = GameLauncher.getCurrentUser().getState(SlidingTilesManager.GAME_NAME);
                 int row1 = (Integer) state.get(2);
                 int col1 = (Integer) state.get(3);
@@ -83,8 +85,7 @@ public class PlaySlidingTilesController {
                 numberOfUndos++;
                 GameLauncher.getCurrentUser().setNumOfUndos(SlidingTilesManager.GAME_NAME, numberOfUndos);
                 return "setNumberOfMovesText";
-            }
-            else {
+            } else {
                 return "NoUndoText";
             }
         }
@@ -110,6 +111,7 @@ public class PlaySlidingTilesController {
 
     /**
      * Return the number of moves made by the user.
+     *
      * @return number of moves
      */
     public int getNumberOfMoves() {
@@ -118,6 +120,7 @@ public class PlaySlidingTilesController {
 
     /**
      * Return the number of undos made by the user.
+     *
      * @return number of undos
      */
     public int getNumberOfUndos() {

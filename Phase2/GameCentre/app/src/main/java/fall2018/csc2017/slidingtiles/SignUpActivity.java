@@ -46,15 +46,13 @@ public class SignUpActivity extends AppCompatActivity {
                 String password = newPasswordInput.getText().toString().trim();
 
 
-                if (username.isEmpty() || password.isEmpty()){
+                if (username.isEmpty() || password.isEmpty()) {
                     makeToastNoInputProvidedText();
-                }
-                else if(userManager.signUp(username, password)){
+                } else if (userManager.signUp(username, password)) {
                     GameLauncher.setCurrentUser(userManager.lastAddedUser());
                     makeToastSignUpSuccessful();
                     switchToCreateAccount();
-                }
-                else{
+                } else {
                     makeToastSignUpUnsuccessful();
                 }
             }

@@ -46,9 +46,12 @@ public class SlidingTilesBoard extends Board {
 
     /**
      * Return all the tiles for the board
+     *
      * @return all the tiles for the board
      */
-    SlidingTile[][] getTiles() {return tiles;}
+    SlidingTile[][] getTiles() {
+        return tiles;
+    }
 
     /**
      * Return the number of tiles on the board.
@@ -70,7 +73,8 @@ public class SlidingTilesBoard extends Board {
         return tiles[row][col];
     }
 
-    /** Changes the dimension constants of the board and makes them n x n
+    /**
+     * Changes the dimension constants of the board and makes them n x n
      *
      * @param dimensions the n x n dimensions of Sliding Tiles Board
      */
@@ -79,11 +83,14 @@ public class SlidingTilesBoard extends Board {
         NUM_ROWS = dimensions;
     }
 
-    /** Return the dimensions of the board.
+    /**
+     * Return the dimensions of the board.
      *
      * @return the dimensions of the board.
      */
-    public int getDimensions() {return NUM_COLS;}
+    public int getDimensions() {
+        return NUM_COLS;
+    }
 
 
     /**
@@ -108,7 +115,6 @@ public class SlidingTilesBoard extends Board {
     }
 
 
-
     @Override
     public String toString() {
         return "SlidingTilesBoard{" +
@@ -117,7 +123,8 @@ public class SlidingTilesBoard extends Board {
     }
 
 
-    /** Return a new Iterator over the Tiles in the SlidingTilesBoard.
+    /**
+     * Return a new Iterator over the Tiles in the SlidingTilesBoard.
      *
      * @return a new Iterator over the Tiles in the SlidingTilesBoard.
      */
@@ -131,12 +138,17 @@ public class SlidingTilesBoard extends Board {
      */
     private class BoardIterator implements Iterator<Tile> {
 
-        /**The row that the next tile in the board is located in.*/
+        /**
+         * The row that the next tile in the board is located in.
+         */
         int row = 0;
-        /**The column that the next tile in the board is located in.*/
+        /**
+         * The column that the next tile in the board is located in.
+         */
         int col = 0;
 
-        /** Return whether the board has another tile.
+        /**
+         * Return whether the board has another tile.
          *
          * @return whether the board has another tile
          */
@@ -145,7 +157,8 @@ public class SlidingTilesBoard extends Board {
             return col <= NUM_COLS - 1 && row <= NUM_ROWS - 1;
         }
 
-        /** Return the next tile in the board.
+        /**
+         * Return the next tile in the board.
          *
          * @return the next tile in the board
          */

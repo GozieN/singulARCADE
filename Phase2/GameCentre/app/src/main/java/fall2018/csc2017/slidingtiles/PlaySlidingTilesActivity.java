@@ -117,11 +117,9 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
                 if (undoText.equals("setNumberOfMovesText")) {
                     setNumberOfUndosText();
                     SaveAndLoad.saveToFile(PlaySlidingTilesActivity.this, LoginActivity.SAVE_FILENAME);
-                }
-                else if (undoText.equals("NoUndoText")) {
+                } else if (undoText.equals("NoUndoText")) {
                     makeToastNoUndoText();
-                }
-                else { //got "UndoLimitText";
+                } else { //got "UndoLimitText";
                     makeToastUndoLimitText();
                 }
             }
@@ -158,11 +156,11 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
             @Override
             public void onClick(View v) {
                 if ((!GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).isEmpty())
-                    || (GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME) != 0)) {
+                        || (GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME) != 0)) {
                     makeToastSavedText();
                     switchToGameCentre();
-                }
-                else {makeToastNoSaveAndQuit();
+                } else {
+                    makeToastNoSaveAndQuit();
                 }
             }
         });
@@ -204,6 +202,7 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         TextView moves = findViewById(R.id.changingNumberOfMoves);
         moves.setText(Integer.toString(numMoves));
     }
+
     /**
      * Set and modify the text showing the number of undos the user completed after each undo the user makes.
      */

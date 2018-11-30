@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 /**
- * A Sliding Tile in a sliding tile puzzle game.
+ * A SlidingTile in a sliding tile puzzle game.
  */
 public class SlidingTile extends Tile implements Comparable<SlidingTile> {
 
@@ -19,7 +19,6 @@ public class SlidingTile extends Tile implements Comparable<SlidingTile> {
     SlidingTile(int id, int background) {
         super(id, background);
     }
-
 
 
     /**
