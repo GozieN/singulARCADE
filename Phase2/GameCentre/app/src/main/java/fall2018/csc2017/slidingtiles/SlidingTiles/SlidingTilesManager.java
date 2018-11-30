@@ -109,12 +109,10 @@ class SlidingTilesManager implements Serializable, Game {
             Tile currentTile = boardIterator.next();
             if (currentTile.getId() == blankId) {
                 returning = i/SlidingTilesBoard.NUM_COLS + 1;
-                //return returning;
             }
             i++;
         }
         return returning;
-        //return SlidingTilesBoard.NUM_COLS;
     }
 
 
@@ -203,15 +201,11 @@ class SlidingTilesManager implements Serializable, Game {
         int inversions = numberOfInversions();
         //if it's odd size and has an even number of inversions, the board is solvable-> return true
         if (board.getDimensions()%2 != 0) {
-            if (inversions%2 == 0){
-                return true;
-            }
-            return false;
+            return inversions % 2 == 0;
         }
         //otherwise it is even size and the rows the blank tile is on is odd, then the board is solvable
         if (blankId % 2 == 0 && inversions % 2 == 0) {return true;}
-        if (blankId % 2 != 0 && inversions %2 != 0) {return true;}
-        return false;
+        return blankId % 2 != 0 && inversions % 2 != 0;
     }
 
     /**

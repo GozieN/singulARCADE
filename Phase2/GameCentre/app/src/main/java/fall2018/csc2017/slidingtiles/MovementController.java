@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 
-class MovementController{
+class MovementController {
 
     private Game boardManager = null;
     private boolean firstMove = true;
@@ -23,7 +23,7 @@ class MovementController{
         if (boardManager instanceof PegSolitaireManager) {
             PegSolitaireManager thisBoard = (PegSolitaireManager) boardManager;
             if (thisBoard.isValidTap(position) && firstMove) {
-                thisBoard.firstMove(position);
+                thisBoard.seePossibleMoves(position);
                 firstMove = false;
                 previousMove = position;
             } else if (thisBoard.isValidSecondTap(previousMove, position) && !firstMove) {
@@ -39,7 +39,7 @@ class MovementController{
                 }
 
             } else if (position == previousMove && !firstMove) {
-                thisBoard.firstMove(position);
+                thisBoard.seePossibleMoves(position);
                 firstMove = true;
             } else {
                 Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
@@ -63,23 +63,24 @@ class MovementController{
             MemoryBoardManager thisBoard = (MemoryBoardManager) boardManager;
             int row = position / MemoryGameBoard.NUM_COLS;
             int col = position % MemoryGameBoard.NUM_COLS;
+            MemoryPuzzleTile tile = thisBoard.getBoard().getMemoryGameTile(row, col);
             if (thisBoard.isValidTap(position)) {
+                PlayMemoryPuzzleController.incrementNumberOfMoves();
                 if (thisBoard.numTileFlipped() == 0) {
-                    firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
+                    firstTap = tile;
                     thisBoard.flipTile(position);
                 } else {
-                    secondTap = thisBoard.getBoard().getMemoryGameTile(row, col);
+                    secondTap = tile;
                     thisBoard.flipTile(position);
                     thisBoard.greyOut(firstTap, secondTap);
                 }
-                if (thisBoard.isOver()) {
-                    Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
-                }
-            } else {
+            } else if (tile.getTopLayer() != R.drawable.memory_tile_38) {
                 thisBoard.flipBack(firstTap, secondTap);
-                firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
-                thisBoard.flipTile(position);
-                //Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+            }
+            if (thisBoard.isOver()) {
+                Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+
+
             }
         }
     }

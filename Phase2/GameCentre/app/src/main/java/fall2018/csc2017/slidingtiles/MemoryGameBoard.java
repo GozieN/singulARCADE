@@ -43,6 +43,10 @@ public class MemoryGameBoard extends Board implements Serializable, Iterable<Mem
     }
 
 
+    /**
+     * Return the number of tiles of the board
+     * @return the number of tiles of the board
+     */
     int numTiles() {
         return NUM_ROWS * NUM_COLS;
     }
@@ -58,7 +62,6 @@ public class MemoryGameBoard extends Board implements Serializable, Iterable<Mem
         NUM_ROWS = dimensions;
     }
 
-    int getDimensions() {return NUM_COLS;}
 
     /**
      * Return the tile at (row, col)
@@ -71,14 +74,19 @@ public class MemoryGameBoard extends Board implements Serializable, Iterable<Mem
         return tiles[row][col];
     }
 
-
-
+    /**
+     * Update the view of this Board
+     */
     void update() {
         setChanged();
         notifyObservers();
     }
 
 
+    /**
+     * Return a string representation of the board
+     * @return a string representation of the board
+     */
     @Override
     public String toString() {
         return "MemoryBoard{" +

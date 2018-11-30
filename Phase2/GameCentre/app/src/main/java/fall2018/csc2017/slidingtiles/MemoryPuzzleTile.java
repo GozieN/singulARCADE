@@ -3,8 +3,6 @@ package fall2018.csc2017.slidingtiles;
 
 import android.support.annotation.NonNull;
 
-import java.io.Serializable;
-
 public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTile> {
 
     /**
@@ -40,10 +38,6 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
     MemoryPuzzleTile(int id, int background) {
         super(id, background);
     }
-
-
-    //TODO: fix this
-
     /**
      * A Memory Puzzle tile with a background id; look up and set the id.
      *
@@ -51,9 +45,7 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
      */
     MemoryPuzzleTile(int backgroundId) {
         super(backgroundId, -1);
-        setId(backgroundId + 1);
         setTopLayer(R.drawable.memory_tile_37);
-        // This looks so ugly.
         switch (backgroundId + 1) {
             case 1:
                 setBackground(R.drawable.memory_tile_1);
@@ -165,22 +157,29 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
                 break;
             case 38:
                 setBackground(R.drawable.memory_tile_38);
+                setTopLayer(R.drawable.memory_tile_38);
                 break;
             default:
-                setBackground(R.drawable.tile_blank);
+                setBackground(R.drawable.tile_25);
         }
     }
 
 //    /**
-//     * A Memory Puzzle tile with a background id, set the id eaquals to the backgroundid
+//     * A Memory Puzzle tile with a background id; look up and set the id.
 //     *
 //     * @param backgroundId the background id of the tile
 //     */
 //    MemoryPuzzleTile(int backgroundId) {
-//        super(backgroundId,-1);
-//        String fileName = "memory_tile_" + backgroundId;
-//        background = App.getContext().getResources().getIdentifier(
-//                fileName, "drawable", "fall2018.csc2017.slidingtiles");
+//        super(backgroundId, -1);
+//        setTopLayer(R.drawable.memory_tile_37);
+//        String Name = "memory_tile_" + getId();
+//        try {
+//            setBackground(R.drawable.class.getField(Name).getInt(null));
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchFieldException e) {
+//            e.printStackTrace();
+//        }
 //    }
 
     @Override
@@ -192,4 +191,3 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
         return -1;
     }
 }
-

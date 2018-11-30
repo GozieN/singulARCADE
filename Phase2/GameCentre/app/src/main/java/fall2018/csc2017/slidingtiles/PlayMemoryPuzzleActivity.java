@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,11 +30,8 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
 
-    PlayMemoryPuzzleController playMemoryPuzzleController;
+    PlayMemoryPuzzleController playMemoryPuzzleController = new PlayMemoryPuzzleController();
 
-    PlayMemoryPuzzleActivity() {
-        playMemoryPuzzleController = new PlayMemoryPuzzleController();
-    }
 
     /**
      * Set up the background image for each button based on the master list
@@ -42,6 +40,7 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
     // Display
     public void display() {
         tileButtons = playMemoryPuzzleController.updateTileButtons();
+        setNumberOfMovesText();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         if (memoryBoardManager.isOver()) {
             switchToScoreBoard();
@@ -105,10 +104,23 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeToastSavedText();
-                switchToGameCentre();
+                if (!GameLauncher.getCurrentUser().getStackOfGameStates(MemoryBoardManager.GAME_NAME).isEmpty()
+                        && (memoryBoardManager.numTileFlipped() == 2 || memoryBoardManager.numberOfMatches() != 0)) {
+                    memoryBoardManager.resetToWhite();
+                    makeToastSavedText();
+                    switchToGameCentre();
+                }
+                else {makeToastNoSaveAndQuit();
+                }
             }
         });
+    }
+
+    /**
+     * Notify user when they have made no moves, so are not allowed to undo
+     */
+    private void makeToastNoSaveAndQuit() {
+        Toast.makeText(this, "Must make a move before saving", Toast.LENGTH_SHORT).show();
     }
 
     private void switchToGameCentre() {
@@ -131,6 +143,15 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
      */
     private void makeToastSavedText() {
         Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Set and modify the text showing the number of moves the user completed after each move the user makes.
+     */
+    public void setNumberOfMovesText() {
+        int numMoves = this.playMemoryPuzzleController.getNumberOfMoves();
+        TextView moves = findViewById(R.id.memChangingNumberOfMoves);
+        moves.setText(Integer.toString(numMoves));
     }
 
     @Override

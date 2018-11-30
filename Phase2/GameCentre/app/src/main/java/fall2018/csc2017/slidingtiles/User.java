@@ -58,7 +58,7 @@ public class User implements Serializable{
         this.recentManagerOfBoard = new HashMap<>();
         recentManagerOfBoard.put(SlidingTilesManager.GAME_NAME, new SlidingTilesManager());
         recentManagerOfBoard.put(PegSolitaireManager.GAME_NAME, new PegSolitaireManager());
-        recentManagerOfBoard.put(MemoryBoardManager.GAME_NAME, new PegSolitaireManager());
+        recentManagerOfBoard.put(MemoryBoardManager.GAME_NAME, new MemoryBoardManager());
 
 
         this.userScoreBoard = new ScoreBoard();

@@ -1,0 +1,44 @@
+An outline of the presentation, must cover at least these points:
+
+# What is your unit test coverage?
+- Most classes have over 75% unit test coverage
+- Those that have less were not possible to properly test without mocking
+  - Includes activities (which are Views for MVC)
+  - Includes methods who call on a context
+  - Includes SaveAndLoad class as that tests the whole program at once
+
+# What are the most important classes in your program?
+- Managers
+    - Board Managers
+        - Allow for only the proper moves of the game to at proper times
+        - Keeps track of the game states
+- Board classes
+       - Keeps track of its’ own game state
+        - Updates tiles when necessary
+- User Manager
+    - Keeps a list of all the users who have signed up for the app
+- Controllers
+    - Allow for the various logic for buttons to occur
+- Tile classes
+    - Without these, there would be nothing to put on the playing screens!
+
+# What design patterns did you use? What problems do each of them solve?
+- MVC
+    - this allowed us to create unit tests for the controllers and to separate logic from view
+- Interfaces
+    - Game interface
+        - All three game managers implement it; this forced each manager class to contain certain necessary methods
+- Inheritance
+    - Board  super class
+        - All three games extend Board as they inherit certain methods from it
+- Abstract Tile class
+    - All three games are tile games; therefore they all use tiles and should implement their tile classes in similar fashion
+- Observer pattern
+    - When say something is altered to the board in board manager, we update board
+
+# How did you design your scoreboard? Where are high scores stored? How do they get displayed?
+- High scores for each User
+    - Saved within the user
+- High scores for each game
+    - Saved within each game’s board manager
+

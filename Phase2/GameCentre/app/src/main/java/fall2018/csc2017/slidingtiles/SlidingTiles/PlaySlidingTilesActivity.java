@@ -38,11 +38,8 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
      * of positions, and then call the adapter to set the view.
      */
 
-    PlaySlidingTilesController playSlidingTilesController;
+    PlaySlidingTilesController playSlidingTilesController = new PlaySlidingTilesController();
 
-    PlaySlidingTilesActivity() {
-        this.playSlidingTilesController  = new PlaySlidingTilesController();
-    }
 
     // Display
     public void display() {
@@ -171,11 +168,17 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
         });
     }
 
+    /**
+     * Move to GameCentreActivity
+     */
     public void switchToGameCentre() {
         Intent tmp = new Intent(this, GameCentreActivity.class);
         startActivity(tmp);
     }
 
+    /**
+     * Move to ScoreBoardActivity
+     */
     public void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
         List<Boolean> takenScores = playSlidingTilesController.endOfGame(slidingTilesManager);

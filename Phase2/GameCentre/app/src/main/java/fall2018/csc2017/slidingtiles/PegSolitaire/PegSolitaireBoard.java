@@ -1,11 +1,8 @@
 package fall2018.csc2017.slidingtiles;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Observable;
-import java.io.Serializable;
 
 /**
  * The Peg Solitaire board.
@@ -46,7 +43,7 @@ public class PegSolitaireBoard extends Board {
         }
     }
 
-    /**
+    /** Set up a square peg solitaire board.
      *
      */
     private void setUpSquareBoard() {
@@ -54,7 +51,7 @@ public class PegSolitaireBoard extends Board {
 
     }
 
-    /**
+    /** Set up a cross peg solitaire board.
      *
      */
     private void setUpCrossBoard() {
@@ -69,7 +66,7 @@ public class PegSolitaireBoard extends Board {
         }
     }
 
-    /**
+    /** Set up a diamond peg solitaire board.
      *
      */
     private void setUpDiamondBoard() {
@@ -88,6 +85,13 @@ public class PegSolitaireBoard extends Board {
         }
     }
 
+    /** Set up a row in a diamond peg solitaire board.
+     *
+     * @param row the index that indicates the row needing to be filled up
+     * @param i the index indicating the lower bound of the full pegs
+     * @param j the index indicating the upper bound of the full pegs
+     * @param tileRow the row of PegSolitaireTiles that need to be set
+     */
     private void fillUpDiamondRow(int row, int i, int j, PegSolitaireTile[] tileRow) {
         for (int k = 0; k != tileRow.length; k++) {
             if (k < i || k > j) {
@@ -98,6 +102,10 @@ public class PegSolitaireBoard extends Board {
         }
     }
 
+    /**Return the number of pieces on the peg solitaire board.
+     *
+     * @return the number of pegs on the peg solitaire board.
+     */
     int numPieces() {
         return NUM_ROWS*NUM_COLS;
     }
@@ -160,10 +168,6 @@ public class PegSolitaireBoard extends Board {
      * @param col2 the second tile col
      */
     List<Integer> moveGamepiece(int row1, int col1, int row2, int col2) {
-        PegSolitaireTile temporaryTile = this.getPegTile(row1, col1);
-        //tiles[row1][col1] = tiles[row2][col2];
-        //tiles[row2][col2] = temporaryTile;
-
         tiles[row1][col1].setId(1, false);
         tiles[row2][col2].setId(2, false);
 
@@ -176,12 +180,8 @@ public class PegSolitaireBoard extends Board {
         } else if (col1 - col2 == 2) {
             tiles[row1][col2 + 1].setId(1, false);
         }
-
-        // store new tile as well?
         update();
         return Arrays.asList(row1, col1, row2, col2);
-
-        // row1, col1 refers to the "full" tile, row2, col2 refers to the "empty" tile
     }
 
     /**

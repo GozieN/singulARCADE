@@ -79,6 +79,10 @@ public class SlidingTilesBoard extends Board {
         NUM_ROWS = dimensions;
     }
 
+    /** Return the dimensions of the board.
+     *
+     * @return the dimensions of the board.
+     */
     public int getDimensions() {return NUM_COLS;}
 
 

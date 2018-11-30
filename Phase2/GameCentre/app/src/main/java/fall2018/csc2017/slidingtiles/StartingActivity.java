@@ -30,12 +30,6 @@ public class StartingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         game = getIntent().getStringExtra("welcomeText");
         gameManager = (Game) startController.newGameManager(game);
-
-        //add this to helper function
-//        if (game.equals(MemoryBoardManager.GAME_NAME)) {
-//            gameManager = new MemoryBoardManager();
-//        }
-
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
         addLoadButtonListener();
@@ -110,6 +104,7 @@ public class StartingActivity extends AppCompatActivity {
      * Switch to the GameActivity view to play the game.
      */
     private void switchToGame() {
+        boolean loadedGame = true;
         Intent tmp;
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             tmp = new Intent(this, PlaySlidingTilesActivity.class);
@@ -119,10 +114,18 @@ public class StartingActivity extends AppCompatActivity {
             tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
         }
         SaveAndLoad.loadFromFile(StartingActivity.this, LoginActivity.SAVE_FILENAME);
-        if (GameLauncher.getCurrentUser().getStackOfGameStates(game).isEmpty()
+        if (game.equals(MemoryBoardManager.GAME_NAME)) {
+            if (GameLauncher.getCurrentUser().getStackOfGameStates(game).isEmpty()) {
+                makeToastNoGameToLoadText();
+                loadedGame = false;
+            }
+        }
+        else if (GameLauncher.getCurrentUser().getStackOfGameStates(game).isEmpty()
                 && GameLauncher.getCurrentUser().getNumOfUndos(game) == 0) {
             makeToastNoGameToLoadText();
-        } else {
+            loadedGame = false;
+        }
+        if (loadedGame) {
             startActivity(tmp);
         }
     }

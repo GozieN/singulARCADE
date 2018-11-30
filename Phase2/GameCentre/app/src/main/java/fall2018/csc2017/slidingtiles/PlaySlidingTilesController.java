@@ -2,7 +2,6 @@ package fall2018.csc2017.slidingtiles;
 
 import android.content.Context;
 import android.widget.Button;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,8 +22,12 @@ public class PlaySlidingTilesController {
     /**
      * The number of times a user has clicked the undo button.
      */
-    private static int numberOfUndos = 0;
-    private static int numberOfMoves = 0;
+    public static int numberOfUndos = 0;
+    /**
+     * The number of times a user has made a move.
+     */
+
+    public static int numberOfMoves = 0;
 
     PlaySlidingTilesController() {
     }
@@ -62,6 +65,10 @@ public class PlaySlidingTilesController {
         return tileButtons;
     }
 
+    /**
+     * Return a string that corresponds to if an undo can be used or that are available
+     * @return a string that corresponds to if an undo can be used or that are available
+     */
     public String usedNumberOfUndos() {
         numberOfUndos = GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME);
         if (numberOfUndos < SetUpActivity.undoLimit) {
@@ -91,20 +98,28 @@ public class PlaySlidingTilesController {
         Integer score = slidingTilesManager.getScore();
         boolean newGameScore = SlidingTilesManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         boolean newUserScore = GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, score);
-        System.out.println("END OF GAME:");
-        System.out.println(newGameScore);
-        System.out.println(newUserScore);
         return Arrays.asList(newGameScore, newUserScore);
     }
 
+    /**
+     * Increase moves by 1 each time a move is made
+     */
     public static void incrementNumberOfMoves() {
         numberOfMoves++;
     }
 
+    /**
+     * Return the number of moves made by the user.
+     * @return number of moves
+     */
     public int getNumberOfMoves() {
         return numberOfMoves;
     }
 
+    /**
+     * Return the number of undos made by the user.
+     * @return number of undos
+     */
     public int getNumberOfUndos() {
         return numberOfUndos;
     }

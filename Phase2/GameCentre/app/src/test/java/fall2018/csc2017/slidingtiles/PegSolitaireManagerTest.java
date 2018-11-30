@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class PegSolitaireManagerTest {
 
@@ -117,12 +117,12 @@ public class PegSolitaireManagerTest {
     }
 
     /**
-     * Test whether the first move in order to complete the position works.
+     * Test whether all possible moves that can be made are highlighted.
      */
     @Test
-    public void testFirstMove() {
+    public void testSeePossibleMoves() {
         setUpDiamondStart();
-        boardManager.firstMove(38);
+        boardManager.seePossibleMoves(38);
         assertEquals(true, boardManager.getBoard().getPegTile(4, 2).isHighlight());
         assertEquals(true, boardManager.getBoard().getPegTile(4, 4).isHighlight());
 
@@ -135,7 +135,7 @@ public class PegSolitaireManagerTest {
     public void testIsValidSecondTap() {
         setUpDiamondStart();
         int firstMovePosition = 38;
-        boardManager.firstMove(firstMovePosition);
+        boardManager.seePossibleMoves(firstMovePosition);
         // position of invalid move
         assertEquals(false, boardManager.isValidSecondTap(firstMovePosition, 22));
         // position of invalid move
@@ -156,7 +156,7 @@ public class PegSolitaireManagerTest {
         boardManager.touchMove(59, 41);
         boardManager.touchMove(57, 59);
         int firstMovePosition = 40;
-        boardManager.firstMove(firstMovePosition);
+        boardManager.seePossibleMoves(firstMovePosition);
         boardManager.touchMove(firstMovePosition, 42);
         assertEquals(true, boardManager.getBoard().getPegTile(4, 6).getId() == 2);
         assertEquals(true, boardManager.getBoard().getPegTile(4, 4).getId() == 1);
@@ -207,11 +207,11 @@ public class PegSolitaireManagerTest {
         assertEquals(10000, pegSolitaireManager.getScore());
 
         //When you have completed some moves on a 5x5 board
-        pegSolitaireManager.getBoard().setDimensions(7);
+        PegSolitaireBoard.setDimensions(7);
         assertEquals(6667, pegSolitaireManager.getScore());
 
         //When you have completed some moves on a 3x3 board
-        pegSolitaireManager.getBoard().setDimensions(6);
+        PegSolitaireBoard.setDimensions(6);
         assertEquals(3333, pegSolitaireManager.getScore());
 
     }
@@ -223,7 +223,7 @@ public class PegSolitaireManagerTest {
     public void testUndoMove() {
         setUpDiamondStart();
         int firstMovePosition = 42;
-        boardManager.firstMove(firstMovePosition);
+        boardManager.seePossibleMoves(firstMovePosition);
         boardManager.touchMove(firstMovePosition, 40);
 
     }
