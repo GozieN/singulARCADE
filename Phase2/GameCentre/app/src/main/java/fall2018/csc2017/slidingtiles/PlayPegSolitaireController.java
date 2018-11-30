@@ -23,11 +23,8 @@ public class PlayPegSolitaireController {
     /**
      * The number of times a user has clicked the undo button.
      */
-    static int numberOfUndos = 0;
-    /**
-     * The number of moves a user has made.
-     */
-    static int numberOfMoves = 0;
+    public static int numberOfUndos = 0;
+    public static int numberOfMoves = 0;
 
     PlayPegSolitaireController() {}
 

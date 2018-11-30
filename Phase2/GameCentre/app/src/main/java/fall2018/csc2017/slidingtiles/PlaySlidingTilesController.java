@@ -2,7 +2,6 @@ package fall2018.csc2017.slidingtiles;
 
 import android.content.Context;
 import android.widget.Button;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,11 +22,12 @@ public class PlaySlidingTilesController {
     /**
      * The number of times a user has clicked the undo button.
      */
-    static int numberOfUndos = 0;
+    public static int numberOfUndos = 0;
     /**
-     * The number of moves a user has made.
+     * The number of times a user has made a move.
      */
-    static int numberOfMoves = 0;
+
+    public static int numberOfMoves = 0;
 
     PlaySlidingTilesController() {
     }
@@ -94,20 +94,27 @@ public class PlaySlidingTilesController {
         Integer score = slidingTilesManager.getScore();
         boolean newGameScore = SlidingTilesManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         boolean newUserScore = GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, score);
-        System.out.println("END OF GAME:");
-        System.out.println(newGameScore);
-        System.out.println(newUserScore);
         return Arrays.asList(newGameScore, newUserScore);
     }
+    /**
+     * Increase moves by 1 each time a move is made
+     */
 
     public static void incrementNumberOfMoves() {
         numberOfMoves++;
     }
 
+    /**
+     * Return the number of moves made by the user.
+     * @return int
+     */
     public int getNumberOfMoves() {
         return numberOfMoves;
     }
-
+    /**
+     * Return the number of undos made by the user.
+     * @return int
+     */
     public int getNumberOfUndos() {
         return numberOfUndos;
     }

@@ -1,31 +1,19 @@
 package fall2018.csc2017.slidingtiles;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Stack;
 
 
 public class PlayPegSolitaireActivity extends AppCompatActivity implements Observer {
@@ -189,7 +177,6 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
 
     /**
      * Set and modify the text showing the number of moves the user completed after each move the user makes.
-     * TODO: if a new xml file is made then change the id of the TextView box
      */
     public void setNumberOfMovesText() {
         int numMoves = this.playPegSolitaireController.getNumberOfMoves();
@@ -199,7 +186,6 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
 
     /**
      * Set and modify the text showing the number of undos the user completed after each undo the user makes.
-     * TODO: if a new xml file is made then change the id of the TextView box
      */
     public void setNumberOfUndosText() {
         int numberOfUndos = this.playPegSolitaireController.getNumberOfUndos();

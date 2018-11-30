@@ -57,12 +57,12 @@ public class SetUpAndStartControllerTest {
         //SlidingTilesManager
         SlidingTilesManager newSlidingTilesManager = (SlidingTilesManager)
                 setUpAndStartController.newGameManager(SlidingTilesManager.GAME_NAME);
-        assertEquals(0, newSlidingTilesManager.getBoard().getDimensions());
+        assertEquals(4, newSlidingTilesManager.getBoard().getDimensions());
 
         //PegSolitaireManager
         PegSolitaireManager newPegSolitaireManager = (PegSolitaireManager)
                 setUpAndStartController.newGameManager(PegSolitaireManager.GAME_NAME);
-        assertEquals(81, newPegSolitaireManager.getBoard().getDimensions());
+        assertEquals(16, newPegSolitaireManager.getBoard().getDimensions());
 
         //MemoryBoardManager
         MemoryBoardManager newMemoryBoardManager = (MemoryBoardManager)

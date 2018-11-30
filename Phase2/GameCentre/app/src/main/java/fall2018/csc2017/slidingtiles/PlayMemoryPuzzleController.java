@@ -19,6 +19,12 @@ public class PlayMemoryPuzzleController {
      */
     private ArrayList<Button> tileButtons;
 
+    /**
+     * The number of times a user has made a move.
+     */
+
+    public static int numberOfMoves = 0;
+
     PlayMemoryPuzzleController() {
     }
 
@@ -63,6 +69,23 @@ public class PlayMemoryPuzzleController {
         boolean newGameScore = MemoryBoardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         boolean newUserScore = GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(MemoryBoardManager.GAME_NAME, score);
         return Arrays.asList(newGameScore, newUserScore);
+    }
+
+
+    /**
+     * Increase moves by 1 each time a move is made
+     */
+
+    public static void incrementNumberOfMoves() {
+        numberOfMoves++;
+    }
+
+    /**
+     * Return the number of moves made by the user.
+     * @return int
+     */
+    public int getNumberOfMoves() {
+        return numberOfMoves;
     }
 
 }

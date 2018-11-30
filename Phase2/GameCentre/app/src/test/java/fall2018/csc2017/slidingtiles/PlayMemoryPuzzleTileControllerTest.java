@@ -1,5 +1,4 @@
 package fall2018.csc2017.slidingtiles;
-import android.widget.Button;
 
 import org.junit.Test;
 
@@ -10,10 +9,19 @@ import static org.junit.Assert.*;
 
 public class PlayMemoryPuzzleTileControllerTest {
 
+    /**
+     * The memory board manager used in the tests.
+     */
     MemoryBoardManager memoryBoardManager;
-    User user;
-    ArrayList<Button> tileButtons;
 
+    /**
+     * The user used in the tests.
+     */
+    User user;
+
+    /**
+     * The playMemoryPuzzleController used in the tests.
+     */
     PlayMemoryPuzzleController playMemoryPuzzleController = new PlayMemoryPuzzleController();
 
     /**
@@ -30,6 +38,9 @@ public class PlayMemoryPuzzleTileControllerTest {
     }
 
 
+    /**
+     * Make a solved board and have it set to a boardManager inside of the current user.
+     */
     private void setUpCorrect() {
         user = new User("Test", "Test");
 
@@ -46,11 +57,9 @@ public class PlayMemoryPuzzleTileControllerTest {
 
     }
 
-    @Test
-    public void TestCreateAndUpdateTileButtons() {
-        setUpCorrect();
-    }
-
+    /**
+     * Test endOfGame works.
+     */
     @Test
     public void TestEndOfGame() {
         setUpCorrect();

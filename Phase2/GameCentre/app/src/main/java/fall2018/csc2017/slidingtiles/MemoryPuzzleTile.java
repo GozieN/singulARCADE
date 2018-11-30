@@ -3,8 +3,6 @@ package fall2018.csc2017.slidingtiles;
 
 import android.support.annotation.NonNull;
 
-import java.io.Serializable;
-
 public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTile> {
 
     /**
@@ -51,9 +49,7 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
      */
     MemoryPuzzleTile(int backgroundId) {
         super(backgroundId, -1);
-        setId(backgroundId + 1);
         setTopLayer(R.drawable.memory_tile_37);
-        // This looks so ugly.
         switch (backgroundId + 1) {
             case 1:
                 setBackground(R.drawable.memory_tile_1);
@@ -171,18 +167,6 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
                 setBackground(R.drawable.tile_blank);
         }
     }
-
-//    /**
-//     * A Memory Puzzle tile with a background id, set the id eaquals to the backgroundid
-//     *
-//     * @param backgroundId the background id of the tile
-//     */
-//    MemoryPuzzleTile(int backgroundId) {
-//        super(backgroundId,-1);
-//        String fileName = "memory_tile_" + backgroundId;
-//        background = App.getContext().getResources().getIdentifier(
-//                fileName, "drawable", "fall2018.csc2017.slidingtiles");
-//    }
 
     @Override
     public int compareTo(@NonNull MemoryPuzzleTile memoryPuzzleTile) {
