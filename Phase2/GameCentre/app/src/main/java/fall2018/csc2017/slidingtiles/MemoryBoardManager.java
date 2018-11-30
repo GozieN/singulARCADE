@@ -46,8 +46,13 @@ class MemoryBoardManager implements Serializable, Game {
         List<MemoryPuzzleTile> tiles = new ArrayList<>();
         final int numTiles = MemoryGameBoard.NUM_ROWS * MemoryGameBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new MemoryPuzzleTile(tileNum));
-        }
+            if (numTiles == 25 && tileNum == 24){
+                tiles.add(new MemoryPuzzleTile(37));
+
+            }
+            else{
+                tiles.add(new MemoryPuzzleTile(tileNum));
+            }}
         Collections.shuffle(tiles);
         this.board = new MemoryGameBoard(tiles);
         gameScoreBoard = new ScoreBoard();
