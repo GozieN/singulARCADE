@@ -29,11 +29,8 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
 
-    PlayMemoryPuzzleController playMemoryPuzzleController;
+    PlayMemoryPuzzleController playMemoryPuzzleController = new PlayMemoryPuzzleController();
 
-    PlayMemoryPuzzleActivity() {
-        playMemoryPuzzleController = new PlayMemoryPuzzleController();
-    }
 
     /**
      * Set up the background image for each button based on the master list

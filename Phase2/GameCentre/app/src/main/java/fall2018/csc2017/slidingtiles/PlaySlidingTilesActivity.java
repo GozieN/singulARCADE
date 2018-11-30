@@ -38,11 +38,8 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
      * of positions, and then call the adapter to set the view.
      */
 
-    PlaySlidingTilesController playSlidingTilesController;
+    PlaySlidingTilesController playSlidingTilesController = new PlaySlidingTilesController();
 
-    PlaySlidingTilesActivity() {
-        this.playSlidingTilesController  = new PlaySlidingTilesController();
-    }
 
     // Display
     public void display() {
