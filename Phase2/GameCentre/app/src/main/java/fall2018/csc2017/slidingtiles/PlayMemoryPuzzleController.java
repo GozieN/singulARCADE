@@ -19,11 +19,6 @@ public class PlayMemoryPuzzleController {
      */
     private ArrayList<Button> tileButtons;
 
-    /**
-     * The number of times a user has clicked the undo button.
-     */
-    static int numberOfUndos;
-
     PlayMemoryPuzzleController() {
     }
 
