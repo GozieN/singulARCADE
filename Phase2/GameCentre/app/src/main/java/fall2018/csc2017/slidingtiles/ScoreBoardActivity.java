@@ -76,6 +76,8 @@ public class ScoreBoardActivity extends AppCompatActivity {
     private void setSnackBar(boolean newGameScore, boolean newUserScore) {
         final Snackbar snackbar;
         ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
+        System.out.println(newGameScore);
+        System.out.println(newUserScore);
         if (newGameScore && newUserScore) {
             snackbar = Snackbar.make(constraintLayout, "New game and personal high score!", Snackbar.LENGTH_INDEFINITE);
             showSnackbar(snackbar);

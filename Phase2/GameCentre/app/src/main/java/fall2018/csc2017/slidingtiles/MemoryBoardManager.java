@@ -123,11 +123,13 @@ class MemoryBoardManager implements Serializable, Game {
     /**
      * Flip the flipped MemoryPuzzleTile back to a white tile.
      *
-     * @param tap the MemoryPuzzleTile that the user tapped on
+     * @param firstTap  the first MemoryPuzzleTile that the user tapped on
+     * @param secondTap the second MemoryPuzzleTile that the user tapped on
      */
-    public void flipBack(MemoryPuzzleTile tap) {
-        if (tap.getTopLayer() != R.drawable.memory_tile_38) {
-            tap.setTopLayer(R.drawable.memory_tile_37);
+    public void flipBack(MemoryPuzzleTile firstTap, MemoryPuzzleTile secondTap) {
+        if (firstTap.compareTo(secondTap) != 0) {
+            firstTap.setTopLayer(R.drawable.memory_tile_37);
+            secondTap.setTopLayer(R.drawable.memory_tile_37);
         }
         board.update();
     }
@@ -154,7 +156,7 @@ class MemoryBoardManager implements Serializable, Game {
      * @return the score of the current game
      */
     public int getScore() {
-        Stack<List> stackOfMoves = GameLauncher.getCurrentUser().getStackOfGameStates("Memory Puzzle");
+        Stack<List> stackOfMoves = GameLauncher.getCurrentUser().getStackOfGameStates(GAME_NAME);
         double tempScore = Math.pow((stackOfMoves.size()), -1);
         //if 4, multiply by 10000
         if (MemoryGameBoard.NUM_ROWS == 4) {
