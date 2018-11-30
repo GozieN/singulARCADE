@@ -67,20 +67,28 @@ class MovementController{
                 if (thisBoard.numTileFlipped() == 0) {
                     firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
                     thisBoard.flipTile(position);
-                } else {
+                } else{
                     secondTap = thisBoard.getBoard().getMemoryGameTile(row, col);
                     thisBoard.flipTile(position);
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
                     thisBoard.greyOut(firstTap, secondTap);
+                    thisBoard.flipBack(firstTap);
+                    firstTap = secondTap;
                 }
                 if (thisBoard.isOver()) {
                     Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                thisBoard.flipBack(firstTap, secondTap);
-                firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
-                thisBoard.flipTile(position);
-                //Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+//                thisBoard.flipBack(firstTap, secondTap);
+//                firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
+//                thisBoard.flipTile(position);
+                Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
             }
         }
+
     }
 }
