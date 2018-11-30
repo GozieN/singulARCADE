@@ -43,6 +43,7 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
     // Display
     public void display() {
         tileButtons = playMemoryPuzzleController.updateTileButtons();
+        setNumberOfMovesText();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         if (memoryBoardManager.isOver()) {
             switchToScoreBoard();
