@@ -28,7 +28,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     }
     /**
-     * Activate Scoreboard Button
+     * Activate the Scoreboard Button
      */
     private void addScoreBoardButtonListener() {
         Button userScoreBoardButton = findViewById(R.id.userScoreBoard);

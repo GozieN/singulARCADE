@@ -15,7 +15,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * The game activity.
+ * The Sliding Tiles Game activity.
  */
 public class PlaySlidingTilesActivity extends AppCompatActivity implements Observer {
 

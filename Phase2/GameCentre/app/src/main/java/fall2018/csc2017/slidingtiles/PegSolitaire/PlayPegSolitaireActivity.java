@@ -58,6 +58,9 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SaveAndLoad.loadFromFile(PlayPegSolitaireActivity.this, LoginActivity.SAVE_FILENAME);
+        pegSolitaireManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.getName());
+        Integer size = getIntent().getIntExtra("shape", 6);
+        PegSolitaireBoard.setDimensions(size);
         pegSolitaireManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
         playPegSolitaireController.createTileButtons(this, pegSolitaireManager);
 
@@ -104,8 +107,8 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((!GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.GAME_NAME).isEmpty())
-                        || (GameLauncher.getCurrentUser().getNumOfUndos(PegSolitaireManager.GAME_NAME) != 0)) {
+                if ((!GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.getName()).isEmpty())
+                        || (GameLauncher.getCurrentUser().getNumOfUndos(PegSolitaireManager.getName()) != 0)) {
                     makeToastSavedText();
                     switchToGameCentre();
                 }
@@ -128,7 +131,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
      */
     private void switchToSetUp() {
         Intent tmp = new Intent(this, SetUpActivity.class);
-        tmp.putExtra("game", PegSolitaireManager.GAME_NAME);
+        tmp.putExtra("game", PegSolitaireManager.getName());
         startActivity(tmp);
     }
 
@@ -138,10 +141,10 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     private void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
         List<Boolean> takenScores = playPegSolitaireController.endOfGame(pegSolitaireManager);
-        ScoreBoardActivity.newGameScore = takenScores.get(0);
-        ScoreBoardActivity.newUserScore = takenScores.get(1);
-        tmp.putExtra("scores", PegSolitaireManager.pegScoreBoard.toString());
-        tmp.putExtra("game", PegSolitaireManager.GAME_NAME);
+        ScoreBoardActivity.setNewGameScore(takenScores.get(0));
+        ScoreBoardActivity.setNewUserScore(takenScores.get(1));
+        tmp.putExtra("scores", PegSolitaireManager.getPegBoard().toString());
+        tmp.putExtra("game", PegSolitaireManager.getName());
         startActivity(tmp);
     }
 

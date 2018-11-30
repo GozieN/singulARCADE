@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * The sliding tiles board.
+ * The Sliding tiles board.
  */
 public class SlidingTilesBoard extends Board {
 
