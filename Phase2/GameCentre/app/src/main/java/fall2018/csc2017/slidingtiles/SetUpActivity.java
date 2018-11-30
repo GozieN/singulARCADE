@@ -128,16 +128,22 @@ public class SetUpActivity extends AppCompatActivity {
         Intent tmp;
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             tmp = new Intent(this, PlaySlidingTilesActivity.class);
+            PlaySlidingTilesController.numberOfMoves = 0;
+            PlaySlidingTilesController.numberOfUndos = 0;
             gameManager = setUpController.setSolvableBoardManager(shape);
+
         }
         else if (game.equals(PegSolitaireManager.GAME_NAME)) { //game.equals("PEG SOLITAIRE")
             tmp = new Intent(this, PlayPegSolitaireActivity.class);
             PegSolitaireBoard.setDimensions(shape);
+            PlayPegSolitaireController.numberOfMoves = 0;
+            PlayPegSolitaireController.numberOfUndos = 0;
             gameManager = (PegSolitaireManager) setUpController.newGameManager(PegSolitaireManager.GAME_NAME);
         }
         else {
             tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
             MemoryGameBoard.setDimensions(shape);
+            PlayMemoryPuzzleController.numberOfMoves = 0;
             gameManager = (MemoryBoardManager) setUpController.newGameManager(MemoryBoardManager.GAME_NAME);
         }
         GameLauncher.getCurrentUser().setNumOfUndos(game, 0);
