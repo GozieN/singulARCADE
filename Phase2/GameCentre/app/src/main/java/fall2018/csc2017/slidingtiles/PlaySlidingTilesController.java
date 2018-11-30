@@ -24,6 +24,10 @@ public class PlaySlidingTilesController {
      * The number of times a user has clicked the undo button.
      */
     private static int numberOfUndos = 0;
+    /**
+     * The number of times a user has made a move.
+     */
+
     private static int numberOfMoves = 0;
 
     PlaySlidingTilesController() {
@@ -96,15 +100,25 @@ public class PlaySlidingTilesController {
         System.out.println(newUserScore);
         return Arrays.asList(newGameScore, newUserScore);
     }
+    /**
+     * Increase moves by 1 each time a move is made
+     */
 
     public static void incrementNumberOfMoves() {
         numberOfMoves++;
     }
 
+    /**
+     * Return the number of moves made by the user.
+     * @return int
+     */
     public int getNumberOfMoves() {
         return numberOfMoves;
     }
-
+    /**
+     * Return the number of undos made by the user.
+     * @return int
+     */
     public int getNumberOfUndos() {
         return numberOfUndos;
     }
