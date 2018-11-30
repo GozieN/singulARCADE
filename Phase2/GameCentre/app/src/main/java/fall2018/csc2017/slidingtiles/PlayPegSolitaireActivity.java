@@ -45,11 +45,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     private static int columnWidth, columnHeight;
 
 
-    PlayPegSolitaireController playPegSolitaireController;
-
-    PlayPegSolitaireActivity() {
-        playPegSolitaireController = new PlayPegSolitaireController();
-    }
+    PlayPegSolitaireController playPegSolitaireController = new PlayPegSolitaireController();
 
     /**
      * Set up the background image for each button based on the master list
