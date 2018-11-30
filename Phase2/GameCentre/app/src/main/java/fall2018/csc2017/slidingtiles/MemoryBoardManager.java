@@ -46,13 +46,15 @@ class MemoryBoardManager implements Serializable, Game {
         List<MemoryPuzzleTile> tiles = new ArrayList<>();
         final int numTiles = MemoryGameBoard.NUM_ROWS * MemoryGameBoard.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            if (numTiles == 25 && tileNum == 24){
-                tiles.add(new MemoryPuzzleTile(37));
+            if (numTiles == 25 && tileNum == 24) {
+                MemoryPuzzleTile tile = new MemoryPuzzleTile(37);
+                tile.setTopLayer(R.drawable.memory_tile_38);
+                tiles.add(tile);
 
-            }
-            else{
+            } else {
                 tiles.add(new MemoryPuzzleTile(tileNum));
-            }}
+            }
+        }
         Collections.shuffle(tiles);
         this.board = new MemoryGameBoard(tiles);
         gameScoreBoard = new ScoreBoard();
@@ -147,6 +149,7 @@ class MemoryBoardManager implements Serializable, Game {
 
     /**
      * Return the number of matches that have been found by the user.
+     *
      * @return the number of matches that have been found by the user.
      */
     public int numberOfMatches() {
@@ -158,13 +161,13 @@ class MemoryBoardManager implements Serializable, Game {
                 count++;
             }
         }
-        return count/2;
+        return count / 2;
     }
 
     /**
      * Flip the flipped MemoryPuzzleTile back to a white tile.
      *
-     * @param firstTap the first MemoryPuzzleTile that the user tapped on
+     * @param firstTap  the first MemoryPuzzleTile that the user tapped on
      * @param secondTap the second MemoryPuzzleTile that the user tapped on
      */
     public void flipBack(MemoryPuzzleTile firstTap, MemoryPuzzleTile secondTap) {

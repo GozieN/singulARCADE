@@ -31,9 +31,9 @@ public class SlidingTile extends Tile implements Comparable<SlidingTile> {
         super(backgroundId, -1);
         ArrayList tileList = new ArrayList<>();
         tileList.add(R.drawable.tile_1);
-        String name = "tile_" + id;
+        String name = "tile_" + getId();
         try {
-            background = R.drawable.class.getField(name).getInt(null);
+            setBackground(R.drawable.class.getField(name).getInt(null));
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {

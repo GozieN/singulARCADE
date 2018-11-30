@@ -10,12 +10,12 @@ public abstract class Tile implements Serializable {
     /**
      * The background id to find the tile image.
      */
-    public int background;
+    private int background;
 
     /**
      * The unique id.
      */
-    public int id;
+    private int id;
 
     /**
      * Return the background id.
