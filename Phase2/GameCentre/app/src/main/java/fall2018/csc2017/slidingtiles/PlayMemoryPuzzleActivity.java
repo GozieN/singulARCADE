@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -144,6 +145,15 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
      */
     private void makeToastSavedText() {
         Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Set and modify the text showing the number of moves the user completed after each move the user makes.
+     */
+    public void setNumberOfMovesText() {
+        int numMoves = this.playMemoryPuzzleController.getNumberOfMoves();
+        TextView moves = findViewById(R.id.memChangingNumberOfMoves);
+        moves.setText(Integer.toString(numMoves));
     }
 
     @Override
