@@ -25,7 +25,6 @@ public class SetUpAndStartControllerTest {
         user.setRecentManagerOfBoard(SlidingTilesManager.GAME_NAME, new SlidingTilesManager());
         user.setRecentManagerOfBoard(PegSolitaireManager.GAME_NAME, new PegSolitaireManager());
         user.setRecentManagerOfBoard(MemoryBoardManager.GAME_NAME, new MemoryBoardManager());
-
     }
 
     @Test
@@ -61,14 +60,14 @@ public class SetUpAndStartControllerTest {
         assertEquals(0, newSlidingTilesManager.getBoard().getDimensions());
 
         //PegSolitaireManager
-        PegSolitaireManager originalPegSolitaireManager = (PegSolitaireManager)
-                GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
-        assertEquals(81, originalPegSolitaireManager.getBoard().getDimensions());
-        PegSolitaireBoard.setDimensions(6);
-        //if new board is created, it should now have the new dimensions
         PegSolitaireManager newPegSolitaireManager = (PegSolitaireManager)
                 setUpAndStartController.newGameManager(PegSolitaireManager.GAME_NAME);
-        assertEquals(36, newPegSolitaireManager.getBoard().getDimensions());
+        assertEquals(81, newPegSolitaireManager.getBoard().getDimensions());
+
+        //MemoryBoardManager
+        MemoryBoardManager newMemoryBoardManager = (MemoryBoardManager)
+                setUpAndStartController.newGameManager(MemoryBoardManager.GAME_NAME);
+        assertEquals(0, newMemoryBoardManager.getBoard().getDimensions());
     }
 
     @Test
