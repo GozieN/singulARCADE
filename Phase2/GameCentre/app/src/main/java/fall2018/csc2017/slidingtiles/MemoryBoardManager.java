@@ -190,7 +190,7 @@ class MemoryBoardManager implements Serializable, Game {
      * @return the score of the current game
      */
     public int getScore() {
-        Stack<List> stackOfMoves = GameLauncher.getCurrentUser().getStackOfGameStates("Memory Puzzle");
+        Stack<List> stackOfMoves = GameLauncher.getCurrentUser().getStackOfGameStates(MemoryBoardManager.GAME_NAME);
         double tempScore = Math.pow((stackOfMoves.size()), -1);
         //if 4, multiply by 10000
         if (MemoryGameBoard.NUM_ROWS == 4) {

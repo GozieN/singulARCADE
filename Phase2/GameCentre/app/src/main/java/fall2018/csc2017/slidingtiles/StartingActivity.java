@@ -30,12 +30,6 @@ public class StartingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         game = getIntent().getStringExtra("welcomeText");
         gameManager = (Game) startController.newGameManager(game);
-
-        //add this to helper function
-//        if (game.equals(MemoryBoardManager.GAME_NAME)) {
-//            gameManager = new MemoryBoardManager();
-//        }
-
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
         addLoadButtonListener();
