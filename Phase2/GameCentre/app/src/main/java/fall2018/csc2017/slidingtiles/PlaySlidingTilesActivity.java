@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -45,11 +46,11 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
 
     // Display
     public void display() {
+        setNumberOfMovesText();
+        setNumberOfUndosText();
         tileButtons = playSlidingTilesController.updateTileButtons();
-
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         if (slidingTilesManager.isOver()) {
-            playSlidingTilesController.endOfGame(slidingTilesManager);
             switchToScoreBoard();
         }
     }
@@ -177,7 +178,11 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
 
     public void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
+        List<Boolean> takenScores = playSlidingTilesController.endOfGame(slidingTilesManager);
+        ScoreBoardActivity.newGameScore = takenScores.get(0);
+        ScoreBoardActivity.newUserScore = takenScores.get(1);
         tmp.putExtra("scores", SlidingTilesManager.gameScoreBoard.toString());
+        tmp.putExtra("game", SlidingTilesManager.GAME_NAME);
         startActivity(tmp);
     }
 
@@ -192,7 +197,7 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
      * Set and modify the text showing the number of moves the user completed after each move the user makes.
      */
     public void setNumberOfMovesText() {
-        int numMoves = this.playSlidingTilesController.numOfMoves();
+        int numMoves = this.playSlidingTilesController.getNumberOfMoves();
         TextView moves = findViewById(R.id.changingNumberOfMoves);
         moves.setText(Integer.toString(numMoves));
     }
@@ -200,15 +205,13 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
      * Set and modify the text showing the number of undos the user completed after each undo the user makes.
      */
     public void setNumberOfUndosText() {
-        int numberOfUndos = this.playSlidingTilesController.numOfUndos();
+        int numberOfUndos = this.playSlidingTilesController.getNumberOfUndos();
         TextView undos = findViewById(R.id.changingNumberOfUndos);
         undos.setText(Integer.toString(numberOfUndos));
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        setNumberOfMovesText();
-        setNumberOfUndosText();
         display();
     }
 }

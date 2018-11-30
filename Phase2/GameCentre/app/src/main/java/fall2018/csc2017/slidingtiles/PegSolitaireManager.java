@@ -83,10 +83,10 @@ public class PegSolitaireManager implements Serializable, Game {
     }
 
     /**
-     *
+     * Allow the user to see the possible moves that can be made based on the position.
      * @param position position of the peg being moved
      */
-    public void firstMove(int position) {
+    public void seePossibleMoves(int position) {
         int row = position / PegSolitaireBoard.NUM_ROWS;
         int col = position % PegSolitaireBoard.NUM_COLS;
         pegBoard.addOrRemoveHighlight(row, col);
@@ -142,13 +142,17 @@ public class PegSolitaireManager implements Serializable, Game {
         return false;
     }
 
-
+    /** Return a list of valid moves.
+     *
+     * @param position the position of the user's tap
+     * @return the list of valid moves that can be made in the form of [row, column]
+     */
     private List<List<Integer>> listOfValidMoves(int position) {
         int row = position / PegSolitaireBoard.NUM_ROWS;
         int col = position % PegSolitaireBoard.NUM_COLS;
         List<List<Integer>> validMoves = new ArrayList<>();
 
-        //Is there are valid jump?
+        //Are there valid jumps?
         PegSolitaireTile twoAbove = pegBoard.getPegTile(row - 2, col);
         PegSolitaireTile oneAbove = pegBoard.getPegTile(row - 1, col);
         PegSolitaireTile twoBelow = pegBoard.getPegTile(row + 2, col);

@@ -63,6 +63,10 @@ public class Board extends Observable implements Serializable {
         return tiles[row][col];
     }
 
+    /** Return the dimensions of the board.
+     *
+     * @return the dimensions of the board.
+     */
     int getDimensions() {return NUM_COLS;}
 
 

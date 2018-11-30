@@ -4,6 +4,8 @@ import android.content.Context;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PlayMemoryPuzzleController {
 
@@ -61,9 +63,11 @@ public class PlayMemoryPuzzleController {
     /**
      * At the end of the game, do these actions: get the score, and send score to game score board and user score board.
      */
-    public void endOfGame(MemoryBoardManager memoryBoardManager) {
+    public List<Boolean> endOfGame(MemoryBoardManager memoryBoardManager) {
         Integer score = memoryBoardManager.getScore();
-        memoryBoardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
-        GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(MemoryBoardManager.GAME_NAME, score);
+        boolean newGameScore = MemoryBoardManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
+        boolean newUserScore = GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(MemoryBoardManager.GAME_NAME, score);
+        return Arrays.asList(newGameScore, newUserScore);
     }
+
 }

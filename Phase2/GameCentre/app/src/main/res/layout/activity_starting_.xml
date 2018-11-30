@@ -14,7 +14,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="107dp"
         android:layout_marginTop="227dp"
-        android:gravity="center"
         android:includeFontPadding="false"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
@@ -27,7 +26,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="55dp"
         android:layout_marginTop="356dp"
-        android:gravity="center"
         android:includeFontPadding="false"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />

@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MemoryGameSetUpActivity">
+    tools:context=".SetUpActivity">
 
     <Spinner
-        android:id="@+id/ChooseBoardSpinner"
+        android:id="@+id/ChooseMemoryPuzzleSpinner"
         android:layout_width="272dp"
         android:layout_height="62dp"
         android:layout_alignParentStart="true"
@@ -17,26 +17,27 @@
 
     <TextView
         android:id="@+id/SetupText"
-        android:layout_width="211dp"
-        android:layout_height="52dp"
+        android:layout_width="262dp"
+        android:layout_height="141dp"
         android:layout_alignStart="@+id/ChooseUndoSpinner"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="45dp"
-        android:text="Game Setup"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="65dp"
+        android:gravity="center"
+        android:text="Memory Puzzle Game Setup"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/ChooseSizeView"
-        android:layout_width="wrap_content"
+        android:layout_width="299dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ChooseBoardSpinner"
+        android:layout_alignStart="@+id/ChooseMemoryPuzzleSpinner"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="234dp"
-        android:text="Choose the size of the slidingTilesBoard."
+        android:layout_marginStart="-4dp"
+        android:layout_marginTop="239dp"
+        android:text="Choose the size of the Memory Puzzle Board:"
         android:textSize="18sp" />
 
     <Button

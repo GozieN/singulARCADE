@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -22,7 +23,8 @@ public class PlayPegSolitaireController {
     /**
      * The number of times a user has clicked the undo button.
      */
-    static int numberOfUndos;
+    private static int numberOfUndos = 0;
+    private static int numberOfMoves = 0;
 
     PlayPegSolitaireController() {}
 
@@ -86,27 +88,22 @@ public class PlayPegSolitaireController {
     /**
      * At the end of the game, do these actions: get the score, and send score to game score board and user score board.
      */
-    public void endOfGame(PegSolitaireManager pegSolitaireManager) {
+    public List<Boolean> endOfGame(PegSolitaireManager pegSolitaireManager) {
         Integer score = pegSolitaireManager.getScore();
-        PegSolitaireManager.pegScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
-        GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(PegSolitaireManager.GAME_NAME, score);
-        //TODO: here maybe save the new stuff?? aka make sure updated score of user is put in and update on overall scoreboard for game
+        boolean newGameScore = PegSolitaireManager.pegScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
+        boolean newUserScore = GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(PegSolitaireManager.GAME_NAME, score);
+        return Arrays.asList(newGameScore, newUserScore);
     }
 
-    public int numOfMoves() {
-        numberOfUndos = GameLauncher.getCurrentUser().getNumOfUndos(PegSolitaireManager.GAME_NAME);
-        if (numberOfUndos > SetUpActivity.undoLimit) {
-            numberOfUndos = SetUpActivity.undoLimit;
-        }
-        int numMoves = 1 + numberOfUndos + GameLauncher.getCurrentUser().getStackOfGameStates(PegSolitaireManager.GAME_NAME).size();
-        return numMoves;
+    public static void incrementNumberOfMoves() {
+        numberOfMoves++;
     }
 
-    public int numOfUndos() {
-        numberOfUndos = GameLauncher.getCurrentUser().getNumOfUndos(PegSolitaireManager.GAME_NAME);
-        if (numberOfUndos > SetUpActivity.undoLimit) {
-            numberOfUndos = SetUpActivity.undoLimit;
-        }
+    public int getNumberOfMoves() {
+        return numberOfMoves;
+    }
+
+    public int getNumberOfUndos() {
         return numberOfUndos;
     }
 

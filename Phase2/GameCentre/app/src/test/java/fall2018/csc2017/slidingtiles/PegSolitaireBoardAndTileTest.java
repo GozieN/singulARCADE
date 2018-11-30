@@ -11,11 +11,14 @@ import static org.junit.Assert.*;
 
 public class PegSolitaireBoardAndTileTest {
 
-    /** The peg solitaire board for testing. */
+    /**
+     * The peg solitaire board for testing.
+     */
     PegSolitaireBoard pegSolitaireBoard;
 
     /**
      * Make a set of tiles.
+     *
      * @return a set of tiles
      */
     private List<PegSolitaireTile> makeTiles() {
@@ -61,7 +64,7 @@ public class PegSolitaireBoardAndTileTest {
     }
 
     /**
-     * Test getTile works
+     * Test getTile works.
      */
     @Test
     public void testGetTile() {
@@ -70,7 +73,7 @@ public class PegSolitaireBoardAndTileTest {
     }
 
     /**
-     * Test getDimensions works
+     * Test getDimensions works.
      */
     @Test
     public void testGetDimensions() {
@@ -86,10 +89,10 @@ public class PegSolitaireBoardAndTileTest {
     @Test
     public void testMoveGamepiece() {
         setUpCross();
-        pegSolitaireBoard.moveGamepiece(1,3,3,3);
-        assertEquals(2, pegSolitaireBoard.getPegTile(3,3).getId());
-        assertEquals(1, pegSolitaireBoard.getPegTile(1,3).getId());
-        assertEquals(1, pegSolitaireBoard.getPegTile(2,3).getId());
+        pegSolitaireBoard.moveGamepiece(1, 3, 3, 3);
+        assertEquals(2, pegSolitaireBoard.getPegTile(3, 3).getId());
+        assertEquals(1, pegSolitaireBoard.getPegTile(1, 3).getId());
+        assertEquals(1, pegSolitaireBoard.getPegTile(2, 3).getId());
     }
 
     /**
@@ -98,13 +101,18 @@ public class PegSolitaireBoardAndTileTest {
     @Test
     public void testAddOrRemoveHighlight() {
         setUpSquare();
-        pegSolitaireBoard.addOrRemoveHighlight(1, 3);
-        assertEquals(R.drawable.tile_highlight, pegSolitaireBoard.getPegTile(1,3).getBackground());
-
+        pegSolitaireBoard.addOrRemoveHighlight(2, 1);
+        assertEquals(R.drawable.tile_highlight, pegSolitaireBoard.getPegTile(2, 1).getBackground());
+        pegSolitaireBoard.addOrRemoveHighlight(2, 3);
+        assertEquals(R.drawable.tile_emptyhighlight, pegSolitaireBoard.getPegTile(2, 3).getBackground());
+        pegSolitaireBoard.addOrRemoveHighlight(2, 3);
+        assertEquals(R.drawable.tile_empty, pegSolitaireBoard.getPegTile(2, 3).getBackground());
+        pegSolitaireBoard.addOrRemoveHighlight(2, 1);
+        assertEquals(R.drawable.tile_full, pegSolitaireBoard.getPegTile(2, 1).getBackground());
     }
 
     /**
-     * Test addOrRemoveHighlight works
+     * Test numRemainingPegs works
      */
     @Test
     public void testNumRemainingPegs() {
@@ -117,6 +125,34 @@ public class PegSolitaireBoardAndTileTest {
     }
 
     /**
+     * Test undoMove works
+     */
+    @Test
+    public void testUndoMove() {
+        setUpDiamond();
+        pegSolitaireBoard.moveGamepiece(2, 4, 4, 4);
+        pegSolitaireBoard.moveGamepiece(3, 6, 3, 4);
+        pegSolitaireBoard.moveGamepiece(2, 2, 2, 4);
+        pegSolitaireBoard.moveGamepiece(5, 5, 3, 5);
+        pegSolitaireBoard.undoMove(3, 4, 3, 6);
+        assertEquals(true, pegSolitaireBoard.getPegTile(3, 6).getId() == 2);
+        assertEquals(true, pegSolitaireBoard.getPegTile(3, 5).getId() == 2);
+        assertEquals(true, pegSolitaireBoard.getPegTile(3, 4).getId() == 1);
+        pegSolitaireBoard.undoMove(4, 4, 2, 4);
+        assertEquals(true, pegSolitaireBoard.getPegTile(4, 4).getId() == 1);
+        assertEquals(true, pegSolitaireBoard.getPegTile(3, 4).getId() == 2);
+        assertEquals(true, pegSolitaireBoard.getPegTile(2, 4).getId() == 2);
+        pegSolitaireBoard.undoMove(2, 4, 2, 2);
+        assertEquals(true, pegSolitaireBoard.getPegTile(2, 4).getId() == 1);
+        assertEquals(true, pegSolitaireBoard.getPegTile(2, 3).getId() == 2);
+        assertEquals(true, pegSolitaireBoard.getPegTile(2, 2).getId() == 2);
+        pegSolitaireBoard.undoMove(3, 5, 5, 5);
+        assertEquals(true, pegSolitaireBoard.getPegTile(3, 5).getId() == 1);
+        assertEquals(true, pegSolitaireBoard.getPegTile(4, 5).getId() == 2);
+        assertEquals(true, pegSolitaireBoard.getPegTile(5, 5).getId() == 2);
+    }
+
+    /**
      * Test whether compareTo works
      */
     @Test
@@ -126,5 +162,16 @@ public class PegSolitaireBoardAndTileTest {
         assertEquals(2, pegSolitaireBoard.getOneTile(0,0).compareTo(comparingTile));
     }
 
+    /**
+     * Test toString works
+     */
+    @Test
+    public void testToString() {
+        setUpDiamond();
+        String string = "PegSolitaireBoard{" + "tiles=" + Arrays.toString(pegSolitaireBoard.getPegTiles()) + "}";
+        assertEquals(string, pegSolitaireBoard.toString());
+    }
 
 }
+
+

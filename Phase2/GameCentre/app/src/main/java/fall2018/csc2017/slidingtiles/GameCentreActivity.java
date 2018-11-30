@@ -110,7 +110,8 @@ public class GameCentreActivity extends AppCompatActivity {
         Intent slidingTilesIntent = new Intent(getApplicationContext(), StartingActivity.class);
         slidingTilesIntent.putExtra("welcomeText", SlidingTilesManager.GAME_NAME);
         slidingTilesIntent.putExtra("instructionsText", "HOW TO PLAY: \n" +
-                "Slide the tiles around until you have the correct configuation of numbers/image");
+                "Slide the tiles around until you have the \n" + "correct configuration of " +
+                "numbers/images.");
         startActivity(slidingTilesIntent);
     }
 
@@ -121,7 +122,8 @@ public class GameCentreActivity extends AppCompatActivity {
         Intent pegSolitaireIntent = new Intent(getApplicationContext(), StartingActivity.class);
         pegSolitaireIntent.putExtra("welcomeText", PegSolitaireManager.GAME_NAME);
         pegSolitaireIntent.putExtra("instructionsText", "HOW TO PLAY: \n" +
-                "Jump over pegs to make them disappear. \n" + "You win when there is only one peg left. ");
+                "Jump over pegs to make them disappear. \n" + "You win when there is only one " +
+                "peg left. ");
         startActivity(pegSolitaireIntent);
     }
 
@@ -133,9 +135,10 @@ public class GameCentreActivity extends AppCompatActivity {
         memoryPuzzleIntent.putExtra("welcomeText", MemoryBoardManager.GAME_NAME);
 
         memoryPuzzleIntent.putExtra("instructionsText", "HOW TO PLAY: \n" +
-                "The goal of the game is to match each image to its duplicate. \n" +
-                "Click a tile to reveal the image underneath. If the move you just" +
-                " enacted is an odd number, you have the chance to find the matching image!");
+                "The goal of the game is to match each \n" +
+                "image to its duplicate. Click a tile to reveal \n" + "the image underneath. " +
+                "If the move you made \n" + "is an odd number you have a chance to find \n" +
+                "the matching image!");
         startActivity(memoryPuzzleIntent);
     }
 

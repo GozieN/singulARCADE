@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.List;
 
 public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Observer {
 
@@ -43,8 +44,8 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
         tileButtons = playMemoryPuzzleController.updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         if (memoryBoardManager.isOver()) {
-            playMemoryPuzzleController.endOfGame(memoryBoardManager);
             switchToScoreBoard();
+            // setSnackBar(playMemoryPuzzleController.endOfGame(memoryBoardManager));
         }
     }
 
@@ -130,7 +131,11 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
 
     private void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
-        tmp.putExtra("scores", memoryBoardManager.gameScoreBoard.toString());
+        List<Boolean> takenScores = playMemoryPuzzleController.endOfGame(memoryBoardManager);
+        ScoreBoardActivity.newGameScore = takenScores.get(0);
+        ScoreBoardActivity.newUserScore = takenScores.get(1);
+        tmp.putExtra("scores", MemoryBoardManager.gameScoreBoard.toString());
+        tmp.putExtra("game", MemoryBoardManager.GAME_NAME);
         startActivity(tmp);
     }
 

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 
-class MovementController {
+class MovementController{
 
     private Game boardManager = null;
     private boolean firstMove = true;
@@ -23,10 +23,11 @@ class MovementController {
         if (boardManager instanceof PegSolitaireManager) {
             PegSolitaireManager thisBoard = (PegSolitaireManager) boardManager;
             if (thisBoard.isValidTap(position) && firstMove) {
-                thisBoard.firstMove(position);
+                thisBoard.seePossibleMoves(position);
                 firstMove = false;
                 previousMove = position;
             } else if (thisBoard.isValidSecondTap(previousMove, position) && !firstMove) {
+                PlayPegSolitaireController.incrementNumberOfMoves();
                 thisBoard.touchMove(previousMove, position);
                 firstMove = true;
                 if (thisBoard.isOver()) {
@@ -38,7 +39,7 @@ class MovementController {
                 }
 
             } else if (position == previousMove && !firstMove) {
-                thisBoard.firstMove(position);
+                thisBoard.seePossibleMoves(position);
                 firstMove = true;
             } else {
                 Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
@@ -48,6 +49,7 @@ class MovementController {
         if (boardManager instanceof SlidingTilesManager) {
             SlidingTilesManager thisBoard = (SlidingTilesManager) boardManager;
             if (thisBoard.isValidTap(position)) {
+                PlaySlidingTilesController.incrementNumberOfMoves();
                 thisBoard.touchMove(position);
                 if (thisBoard.isOver()) {
                     Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
@@ -65,19 +67,26 @@ class MovementController {
                 if (thisBoard.numTileFlipped() == 0) {
                     firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
                     thisBoard.flipTile(position);
-                } else {
+                } else{
                     secondTap = thisBoard.getBoard().getMemoryGameTile(row, col);
                     thisBoard.flipTile(position);
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
                     thisBoard.greyOut(firstTap, secondTap);
+                    thisBoard.flipBack(firstTap);
+                    firstTap = secondTap;
                 }
                 if (thisBoard.isOver()) {
                     Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                thisBoard.flipBack(firstTap, secondTap);
-                firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
-                thisBoard.flipTile(position);
-                //Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+//                thisBoard.flipBack(firstTap, secondTap);
+//                firstTap = thisBoard.getBoard().getMemoryGameTile(row, col);
+//                thisBoard.flipTile(position);
+                Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
             }
         }
     }
