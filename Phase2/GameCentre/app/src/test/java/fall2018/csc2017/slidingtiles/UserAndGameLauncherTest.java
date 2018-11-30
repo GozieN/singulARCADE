@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -143,7 +143,7 @@ public class UserAndGameLauncherTest {
 
         //board is now being set to 3x3
         SlidingTilesManager newBoardManager = new SlidingTilesManager();
-        newBoardManager.getBoard().setDimensions(3);
+        SlidingTilesBoard.setDimensions(3);
         assertEquals(3, ((SlidingTilesManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME)).getBoard().getDimensions());
 
         //The manager does not exist

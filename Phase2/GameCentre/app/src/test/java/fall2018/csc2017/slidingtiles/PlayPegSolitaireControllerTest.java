@@ -1,4 +1,5 @@
 package fall2018.csc2017.slidingtiles;
+
 import android.widget.Button;
 
 import org.junit.Test;
@@ -6,7 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class PlayPegSolitaireControllerTest {
 
@@ -97,7 +98,7 @@ public class PlayPegSolitaireControllerTest {
     @Test
     public void TestIncrementAndGetNumberOfMoves() {
         setUpCorrect();
-        playPegSolitaireController.incrementNumberOfMoves();
+        PlayPegSolitaireController.incrementNumberOfMoves();
         assertEquals(1, playPegSolitaireController.getNumberOfMoves());
     }
 

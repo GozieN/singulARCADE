@@ -8,7 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -73,7 +74,7 @@ public class SlidingTileBoardTest {
     public void testGetDimensions() {
         setUpCorrect();
         assertEquals(4, board.getDimensions());
-        board.setDimensions(3);
+        SlidingTilesBoard.setDimensions(3);
         assertEquals(3, board.getDimensions());
     }
 

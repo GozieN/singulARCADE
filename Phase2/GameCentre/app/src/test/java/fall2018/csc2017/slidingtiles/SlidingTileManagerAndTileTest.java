@@ -5,7 +5,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -206,11 +208,11 @@ public class SlidingTileManagerAndTileTest {
         assertEquals(6667, boardManager.getScore());
 
         //When you have completed some moves on a 5x5 board
-        boardManager.getBoard().setDimensions(5);
+        SlidingTilesBoard.setDimensions(5);
         assertEquals(10000, boardManager.getScore());
 
         //When you have completed some moves on a 3x3 board
-        boardManager.getBoard().setDimensions(3);
+        SlidingTilesBoard.setDimensions(3);
         assertEquals(3333, boardManager.getScore());
 
     }
@@ -251,8 +253,8 @@ public class SlidingTileManagerAndTileTest {
         List<SlidingTile> tiles = makeTiles();
         SlidingTilesBoard board = new SlidingTilesBoard(tiles);
         assertEquals(25, board.numTiles());
-        SlidingTile slidingTile = new SlidingTile(25);
-        assertEquals(R.drawable.tile_blank, slidingTile.getBackground());
+        SlidingTile slidingTile = new SlidingTile(24);
+        assertEquals(R.drawable.tile_25, slidingTile.getBackground());
     }
 
 

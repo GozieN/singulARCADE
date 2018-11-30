@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class PegSolitaireManagerTest {
 
@@ -207,11 +207,11 @@ public class PegSolitaireManagerTest {
         assertEquals(10000, pegSolitaireManager.getScore());
 
         //When you have completed some moves on a 5x5 board
-        pegSolitaireManager.getBoard().setDimensions(7);
+        PegSolitaireBoard.setDimensions(7);
         assertEquals(6667, pegSolitaireManager.getScore());
 
         //When you have completed some moves on a 3x3 board
-        pegSolitaireManager.getBoard().setDimensions(6);
+        PegSolitaireBoard.setDimensions(6);
         assertEquals(3333, pegSolitaireManager.getScore());
 
     }
