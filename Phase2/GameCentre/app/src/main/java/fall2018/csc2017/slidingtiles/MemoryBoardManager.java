@@ -101,7 +101,12 @@ class MemoryBoardManager implements Serializable, Game {
         int row = position / MemoryGameBoard.NUM_COLS;
         int col = position % MemoryGameBoard.NUM_COLS;
         int topLayer = board.getMemoryGameTile(row, col).getTopLayer();
-        return numTileFlipped() < 2 && topLayer == R.drawable.memory_tile_37;
+        boolean returning = numTileFlipped() < 2 && topLayer == R.drawable.memory_tile_37;
+        ArrayList validTap = new ArrayList();
+        if (returning) {
+            GameLauncher.getCurrentUser().pushGameStates(MemoryBoardManager.GAME_NAME, validTap);
+        }
+        return returning;
     }
 
     /**
@@ -118,6 +123,37 @@ class MemoryBoardManager implements Serializable, Game {
             secondTap.setBackground(R.drawable.memory_tile_38);
         }
         board.update();
+    }
+
+    /**
+     * Reset the flipped over tiles to white.
+     */
+    public void resetToWhite() {
+        Iterator<MemoryPuzzleTile> boarditerator = board.iterator();
+        while (boarditerator.hasNext()) {
+            MemoryPuzzleTile currentTile = boarditerator.next();
+            if (currentTile.getTopLayer() != R.drawable.memory_tile_38 &&
+                    currentTile.getTopLayer() != R.drawable.memory_tile_37) {
+                currentTile.setTopLayer(R.drawable.memory_tile_37);
+            }
+        }
+        board.update();
+    }
+
+    /**
+     * Return the number of matches that have been found by the user.
+     * @return the number of matches that have been found by the user.
+     */
+    public int numberOfMatches() {
+        int count = 0;
+        Iterator<MemoryPuzzleTile> boarditerator = board.iterator();
+        while (boarditerator.hasNext()) {
+            MemoryPuzzleTile currentTile = boarditerator.next();
+            if (currentTile.getTopLayer() == R.drawable.memory_tile_38) {
+                count++;
+            }
+        }
+        return count/2;
     }
 
     /**

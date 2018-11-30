@@ -110,6 +110,7 @@ public class StartingActivity extends AppCompatActivity {
      * Switch to the GameActivity view to play the game.
      */
     private void switchToGame() {
+        boolean loadedGame = true;
         Intent tmp;
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             tmp = new Intent(this, PlaySlidingTilesActivity.class);
@@ -122,13 +123,15 @@ public class StartingActivity extends AppCompatActivity {
         if (game.equals(MemoryBoardManager.GAME_NAME)) {
             if (GameLauncher.getCurrentUser().getStackOfGameStates(game).isEmpty()) {
                 makeToastNoGameToLoadText();
+                loadedGame = false;
             }
         }
         else if (GameLauncher.getCurrentUser().getStackOfGameStates(game).isEmpty()
                 && GameLauncher.getCurrentUser().getNumOfUndos(game) == 0) {
             makeToastNoGameToLoadText();
+            loadedGame = false;
         }
-        else {
+        if (loadedGame) {
             startActivity(tmp);
         }
     }

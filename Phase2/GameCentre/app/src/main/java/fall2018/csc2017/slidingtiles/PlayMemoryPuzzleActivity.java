@@ -104,10 +104,23 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeToastSavedText();
-                switchToGameCentre();
+                if (!GameLauncher.getCurrentUser().getStackOfGameStates(MemoryBoardManager.GAME_NAME).isEmpty()
+                        && (memoryBoardManager.numTileFlipped() == 2 || memoryBoardManager.numberOfMatches() != 0)) {
+                    memoryBoardManager.resetToWhite();
+                    makeToastSavedText();
+                    switchToGameCentre();
+                }
+                else {makeToastNoSaveAndQuit();
+                }
             }
         });
+    }
+
+    /**
+     * Notify user when they have made no moves, so are not allowed to undo
+     */
+    private void makeToastNoSaveAndQuit() {
+        Toast.makeText(this, "Must make a move before saving", Toast.LENGTH_SHORT).show();
     }
 
     private void switchToGameCentre() {
