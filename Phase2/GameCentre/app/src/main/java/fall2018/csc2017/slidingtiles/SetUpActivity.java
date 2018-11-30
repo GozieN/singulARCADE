@@ -45,11 +45,14 @@ public class SetUpActivity extends AppCompatActivity {
         addPlayButtonListener();
         SaveAndLoad.loadFromFile(SetUpActivity.this, LoginActivity.SAVE_FILENAME);
         gameManager = (Game) setUpController.setGameManager(game);
-        setSpinnerUndoOnCreate();
+        if (game.equals(SlidingTilesManager.GAME_NAME) || game.equals(PegSolitaireManager.GAME_NAME)) {
+            setSpinnerUndoOnCreate();
+        }
     }
 
     public void setSpinnerOnCreate() {
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
+            System.out.println("in if");
             setContentView(R.layout.activity_sliding_tiles_set_up);
 
             spinnerBoardShape = findViewById(R.id.ChooseSlidingTilesSpinner);
@@ -99,7 +102,9 @@ public class SetUpActivity extends AppCompatActivity {
                 if(spinnerUndo != null && spinnerUndo.getSelectedItem() !=null ) {
                     undoSelection = (String) spinnerUndo.getSelectedItem();
                 }
-                undoLimit = Integer.valueOf(undoSelection);
+                if (game.equals(SlidingTilesManager.GAME_NAME) || game.equals(PegSolitaireManager.GAME_NAME)) {
+                    undoLimit = Integer.valueOf(undoSelection);
+                }
                 switchToGame();
             }
         });
@@ -115,8 +120,15 @@ public class SetUpActivity extends AppCompatActivity {
             tmp = new Intent(this, PlaySlidingTilesActivity.class);
             gameManager = setUpController.setSolvableBoardManager(shape);
         }
-        else { //game.equals("PEG SOLITAIRE")
+        else if (game.equals(PegSolitaireManager.GAME_NAME)) { //game.equals("PEG SOLITAIRE")
             tmp = new Intent(this, PlayPegSolitaireActivity.class);
+            PegSolitaireBoard.setDimensions(shape);
+            gameManager = (PegSolitaireManager) setUpController.newGameManager(PegSolitaireManager.GAME_NAME);
+        }
+        else {
+            tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
+            MemoryGameBoard.setDimensions(shape);
+            gameManager = (MemoryBoardManager) setUpController.newGameManager(MemoryBoardManager.GAME_NAME);
         }
         GameLauncher.getCurrentUser().setNumOfUndos(game, 0);
         GameLauncher.getCurrentUser().setRecentManagerOfBoard(game, gameManager);
