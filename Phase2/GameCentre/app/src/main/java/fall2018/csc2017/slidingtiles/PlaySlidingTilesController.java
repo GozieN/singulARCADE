@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -22,7 +23,8 @@ public class PlaySlidingTilesController {
     /**
      * The number of times a user has clicked the undo button.
      */
-    static int numberOfUndos;
+    private static int numberOfUndos = 0;
+    private static int numberOfMoves = 0;
 
     PlaySlidingTilesController() {
     }
@@ -85,26 +87,25 @@ public class PlaySlidingTilesController {
     /**
      * At the end of the game, do these actions: get the score, and send score to game score board and user score board.
      */
-    public void endOfGame(SlidingTilesManager slidingTilesManager) {
+    public List<Boolean> endOfGame(SlidingTilesManager slidingTilesManager) {
         Integer score = slidingTilesManager.getScore();
-        SlidingTilesManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
-        GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, score);
+        boolean newGameScore = SlidingTilesManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
+        boolean newUserScore = GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, score);
+        System.out.println("END OF GAME:");
+        System.out.println(newGameScore);
+        System.out.println(newUserScore);
+        return Arrays.asList(newGameScore, newUserScore);
     }
 
-    public int numOfMoves() {
-        numberOfUndos = GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME);
-        if (numberOfUndos > SetUpActivity.undoLimit) {
-            numberOfUndos = SetUpActivity.undoLimit;
-        }
-        int numMoves = 1 + numberOfUndos + GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME).size();
-        return numMoves;
+    public static void incrementNumberOfMoves() {
+        numberOfMoves++;
     }
 
-    public int numOfUndos() {
-        numberOfUndos = GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME);
-        if (numberOfUndos > SetUpActivity.undoLimit) {
-            numberOfUndos = SetUpActivity.undoLimit;
-        }
+    public int getNumberOfMoves() {
+        return numberOfMoves;
+    }
+
+    public int getNumberOfUndos() {
         return numberOfUndos;
     }
 
