@@ -1,11 +1,8 @@
 package fall2018.csc2017.slidingtiles;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Observable;
-import java.io.Serializable;
 
 /**
  * The Peg Solitaire Board.

@@ -59,10 +59,10 @@
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.415"
+        app:layout_constraintHorizontal_bias="0.419"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.123" />
+        app:layout_constraintVertical_bias="0.12" />
 
     <TextView
         android:id="@+id/undos"
@@ -95,7 +95,7 @@
         app:layout_constraintHorizontal_bias="0.701"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.116" />
+        app:layout_constraintVertical_bias="0.122" />
 
     <TextView
         android:id="@+id/changingNumberOfUndos"
@@ -111,6 +111,6 @@
         app:layout_constraintHorizontal_bias="0.701"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.077" />
+        app:layout_constraintVertical_bias="0.079" />
 
 </android.support.constraint.ConstraintLayout>

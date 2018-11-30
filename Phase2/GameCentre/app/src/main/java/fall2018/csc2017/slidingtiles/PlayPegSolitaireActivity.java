@@ -19,12 +19,12 @@ import java.util.Observer;
 public class PlayPegSolitaireActivity extends AppCompatActivity implements Observer {
 
     /**
-     *
+     * the pegSolitaireManager of this game
      */
     private PegSolitaireManager pegSolitaireManager;
 
     /**
-     *
+     * The tile buttons shown to the user
      */
     private ArrayList<Button> tileButtons;
 
@@ -69,6 +69,9 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         addView();
     }
 
+    /**
+     * Create the view for the display when originally setting up this screen
+     */
     private void addView() {
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(PegSolitaireBoard.NUM_COLS);
@@ -112,17 +115,26 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         });
     }
 
+    /**
+     * move to GameCentreActivity
+     */
     private void switchToGameCentre() {
         Intent tmp = new Intent(this, GameCentreActivity.class);
         startActivity(tmp);
     }
 
+    /**
+     * Move to SetUpActivity
+     */
     private void switchToSetUp() {
         Intent tmp = new Intent(this, SetUpActivity.class);
         tmp.putExtra("game", PegSolitaireManager.GAME_NAME);
         startActivity(tmp);
     }
 
+    /**
+     * Move to ScoreBoardActivity
+     */
     private void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
         List<Boolean> takenScores = playPegSolitaireController.endOfGame(pegSolitaireManager);
