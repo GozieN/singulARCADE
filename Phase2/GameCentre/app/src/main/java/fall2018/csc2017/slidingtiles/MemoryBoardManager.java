@@ -60,6 +60,7 @@ class MemoryBoardManager implements Serializable, Game {
         gameScoreBoard = new ScoreBoard();
     }
 
+
     /**
      * Return whether the all of the images have been flipped over and therefore matched.
      *
