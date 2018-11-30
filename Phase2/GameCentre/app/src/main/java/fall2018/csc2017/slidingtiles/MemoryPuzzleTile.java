@@ -57,6 +57,7 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
             e.printStackTrace();
         }
     }
+    
 
     @Override
     public int compareTo(@NonNull MemoryPuzzleTile memoryPuzzleTile) {
