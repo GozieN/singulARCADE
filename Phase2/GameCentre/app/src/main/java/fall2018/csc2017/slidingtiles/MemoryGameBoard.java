@@ -58,7 +58,6 @@ public class MemoryGameBoard extends Board implements Serializable, Iterable<Mem
         NUM_ROWS = dimensions;
     }
 
-    int getDimensions() {return NUM_COLS;}
 
     /**
      * Return the tile at (row, col)

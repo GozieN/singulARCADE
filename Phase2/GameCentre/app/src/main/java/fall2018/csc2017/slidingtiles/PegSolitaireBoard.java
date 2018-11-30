@@ -171,10 +171,6 @@ public class PegSolitaireBoard extends Board {
      * @param col2 the second tile col
      */
     List<Integer> moveGamepiece(int row1, int col1, int row2, int col2) {
-        PegSolitaireTile temporaryTile = this.getPegTile(row1, col1);
-        //tiles[row1][col1] = tiles[row2][col2];
-        //tiles[row2][col2] = temporaryTile;
-
         tiles[row1][col1].setId(1, false);
         tiles[row2][col2].setId(2, false);
 
@@ -187,12 +183,8 @@ public class PegSolitaireBoard extends Board {
         } else if (col1 - col2 == 2) {
             tiles[row1][col2 + 1].setId(1, false);
         }
-
-        // store new tile as well?
         update();
         return Arrays.asList(row1, col1, row2, col2);
-
-        // row1, col1 refers to the "full" tile, row2, col2 refers to the "empty" tile
     }
 
     /**

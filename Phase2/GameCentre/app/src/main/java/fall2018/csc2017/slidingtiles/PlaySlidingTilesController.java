@@ -2,7 +2,6 @@ package fall2018.csc2017.slidingtiles;
 
 import android.content.Context;
 import android.widget.Button;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -95,9 +94,6 @@ public class PlaySlidingTilesController {
         Integer score = slidingTilesManager.getScore();
         boolean newGameScore = SlidingTilesManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         boolean newUserScore = GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, score);
-        System.out.println("END OF GAME:");
-        System.out.println(newGameScore);
-        System.out.println(newUserScore);
         return Arrays.asList(newGameScore, newUserScore);
     }
     /**
