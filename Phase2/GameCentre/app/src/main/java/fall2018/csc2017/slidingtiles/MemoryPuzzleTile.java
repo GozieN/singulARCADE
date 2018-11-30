@@ -165,6 +165,7 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
                 break;
             case 38:
                 setBackground(R.drawable.memory_tile_38);
+                setTopLayer(R.drawable.memory_tile_38);
                 break;
             default:
                 setBackground(R.drawable.tile_blank);
