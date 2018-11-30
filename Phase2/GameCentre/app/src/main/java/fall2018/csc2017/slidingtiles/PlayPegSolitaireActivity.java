@@ -68,9 +68,6 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         super.onCreate(savedInstanceState);
         SaveAndLoad.loadFromFile(PlayPegSolitaireActivity.this, LoginActivity.SAVE_FILENAME);
         pegSolitaireManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
-        Integer size = getIntent().getIntExtra("shape", 6);
-        PegSolitaireBoard.setDimensions(size);
-        pegSolitaireManager = new PegSolitaireManager();
         playPegSolitaireController.createTileButtons(this, pegSolitaireManager);
 
         SaveAndLoad.saveToFile(PlayPegSolitaireActivity.this, LoginActivity.SAVE_FILENAME);

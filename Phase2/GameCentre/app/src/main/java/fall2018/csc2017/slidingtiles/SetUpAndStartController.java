@@ -55,8 +55,11 @@ public class SetUpAndStartController {
             return new SlidingTilesManager();
         }
 //        if (game.equals(PegSolitaireManager.GAME_NAME)) {
-        else { //game.equals(PegSolitaireManager.GAME_NAME)
+        else if (game.equals(PegSolitaireManager.GAME_NAME)) {
             return new PegSolitaireManager();
+        }
+        else { //game.equals(MemoryBoardManager.GAME_NAME)
+            return new MemoryBoardManager();
         }
 //        return null;
     }

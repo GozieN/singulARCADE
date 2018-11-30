@@ -135,10 +135,12 @@ public class SetUpActivity extends AppCompatActivity {
             gameManager = setUpController.setSolvableBoardManager(shape);
         } else if (game.equals(PegSolitaireManager.GAME_NAME)) {
             tmp = new Intent(this, PlayPegSolitaireActivity.class);
+            PegSolitaireBoard.setDimensions(shape);
+            gameManager = (PegSolitaireManager) setUpController.newGameManager(PegSolitaireManager.GAME_NAME);
         } else { //game.equals("MEMORY PUZZLE")
             tmp = new Intent(this, PlayMemoryPuzzleActivity.class);
             MemoryGameBoard.setDimensions(shape);
-            gameManager = new MemoryBoardManager();
+            gameManager = (MemoryBoardManager) setUpController.newGameManager(MemoryBoardManager.GAME_NAME);
         }
         GameLauncher.getCurrentUser().setNumOfUndos(game, 0);
         GameLauncher.getCurrentUser().setRecentManagerOfBoard(game, gameManager);
