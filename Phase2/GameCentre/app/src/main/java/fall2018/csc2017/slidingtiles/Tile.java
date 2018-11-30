@@ -1,9 +1,6 @@
 package fall2018.csc2017.slidingtiles;
 
-import android.support.annotation.NonNull;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * A Tile in a sliding tiles puzzle.
