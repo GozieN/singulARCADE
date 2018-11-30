@@ -23,7 +23,7 @@ public class PlayMemoryPuzzleController {
      * The number of times a user has made a move.
      */
 
-    private static int numberOfMoves = 0;
+    public static int numberOfMoves = 0;
 
     PlayMemoryPuzzleController() {
     }
