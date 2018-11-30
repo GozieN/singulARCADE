@@ -54,10 +54,11 @@ public class SetUpAndStartController {
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             return new SlidingTilesManager();
         }
-        if (game.equals(PegSolitaireManager.GAME_NAME)) {
+        else if (game.equals(PegSolitaireManager.GAME_NAME)) {
             return new PegSolitaireManager();
         }
-        //TODO: this may have to change if memoryBoardManager is now included
-        return null;
+        else { //game.equals(MemoryBoardManager.GAME_NAME)
+            return new MemoryBoardManager();
+        }
     }
 }

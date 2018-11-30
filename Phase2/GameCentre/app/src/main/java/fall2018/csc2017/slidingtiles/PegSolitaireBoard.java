@@ -46,7 +46,7 @@ public class PegSolitaireBoard extends Board {
         }
     }
 
-    /**
+    /** Set up a square peg solitaire board.
      *
      */
     private void setUpSquareBoard() {
@@ -54,7 +54,7 @@ public class PegSolitaireBoard extends Board {
 
     }
 
-    /**
+    /** Set up a cross peg solitaire board.
      *
      */
     private void setUpCrossBoard() {
@@ -69,7 +69,7 @@ public class PegSolitaireBoard extends Board {
         }
     }
 
-    /**
+    /** Set up a diamond peg solitaire board.
      *
      */
     private void setUpDiamondBoard() {
@@ -88,6 +88,13 @@ public class PegSolitaireBoard extends Board {
         }
     }
 
+    /** Set up a row in a diamond peg solitaire board.
+     *
+     * @param row the index that indicates the row needing to be filled up
+     * @param i the index indicating the lower bound of the full pegs
+     * @param j the index indicating the upper bound of the full pegs
+     * @param tileRow the row of PegSolitaireTiles that need to be set
+     */
     private void fillUpDiamondRow(int row, int i, int j, PegSolitaireTile[] tileRow) {
         for (int k = 0; k != tileRow.length; k++) {
             if (k < i || k > j) {
@@ -98,6 +105,10 @@ public class PegSolitaireBoard extends Board {
         }
     }
 
+    /**Return the number of pieces on the peg solitaire board.
+     *
+     * @return the number of pegs on the peg solitaire board.
+     */
     int numPieces() {
         return NUM_ROWS*NUM_COLS;
     }
