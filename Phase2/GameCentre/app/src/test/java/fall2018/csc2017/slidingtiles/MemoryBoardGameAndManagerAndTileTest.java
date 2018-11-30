@@ -211,7 +211,6 @@ public class MemoryBoardGameAndManagerAndTileTest {
             assertEquals(R.drawable.memory_tile_38, memTile.getBackground());
         }
 
-        
 
         /**
          * Test whether compareTo works
