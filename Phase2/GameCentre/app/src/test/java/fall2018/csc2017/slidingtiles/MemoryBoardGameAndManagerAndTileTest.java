@@ -100,7 +100,7 @@ public class MemoryBoardGameAndManagerAndTileTest {
             MemoryPuzzleTile t1 = new MemoryPuzzleTile(1);
             MemoryPuzzleTile t2 = new MemoryPuzzleTile(0);
             boardManager.greyOut(t1, t2);
-            assertEquals(false, boardManager.isValidTap(1));
+            assertEquals(true, boardManager.isValidTap(1));
             assertEquals(true, boardManager.isValidTap(14));
 
         }
