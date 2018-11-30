@@ -21,7 +21,6 @@ public class SlidingTile extends Tile implements Comparable<SlidingTile> {
     }
 
 
-    //TODO refactor this
 
     /**
      * A SlidingTile with a background id; look up and set the id.

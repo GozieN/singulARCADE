@@ -40,8 +40,6 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
     }
 
 
-    //TODO: fix this
-
     /**
      * A Memory Puzzle tile with a background id; look up and set the id.
      *
