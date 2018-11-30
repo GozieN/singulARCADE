@@ -23,7 +23,7 @@ class MovementController{
         if (boardManager instanceof PegSolitaireManager) {
             PegSolitaireManager thisBoard = (PegSolitaireManager) boardManager;
             if (thisBoard.isValidTap(position) && firstMove) {
-                thisBoard.firstMove(position);
+                thisBoard.seePossibleMoves(position);
                 firstMove = false;
                 previousMove = position;
             } else if (thisBoard.isValidSecondTap(previousMove, position) && !firstMove) {
@@ -38,7 +38,7 @@ class MovementController{
                 }
 
             } else if (position == previousMove && !firstMove) {
-                thisBoard.firstMove(position);
+                thisBoard.seePossibleMoves(position);
                 firstMove = true;
             } else {
                 Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
