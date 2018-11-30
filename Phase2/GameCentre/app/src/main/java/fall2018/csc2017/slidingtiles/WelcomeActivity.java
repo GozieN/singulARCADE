@@ -8,7 +8,7 @@ import android.content.Intent;
 
 /**
  * The activity to first appear when the application is first opened.
- * Code citatation: StartingActivity file provided from CSC207 2018
+ * Code citation: StartingActivity file provided from CSC207 2018
  */
 
 public class WelcomeActivity extends AppCompatActivity {

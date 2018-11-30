@@ -1,6 +1,9 @@
 package fall2018.csc2017.slidingtiles;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -42,11 +45,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     private static int columnWidth, columnHeight;
 
 
-    PlayPegSolitaireController playPegSolitaireController;
-
-    PlayPegSolitaireActivity() {
-        playPegSolitaireController = new PlayPegSolitaireController();
-    }
+    PlayPegSolitaireController playPegSolitaireController = new PlayPegSolitaireController();
 
     /**
      * Set up the background image for each button based on the master list
@@ -130,6 +129,12 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         startActivity(tmp);
     }
 
+    private void switchToSetUp() {
+        Intent tmp = new Intent(this, SetUpActivity.class);
+        tmp.putExtra("game", PegSolitaireManager.GAME_NAME);
+        startActivity(tmp);
+    }
+
     private void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
         List<Boolean> takenScores = playPegSolitaireController.endOfGame(pegSolitaireManager);
@@ -210,7 +215,24 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     }
 
     private void displayNoMoreMovesBanner() {
-        //TODO: make the banner
+        //Adapted from https://www.tutorialspoint.com/android/android_alert_dialoges.htm
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Game over: There are no more moves. To win you must clear the board of all tiles except one. Better luck next time!");
+        alertDialog.setPositiveButton("New Game", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switchToSetUp();
+            }
+        });
+        alertDialog.setNegativeButton("Main Menu", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switchToGameCentre();
+            }
+        });
+
+        alertDialog.show();
     }
 
     @Override
