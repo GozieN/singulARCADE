@@ -109,12 +109,10 @@ class SlidingTilesManager implements Serializable, Game {
             Tile currentTile = boardIterator.next();
             if (currentTile.getId() == blankId) {
                 returning = i/SlidingTilesBoard.NUM_COLS + 1;
-                //return returning;
             }
             i++;
         }
         return returning;
-        //return SlidingTilesBoard.NUM_COLS;
     }
 
 

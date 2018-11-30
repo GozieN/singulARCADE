@@ -2,8 +2,6 @@ package fall2018.csc2017.slidingtiles;
 
 import android.content.Context;
 import android.widget.Button;
-
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

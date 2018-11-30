@@ -10,36 +10,27 @@ import static org.junit.Assert.*;
 
 public class BoardTest {
 
-    Board board;
-
     /**
-     * Make a set of tiles that are in order.
-     * @return a set of tiles that are in order
+     * The board used for testing.
      */
-    private List<SlidingTile> makeTiles() {
-        List<SlidingTile> tiles = new ArrayList<>();
-        final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            if (tileNum == numTiles - 1) {
-                tiles.add(new SlidingTile(tileNum, tileNum));
-            } else {
-                tiles.add(new SlidingTile(tileNum));
-            }
-        }
-
-        return tiles;
-    }
+    Board board;
 
     private void setUpCorrect() {
         board = new Board();
     }
 
+    /**
+     * Test numTiles works
+     */
     @Test
     public void testNumTiles() {
         setUpCorrect();
         assertEquals(0, board.numTiles());
     }
 
+    /**
+     * Test toString works
+     */
     @Test
     public void testToString() {
         setUpCorrect();
@@ -47,12 +38,18 @@ public class BoardTest {
         assertEquals(string, board.toString());
     }
 
+    /**
+     * Test getDimensions works
+     */
     @Test
     public void testGetDimensions() {
         setUpCorrect();
         assertEquals(0, board.getDimensions());
     }
 
+    /**
+     * Test getTile works
+     */
     @Test
     public void testGetTile() {
         setUpCorrect();
