@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * The Sliding Tiles board.
+ * The sliding tiles board.
  */
 public class Board extends Observable implements Serializable {
 

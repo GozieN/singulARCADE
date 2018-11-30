@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * The initial activity for the sliding tiles game.
+ * The initial activity for the sliding puzzle tile game.
  */
 public class StartingActivity extends AppCompatActivity {
 

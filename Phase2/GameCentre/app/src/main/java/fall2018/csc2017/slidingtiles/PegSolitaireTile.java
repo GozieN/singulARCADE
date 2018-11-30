@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.io.Serializable;
 
 /**
- * A Peg Solitaire Tile in a Peg Solitaire game.
+ * A PegSolitaire Tile in a sliding tiles puzzle.
  */
 class PegSolitaireTile extends Tile implements Comparable<PegSolitaireTile>, Serializable {
     /**

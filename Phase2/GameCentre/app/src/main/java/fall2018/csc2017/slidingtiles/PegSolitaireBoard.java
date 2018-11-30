@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * The Peg Solitaire board.
+ * The Peg Solitaire Board.
  */
 public class PegSolitaireBoard extends Board {
     /**

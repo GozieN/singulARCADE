@@ -3,7 +3,7 @@ package fall2018.csc2017.slidingtiles;
 import java.io.Serializable;
 
 /**
- * A Tile in the sliding tiles puzzle.
+ * A Tile in a sliding tiles puzzle.
  */
 public abstract class Tile implements Serializable {
 

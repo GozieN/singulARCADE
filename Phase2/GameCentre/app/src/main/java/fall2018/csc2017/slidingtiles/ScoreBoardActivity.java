@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * The ScoreBoard popup activity.
+ * The ScoreBoard activity.
  */
 public class ScoreBoardActivity extends AppCompatActivity {
     /**

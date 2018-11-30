@@ -9,7 +9,7 @@ import android.content.Intent;
 
 
 /**
- * The Game Centre activity where the user chooses what games to play.
+ * The Game Centre activity where the user chooses what game to play.
  */
 public class GameCentreActivity extends AppCompatActivity {
 

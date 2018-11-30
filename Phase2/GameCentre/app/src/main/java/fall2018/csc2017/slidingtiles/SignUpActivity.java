@@ -9,7 +9,7 @@ import android.widget.Toast;
 import android.content.Intent;
 
 /**
- * The SignUp activity allows for users to create an account with.
+ * The SignUp activity for users to create an account with.
  * Code citation (for Sign Up implementation): https://www.youtube.com/watch?v=qpNnfq9ZPDU
  */
 public class SignUpActivity extends AppCompatActivity {

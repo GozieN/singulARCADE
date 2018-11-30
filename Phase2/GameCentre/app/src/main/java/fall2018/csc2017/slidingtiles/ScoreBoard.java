@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import java.util.HashMap;
 import java.util.List;
 
-//The Scoreboard that displays the top scores for each game/user
 public class ScoreBoard implements Serializable {
     /**
      * Class ScoreBoard: a scoreboard containing the highest scores for a game or user

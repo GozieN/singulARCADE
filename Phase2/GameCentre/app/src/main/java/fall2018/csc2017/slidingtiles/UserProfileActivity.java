@@ -30,7 +30,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     /**
-     * Activate the Scoreboard Button
+     * Activate Scoreboard Button
      */
     private void addScoreBoardButtonListener() {
         Button userScoreBoardButton = findViewById(R.id.userScoreBoard);

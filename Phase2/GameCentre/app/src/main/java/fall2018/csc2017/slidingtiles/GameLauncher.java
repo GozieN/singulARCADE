@@ -3,7 +3,7 @@ package fall2018.csc2017.slidingtiles;
 import java.io.Serializable;
 
 /**
- * The class that launches the games.
+ * The class that launches the game.
  */
 class GameLauncher implements Serializable {
 

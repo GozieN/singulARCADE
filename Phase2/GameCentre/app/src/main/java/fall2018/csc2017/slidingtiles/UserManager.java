@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * A manager for all the users that play the games.
+ * A manager for all the users that play the game.
  */
 class UserManager implements Serializable {
     private static final long serialVersionUID = 1L;
