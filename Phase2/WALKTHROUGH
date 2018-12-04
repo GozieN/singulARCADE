@@ -35,6 +35,11 @@ An outline of the presentation, must cover at least these points:
     - All three games are tile games; therefore they all use tiles and should implement their tile classes in similar fashion
 - Observer pattern
     - When say something is altered to the board in board manager, we update board
+- Iterator pattern
+    - Memory Puzzle and Sliding tiles use a tile iterator
+    - Memory Puzzle: Used to see whether all the tiles are greyed out (i.e. puzzle has been solved).
+    Also, when the user clicks save, we flip all the tiles back to the blank tile
+    -Sliding Tiles: Used to check if the board has been solved
 
 # How did you design your scoreboard? Where are high scores stored? How do they get displayed?
 - High scores for each User
