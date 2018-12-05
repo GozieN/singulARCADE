@@ -7,7 +7,7 @@ import android.view.View;
 import android.content.Intent;
 
 /**
- * The activity to first appear when the application is first opened.
+ * The activity to first appear when the application is first opened
  * Code citation: StartingActivity file provided from CSC207 2018
  */
 

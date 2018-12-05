@@ -51,6 +51,9 @@ public class GameCentreActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Add a button listener to switch to Peg Solitaire Activity
+     */
     private void addPegSolitaireButtonListener() {
         Button addPegSolitaireButton = findViewById(R.id.pegSolitaire);
         addPegSolitaireButton.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +64,9 @@ public class GameCentreActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Add a button listener to switch to Sliding Tiles Activity
+     */
     private void addSlidingTilesButtonListener() {
         Button slidingTilesButton = findViewById(R.id.slidingTiles);
         slidingTilesButton.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +77,9 @@ public class GameCentreActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Add a button listener to switch to Memory Puzzle Activity
+     */
     private void addMemoryPuzzleButtonListener() {
         Button memoryPuzzleButton = findViewById(R.id.memoryPuzzle);
         memoryPuzzleButton.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +154,6 @@ public class GameCentreActivity extends AppCompatActivity {
     /**
      * Activate sign out Button
      */
-
     private void addSignOutButtonListener() {
         Button signOutButton = findViewById(R.id.logout);
         signOutButton.setOnClickListener(new View.OnClickListener() {

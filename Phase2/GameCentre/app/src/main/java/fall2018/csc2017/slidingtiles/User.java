@@ -149,7 +149,6 @@ public class User implements Serializable {
      * Modify the most recent manager of the board from the specified game.
      *
      * @param game the game being played
-     * @return the most recent board from the specified game.
      */
     void setRecentManagerOfBoard(String game, Object newManagerOfBoard) {
         if (recentManagerOfBoard.containsKey(game)) {
@@ -159,6 +158,11 @@ public class User implements Serializable {
         }
     }
 
+    /**
+     * Set number of undos
+     * @param game the name being played
+     * @param numUndos the number of undos
+     */
     void setNumOfUndos(String game, int numUndos) {
         if (numOfUndos.containsKey(game)) {
             numOfUndos.replace(game, numUndos);
@@ -167,6 +171,11 @@ public class User implements Serializable {
         }
     }
 
+    /**
+     * Get the number of undos
+     * @param game the game being played
+     * @return the number of undos
+     */
     int getNumOfUndos(String game) {
         if (numOfUndos.containsKey(game)) {
             return numOfUndos.get(game);

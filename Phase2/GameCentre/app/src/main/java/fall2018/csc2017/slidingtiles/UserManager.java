@@ -56,7 +56,7 @@ class UserManager implements Serializable {
     }
 
     /**
-     * Return the user corresponding the the username input.
+     * Return the user corresponding the the username input
      *
      * @param username the username that is to be found
      * @return the username or null

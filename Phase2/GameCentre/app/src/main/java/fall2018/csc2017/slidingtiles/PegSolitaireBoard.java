@@ -248,6 +248,9 @@ public class PegSolitaireBoard extends Board {
                 '}';
     }
 
+    /**
+     * Update the view of this Board
+     */
     void update() {
         setChanged();
         notifyObservers();

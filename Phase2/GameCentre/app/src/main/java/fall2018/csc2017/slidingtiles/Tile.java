@@ -36,7 +36,7 @@ public abstract class Tile implements Serializable {
     }
 
     /**
-     * Set the id of this Tile.
+     * Set the id of this Tile
      *
      * @param id id to be set to
      */

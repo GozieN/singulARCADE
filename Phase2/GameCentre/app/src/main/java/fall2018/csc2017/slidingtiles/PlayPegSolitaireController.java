@@ -8,7 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-public class PlayPegSolitaireController {
+/**
+ * The Movement controller for Peg Solitaire
+ */
+class PlayPegSolitaireController {
 
     /**
      * The board manager.
@@ -23,16 +26,16 @@ public class PlayPegSolitaireController {
     /**
      * The number of times a user has clicked the undo button.
      */
-    public static int numberOfUndos = 0;
-    public static int numberOfMoves = 0;
-
-    PlayPegSolitaireController() {
-    }
+    static int numberOfUndos = 0;
+    /**
+     * The number of moves a user has made
+     */
+    static int numberOfMoves = 0;
 
     /**
      * Update the backgrounds on the buttons to match the tiles.
      */
-    public ArrayList<Button> updateTileButtons() {
+    ArrayList<Button> updateTileButtons() {
         PegSolitaireBoard board = pegSolitaireManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
@@ -49,7 +52,7 @@ public class PlayPegSolitaireController {
      *
      * @param context the context
      */
-    public void createTileButtons(Context context, PegSolitaireManager inputPegSolitaireManager) {
+    void createTileButtons(Context context, PegSolitaireManager inputPegSolitaireManager) {
         pegSolitaireManager = inputPegSolitaireManager;
         PegSolitaireBoard board = pegSolitaireManager.getBoard();
         tileButtons = new ArrayList<>();
@@ -92,22 +95,35 @@ public class PlayPegSolitaireController {
     /**
      * At the end of the game, do these actions: get the score, and send score to game score board and user score board.
      */
-    public List<Boolean> endOfGame(PegSolitaireManager pegSolitaireManager) {
+    List<Boolean> endOfGame(PegSolitaireManager pegSolitaireManager) {
         Integer score = pegSolitaireManager.getScore();
         boolean newGameScore = PegSolitaireManager.pegScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         boolean newUserScore = GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(PegSolitaireManager.GAME_NAME, score);
         return Arrays.asList(newGameScore, newUserScore);
     }
 
-    public static void incrementNumberOfMoves() {
+    /**
+     * Increment the number of moves
+     */
+    static void incrementNumberOfMoves() {
         numberOfMoves++;
     }
 
-    public int getNumberOfMoves() {
+    /**
+     * The number of moves that have been made
+     *
+     * @return number of moves
+     */
+    int getNumberOfMoves() {
         return numberOfMoves;
     }
 
-    public int getNumberOfUndos() {
+    /**
+     * the Number of undos that have been made
+     *
+     * @return the number of undos
+     */
+    int getNumberOfUndos() {
         return numberOfUndos;
     }
 

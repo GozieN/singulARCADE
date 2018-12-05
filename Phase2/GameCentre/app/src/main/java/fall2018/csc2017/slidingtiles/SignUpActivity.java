@@ -14,9 +14,17 @@ import android.content.Intent;
  */
 public class SignUpActivity extends AppCompatActivity {
 
-
+    /**
+     * The username Input
+     */
     EditText newUsernameInput;
+    /**
+     * The password input
+     */
     EditText newPasswordInput;
+    /**
+     * The button to create account
+     */
     Button CreateAccountButton;
 
     /**

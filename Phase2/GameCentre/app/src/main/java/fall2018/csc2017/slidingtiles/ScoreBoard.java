@@ -10,6 +10,9 @@ import java.util.Map.Entry;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The ScoreBoard class that holds Scores
+ */
 public class ScoreBoard implements Serializable {
     /**
      * Class ScoreBoard: a scoreboard containing the highest scores for a game or user
@@ -80,7 +83,7 @@ public class ScoreBoard implements Serializable {
     /**
      * Removes the smallest entry in hashmap topScores when a higher one enters the ScoreBoard
      */
-    void removeSmallestScore() {
+    private void removeSmallestScore() {
         int length = 0;
         for (Entry<String, Integer> item : sortValueSet()) {
             length += 1;
@@ -93,12 +96,11 @@ public class ScoreBoard implements Serializable {
     /**
      * sortValueSet sorts the HashMap topScores by values of descending order
      *
-     * @return a Set of sorted entries from topScores. REPEAT SCORES, I.E. USERS
-     * WHO GET A SCORE THEY PREVIOUSLY GOT ARE DISREGARDED!!!!!!!!! Only the highest score is kept
+     * @return a Set of sorted entries from topScores. If a user has more than one high score, only the highest score is kept
      * <p>
      * Adapted from: http://www.java67.com/2015/01/how-to-sort-hashmap-in-java-based-on.html
      */
-    Set<Entry<String, Integer>> sortValueSet() {
+    private Set<Entry<String, Integer>> sortValueSet() {
         //Get a Set of Map Entries from topScores HashMap and put them into a List
         Set<Entry<String, Integer>> setOfScores = topScores.entrySet();
         List<Entry<String, Integer>> scores = new ArrayList<>(setOfScores);

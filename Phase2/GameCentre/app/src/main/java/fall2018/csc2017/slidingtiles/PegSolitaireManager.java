@@ -6,14 +6,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * The Peg Solitaire Manager
+ */
 public class PegSolitaireManager implements Serializable, Game {
-
     /**
      * The Peg Solitaire board being managed.
      */
     final static String GAME_NAME = "PEG SOLITAIRE";
+    /**
+     * the Peg Solitaire Board that the peg solitaire maanger Manages
+     */
     private PegSolitaireBoard pegBoard;
-
+    /**
+     * The Peg Solitaire Scoreboard
+     */
     static ScoreBoard pegScoreBoard;
 
     /**
@@ -157,7 +164,7 @@ public class PegSolitaireManager implements Serializable, Game {
         int col = position % PegSolitaireBoard.NUM_COLS;
         List<List<Integer>> validMoves = new ArrayList<>();
 
-        //Are there valid jumps?
+        //Set the adjacent tiles
         PegSolitaireTile twoAbove = pegBoard.getPegTile(row - 2, col);
         PegSolitaireTile oneAbove = pegBoard.getPegTile(row - 1, col);
         PegSolitaireTile twoBelow = pegBoard.getPegTile(row + 2, col);
@@ -167,6 +174,7 @@ public class PegSolitaireManager implements Serializable, Game {
         PegSolitaireTile twoRight = pegBoard.getPegTile(row, col + 2);
         PegSolitaireTile oneRight = pegBoard.getPegTile(row, col + 1);
 
+        //Check if the adjacent tiles are null to construct a list of Valid moves.
         if (pegBoard.getPegTile(row, col).getId() == 2) {
             if (twoAbove != null && oneAbove != null && twoAbove.getId() == 1 && oneAbove.getId() == 2) {
                 validMoves.add(Arrays.asList(row - 2, col));

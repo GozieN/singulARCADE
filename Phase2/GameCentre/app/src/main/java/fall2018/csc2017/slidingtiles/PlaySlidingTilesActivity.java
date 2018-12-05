@@ -15,7 +15,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * The game activity.
+ * The Sliding Tiles Play activity.
  */
 public class PlaySlidingTilesActivity extends AppCompatActivity implements Observer {
 
@@ -31,6 +31,10 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
 
     // Grid View and calculated column height and width based on device size
     private GestureDetectGridView gridView;
+
+    /**
+     * The column width and column height
+     */
     private static int columnWidth, columnHeight;
 
     /**
@@ -41,7 +45,9 @@ public class PlaySlidingTilesActivity extends AppCompatActivity implements Obser
     PlaySlidingTilesController playSlidingTilesController = new PlaySlidingTilesController();
 
 
-    // Display
+    /**
+     * Display buttons and grid
+     */
     public void display() {
         setNumberOfMovesText();
         setNumberOfUndosText();

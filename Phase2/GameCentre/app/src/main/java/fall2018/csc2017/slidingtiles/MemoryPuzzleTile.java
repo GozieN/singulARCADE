@@ -1,8 +1,10 @@
 package fall2018.csc2017.slidingtiles;
 
-
 import android.support.annotation.NonNull;
 
+/**
+ * The Memory Puzzle Tile that holds the id and background image of the tile
+ */
 public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTile> {
 
     /**
@@ -57,7 +59,6 @@ public class MemoryPuzzleTile extends Tile implements Comparable<MemoryPuzzleTil
             e.printStackTrace();
         }
     }
-
 
     @Override
     public int compareTo(@NonNull MemoryPuzzleTile memoryPuzzleTile) {

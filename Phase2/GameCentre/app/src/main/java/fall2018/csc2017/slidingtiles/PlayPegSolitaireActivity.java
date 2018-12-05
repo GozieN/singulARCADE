@@ -16,7 +16,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-
+/**
+ * The Activity where the user plays Peg Solitaire Activity
+ */
 public class PlayPegSolitaireActivity extends AppCompatActivity implements Observer {
 
     /**
@@ -25,15 +27,18 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     private PegSolitaireManager pegSolitaireManager;
 
     /**
-     * The tile buttons shown to the user
+     * Grid View and calculated column height and width based on device size
      */
-    private ArrayList<Button> tileButtons;
-
-    // Grid View and calculated column height and width based on device size
     private GestureDetectGridView gridView;
+
+    /**
+     * The column width and height for the Gesture Grid Detector
+     */
     private static int columnWidth, columnHeight;
 
-
+    /**
+     * The Movement controller for Peg Solitaire
+     */
     PlayPegSolitaireController playPegSolitaireController = new PlayPegSolitaireController();
 
     /**
@@ -44,7 +49,7 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
     public void display() {
         setNumberOfMovesText();
         setNumberOfUndosText();
-        tileButtons = playPegSolitaireController.updateTileButtons();
+        ArrayList<Button> tileButtons = playPegSolitaireController.updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         if (pegSolitaireManager.isOver()) {
             if (pegSolitaireManager.hasWon()) {
@@ -214,6 +219,9 @@ public class PlayPegSolitaireActivity extends AppCompatActivity implements Obser
         Toast.makeText(this, "Must make a move before saving", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Display a banner to tell the user there are no more possible moves
+     */
     private void displayNoMoreMovesBanner() {
         //Adapted from https://www.tutorialspoint.com/android/android_alert_dialoges.htm
 

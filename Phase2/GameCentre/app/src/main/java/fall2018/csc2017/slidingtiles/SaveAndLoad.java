@@ -11,6 +11,9 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * The class to save and load files
+ */
 public class SaveAndLoad extends AppCompatActivity {
 
     /**

@@ -14,6 +14,9 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.List;
 
+/**
+ * The Activity to play Memory Puzzle
+ */
 public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Observer {
 
     /**
@@ -22,16 +25,19 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
     private MemoryBoardManager memoryBoardManager;
 
     /**
-     * The buttons to display.
+     * Grid View and calculated column height and width based on device size
      */
-    private ArrayList<Button> tileButtons;
-
-    // Grid View and calculated column height and width based on device size
     private GestureDetectGridView gridView;
+
+    /**
+     * The column width and height of the Memory Puzzle Activity
+     */
     private static int columnWidth, columnHeight;
 
+    /**
+     * The MemoryPuzzle Controller
+     */
     PlayMemoryPuzzleController playMemoryPuzzleController = new PlayMemoryPuzzleController();
-
 
     /**
      * Set up the background image for each button based on the master list
@@ -39,12 +45,11 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
      */
     // Display
     public void display() {
-        tileButtons = playMemoryPuzzleController.updateTileButtons();
+        ArrayList<Button> tileButtons = playMemoryPuzzleController.updateTileButtons();
         setNumberOfMovesText();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         if (memoryBoardManager.isOver()) {
             switchToScoreBoard();
-            // setSnackBar(playMemoryPuzzleController.endOfGame(memoryBoardManager));
         }
     }
 
@@ -123,11 +128,17 @@ public class PlayMemoryPuzzleActivity extends AppCompatActivity implements Obser
         Toast.makeText(this, "Must make a move before saving", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Switch Activity to Game Centre
+     */
     private void switchToGameCentre() {
         Intent tmp = new Intent(this, GameCentreActivity.class);
         startActivity(tmp);
     }
 
+    /**
+     * Switch Activity to the ScoreBoard when game is won
+     */
     private void switchToScoreBoard() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
         List<Boolean> takenScores = playMemoryPuzzleController.endOfGame(memoryBoardManager);

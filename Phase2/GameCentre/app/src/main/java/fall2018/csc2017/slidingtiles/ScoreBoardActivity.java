@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.List;
-
 /**
  * The ScoreBoard activity.
  */

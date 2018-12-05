@@ -41,7 +41,11 @@ class PegSolitaireTile extends Tile implements Comparable<PegSolitaireTile>, Ser
         return id;
     }
 
-
+    /**
+     * Returns whether the Peg Solitaire tile is highlighted or not
+     *
+     * @return true if the tiles is highlighted, false if it is not
+     */
     boolean isHighlight() {
         return highlight;
     }
@@ -62,13 +66,23 @@ class PegSolitaireTile extends Tile implements Comparable<PegSolitaireTile>, Ser
         return o.id - this.id;
     }
 
+    /**
+     * Sets the id of the Peg Solitaire Tile
+     *
+     * @param i         set id to be this int
+     * @param highlight sets the highlight
+     */
     void setId(int i, boolean highlight) {
         this.id = i;
         this.highlight = highlight;
         setBackground(this.id, this.highlight);
     }
 
+    /**
+     * Sets the background of the PegSolitaireTiles
+     */
     private void setBackground(int i, boolean highlight) {
+        //For highlighted Tiles
         if (highlight) {
             switch (i) {
                 case 1:
@@ -78,6 +92,7 @@ class PegSolitaireTile extends Tile implements Comparable<PegSolitaireTile>, Ser
                     background = R.drawable.tile_highlight;
                     break;
             }
+            //For non-highlighed tiles
         } else {
             switch (i) {
                 case 0:

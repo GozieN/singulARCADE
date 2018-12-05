@@ -13,9 +13,21 @@ import android.content.Intent;
  * Code citation (for login implementation): https://www.youtube.com/watch?v=qpNnfq9ZPDU
  */
 public class LoginActivity extends AppCompatActivity {
+    /**
+     * The User's username input
+     */
     EditText UsernameInput;
+    /**
+     * The User's password input
+     */
     EditText PasswordInput;
+    /**
+     * The Log in button
+     */
     Button LoginButton;
+    /**
+     * The Sign up button
+     */
     Button SignUpButton;
 
 
@@ -34,18 +46,24 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         userManager = new UserManager();
 
-
         SaveAndLoad.loadFromFile(LoginActivity.this, SAVE_FILENAME);
 
         setContentView(R.layout.activity_login2);
         addSignUpButtonListener();
 
+        //Find all interactive features and set them
         UsernameInput = findViewById(R.id.Username);
         PasswordInput = findViewById(R.id.Password);
         LoginButton = findViewById(R.id.LoginButton);
         SignUpButton = findViewById(R.id.SignUpButton);
 
+        addLogInButtonListener();
+    }
 
+    /**
+     * Activate the Log in button
+     */
+    private void addLogInButtonListener() {
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 
     /**
      * Display that the user did not input information for a username and password to sign in.

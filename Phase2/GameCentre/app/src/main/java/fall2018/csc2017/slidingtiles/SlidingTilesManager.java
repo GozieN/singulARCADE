@@ -148,7 +148,7 @@ class SlidingTilesManager implements Serializable, Game {
      *
      * @param position the position
      */
-    public void touchMove(int position) {
+    void touchMove(int position) {
 
         int row = position / SlidingTilesBoard.NUM_ROWS;
         int col = position % SlidingTilesBoard.NUM_COLS;
@@ -202,7 +202,7 @@ class SlidingTilesManager implements Serializable, Game {
      *
      * @return true iff the sliding tiles game will be solvable.
      */
-    public boolean isSolvable() {
+    boolean isSolvable() {
         int blankId = positionBlankTile();
         int inversions = numberOfInversions();
         //if it's odd size and has an even number of inversions, the board is solvable-> return true
@@ -222,7 +222,7 @@ class SlidingTilesManager implements Serializable, Game {
      *
      * @return the number of inversions that occur to get the id's of the tiles in order from least to greatest.
      */
-    public int numberOfInversions() {
+    int numberOfInversions() {
         ArrayList tileOrder = getTilesInArrayList();
         int inversions = 0;
         for (int i = 0; i < tileOrder.size(); i++) {

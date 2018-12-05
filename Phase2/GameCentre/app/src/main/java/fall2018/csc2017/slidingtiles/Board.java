@@ -26,12 +26,11 @@ public class Board extends Observable implements Serializable {
      */
     private Tile[][] tiles = new Tile[NUM_ROWS][NUM_COLS];
 
+    /**
+     * The constructor for the superclass Board.
+     */
     Board() {
     }
-
-//    Board(List<Tile> tiles) {
-//
-//    }
 
     /**
      * Return all the tiles for the board
@@ -53,7 +52,7 @@ public class Board extends Observable implements Serializable {
     }
 
     /**
-     * Return the tile at (row, col)
+     * Get the tile at (row, col)
      *
      * @param row the tile row
      * @param col the tile column
@@ -64,7 +63,7 @@ public class Board extends Observable implements Serializable {
     }
 
     /**
-     * Return the dimensions of the board.
+     * Get the dimensions of the board.
      *
      * @return the dimensions of the board.
      */
@@ -89,6 +88,9 @@ public class Board extends Observable implements Serializable {
         return Arrays.asList(row1, col1, row2, col2);
     }
 
+    /**
+     * Updates observers on tile positions.
+     */
     void update() {
         setChanged();
         notifyObservers();

@@ -2,12 +2,20 @@ package fall2018.csc2017.slidingtiles;
 
 import android.widget.Spinner;
 
-public class SetUpAndStartController {
+/**
+ * The Setup Movement Controller
+ */
+class SetUpAndStartController {
 
     SetUpAndStartController() {
     }
 
-    public Object setGameManager(String game) {
+    /**
+     * Set the Game manager
+     * @param game the game identifier
+     * @return the recent manager of the board
+     */
+    Object setGameManager(String game) {
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             return GameLauncher.getCurrentUser().getRecentManagerOfBoard(SlidingTilesManager.GAME_NAME);
         } else {
@@ -21,7 +29,7 @@ public class SetUpAndStartController {
      * @param shape the size of the board
      * @return a solvable SlidingTilesManager
      */
-    public SlidingTilesManager setSolvableBoardManager(int shape) {
+    SlidingTilesManager setSolvableBoardManager(int shape) {
         SlidingTilesBoard.setDimensions(shape);
         SlidingTilesManager gameManager = new SlidingTilesManager();
         while (!gameManager.isSolvable()) {
@@ -30,7 +38,13 @@ public class SetUpAndStartController {
         return gameManager;
     }
 
-    public int setBoardShape(String game, Spinner spinnerBoardShape) {
+    /**
+     * Set the board shape
+     * @param game the game being played
+     * @param spinnerBoardShape the spinner that sets the board shape
+     * @return the shape of the board
+     */
+    int setBoardShape(String game, Spinner spinnerBoardShape) {
         if (spinnerBoardShape != null && spinnerBoardShape.getSelectedItem() != null) {
             if (game.equals(SlidingTilesManager.GAME_NAME) || game.equals(MemoryBoardManager.GAME_NAME)) {
                 if (spinnerBoardShape != null && spinnerBoardShape.getSelectedItem() != null) {
@@ -58,7 +72,7 @@ public class SetUpAndStartController {
      * @param game the name of the game being played
      * @return the new userManager depending on the game being played
      */
-    public Object newGameManager(String game) {
+    Object newGameManager(String game) {
         if (game.equals(SlidingTilesManager.GAME_NAME)) {
             return new SlidingTilesManager();
         } else if (game.equals(PegSolitaireManager.GAME_NAME)) {

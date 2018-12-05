@@ -8,7 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-public class PlaySlidingTilesController {
+/**
+ * The Sliding Tiles Movement Controller
+ */
+class PlaySlidingTilesController {
 
     /**
      * The board manager.
@@ -23,22 +26,19 @@ public class PlaySlidingTilesController {
     /**
      * The number of times a user has clicked the undo button.
      */
-    public static int numberOfUndos = 0;
+    static int numberOfUndos = 0;
     /**
      * The number of times a user has made a move.
      */
 
-    public static int numberOfMoves = 0;
-
-    PlaySlidingTilesController() {
-    }
+    static int numberOfMoves = 0;
 
     /**
      * Create the buttons for displaying the tiles.
      *
      * @param context the context
      */
-    public void createTileButtons(Context context, SlidingTilesManager inputSlidingTilesManager) {
+    void createTileButtons(Context context, SlidingTilesManager inputSlidingTilesManager) {
         slidingTilesManager = inputSlidingTilesManager;
         Board board = slidingTilesManager.getBoard();
         tileButtons = new ArrayList<>();
@@ -54,7 +54,7 @@ public class PlaySlidingTilesController {
     /**
      * Update the backgrounds on the buttons to match the tiles.
      */
-    public ArrayList<Button> updateTileButtons() {
+    ArrayList<Button> updateTileButtons() {
         SlidingTilesBoard board = slidingTilesManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
@@ -71,7 +71,7 @@ public class PlaySlidingTilesController {
      *
      * @return a string that corresponds to if an undo can be used or that are available
      */
-    public String usedNumberOfUndos() {
+    String usedNumberOfUndos() {
         numberOfUndos = GameLauncher.getCurrentUser().getNumOfUndos(SlidingTilesManager.GAME_NAME);
         if (numberOfUndos < SetUpActivity.undoLimit) {
             Stack totalStates = GameLauncher.getCurrentUser().getStackOfGameStates(SlidingTilesManager.GAME_NAME);
@@ -95,7 +95,7 @@ public class PlaySlidingTilesController {
     /**
      * At the end of the game, do these actions: get the score, and send score to game score board and user score board.
      */
-    public List<Boolean> endOfGame(SlidingTilesManager slidingTilesManager) {
+    List<Boolean> endOfGame(SlidingTilesManager slidingTilesManager) {
         Integer score = slidingTilesManager.getScore();
         boolean newGameScore = SlidingTilesManager.gameScoreBoard.takeNewScore(GameLauncher.getCurrentUser().getUsername(), score);
         boolean newUserScore = GameLauncher.getCurrentUser().userScoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, score);
@@ -105,7 +105,7 @@ public class PlaySlidingTilesController {
     /**
      * Increase moves by 1 each time a move is made
      */
-    public static void incrementNumberOfMoves() {
+    static void incrementNumberOfMoves() {
         numberOfMoves++;
     }
 
@@ -114,7 +114,7 @@ public class PlaySlidingTilesController {
      *
      * @return number of moves
      */
-    public int getNumberOfMoves() {
+    int getNumberOfMoves() {
         return numberOfMoves;
     }
 
@@ -123,7 +123,7 @@ public class PlaySlidingTilesController {
      *
      * @return number of undos
      */
-    public int getNumberOfUndos() {
+    int getNumberOfUndos() {
         return numberOfUndos;
     }
 
