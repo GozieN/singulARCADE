@@ -1,19 +1,20 @@
-README
-Clone the URL https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0597
-How to run the game:
-1. Clone the repository
-   -Copy group 0597 URL from above
-   -File -> New -> Import new project from version control -> paste group 0597 repo
+singulARCADE creators: 
+   - Allegra Chen
+   - Dianna McAllister
+   - Gozie Nwaka
+   - Jingfei Tan
+   - Stacey Thomas
+   
+How to run the singulARCADE:
+1. Clone the repository into AndroidStudio
 2. Run the game
-3. Click  “NEXT ->” . This will take you to the log in user interface.
+3. Click  “NEXT ->” . This will take you to the log in screen.
 4. Gaining access to the game:
-   -If you are a new user:
-       -click “NO ACCOUNT? SIGN UP.” This will take you to the Sign up user interface.
-   -If you have an account:
-       -Login using your information. This will take you to the Game Centre user interface.
+   - If you are a new user: click “NO ACCOUNT? SIGN UP.” This will take you to the Sign up user interface.
+   - If you have an account: Login using your information. This will take you to the Game Centre user interface.
 5. Once you have chosen a username and password, click “CREATE ACCOUNT”. This will lead you
 the Game Centre if your attempt to sign up was successful.
-6. The Game Centre screen allows you to choose what game to play; it has three options:
+6. The Game Centre screen allows you to choose what game to play; it currently has three options:
     - Sliding Tiles
     - Peg Solitaire
     - Memory Game
@@ -27,6 +28,7 @@ User interface - where the game is played.
     For sliding tiles, you must complete at least one move before saving.
     For peg solitaire, you must complete at least one move before saving.
     For memory puzzle, you must have two tiles flipped before saving.
+10.5. Sometimes, you will be unable to win Peg Solitaire. In this case, a pop-up will appear to let you know that no more moves are possible, and ask if you would like to go to the main menu or restart the game. 
 11. Completing the game will lead you to a high scores board, where the top scores from players are displayed.
    - High Scores are calculated based on the number of moves it takes you to win, and the number of undos you used
    - Each person may be on a high score board only once!
