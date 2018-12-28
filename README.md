@@ -1,6 +1,6 @@
 singulARCADE
 
-  Android arcade app of single-player games.
+  A portmanteu of "singular" and "arcade", singulARCADE is an Android arcade app of single-player games.
 
 singulARCADE creators: 
    - Allegra Chen
