@@ -9,7 +9,7 @@ singulARCADE creators:
    - Jingfei Tan
    - Stacey Thomas
    
-How to run the singulARCADE:
+How to run singulARCADE:
 1. Clone the repository into AndroidStudio
 2. Run the game
 3. Click  “NEXT ->” . This will take you to the log in screen.
