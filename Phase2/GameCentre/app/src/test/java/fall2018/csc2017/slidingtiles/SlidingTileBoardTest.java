@@ -8,6 +8,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import fall2018.csc2017.slidingtiles.Games.SlidingTiles.SlidingTile;
+import fall2018.csc2017.slidingtiles.Games.SlidingTiles.SlidingTilesBoard;
+import fall2018.csc2017.slidingtiles.Games.Tile;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -28,7 +32,7 @@ public class SlidingTileBoardTest {
      */
     private List<SlidingTile> makeTiles() {
         List<SlidingTile> tiles = new ArrayList<>();
-        final int numTiles = SlidingTilesBoard.NUM_ROWS * SlidingTilesBoard.NUM_COLS;
+        final int numTiles = SlidingTilesBoard.getNumRows() * SlidingTilesBoard.getNumCols();
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
                 tiles.add(new SlidingTile(tileNum, tileNum));

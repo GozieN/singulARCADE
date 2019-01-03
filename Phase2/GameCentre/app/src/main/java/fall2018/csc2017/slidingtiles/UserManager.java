@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * A manager for all the users that play the game.
  */
-class UserManager implements Serializable {
+public class UserManager implements Serializable {
     private static final long serialVersionUID = 1L;
     private static ArrayList<User> listOfUsers = new ArrayList<>();
 
@@ -16,7 +16,7 @@ class UserManager implements Serializable {
      * @param password The password of the user.
      * @return boolean whether the sign in was successful
      */
-    boolean signIn(String username, String password) {
+    public boolean signIn(String username, String password) {
         if (!listOfUsers.isEmpty()) {
             int i = 0;
             while (!listOfUsers.get(i).getUsername().equals(username)) {
@@ -38,7 +38,7 @@ class UserManager implements Serializable {
      * @return boolean whether the sign up was successful.
      */
 
-    boolean signUp(String newusername, String newpassword) {
+    public boolean signUp(String newusername, String newpassword) {
         int i = 0;
         if (!listOfUsers.isEmpty()) {
             while (!listOfUsers.get(i).getUsername().equals(newusername)) {
@@ -62,7 +62,7 @@ class UserManager implements Serializable {
      * @return the username or null
      */
 
-    User findUser(String username) {
+    public User findUser(String username) {
         if (!listOfUsers.isEmpty()) {
             for (int i = 0; i < listOfUsers.size(); i++) {
                 if (listOfUsers.get(i).getUsername().equals(username)) {
@@ -87,14 +87,14 @@ class UserManager implements Serializable {
      *
      * @return the most recently added user in the list of users.
      */
-    User lastAddedUser() {
+    public User getlastAddedUser() {
         return getListOfUsers().get(getListOfUsers().size() - 1);
     }
 
     /**
      * Empty the list of users
      */
-    void emptyListOfUsers() {
+    public void emptyListOfUsers() {
         listOfUsers = new ArrayList<>();
     }
 }

@@ -4,8 +4,10 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
+
+import fall2018.csc2017.slidingtiles.Games.PegSolitaire.PegSolitaireBoard;
+import fall2018.csc2017.slidingtiles.Games.PegSolitaire.PegSolitaireTile;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +16,7 @@ public class PegSolitaireBoardAndTileTest {
     /**
      * The peg solitaire board for testing.
      */
-    PegSolitaireBoard pegSolitaireBoard;
+    private PegSolitaireBoard pegSolitaireBoard;
 
     /**
      * Make a set of tiles.
@@ -23,7 +25,7 @@ public class PegSolitaireBoardAndTileTest {
      */
     private List<PegSolitaireTile> makeTiles() {
         List<PegSolitaireTile> tiles = new ArrayList<>();
-        final int numTiles = PegSolitaireBoard.NUM_ROWS * PegSolitaireBoard.NUM_COLS;
+        final int numTiles = PegSolitaireBoard.getNumRows() * PegSolitaireBoard.getNumCols();
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new PegSolitaireTile(2));
         }

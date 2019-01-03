@@ -2,6 +2,8 @@ package fall2018.csc2017.slidingtiles;
 
 import org.junit.Test;
 
+import fall2018.csc2017.slidingtiles.Games.SlidingTiles.SlidingTilesManager;
+
 import static org.junit.Assert.*;
 
 /**
@@ -27,11 +29,11 @@ public class ScoreBoardTest {
     public void testTakeNewScore() {
         setUpCorrect();
         //subject already exists in the scoreboard
-        scoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, 100);
+        scoreBoard.takeNewScore(SlidingTilesManager.getGameName(), 100);
         assertEquals(1, scoreBoard.getTopScores().size());
 
         //add a new score to the scoreboard that is higher than the previous one
-        scoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, 200);
+        scoreBoard.takeNewScore(SlidingTilesManager.getGameName(), 200);
         assertEquals(1, scoreBoard.getTopScores().size());
 
         //new subject in the scoreboard
@@ -43,7 +45,7 @@ public class ScoreBoardTest {
     public void testReplaceScore() {
         setUpCorrect();
         //scoreboard is not full
-        scoreBoard.replaceScore(SlidingTilesManager.GAME_NAME, 250);
+        scoreBoard.replaceScore(SlidingTilesManager.getGameName(), 250);
         assertEquals(1, scoreBoard.getTopScores().size());
 
         //scoreboard is full
@@ -69,7 +71,7 @@ public class ScoreBoardTest {
         assertEquals("NO HIGH SCORES YET!", scoreBoard.toString());
 
         //one score on the scoreboard
-        scoreBoard.takeNewScore(SlidingTilesManager.GAME_NAME, 100);
+        scoreBoard.takeNewScore(SlidingTilesManager.getGameName(), 100);
         StringBuilder s = new StringBuilder();
         s.append("1. ");
         s.append("SLIDING TILES");

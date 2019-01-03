@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class UserManagerTest {
     /** The user manager for testing. */
-    UserManager userManager;
+    private UserManager userManager;
 
     /**
      * Make a userManager
@@ -99,6 +99,6 @@ public class UserManagerTest {
     @Test
     public void testLastAddedUser() {
         setUpCorrect();
-        assertEquals("TestingUsername", userManager.lastAddedUser().getUsername());
+        assertEquals("TestingUsername", userManager.getlastAddedUser().getUsername());
     }
 }

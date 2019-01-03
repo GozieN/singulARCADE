@@ -5,6 +5,10 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import fall2018.csc2017.slidingtiles.Games.PegSolitaire.PegSolitaireBoard;
+import fall2018.csc2017.slidingtiles.Games.PegSolitaire.PegSolitaireManager;
+import fall2018.csc2017.slidingtiles.Games.PegSolitaire.PegSolitaireTile;
+
 import static org.junit.Assert.assertEquals;
 
 public class PegSolitaireManagerTest {
@@ -18,7 +22,7 @@ public class PegSolitaireManagerTest {
      */
     private List<PegSolitaireTile> makeTiles() {
         List<PegSolitaireTile> tiles = new ArrayList<>();
-        final int numTiles = PegSolitaireBoard.NUM_ROWS * PegSolitaireBoard.NUM_COLS;
+        final int numTiles = PegSolitaireBoard.getNumRows() * PegSolitaireBoard.getNumCols();
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new PegSolitaireTile(2));
         }
@@ -190,7 +194,7 @@ public class PegSolitaireManagerTest {
         setUpDiamondWin();
         User user = new User("Dianna", "Dianna");
         GameLauncher.setCurrentUser(user);
-        PegSolitaireManager pegSolitaireManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.GAME_NAME);
+        PegSolitaireManager pegSolitaireManager = (PegSolitaireManager) GameLauncher.getCurrentUser().getRecentManagerOfBoard(PegSolitaireManager.getGameName());
 
         //When no moves have been completed
         assertEquals(-1, pegSolitaireManager.getScore());
@@ -201,9 +205,9 @@ public class PegSolitaireManagerTest {
         arrayList.add(1);
         arrayList.add(2);
         arrayList.add(3);
-        user.pushGameStates(PegSolitaireManager.GAME_NAME, arrayList);
-        user.pushGameStates(PegSolitaireManager.GAME_NAME, arrayList);
-        user.pushGameStates(PegSolitaireManager.GAME_NAME, arrayList);
+        user.pushGameStates(PegSolitaireManager.getGameName(), arrayList);
+        user.pushGameStates(PegSolitaireManager.getGameName(), arrayList);
+        user.pushGameStates(PegSolitaireManager.getGameName(), arrayList);
         assertEquals(10000, pegSolitaireManager.getScore());
 
         //When you have completed some moves on a 5x5 board

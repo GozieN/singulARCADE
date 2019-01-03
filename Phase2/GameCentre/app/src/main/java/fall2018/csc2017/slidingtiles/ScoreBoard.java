@@ -43,7 +43,7 @@ public class ScoreBoard implements Serializable {
      * @param subject: String of userid who achieved score
      * @param score:   Integer score that user achieved playing game
      */
-    boolean takeNewScore(String subject, Integer score) {
+    public boolean takeNewScore(String subject, Integer score) {
         if (topScores.containsKey(subject)) {
             if (topScores.get(subject) < score) {
                 return replaceScore(subject, score);

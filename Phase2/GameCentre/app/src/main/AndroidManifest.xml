@@ -5,27 +5,27 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="singulARCADE"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".WelcomeActivity">
+        <activity android:name=".Views.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartingActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".PlaySlidingTilesActivity" />
-        <activity android:name=".PlayPegSolitaireActivity" />
-        <activity android:name=".PlayMemoryPuzzleActivity" />
-        <activity android:name=".GameCentreActivity" />
-        <activity android:name=".ScoreBoardActivity" />
-        <activity android:name=".UserProfileActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".SetUpActivity" />
+        <activity android:name=".Views.StartingActivity" />
+        <activity android:name=".Views.LoginActivity" />
+        <activity android:name=".Views.PlaySlidingTilesActivity" />
+        <activity android:name=".Views.PlayPegSolitaireActivity" />
+        <activity android:name=".Views.PlayMemoryPuzzleActivity" />
+        <activity android:name=".Views.GameCentreActivity" />
+        <activity android:name=".Views.ScoreBoardActivity" />
+        <activity android:name=".Views.UserProfileActivity" />
+        <activity android:name=".Views.SignUpActivity" />
+        <activity android:name=".Views.SetUpActivity" />
         <activity android:name=".SaveAndLoad"/>
     </application>
 

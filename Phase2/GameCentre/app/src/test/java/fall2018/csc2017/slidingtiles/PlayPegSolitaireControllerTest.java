@@ -7,15 +7,21 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import fall2018.csc2017.slidingtiles.Controllers.PlayPegSolitaireController;
+import fall2018.csc2017.slidingtiles.Games.PegSolitaire.PegSolitaireBoard;
+import fall2018.csc2017.slidingtiles.Games.PegSolitaire.PegSolitaireManager;
+import fall2018.csc2017.slidingtiles.Games.PegSolitaire.PegSolitaireTile;
+import fall2018.csc2017.slidingtiles.Views.SetUpActivity;
+
 import static org.junit.Assert.assertEquals;
 
 public class PlayPegSolitaireControllerTest {
 
-    PegSolitaireManager pegSolitaireManager;
+    private PegSolitaireManager pegSolitaireManager;
     User user;
     ArrayList<Button> tileButtons;
 
-    PlayPegSolitaireController playPegSolitaireController = new PlayPegSolitaireController();
+    private PlayPegSolitaireController playPegSolitaireController = new PlayPegSolitaireController();
 
     /**
      * Make a set of tiles.
@@ -23,7 +29,7 @@ public class PlayPegSolitaireControllerTest {
      */
     private List<PegSolitaireTile> makeTiles() {
         List<PegSolitaireTile> tiles = new ArrayList<>();
-        final int numTiles = PegSolitaireBoard.NUM_ROWS * PegSolitaireBoard.NUM_COLS;
+        final int numTiles = PegSolitaireBoard.getNumRows() * PegSolitaireBoard.getNumCols();
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new PegSolitaireTile(2));
         }
@@ -56,8 +62,8 @@ public class PlayPegSolitaireControllerTest {
         PegSolitaireBoard newBoard = new PegSolitaireBoard(tiles);
         pegSolitaireManager = new PegSolitaireManager();
         pegSolitaireManager.setBoard(newBoard);
-        SetUpActivity.undoLimit = 3;
-        user.setRecentManagerOfBoard(PegSolitaireManager.GAME_NAME, pegSolitaireManager);
+        SetUpActivity.setUndoLimit(3);
+        user.setRecentManagerOfBoard(PegSolitaireManager.getGameName(), pegSolitaireManager);
 
         GameLauncher.setCurrentUser(user);
 
@@ -77,7 +83,7 @@ public class PlayPegSolitaireControllerTest {
         assertEquals("NoUndoText", playPegSolitaireController.usedNumberOfUndos());
 
         //max amount of undos have been performed
-        GameLauncher.getCurrentUser().setNumOfUndos(PegSolitaireManager.GAME_NAME, 5);
+        GameLauncher.getCurrentUser().setNumOfUndos(PegSolitaireManager.getGameName(), 5);
         assertEquals("UndoLimitText", playPegSolitaireController.usedNumberOfUndos());
 
         //has done a move and not reached limit of undos so can perform undo

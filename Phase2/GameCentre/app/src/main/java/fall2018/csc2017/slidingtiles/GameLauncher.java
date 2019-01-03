@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * The class that launches the game
  */
-class GameLauncher implements Serializable {
+public class GameLauncher implements Serializable {
 
     /**
      * Current user who is playing the game.
@@ -17,7 +17,7 @@ class GameLauncher implements Serializable {
      *
      * @return current user who is playing the game.
      */
-    static User getCurrentUser() {
+    public static User getCurrentUser() {
         return currentUser;
     }
 
@@ -26,7 +26,7 @@ class GameLauncher implements Serializable {
      *
      * @param newUser the current user that is on the device
      */
-    static void setCurrentUser(User newUser) {
+    public static void setCurrentUser(User newUser) {
         currentUser = newUser;
     }
 

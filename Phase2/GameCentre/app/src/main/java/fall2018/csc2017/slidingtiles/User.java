@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.Stack;
 import java.util.List;
 
+import fall2018.csc2017.slidingtiles.Games.MemoryPuzzle.MemoryBoardManager;
+import fall2018.csc2017.slidingtiles.Games.PegSolitaire.PegSolitaireManager;
+import fall2018.csc2017.slidingtiles.Games.SlidingTiles.SlidingTilesManager;
+
 
 /**
  * An individual user.
@@ -51,14 +55,14 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         this.gameStates = new HashMap<>();
-        gameStates.put(SlidingTilesManager.GAME_NAME, new Stack<List>());
-        gameStates.put(PegSolitaireManager.GAME_NAME, new Stack<List>());
-        gameStates.put(MemoryBoardManager.GAME_NAME, new Stack<List>());
+        gameStates.put(SlidingTilesManager.getGameName(), new Stack<List>());
+        gameStates.put(PegSolitaireManager.getGameName(), new Stack<List>());
+        gameStates.put(MemoryBoardManager.getGameName(), new Stack<List>());
 
         this.recentManagerOfBoard = new HashMap<>();
-        recentManagerOfBoard.put(SlidingTilesManager.GAME_NAME, new SlidingTilesManager());
-        recentManagerOfBoard.put(PegSolitaireManager.GAME_NAME, new PegSolitaireManager());
-        recentManagerOfBoard.put(MemoryBoardManager.GAME_NAME, new MemoryBoardManager());
+        recentManagerOfBoard.put(SlidingTilesManager.getGameName(), new SlidingTilesManager());
+        recentManagerOfBoard.put(PegSolitaireManager.getGameName(), new PegSolitaireManager());
+        recentManagerOfBoard.put(MemoryBoardManager.getGameName(), new MemoryBoardManager());
 
 
         this.userScoreBoard = new ScoreBoard();
@@ -70,7 +74,7 @@ public class User implements Serializable {
      *
      * @return the user's username
      */
-    String getUsername() {
+    public String getUsername() {
         return this.username;
     }
 
@@ -79,7 +83,7 @@ public class User implements Serializable {
      *
      * @return password
      */
-    String getPassword() {
+    public String getPassword() {
         return this.password;
     }
 
@@ -89,7 +93,7 @@ public class User implements Serializable {
      * @param game the game being played
      * @return the current state
      */
-    List getState(String game) {
+    public List getState(String game) {
         if (gameStates.containsKey(game)) {
             Stack gameState = gameStates.get(game);
             return (List) gameState.pop();
@@ -101,14 +105,14 @@ public class User implements Serializable {
      * @param game the game being played
      * @return the stack of all the game states of a particular game
      */
-    Stack<List> getStackOfGameStates(String game) {
+    public Stack<List> getStackOfGameStates(String game) {
         if (gameStates.containsKey(game)) {
             return gameStates.get(game);
         }
         return new Stack<>();
     }
 
-    void setEmptyStackOfGameStates(String game) {
+    public void setEmptyStackOfGameStates(String game) {
         if (gameStates.containsKey(game)) {
             gameStates.replace(game, new Stack<List>());
         } else {
@@ -122,7 +126,7 @@ public class User implements Serializable {
      * @param game the game being played
      * @param move the List of moves will always be of size 4, with it in orientation [row1, col1, ro2, col2] of the original move
      */
-    void pushGameStates(String game, List move) {
+    public void pushGameStates(String game, List move) {
         if (gameStates.containsKey(game)) {
             gameStates.get(game).push(move);
         } else {
@@ -138,7 +142,7 @@ public class User implements Serializable {
      * @param game the game being played
      * @return the most recent board from the specified game.
      */
-    Object getRecentManagerOfBoard(String game) {
+    public Object getRecentManagerOfBoard(String game) {
         if (recentManagerOfBoard.containsKey(game)) {
             return recentManagerOfBoard.get(game);
         }
@@ -150,7 +154,7 @@ public class User implements Serializable {
      *
      * @param game the game being played
      */
-    void setRecentManagerOfBoard(String game, Object newManagerOfBoard) {
+    public void setRecentManagerOfBoard(String game, Object newManagerOfBoard) {
         if (recentManagerOfBoard.containsKey(game)) {
             recentManagerOfBoard.replace(game, newManagerOfBoard);
         } else {
@@ -163,7 +167,7 @@ public class User implements Serializable {
      * @param game the name being played
      * @param numUndos the number of undos
      */
-    void setNumOfUndos(String game, int numUndos) {
+    public void setNumOfUndos(String game, int numUndos) {
         if (numOfUndos.containsKey(game)) {
             numOfUndos.replace(game, numUndos);
         } else {
@@ -176,7 +180,7 @@ public class User implements Serializable {
      * @param game the game being played
      * @return the number of undos
      */
-    int getNumOfUndos(String game) {
+    public int getNumOfUndos(String game) {
         if (numOfUndos.containsKey(game)) {
             return numOfUndos.get(game);
         }
