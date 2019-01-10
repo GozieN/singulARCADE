@@ -2,7 +2,7 @@ singulARCADE
 
   A portmanteu of "singular" and "arcade", singulARCADE is an Android arcade app of single-player games.
 
-singulARCADE creators: 
+singulARCADE contributors: 
    - Allegra Chen
    - Dianna McAllister
    - Gozie Nwaka
